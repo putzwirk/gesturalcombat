@@ -9,30 +9,42 @@ import java.util.Map;
 import java.util.UUID;
 
 public final class OutLock {
-    private static final Map<UUID, Boolean> LOCKED = new HashMap<>();
+    private static final long MAX_MS = 8000L;
+    private static final Map<UUID, Lock> LOCKED = new HashMap<>();
 
     private OutLock() {
     }
 
     public static void lock(ServerPlayer player, boolean offhand) {
-        LOCKED.put(player.getUUID(), offhand);
+        LOCKED.put(player.getUUID(), new Lock(offhand, System.currentTimeMillis() + MAX_MS));
         ModNetwork.sendToPlayer(player, new OutLockPacket(offhand, true));
     }
 
     public static void unlock(ServerPlayer player) {
-        Boolean offhand = LOCKED.remove(player.getUUID());
-        if (offhand != null) {
-            ModNetwork.sendToPlayer(player, new OutLockPacket(offhand, false));
+        Lock lock = LOCKED.remove(player.getUUID());
+        if (lock != null) {
+            ModNetwork.sendToPlayer(player, new OutLockPacket(lock.offhand, false));
         }
     }
 
     public static boolean isLocked(ServerPlayer player, boolean offhand) {
-        Boolean hand = LOCKED.get(player.getUUID());
-        return hand != null && hand == offhand;
+        Lock lock = LOCKED.get(player.getUUID());
+        if (lock == null) {
+            return false;
+        }
+        if (System.currentTimeMillis() > lock.expiresAt) {
+            LOCKED.remove(player.getUUID());
+            ModNetwork.sendToPlayer(player, new OutLockPacket(lock.offhand, false));
+            return false;
+        }
+        return lock.offhand == offhand;
     }
 
     public static boolean any(ServerPlayer player) {
-        return LOCKED.containsKey(player.getUUID());
+        return isLocked(player, true) || isLocked(player, false);
+    }
+
+    private record Lock(boolean offhand, long expiresAt) {
     }
 
     public static void clear() {

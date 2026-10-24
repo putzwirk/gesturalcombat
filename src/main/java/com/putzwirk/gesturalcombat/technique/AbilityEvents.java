@@ -23,5 +23,8 @@ public final class AbilityEvents {
         if (event.getEntity() instanceof ServerPlayer player && ModNetwork.CHANNEL.isRemotePresent(player.connection.connection)) {
             AbilitySync.send(player);
         }
+        if (event.getEntity() instanceof ServerPlayer player) {
+            OutLock.unlock(player);
+        }
     }
 }

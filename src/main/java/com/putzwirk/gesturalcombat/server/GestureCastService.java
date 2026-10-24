@@ -103,6 +103,11 @@ public final class GestureCastService {
         playerCooldowns.put(cooldownKey, now + cooldown);
         ModNetwork.sendToTracking(player, new CastEffectPacket(player.getId(), technique.id(), cooldown, swipe, offhand, cooldownKey));
         String family = WeaponProfiles.family(stack);
+        if (family == null || family.isBlank()) {
+            family = com.putzwirk.gesturalcombat.compat.BetterCombatBridge.category(stack);
+        }
+        com.putzwirk.gesturalcombat.Gesturalcombat.LOGGER.info("gesturalcombat cast: {} family={} shape={} hand={} special={}",
+                technique.id(), family, shape, offhand ? "off" : "main", special != null);
         boolean launched = false;
         if (special == null && level instanceof ServerLevel serverLevel) {
             double damage = EffectSupport.damageOf(player, technique, stack)
