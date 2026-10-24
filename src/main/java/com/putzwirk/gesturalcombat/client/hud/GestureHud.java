@@ -323,7 +323,7 @@ public final class GestureHud {
 
         int slot = 0;
         for (GestureShape shape : STRIP) {
-            Technique technique = Techniques.forGesture(held, shape);
+            Technique technique = Techniques.forGesture(held, shape, stack);
             if (technique == null) {
                 continue;
             }

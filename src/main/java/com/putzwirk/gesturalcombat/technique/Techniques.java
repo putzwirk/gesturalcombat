@@ -6,9 +6,15 @@ import com.putzwirk.gesturalcombat.technique.effect.ArcSweepEffect;
 import com.putzwirk.gesturalcombat.technique.effect.BleedEffect;
 import com.putzwirk.gesturalcombat.technique.effect.BowFireEffect;
 import com.putzwirk.gesturalcombat.technique.effect.FlurryEffect;
+import com.putzwirk.gesturalcombat.technique.effect.GlaiveSweepEffect;
 import com.putzwirk.gesturalcombat.technique.effect.GroundSlamEffect;
+import com.putzwirk.gesturalcombat.technique.effect.DeathblowEffect;
 import com.putzwirk.gesturalcombat.technique.effect.GuardEffect;
 import com.putzwirk.gesturalcombat.technique.effect.LinePierceEffect;
+import com.putzwirk.gesturalcombat.technique.effect.MomentumDumpEffect;
+import com.putzwirk.gesturalcombat.technique.effect.MomentumSweepEffect;
+import com.putzwirk.gesturalcombat.technique.effect.PostureEffect;
+import com.putzwirk.gesturalcombat.technique.effect.PostureFlurryEffect;
 import com.putzwirk.gesturalcombat.technique.effect.ShieldBashEffect;
 import com.putzwirk.gesturalcombat.technique.effect.ShieldChargeEffect;
 import com.putzwirk.gesturalcombat.technique.effect.ShieldGuardEffect;
@@ -19,6 +25,8 @@ import javax.annotation.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import net.minecraft.world.item.ItemStack;
+
 import java.util.EnumMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -27,6 +35,7 @@ import java.util.Map;
 public final class Techniques {
     private static final Map<String, Technique> BY_ID = new LinkedHashMap<>();
     private static final Map<Archetype, Map<GestureShape, Technique>> BY_ARCHETYPE = new EnumMap<>(Archetype.class);
+    private static final Map<String, Map<GestureShape, Technique>> BY_FAMILY = new LinkedHashMap<>();
 
     public static final Technique SWORD_SLASH = add(new Technique("sword_slash", Archetype.SWORD, GestureShape.LINE_H, 1, 10, null, 6, new ArcSweepEffect(2.8, 110, 1.0, 0.0, 0.25)));
     public static final Technique SWORD_RISING = add(new Technique("sword_rising", Archetype.SWORD, GestureShape.LINE_V_UP, 1, 16, "sword_t1", 8, new ArcSweepEffect(2.8, 120, 1.25, 0.55, 0.0)));
@@ -35,6 +44,17 @@ public final class Techniques {
     public static final Technique SWORD_EXECUTE = add(new Technique("sword_execute", Archetype.SWORD, GestureShape.LINE_V_DOWN, 10, 50, "sword_t4", 20, new ArcSweepEffect(2.6, 70, 2.1, 0.0, 0.5)));
     public static final Technique SWORD_GUARD = add(new Technique("sword_guard", Archetype.SWORD, GestureShape.V, 1, 200, null, 10, new GuardEffect(20, 2)));
     public static final Technique SWORD_SKIRMISH = add(new Technique("sword_skirmish", Archetype.SWORD, GestureShape.CARET, 1, 60, null, 10, new SkirmishEffect(3.9, 120, 1.05, 2.6, 12)));
+
+    public static final Technique KATANA_SLASH = add(new Technique("katana_slash", Archetype.SWORD, GestureShape.LINE_H, 1, 12, null, 7, new PostureEffect(3.1, 100, 0.9, 18), "katana"));
+    public static final Technique KATANA_RISING = add(new Technique("katana_rising", Archetype.SWORD, GestureShape.LINE_V_UP, 1, 16, null, 8, new PostureEffect(2.6, 120, 1.15, 15, 0.4), "katana"));
+    public static final Technique KATANA_WHIRL = add(new Technique("katana_whirl", Archetype.SWORD, GestureShape.CIRCLE, 4, 30, null, 12, new PostureFlurryEffect(3.1, 360, 0.8, 2, 8, 12), "katana"));
+    public static final Technique KATANA_FLURRY = add(new Technique("katana_flurry", Archetype.SWORD, GestureShape.ZIGZAG, 7, 40, null, 14, new PostureFlurryEffect(3.1, 90, 1.8, 4, 4, 9), "katana"));
+    public static final Technique KATANA_EXECUTE = add(new Technique("katana_execute", Archetype.SWORD, GestureShape.LINE_V_DOWN, 10, 50, null, 20, new DeathblowEffect(2.6, 110, 2.4), "katana"));
+
+    public static final Technique GLAIVE_SWEEP = add(new Technique("glaive_sweep", Archetype.SPEAR, GestureShape.LINE_H, 1, 14, "spear_t1", 8, new GlaiveSweepEffect(3.75, 150, 0.75), "glaive"));
+
+    public static final Technique GREATAXE_SWEEP = add(new Technique("greataxe_sweep", Archetype.AXE, GestureShape.LINE_H, 1, 16, null, 8, new MomentumSweepEffect(4.0, 200, 0.9), "greataxe"));
+    public static final Technique GREATAXE_DUMP = add(new Technique("greataxe_dump", Archetype.AXE, GestureShape.CARET, 4, 30, null, 12, new MomentumDumpEffect(4.0), "greataxe"));
 
     public static final Technique AXE_CLEAVE = add(new Technique("axe_cleave", Archetype.AXE, GestureShape.LINE_V_DOWN, 1, 12, null, 6, new ArcSweepEffect(2.9, 95, 1.15, 0.0, 0.35)));
     public static final Technique AXE_WIDE = add(new Technique("axe_wide", Archetype.AXE, GestureShape.LINE_H, 1, 20, "axe_t1", 9, new ArcSweepEffect(3.5, 175, 0.9, 0.0, 0.6)));
@@ -96,14 +116,15 @@ public final class Techniques {
             if (config != null && !config.gestures().isEmpty()) {
                 continue;
             }
-            if (technique.archetype() != null && technique.shape() != null) {
+            if (technique.family() == null && technique.archetype() != null && technique.shape() != null) {
                 BY_ARCHETYPE.computeIfAbsent(technique.archetype(), k -> new EnumMap<>(GestureShape.class))
                         .putIfAbsent(technique.shape(), technique);
             }
         }
         for (Technique technique : BY_ID.values()) {
             AbilityConfig config = AbilityConfigs.of(technique);
-            if (config == null || config.gestures().isEmpty() || technique.archetype() == null) {
+            if (config == null || config.gestures().isEmpty() || technique.archetype() == null
+                    || technique.family() != null) {
                 continue;
             }
             Map<GestureShape, Technique> map = BY_ARCHETYPE.computeIfAbsent(technique.archetype(), k -> new EnumMap<>(GestureShape.class));
@@ -111,12 +132,42 @@ public final class Techniques {
                 map.put(shape, technique);
             }
         }
+        BY_FAMILY.clear();
+        for (Technique technique : BY_ID.values()) {
+            if (technique.family() == null || technique.shape() == null) {
+                continue;
+            }
+            BY_FAMILY.computeIfAbsent(technique.family(), k -> new EnumMap<>(GestureShape.class))
+                    .put(technique.shape(), technique);
+        }
+    }
+
+    @Nullable
+    public static String family(ItemStack stack) {
+        return com.putzwirk.gesturalcombat.weapon.WeaponProfiles.family(stack);
     }
 
     @Nullable
     public static Technique forGesture(Archetype archetype, GestureShape shape) {
+        return forGesture(archetype, shape, null);
+    }
+
+    @Nullable
+    public static Technique forGesture(Archetype archetype, GestureShape shape, @Nullable ItemStack stack) {
         if (archetype == null || shape == null) {
             return null;
+        }
+        if (stack != null && !stack.isEmpty()) {
+            String family = family(stack);
+            if (family != null) {
+                Map<GestureShape, Technique> familyMap = BY_FAMILY.get(family);
+                if (familyMap != null) {
+                    Technique technique = familyMap.get(shape);
+                    if (technique != null && technique.archetype() == archetype) {
+                        return technique;
+                    }
+                }
+            }
         }
         Map<GestureShape, Technique> map = BY_ARCHETYPE.get(archetype);
         return map == null ? null : map.get(shape);

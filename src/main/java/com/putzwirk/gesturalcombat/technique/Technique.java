@@ -14,8 +14,14 @@ public final class Technique {
     private final String nodeId;
     private final int xp;
     private final TechniqueEffect effect;
+    @javax.annotation.Nullable
+    private final String family;
 
     public Technique(String id, Archetype archetype, GestureShape shape, int requiredLevel, int cooldownTicks, String nodeId, int xp, TechniqueEffect effect) {
+        this(id, archetype, shape, requiredLevel, cooldownTicks, nodeId, xp, effect, null);
+    }
+
+    public Technique(String id, Archetype archetype, GestureShape shape, int requiredLevel, int cooldownTicks, String nodeId, int xp, TechniqueEffect effect, @javax.annotation.Nullable String family) {
         this.id = id;
         this.baseArchetype = archetype;
         this.baseShape = shape;
@@ -26,6 +32,7 @@ public final class Technique {
         this.nodeId = nodeId;
         this.xp = xp;
         this.effect = effect;
+        this.family = family == null ? null : family.toLowerCase(java.util.Locale.ROOT);
     }
 
     public String id() {
@@ -74,6 +81,11 @@ public final class Technique {
 
     public TechniqueEffect effect() {
         return effect;
+    }
+
+    @javax.annotation.Nullable
+    public String family() {
+        return family;
     }
 
     public String nameKey() {

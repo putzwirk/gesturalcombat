@@ -438,12 +438,12 @@ public final class GestureInput {
             ClientState.rejectTicks = REJECT_TICKS;
             return false;
         }
-        Technique technique = Techniques.forGesture(archetype, result.shape());
+        ItemStack held = mc.player == null ? ItemStack.EMPTY : mc.player.getItemInHand(hand);
+        Technique technique = Techniques.forGesture(archetype, result.shape(), held);
         if (technique == null || !ClientState.MASTERY.isTechniqueAvailable(technique)) {
             ClientState.rejectTicks = REJECT_TICKS;
             return false;
         }
-        ItemStack held = mc.player == null ? ItemStack.EMPTY : mc.player.getItemInHand(hand);
         String cooldownKey = CooldownKeys.of(held, result.shape(), technique);
         int remaining = ClientState.cooldownRemaining(cooldownKey);
         if (remaining > 0) {

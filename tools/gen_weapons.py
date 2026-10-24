@@ -215,6 +215,7 @@ def build():
         profile = {
             "items": [entry["id"]],
             "archetype": archetype,
+            "family": category,
             "damage_multiplier": 1.0,
             "reach_multiplier": round(max(MIN_FACTOR, min(MAX_FACTOR, reach / base)), 2),
             "cooldown_multiplier": 1.0,

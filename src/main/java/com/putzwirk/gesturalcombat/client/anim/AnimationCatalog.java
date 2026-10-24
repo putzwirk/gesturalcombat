@@ -244,7 +244,11 @@ public final class AnimationCatalog {
                     ? horizontalPair("two_handed_slash_horizontal_left", "two_handed_slash_horizontal_right", fromLeft)
                     : horizontalPair("one_handed_slash_horizontal_left", "one_handed_swipe_horizontal_right", fromLeft);
             case V -> archetype == Archetype.SWORD ? raw("gesturalcombat:sword_guard") : null;
-            case CARET -> archetype == Archetype.SWORD ? raw("gesturalcombat:sword_skirmish") : null;
+            case CARET -> switch (archetype) {
+                case SWORD -> raw("gesturalcombat:sword_skirmish");
+                case AXE -> raw("gesturalcombat:axe_wide");
+                default -> null;
+            };
             case UNKNOWN -> null;
         };
     }

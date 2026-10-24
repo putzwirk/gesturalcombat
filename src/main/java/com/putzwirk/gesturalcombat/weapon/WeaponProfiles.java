@@ -103,6 +103,12 @@ public final class WeaponProfiles {
         return profile == null ? null : profile.special(shape);
     }
 
+    @javax.annotation.Nullable
+    public static String family(ItemStack stack) {
+        WeaponProfile profile = profile(stack);
+        return profile == null ? null : profile.family();
+    }
+
     public static double damageMultiplier(ItemStack stack) {
         WeaponProfile profile = profile(stack);
         return profile == null ? 1.0 : profile.damageMultiplier();

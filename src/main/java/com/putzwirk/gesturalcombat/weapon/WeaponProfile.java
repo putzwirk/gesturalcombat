@@ -25,6 +25,8 @@ public final class WeaponProfile {
     private final List<String> patterns = new ArrayList<>();
     @Nullable
     private Archetype archetype;
+    @Nullable
+    private String family;
     private double damageMultiplier = 1.0;
     private double reachMultiplier = 1.0;
     private double cooldownMultiplier = 1.0;
@@ -47,6 +49,9 @@ public final class WeaponProfile {
                 archetype = Archetype.valueOf(json.get("archetype").getAsString().trim().toUpperCase(Locale.ROOT));
             } catch (IllegalArgumentException ignored) {
             }
+        }
+        if (json.has("family") && json.get("family").isJsonPrimitive()) {
+            family = json.get("family").getAsString().trim().toLowerCase(Locale.ROOT);
         }
         damageMultiplier = read(json, "damage_multiplier", damageMultiplier);
         reachMultiplier = read(json, "reach_multiplier", reachMultiplier);
@@ -78,6 +83,11 @@ public final class WeaponProfile {
                 }
             }
         }
+    }
+
+    @Nullable
+    public String family() {
+        return family;
     }
 
     private void addSelector(String raw) {
