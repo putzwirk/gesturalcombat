@@ -29,6 +29,8 @@ public final class TrailManager {
         trail.expiresAt = expires;
         trail.startedAt = now;
         trail.windupMs = Math.max(0, windupTicks) * 50L;
+        long windowMs = Math.max(120L, lifeTicks * 50L);
+        trail.minFinishMs = Math.max(0L, windupTicks) * 50L + Math.max(60L, (windowMs - trail.windupMs) / 2L);
         trail.tint = tint;
         trail.offhand = offhand;
         trail.finished = false;
@@ -53,11 +55,12 @@ public final class TrailManager {
         if (now - trail.startedAt < trail.windupMs) {
             return;
         }
-        if (trail.endDetector.update(tip, now)) {
+        trail.samples.addLast(new Sample(now, base, tip));
+        if (!trail.finished && trail.endDetector.update(tip, now)
+                && now - trail.startedAt >= trail.minFinishMs) {
             trail.finished = true;
             trail.fadeMillis = FINISH_FADE_MS;
         }
-        trail.samples.addLast(new Sample(now, base, tip));
         while (trail.samples.size() > MAX_SAMPLES) {
             trail.samples.removeFirst();
         }
@@ -95,6 +98,7 @@ public final class TrailManager {
         long expiresAt;
         long startedAt;
         long windupMs;
+        long minFinishMs;
         long fadeMillis = FADE_MS;
         int tint = 0xFFFFFF;
         boolean offhand;
