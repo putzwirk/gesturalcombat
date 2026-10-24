@@ -65,7 +65,7 @@ public final class AnimationCatalog {
 
     @Nullable
     private static String[] weaponSequence(GestureShape shape, ItemStack stack, int swipe) {
-        if (stack == null || stack.isEmpty()) {
+        if (stack == null || stack.isEmpty() || shape == GestureShape.LINE_V_UP) {
             return null;
         }
         Kind[] order = preference(shape);
