@@ -50,7 +50,8 @@ public final class AnimationCatalog {
         }
         String family = WeaponProfiles.family(stack);
         if (throwsWeapon(family, shape)) {
-            String thrown = throwAnimation(stack);
+            boolean requireThrow = "chakram".equalsIgnoreCase(family);
+            String thrown = throwAnimation(stack, requireThrow);
             return thrown == null ? null : new String[]{thrown};
         }
         String[] pair = weaponSequence(shape, stack, swipe);
@@ -83,14 +84,20 @@ public final class AnimationCatalog {
     }
 
     @Nullable
-    private static String throwAnimation(ItemStack stack) {
+    private static String throwAnimation(ItemStack stack, boolean requireThrow) {
+        String first = null;
         for (String id : WeaponProfiles.animations(stack)) {
-            if (id != null && id.toLowerCase(Locale.ROOT).contains("throw")
-                    && BetterCombatBridge.animation(id) != null) {
+            if (id == null || id.isBlank() || BetterCombatBridge.animation(id) == null) {
+                continue;
+            }
+            if (id.toLowerCase(Locale.ROOT).contains("throw")) {
                 return id;
             }
+            if (first == null) {
+                first = id;
+            }
         }
-        return null;
+        return requireThrow ? null : first;
     }
 
     @Nullable

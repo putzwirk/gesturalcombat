@@ -420,7 +420,7 @@
       "lift": 0.0,
       "hits": 4,
       "hit_interval": 4,
-      "cooldown_ticks": 40
+      "cooldown_ticks": 30
     },
     "katana_execute": {
       "gesture": "LINE_V_DOWN",
@@ -508,7 +508,7 @@
     },
     "rapier_flurry": {
       "gesture": "ZIGZAG",
-      "cooldown_ticks": 30
+      "cooldown_ticks": 24
     },
     "rapier_drop": {
       "gesture": "LINE_V_DOWN",
@@ -536,7 +536,7 @@
     },
     "sickle_flurry": {
       "gesture": "ZIGZAG",
-      "cooldown_ticks": 30
+      "cooldown_ticks": 20
     },
     "sickle_eviscerate": {
       "gesture": "LINE_V_DOWN",
@@ -548,7 +548,7 @@
     },
     "saidebt_flurry": {
       "gesture": "ZIGZAG",
-      "cooldown_ticks": 20
+      "cooldown_ticks": 14
     },
     "saidebt_spike": {
       "gesture": "LINE_V_DOWN",
@@ -564,7 +564,7 @@
     },
     "twinblade_flurry": {
       "gesture": "ZIGZAG",
-      "cooldown_ticks": 30
+      "cooldown_ticks": 28
     },
     "twinblade_slam": {
       "gesture": "LINE_V_DOWN",
@@ -580,7 +580,7 @@
     },
     "warglaive_flurry": {
       "gesture": "ZIGZAG",
-      "cooldown_ticks": 30
+      "cooldown_ticks": 26
     },
     "warglaive_slam": {
       "gesture": "LINE_V_DOWN",
@@ -600,7 +600,7 @@
     },
     "halberd_flurry": {
       "gesture": "ZIGZAG",
-      "cooldown_ticks": 35
+      "cooldown_ticks": 46
     },
     "greathammer_cut": {
       "gesture": "LINE_H",
@@ -633,6 +633,30 @@
     "pyre_stoke": {
       "gesture": "CARET",
       "cooldown_ticks": 40
+    },
+    "claymore_z": {
+      "gesture": "ZIGZAG",
+      "cooldown_ticks": 42
+    },
+    "glaive_z": {
+      "gesture": "ZIGZAG",
+      "cooldown_ticks": 36
+    },
+    "greataxe_z": {
+      "gesture": "ZIGZAG",
+      "cooldown_ticks": 42
+    },
+    "greathammer_z": {
+      "gesture": "ZIGZAG",
+      "cooldown_ticks": 52
+    },
+    "scythe_z": {
+      "gesture": "ZIGZAG",
+      "cooldown_ticks": 36
+    },
+    "pyre_z": {
+      "gesture": "ZIGZAG",
+      "cooldown_ticks": 42
     }
   }
 }

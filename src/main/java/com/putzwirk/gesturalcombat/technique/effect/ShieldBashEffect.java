@@ -2,6 +2,7 @@ package com.putzwirk.gesturalcombat.technique.effect;
 
 import com.putzwirk.gesturalcombat.technique.AbilityConfigs;
 import com.putzwirk.gesturalcombat.technique.EffectSupport;
+import com.putzwirk.gesturalcombat.technique.HitStun;
 import com.putzwirk.gesturalcombat.technique.Technique;
 import com.putzwirk.gesturalcombat.technique.TechniqueEffect;
 import com.putzwirk.gesturalcombat.technique.hitbox.Hitbox;
@@ -19,9 +20,15 @@ public final class ShieldBashEffect implements TechniqueEffect {
                 * AbilityConfigs.damageMultiplier(technique, stack, 0.45));
         double force = AbilityConfigs.knockback(technique, stack, 1.15);
         double lift = AbilityConfigs.lift(technique, stack, 0.12);
+        boolean hitAny = false;
         for (LivingEntity target : hitbox.query(player, level)) {
             EffectSupport.hit(player, target, damage, technique, force, lift);
+            HitStun.pin(target, 24, true);
+            hitAny = true;
         }
-        EffectSupport.sound(level, player, SoundEvents.SHIELD_BLOCK, 1.0f, 1.0f);
+        EffectSupport.sound(level, player, SoundEvents.SHIELD_BLOCK, 1.0f, hitAny ? 1.0f : 0.7f);
+        if (hitAny) {
+            EffectSupport.sound(level, player, SoundEvents.PLAYER_ATTACK_CRIT, 0.7f, 0.6f);
+        }
     }
 }

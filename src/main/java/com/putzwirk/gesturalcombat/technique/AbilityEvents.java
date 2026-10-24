@@ -20,10 +20,8 @@ public final class AbilityEvents {
 
     @SubscribeEvent
     public static void onLogin(PlayerEvent.PlayerLoggedInEvent event) {
-        if (event.getEntity() instanceof ServerPlayer player && ModNetwork.CHANNEL.isRemotePresent(player.connection.connection)) {
-            AbilitySync.send(player);
-        }
         if (event.getEntity() instanceof ServerPlayer player) {
+            AbilitySync.send(player);
             OutLock.unlock(player);
         }
     }
