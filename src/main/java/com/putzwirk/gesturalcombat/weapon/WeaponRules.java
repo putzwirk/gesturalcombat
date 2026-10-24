@@ -22,6 +22,18 @@ public final class WeaponRules {
         return family != null && LIGHT.contains(family.toLowerCase(java.util.Locale.ROOT));
     }
 
+    public static int hitStunTicks(ItemStack stack) {
+        String family = WeaponProfiles.family(stack);
+        if (family == null) {
+            return 5;
+        }
+        String value = family.toLowerCase(java.util.Locale.ROOT);
+        if (LIGHT.contains(value)) {
+            return 3;
+        }
+        return HEAVY.contains(value) ? 10 : 6;
+    }
+
     public static double cooldownFactor(ItemStack stack) {
         return light(stack) ? 0.8 : 1.0;
     }

@@ -237,26 +237,33 @@ public final class EffectSupport {
         if (landed) {
             Fx.hit(player, technique, weapon, target.getBoundingBox().getCenter(), 1.1);
         }
+        ItemStack held = Archetype.of(player.getMainHandItem()) == technique.archetype()
+                ? player.getMainHandItem() : player.getOffhandItem();
+        int stun = com.putzwirk.gesturalcombat.weapon.WeaponRules.hitStunTicks(held);
         if (pin) {
             int interval = AbilityConfigs.hitInterval(technique);
-            HitStun.pin(target, interval > 0 ? Math.max(2, interval - 2) : 4);
+            HitStun.pin(target, Math.max(stun, interval > 0 ? Math.max(2, interval - 2) : 4));
         } else if (knockback <= 0.3 && lift <= 0.0) {
-            HitStun.pin(target, 4);
+            HitStun.pin(target, stun);
         } else {
             HitStun.release(target);
-            if (knockback > 0.0) {
-                Vec3 push = target.position().subtract(player.position());
-                Vec3 flat = new Vec3(push.x, 0.0, push.z);
-                if (flat.lengthSqr() < 1.0E-4) {
-                    flat = player.getLookAngle();
-                }
-                flat = flat.normalize().scale(knockback);
-                target.push(flat.x, Math.max(0.0, lift * 0.25), flat.z);
-                target.hurtMarked = true;
+            Vec3 flat = target.position().subtract(player.position());
+            flat = new Vec3(flat.x, 0.0, flat.z);
+            if (flat.lengthSqr() < 1.0E-4) {
+                flat = player.getLookAngle();
             }
+            Vec3 shove = flat.normalize().scale(knockback);
             if (lift > 0.0) {
-                target.push(0.0, lift, 0.0);
+                target.push(shove.x, lift, shove.z);
                 target.hurtMarked = true;
+            } else if (knockback > 0.0) {
+                HitStun.pin(target, stun);
+                GestureScheduler.schedule(player.level(), stun + 1, () -> {
+                    if (target.isAlive() && !target.isRemoved()) {
+                        target.push(shove.x, 0.1, shove.z);
+                        target.hurtMarked = true;
+                    }
+                });
             }
         }
         Level level = player.level();
