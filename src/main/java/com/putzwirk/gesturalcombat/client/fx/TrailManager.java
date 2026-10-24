@@ -12,7 +12,7 @@ import java.util.Map;
 
 public final class TrailManager {
     private static final int MAX_SAMPLES = 64;
-    public static final long FADE_MS = 220L;
+    public static final long FADE_MS = 300L;
     private static final Map<Integer, Trail> TRAILS = new HashMap<>();
 
     private TrailManager() {
@@ -79,7 +79,7 @@ public final class TrailManager {
     static final class Trail {
         final Deque<Sample> samples = new ArrayDeque<>();
         long expiresAt;
-        int tint = 0xD6F4FF;
+        int tint = 0xFFFFFF;
         boolean offhand;
     }
 }

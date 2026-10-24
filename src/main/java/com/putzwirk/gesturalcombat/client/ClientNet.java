@@ -93,8 +93,8 @@ public final class ClientNet {
         int windup = AbilityConfigs.windupTicks(technique);
         AnimationScheduler.playSequence(casterId, sequence, handName, lengths, upswings, windup, interval);
         if (archetype == Archetype.SWORD || archetype == Archetype.AXE || archetype == Archetype.SPEAR) {
-            int life = windup + (int) Math.ceil(Math.max(lengths[lengths.length - 1], (swings - 1) * interval + lengths[0])) + 4;
-            com.putzwirk.gesturalcombat.client.fx.TrailManager.start(casterId, life, archetype.color() & 0xFFFFFF, offhand);
+            int life = windup + (int) Math.ceil(Math.max(lengths[lengths.length - 1], (swings - 1) * interval + lengths[0])) + 20;
+            com.putzwirk.gesturalcombat.client.fx.TrailManager.start(casterId, life, 0xFFFFFF, offhand);
         }
     }
 
