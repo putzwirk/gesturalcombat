@@ -231,7 +231,7 @@ public final class AnimationCatalog {
                     ? raw("gesturalcombat:shield_charge")
                     : archetype == Archetype.BOW
                     ? null
-                    : custom(singleUp(archetype, twoHanded));
+                    : custom(singleUp(archetype));
             case LINE_V_DOWN -> archetype == Archetype.SHIELD || archetype == Archetype.BOW
                     ? null
                     : custom(singleDown(archetype, twoHanded));
@@ -269,12 +269,11 @@ public final class AnimationCatalog {
         return out;
     }
 
-    private static String singleUp(Archetype archetype, boolean twoHanded) {
-        String suffix = twoHanded ? "_two_handed" : "";
+    private static String singleUp(Archetype archetype) {
         return switch (archetype) {
-            case SWORD -> "sword_rising" + suffix;
-            case AXE -> "axe_rend" + suffix;
-            case SPEAR -> "spear_thrust" + suffix;
+            case SWORD -> "sword_rising";
+            case AXE -> "axe_rend";
+            case SPEAR -> "spear_thrust";
             case SHIELD -> "shield_charge";
             case BOW -> "sword_rising";
         };

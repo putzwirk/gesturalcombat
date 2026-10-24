@@ -67,6 +67,28 @@ public final class DashMovement {
         return ticks;
     }
 
+    public static void retreat(ServerPlayer player, Level level, Vec3 direction, double distance, int ticks) {
+        Vec3 flat = new Vec3(direction.x, 0.0, direction.z);
+        if (flat.lengthSqr() < 1.0e-6 || distance <= 0.0) {
+            return;
+        }
+        flat = flat.normalize();
+        int count = Math.max(2, ticks);
+        double[] weights = new double[count];
+        double total = 0.0;
+        for (int i = 0; i < count; i++) {
+            double u = (i + 0.5) / count;
+            weights[i] = (1.0 - u) * (1.0 - u) + 0.06;
+            total += weights[i];
+        }
+        Vec3 span = flat.scale(distance);
+        for (int i = 1; i <= count; i++) {
+            Vec3 perTick = span.scale(weights[i - 1] / total);
+            GestureScheduler.schedule(level, i, () -> push(player, level, perTick));
+        }
+        GestureScheduler.schedule(level, count + 1, () -> brake(player, level));
+    }
+
     private static void push(ServerPlayer player, Level level, Vec3 perTick) {
         if (!player.isAlive() || player.isRemoved() || player.level() != level) {
             return;

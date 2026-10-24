@@ -20,10 +20,10 @@ public final class SkirmishEffect implements TechniqueEffect {
     private static final int WINDOW = 8;
     private static final double SEARCH_BONUS = 4.0;
     private static final double MAX_SEARCH_ANGLE = 75.0;
-    private static final double MAX_DASH_DISTANCE = 4.8;
+    private static final double MAX_DASH_DISTANCE = 6.0;
     private static final double DASH_STEP = 0.30;
     private static final int DASH_TICKS = 12;
-    private static final double FREE_DASH_DISTANCE = 3.6;
+    private static final double FREE_DASH_DISTANCE = 4.6;
 
     private final double range;
     private final double arcDegrees;
@@ -73,11 +73,10 @@ public final class SkirmishEffect implements TechniqueEffect {
         if (!player.onGround() || flat.lengthSqr() < 1.0e-4) {
             return;
         }
-        Vec3 back = flat.normalize().scale(-dash);
+        Vec3 back = flat.normalize().scale(-1.0);
         GestureScheduler.schedule(level, retreatDelay, () -> {
             if (player.isAlive() && !player.isRemoved() && player.level() == level && player.onGround()) {
-                player.push(back.x, 0.02, back.z);
-                player.hurtMarked = true;
+                DashMovement.retreat(player, level, back, dash, 7);
             }
         });
     }
