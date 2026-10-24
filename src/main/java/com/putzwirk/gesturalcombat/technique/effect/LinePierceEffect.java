@@ -39,7 +39,6 @@ public final class LinePierceEffect implements TechniqueEffect {
         for (LivingEntity target : hitbox.query(player, level)) {
             EffectSupport.hit(player, target, damage, technique, force, lift);
         }
-        EffectSupport.slash(level, player, hitbox, technique, stack);
         Vec3 look = player.getLookAngle();
         Vec3 dash = new Vec3(look.x, 0.0, look.z);
         if (dash.lengthSqr() > 1.0E-4) {

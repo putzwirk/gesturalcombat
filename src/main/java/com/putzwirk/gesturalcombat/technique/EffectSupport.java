@@ -216,10 +216,15 @@ public final class EffectSupport {
         ItemStack weapon = onHitWeapon(player, technique);
         boolean delegated = !weapon.isEmpty()
                 && com.putzwirk.gesturalcombat.compat.SimplySwordsBridge.applyHit(weapon, target, player, damage);
+        boolean landed = delegated;
         if (delegated) {
             target.invulnerableTime = Math.min(target.invulnerableTime, 2);
         } else if (target.hurt(player.damageSources().playerAttack(player), damage)) {
             target.invulnerableTime = Math.min(target.invulnerableTime, 2);
+            landed = true;
+        }
+        if (landed) {
+            Fx.hit(player, technique, weapon, target.getBoundingBox().getCenter(), 1.1);
         }
         if (pin) {
             int interval = AbilityConfigs.hitInterval(technique);
@@ -266,10 +271,6 @@ public final class EffectSupport {
         if (level instanceof ServerLevel server) {
             server.sendParticles(options, x, y, z, count, dx, dy, dz, speed);
         }
-    }
-
-    public static void slash(Level level, ServerPlayer player, Hitbox hitbox, Technique technique, ItemStack stack) {
-        Fx.slash(player, technique, stack, hitbox);
     }
 
     public static void ringParticles(Level level, ServerPlayer player, double radius, Technique technique, ItemStack stack) {

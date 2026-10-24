@@ -89,7 +89,6 @@ public final class SkirmishEffect implements TechniqueEffect {
             for (LivingEntity target : EffectSupport.targets(player, level, hitbox, focus)) {
                 EffectSupport.hit(player, target, damage, technique, force, lift, true);
             }
-            EffectSupport.slash(level, player, hitbox, technique, stack);
             EffectSupport.sound(level, player, SoundEvents.PLAYER_ATTACK_SWEEP, 0.9f, 1.3f);
         });
     }

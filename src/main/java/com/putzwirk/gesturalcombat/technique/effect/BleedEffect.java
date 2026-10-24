@@ -57,7 +57,6 @@ public final class BleedEffect implements TechniqueEffect {
             EffectSupport.hit(player, target, damage, technique, AbilityConfigs.knockback(technique, stack, 0.2), 0.0);
             BLEEDS.put(target.getUUID(), new Bleed(now + bleedTicks, player.getUUID(), bleedDamage, now + PULSE_TICKS));
         }
-        EffectSupport.slash(level, player, hitbox, technique, stack);
     }
 
     @SubscribeEvent

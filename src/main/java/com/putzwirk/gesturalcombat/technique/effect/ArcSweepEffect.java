@@ -40,7 +40,6 @@ public final class ArcSweepEffect implements TechniqueEffect {
         for (LivingEntity target : hitbox.query(player, level)) {
             EffectSupport.hit(player, target, damage, technique, force, lift);
         }
-        EffectSupport.slash(level, player, hitbox, technique, stack);
         if (damageMultiplier >= 1.5) {
             EffectSupport.sound(level, player, SoundEvents.PLAYER_ATTACK_CRIT, 0.7f, 0.7f);
         }

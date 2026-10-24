@@ -22,7 +22,6 @@ public final class ShieldBashEffect implements TechniqueEffect {
         for (LivingEntity target : hitbox.query(player, level)) {
             EffectSupport.hit(player, target, damage, technique, force, lift);
         }
-        EffectSupport.slash(level, player, hitbox, technique, stack);
         EffectSupport.sound(level, player, SoundEvents.SHIELD_BLOCK, 1.0f, 1.0f);
     }
 }

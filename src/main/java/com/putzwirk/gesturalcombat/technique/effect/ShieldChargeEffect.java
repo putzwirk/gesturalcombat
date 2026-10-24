@@ -64,7 +64,6 @@ public final class ShieldChargeEffect implements TechniqueEffect {
                     closest = hit;
                 }
             }
-            EffectSupport.slash(level, player, hitbox, technique, stack);
             EffectSupport.sound(level, player, SoundEvents.SHIELD_BLOCK, 1.0f, 0.8f);
             double recoil = AbilityConfigs.selfKnockback(technique, stack, 0.45);
             if (closest != null && recoil > 0.0) {

@@ -92,9 +92,6 @@ public final class DashMovement {
         player.connection.teleport(point.x, player.getY(), point.z, player.getYRot(), player.getXRot(), KEEP_ROTATION);
         player.setDeltaMovement(Vec3.ZERO);
         player.hurtMarked = true;
-        if (trail) {
-            Fx.dash(player);
-        }
     }
 
     private static double horizontal(Vec3 from, Vec3 to) {

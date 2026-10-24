@@ -63,6 +63,5 @@ public final class SpinEffect implements TechniqueEffect {
         for (LivingEntity target : hitbox.query(player, level)) {
             EffectSupport.hit(player, target, damage, technique, force, lift, !finisher);
         }
-        EffectSupport.slash(level, player, hitbox, technique, stack);
     }
 }

@@ -46,10 +46,10 @@ registry-name matching for modded weapons that ship no Better Combat attributes.
 
 ## Particles and trails
 
-Gesture casts play archetype-specific particles instead of the vanilla sweep
-particle — piercing sword streaks for horizontal, upward and downward strikes,
-spinning arcs for circles — and leave a pixelated ribbon that is swept directly
-from the rendered blade each frame. See
+Swing particles are disabled (no vanilla sweep, no slash arcs). Landed hits and
+stuns show star bursts, slams and shield impacts show a shockwave ring, and
+every weapon swing leaves a pixelated ribbon swept directly from the rendered
+blade each frame. See
 `PARTICLES_AND_TRAILS.md`; the trail can be disabled with `weaponTrails` in the
 common config.
 
