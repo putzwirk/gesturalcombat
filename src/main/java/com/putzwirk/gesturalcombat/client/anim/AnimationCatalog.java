@@ -51,9 +51,7 @@ public final class AnimationCatalog {
         String family = WeaponProfiles.family(stack);
         if (throwsWeapon(family, shape)) {
             String thrown = throwAnimation(stack);
-            if (thrown != null) {
-                return new String[]{thrown};
-            }
+            return thrown == null ? null : new String[]{thrown};
         }
         String[] pair = weaponSequence(shape, stack, swipe);
         if (pair == null) {
@@ -86,24 +84,9 @@ public final class AnimationCatalog {
 
     @Nullable
     private static String throwAnimation(ItemStack stack) {
-        List<String> animations = WeaponProfiles.animations(stack);
-        String fallback = null;
-        for (String id : animations) {
-            if (id == null || id.isBlank() || BetterCombatBridge.animation(id) == null) {
-                continue;
-            }
-            if (id.toLowerCase(Locale.ROOT).contains("throw")) {
-                return id;
-            }
-            if (fallback == null && kind(id) == Kind.STAB) {
-                fallback = id;
-            }
-        }
-        if (fallback != null) {
-            return fallback;
-        }
-        for (String id : animations) {
-            if (id != null && !id.isBlank() && BetterCombatBridge.animation(id) != null) {
+        for (String id : WeaponProfiles.animations(stack)) {
+            if (id != null && id.toLowerCase(Locale.ROOT).contains("throw")
+                    && BetterCombatBridge.animation(id) != null) {
                 return id;
             }
         }

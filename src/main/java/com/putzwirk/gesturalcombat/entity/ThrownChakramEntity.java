@@ -106,12 +106,21 @@ public class ThrownChakramEntity extends Entity {
         return thrown;
     }
 
+    private static final double HOP_RADIUS = 8.0;
+    private static final double PLAYER_RADIUS = 18.0;
+    private static final double AIM_RANGE = 18.0;
+    private static final double AIM_SPREAD = 3.5;
+
     private static List<UUID> chainPath(ServerLevel level, ServerPlayer player) {
         List<UUID> path = new ArrayList<>();
         List<LivingEntity> chosen = new ArrayList<>();
+        LivingEntity first = aimTarget(level, player, chosen);
+        if (first == null) {
+            first = nearest(level, player, player.position(), chosen);
+        }
         Vec3 anchor = player.position();
         for (int i = 0; i < 4; i++) {
-            LivingEntity next = nearest(level, player, anchor, chosen);
+            LivingEntity next = i == 0 ? first : nearest(level, player, anchor, chosen);
             if (next == null) {
                 break;
             }
@@ -122,12 +131,40 @@ public class ThrownChakramEntity extends Entity {
         return path;
     }
 
+    private static LivingEntity aimTarget(ServerLevel level, ServerPlayer player, List<LivingEntity> chosen) {
+        Vec3 eye = player.getEyePosition();
+        Vec3 look = player.getLookAngle().normalize();
+        LivingEntity best = null;
+        double bestScore = Double.MAX_VALUE;
+        for (LivingEntity candidate : level.getEntitiesOfClass(LivingEntity.class,
+                player.getBoundingBox().inflate(AIM_RANGE),
+                entity -> entity != player && entity.isAlive() && !entity.isSpectator() && !chosen.contains(entity))) {
+            Vec3 to = candidate.getBoundingBox().getCenter().subtract(eye);
+            double along = to.dot(look);
+            if (along < 0.2 || along > AIM_RANGE) {
+                continue;
+            }
+            Vec3 perpendicular = to.subtract(look.scale(along));
+            double spread = perpendicular.length() - candidate.getBbWidth() * 0.5;
+            if (spread > AIM_SPREAD) {
+                continue;
+            }
+            double score = Math.max(0.0, spread) + along * 0.03;
+            if (score < bestScore) {
+                bestScore = score;
+                best = candidate;
+            }
+        }
+        return best;
+    }
+
     private static LivingEntity nearest(ServerLevel level, ServerPlayer player, Vec3 anchor, List<LivingEntity> chosen) {
         LivingEntity best = null;
         double bestDistance = Double.MAX_VALUE;
         for (LivingEntity candidate : level.getEntitiesOfClass(LivingEntity.class,
-                new AABB(anchor, anchor).inflate(6.0), entity -> entity != player && entity.isAlive() && !entity.isSpectator())) {
-            if (chosen.contains(candidate) || candidate.distanceToSqr(player) > 144.0) {
+                new AABB(anchor, anchor).inflate(HOP_RADIUS),
+                entity -> entity != player && entity.isAlive() && !entity.isSpectator() && !chosen.contains(entity))) {
+            if (candidate.distanceToSqr(player) > PLAYER_RADIUS * PLAYER_RADIUS) {
                 continue;
             }
             double distance = candidate.distanceToSqr(anchor);
