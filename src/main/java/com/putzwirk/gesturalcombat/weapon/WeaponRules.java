@@ -34,7 +34,7 @@ public final class WeaponRules {
             return false;
         }
         if ("chakram".equalsIgnoreCase(family) && shape == GestureShape.LINE_V_DOWN) {
-            return WeaponProfiles.special(stack, shape) == null;
+            return true;
         }
         return false;
     }
