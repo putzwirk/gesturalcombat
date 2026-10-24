@@ -536,7 +536,7 @@
     },
     "sickle_flurry": {
       "gesture": "ZIGZAG",
-      "cooldown_ticks": 20
+      "cooldown_ticks": 18
     },
     "sickle_eviscerate": {
       "gesture": "LINE_V_DOWN",

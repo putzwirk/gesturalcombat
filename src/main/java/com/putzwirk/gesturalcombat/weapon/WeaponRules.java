@@ -8,7 +8,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.Set;
 
 public final class WeaponRules {
-    private static final Set<String> HEAVY = Set.of("claymore", "glaive", "halberd", "greataxe", "greathammer", "heavy_axe");
+    private static final Set<String> HEAVY = Set.of("claymore", "glaive", "halberd", "greataxe", "greathammer", "heavy_axe", "mace");
     private static final Set<String> LIGHT = Set.of("rapier", "sickle", "soul_knife", "katana", "trident");
     private static final Set<GestureShape> HEAVY_LOCKED = java.util.EnumSet.of(GestureShape.CIRCLE,
             GestureShape.CARET, GestureShape.V, GestureShape.LINE_V_UP);

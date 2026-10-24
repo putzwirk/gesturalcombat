@@ -146,7 +146,7 @@ public final class Techniques {
                 return damage;
             }), "sickle"));
     public static final Technique SICKLE_FLURRY = add(new Technique("sickle_flurry", Archetype.SWORD, GestureShape.ZIGZAG, 4, 30, null, 12,
-            new FamilyFlurryEffect(2.8, 90, 1.5, 6, 2, 0.0, 0.0, (player, target, damage, index) -> {
+            new FamilyFlurryEffect(2.8, 90, 1.2, 8, 1, 0.0, 0.0, (player, target, damage, index) -> {
                 States.addBleed(target, player, 1);
                 return damage;
             }), "sickle"));
