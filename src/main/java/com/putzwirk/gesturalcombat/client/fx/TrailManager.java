@@ -14,6 +14,7 @@ public final class TrailManager {
     private static final int MAX_SAMPLES = 64;
     public static final long FADE_MS = 170L;
     private static final long FINISH_FADE_MS = 90L;
+    private static final double START_SPEED = 0.0008;
     private static final Map<Integer, Trail> TRAILS = new HashMap<>();
 
     private TrailManager() {
@@ -34,7 +35,10 @@ public final class TrailManager {
         trail.tint = tint;
         trail.offhand = offhand;
         trail.finished = false;
+        trail.started = false;
         trail.fadeMillis = FADE_MS;
+        trail.lastTip = null;
+        trail.lastTime = 0L;
         trail.samples.clear();
     }
 
@@ -54,6 +58,22 @@ public final class TrailManager {
         }
         if (now - trail.startedAt < trail.windupMs) {
             return;
+        }
+        if (trail.lastTip == null) {
+            trail.lastTip = tip;
+            trail.lastTime = now;
+            return;
+        }
+        long elapsed = Math.max(1L, now - trail.lastTime);
+        double speed = tip.distanceTo(trail.lastTip) / elapsed;
+        trail.lastTip = tip;
+        trail.lastTime = now;
+        if (!trail.started) {
+            if (speed < START_SPEED) {
+                return;
+            }
+            trail.started = true;
+            trail.samples.clear();
         }
         trail.samples.addLast(new Sample(now, base, tip));
         if (!trail.finished && trail.endDetector.update(tip, now)
@@ -103,5 +123,8 @@ public final class TrailManager {
         int tint = 0xFFFFFF;
         boolean offhand;
         boolean finished;
+        boolean started;
+        Vec3 lastTip;
+        long lastTime;
     }
 }

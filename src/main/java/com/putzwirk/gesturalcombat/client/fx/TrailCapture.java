@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 
 public final class TrailCapture {
-    private static final Map<BakedModel, Vec3[]> EXTREMES = new IdentityHashMap<>();
+    private static final Map<BakedModel, Vec3[]> AXES = new IdentityHashMap<>();
     private static final Direction[] DIRECTIONS = {
             null, Direction.DOWN, Direction.UP, Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST
     };
@@ -79,31 +79,25 @@ public final class TrailCapture {
         ForgeHooksClient.handleCameraTransforms(copy, model, displayContext, leftHand);
         copy.translate(-0.5f, -0.5f, -0.5f);
         Matrix4f matrix = copy.last().pose();
-        Vec3[] extremes = EXTREMES.computeIfAbsent(model, TrailCapture::measure);
-        Vec3 tip = null;
-        Vec3 base = null;
-        double far = -1.0;
-        double near = Double.MAX_VALUE;
-        for (Vec3 point : extremes) {
-            Vector3f view = new Vector3f((float) point.x, (float) point.y, (float) point.z);
-            matrix.transformPosition(view);
-            double distance = view.x * view.x + view.y * view.y + view.z * view.z;
-            Vec3 transformed = new Vec3(view.x, view.y, view.z);
-            if (distance > far) {
-                far = distance;
-                tip = transformed;
-            }
-            if (distance < near) {
-                near = distance;
-                base = transformed;
-            }
+        Vec3[] axis = AXES.computeIfAbsent(model, TrailCapture::measure);
+        Camera camera = Minecraft.getInstance().gameRenderer.getMainCamera();
+        Vec3 first = transform(matrix, axis[0]);
+        Vec3 second = transform(matrix, axis[1]);
+        first = toWorld(camera, first);
+        second = toWorld(camera, second);
+        Vec3 eye = owner.getEyePosition();
+        Vec3 tip;
+        Vec3 base;
+        if (first.distanceToSqr(eye) >= second.distanceToSqr(eye)) {
+            tip = first;
+            base = second;
+        } else {
+            tip = second;
+            base = first;
         }
         if (tip == null || base == null) {
             return;
         }
-        Camera camera = Minecraft.getInstance().gameRenderer.getMainCamera();
-        tip = toWorld(camera, tip);
-        base = toWorld(camera, base);
         if (camera.getPosition().distanceToSqr(tip) > 100.0) {
             return;
         }
@@ -124,6 +118,12 @@ public final class TrailCapture {
                 .add(right.scale(view.x))
                 .add(upAxis.scale(view.y))
                 .add(back.scale(view.z));
+    }
+
+    private static Vec3 transform(Matrix4f matrix, Vec3 point) {
+        Vector3f view = new Vector3f((float) point.x, (float) point.y, (float) point.z);
+        matrix.transformPosition(view);
+        return new Vec3(view.x, view.y, view.z);
     }
 
     private static Vec3[] measure(BakedModel model) {
@@ -155,7 +155,26 @@ public final class TrailCapture {
                 }
             }
         }
-        return any ? points : FALLBACK;
+        if (!any) {
+            return FALLBACK;
+        }
+        Vec3 a = null;
+        Vec3 b = null;
+        double longest = -1.0;
+        for (int i = 0; i < points.length; i++) {
+            for (int j = i + 1; j < points.length; j++) {
+                if (points[i] == null || points[j] == null) {
+                    continue;
+                }
+                double distance = points[i].distanceToSqr(points[j]);
+                if (distance > longest) {
+                    longest = distance;
+                    a = points[i];
+                    b = points[j];
+                }
+            }
+        }
+        return a == null || b == null ? FALLBACK : new Vec3[]{a, b};
     }
 
     private static boolean consider(double[] best, Vec3[] points, int index, double value, Vec3 point) {
