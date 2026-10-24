@@ -41,5 +41,7 @@ public final class ClientSetup {
     @SubscribeEvent
     public static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ModEntities.THROWN_SHIELD.get(), ThrownShieldRenderer::new);
+        event.registerEntityRenderer(ModEntities.THROWN_CHAKRAM.get(),
+                com.putzwirk.gesturalcombat.client.render.ThrownChakramRenderer::new);
     }
 }

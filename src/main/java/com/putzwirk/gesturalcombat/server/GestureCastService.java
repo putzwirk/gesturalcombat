@@ -16,10 +16,12 @@ import com.putzwirk.gesturalcombat.technique.GuardState;
 import com.putzwirk.gesturalcombat.technique.ShieldLock;
 import com.putzwirk.gesturalcombat.technique.Technique;
 import com.putzwirk.gesturalcombat.technique.Techniques;
+import com.putzwirk.gesturalcombat.entity.ThrownChakramEntity;
 import com.putzwirk.gesturalcombat.technique.effect.WeaponSpecialEffect;
 import com.putzwirk.gesturalcombat.weapon.WeaponProfiles;
 import com.putzwirk.gesturalcombat.weapon.WeaponSpecial;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -96,8 +98,18 @@ public final class GestureCastService {
                 : EffectSupport.specialCooldown(player, technique, stack, special.cooldownTicks());
         playerCooldowns.put(cooldownKey, now + cooldown);
         ModNetwork.sendToTracking(player, new CastEffectPacket(player.getId(), technique.id(), cooldown, swipe, offhand, cooldownKey));
+        String category = com.putzwirk.gesturalcombat.compat.BetterCombatBridge.category(stack);
+        boolean chakramThrow = special == null
+                && "chakram".equalsIgnoreCase(category)
+                && (shape == GestureShape.LINE_H || shape == GestureShape.LINE_V_DOWN)
+                && level instanceof ServerLevel;
         if (special != null) {
             WeaponSpecialEffect.execute(player, level, stack, technique, special);
+        } else if (chakramThrow) {
+            ThrownChakramEntity.launch((ServerLevel) level, player, stack, technique,
+                    EffectSupport.damageOf(player, technique, stack)
+                            * AbilityConfigs.damageMultiplier(technique, stack, 1.0),
+                    EffectSupport.weaponReach(stack));
         } else {
             technique.effect().execute(player, level, stack, technique);
         }

@@ -19,6 +19,14 @@ public final class ModEntities {
                     .updateInterval(1)
                     .build("thrown_shield"));
 
+    public static final RegistryObject<EntityType<ThrownChakramEntity>> THROWN_CHAKRAM =
+            ENTITIES.register("thrown_chakram", () -> EntityType.Builder
+                    .<ThrownChakramEntity>of(ThrownChakramEntity::new, MobCategory.MISC)
+                    .sized(0.6f, 0.6f)
+                    .clientTrackingRange(10)
+                    .updateInterval(1)
+                    .build("thrown_chakram"));
+
     private ModEntities() {
     }
 }
