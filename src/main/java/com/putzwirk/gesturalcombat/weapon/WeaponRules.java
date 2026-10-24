@@ -9,6 +9,8 @@ import java.util.Set;
 
 public final class WeaponRules {
     private static final Set<String> HEAVY = Set.of("claymore", "glaive", "halberd", "greataxe", "greathammer", "heavy_axe");
+    private static final Set<String> NO_SPIN = Set.of("claymore", "glaive", "halberd", "greataxe", "greathammer", "heavy_axe");
+    private static final Set<String> NO_DASH = Set.of("claymore", "greathammer", "heavy_axe");
     private static final int HEAVY_TAIL = 12;
 
     private WeaponRules() {
@@ -33,9 +35,13 @@ public final class WeaponRules {
         if (family == null || shape == null) {
             return false;
         }
+        String value = family.toLowerCase(java.util.Locale.ROOT);
         if ("chakram".equalsIgnoreCase(family) && shape == GestureShape.LINE_V_DOWN) {
             return true;
         }
-        return false;
+        if (shape == GestureShape.CIRCLE && NO_SPIN.contains(value)) {
+            return true;
+        }
+        return shape == GestureShape.CARET && NO_DASH.contains(value);
     }
 }
