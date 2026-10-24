@@ -88,9 +88,10 @@ public final class GestureCastService {
             return;
         }
         Technique resolved = Techniques.forGesture(active, shape, stack);
-        if (resolved != null) {
-            technique = resolved;
+        if (resolved == null || resolved.archetype() != active) {
+            return;
         }
+        technique = resolved;
         if (!MasteryCapability.get(player).isTechniqueAvailable(technique)) {
             return;
         }
