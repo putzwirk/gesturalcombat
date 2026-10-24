@@ -75,7 +75,7 @@ public final class AnimationCatalog {
         }
         String value = family.toLowerCase(Locale.ROOT);
         if (value.equals("chakram")) {
-            return shape == GestureShape.LINE_H || shape == GestureShape.LINE_V_DOWN || shape == GestureShape.ZIGZAG;
+            return shape == GestureShape.LINE_H || shape == GestureShape.CIRCLE || shape == GestureShape.ZIGZAG;
         }
         if (value.equals("trident") || value.equals("mace")) {
             return shape == GestureShape.ZIGZAG;

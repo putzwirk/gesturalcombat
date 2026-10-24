@@ -119,8 +119,10 @@ public final class GestureCastService {
         if (special == null && level instanceof ServerLevel serverLevel) {
             double damage = EffectSupport.damageOf(player, technique, stack)
                     * AbilityConfigs.damageMultiplier(technique, stack, 1.0);
-            if ("chakram".equalsIgnoreCase(family) && shape == GestureShape.ZIGZAG) {
+            if ("chakram".equalsIgnoreCase(family) && shape == GestureShape.CIRCLE) {
                 launched = ThrownChakramEntity.launchChain(serverLevel, player, stack, technique, damage, offhand);
+            } else if ("chakram".equalsIgnoreCase(family) && shape == GestureShape.ZIGZAG) {
+                launched = ThrownChakramEntity.launchSaw(serverLevel, player, stack, technique, damage, offhand);
             } else if ("trident".equalsIgnoreCase(family) && shape == GestureShape.ZIGZAG) {
                 launched = ThrownChakramEntity.launchWeapon(serverLevel, player, stack, technique, damage,
                         EffectSupport.weaponReach(stack), offhand, false);

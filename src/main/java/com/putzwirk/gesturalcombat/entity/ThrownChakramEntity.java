@@ -4,6 +4,9 @@ import com.putzwirk.gesturalcombat.technique.EffectSupport;
 import com.putzwirk.gesturalcombat.technique.OutLock;
 import com.putzwirk.gesturalcombat.technique.Technique;
 import com.putzwirk.gesturalcombat.technique.Techniques;
+import com.putzwirk.gesturalcombat.technique.GestureScheduler;
+import com.putzwirk.gesturalcombat.technique.HitStun;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -39,6 +42,8 @@ public class ThrownChakramEntity extends Entity {
     private boolean offhand;
     private boolean chain;
     private boolean airtimeScale;
+    private boolean saw;
+    private int sawHits;
     private int hopIndex;
     private final List<UUID> hops = new ArrayList<>();
 
@@ -89,6 +94,18 @@ public class ThrownChakramEntity extends Entity {
         thrown.outboundTicks = (int) Math.max(8, Math.min(30, Math.round(reach / 0.55)));
         thrown.lifetime = thrown.outboundTicks * 3 + 10;
         thrown.setDeltaMovement(player.getLookAngle().normalize().scale(airtimeScale ? 0.55 : 0.95));
+        level.addFreshEntity(thrown);
+        OutLock.lock(player, offhand);
+        return true;
+    }
+
+    public static boolean launchSaw(ServerLevel level, ServerPlayer player, ItemStack stack, Technique technique,
+                                   double damage, boolean offhand) {
+        ThrownChakramEntity thrown = base(level, player, stack, technique, damage, offhand);
+        thrown.saw = true;
+        thrown.outboundTicks = 24;
+        thrown.lifetime = 76;
+        thrown.setDeltaMovement(player.getLookAngle().normalize().scale(1.0));
         level.addFreshEntity(thrown);
         OutLock.lock(player, offhand);
         return true;
@@ -204,6 +221,7 @@ public class ThrownChakramEntity extends Entity {
     public void tick() {
         super.tick();
         if (level().isClientSide) {
+            spinTrail();
             return;
         }
         age++;
@@ -241,6 +259,20 @@ public class ThrownChakramEntity extends Entity {
         if (!chain) {
             sweep(owner);
         }
+    }
+
+    private void spinTrail() {
+        Vec3 motion = getDeltaMovement();
+        if (motion.lengthSqr() < 1.0e-5) {
+            return;
+        }
+        Vec3 side = motion.normalize().cross(new Vec3(0.0, 1.0, 0.0));
+        if (side.lengthSqr() < 1.0e-5) {
+            return;
+        }
+        side = side.normalize().scale(0.42);
+        level().addParticle(ParticleTypes.END_ROD, getX() + side.x, getY(), getZ() + side.z, 0.0, 0.0, 0.0);
+        level().addParticle(ParticleTypes.END_ROD, getX() - side.x, getY(), getZ() - side.z, 0.0, 0.0, 0.0);
     }
 
     private boolean advanceHop(ServerPlayer owner) {
@@ -281,6 +313,27 @@ public class ThrownChakramEntity extends Entity {
             if (age < cooldown) {
                 continue;
             }
+            if (saw) {
+                if (sawHits >= 10) {
+                    returning = true;
+                    break;
+                }
+                sawHits++;
+                hitCooldowns.put(target.getUUID(), age + 4);
+                EffectSupport.hit(owner, target, (float) (damage * 0.3), technique, 0.0, 0.0);
+                HitStun.pin(target, 5);
+                Vec3 direction = getDeltaMovement();
+                if (direction.lengthSqr() > 1.0e-5) {
+                    Vec3 push = direction.normalize().scale(0.5);
+                    GestureScheduler.schedule(level(), 5, () -> {
+                        if (target.isAlive() && !target.isRemoved()) {
+                            target.push(push.x, 0.12, push.z);
+                            target.hurtMarked = true;
+                        }
+                    });
+                }
+                continue;
+            }
             hitCooldowns.put(target.getUUID(), age + 8);
             double scaled = airtimeScale ? damage * (1.0 + Math.min(0.6, age * 0.02)) : damage;
             EffectSupport.hit(owner, target, (float) scaled, technique, 0.4, 0.0);
@@ -311,6 +364,8 @@ public class ThrownChakramEntity extends Entity {
         returning = tag.getBoolean("Returning");
         offhand = tag.getBoolean("Offhand");
         airtimeScale = tag.getBoolean("Airtime");
+        saw = tag.getBoolean("Saw");
+        sawHits = tag.getInt("SawHits");
     }
 
     @Override
@@ -327,6 +382,8 @@ public class ThrownChakramEntity extends Entity {
         tag.putBoolean("Returning", returning);
         tag.putBoolean("Offhand", offhand);
         tag.putBoolean("Airtime", airtimeScale);
+        tag.putBoolean("Saw", saw);
+        tag.putInt("SawHits", sawHits);
     }
 
     @Override
