@@ -20,7 +20,10 @@ public final class SkirmishEffect implements TechniqueEffect {
     private static final int WINDOW = 8;
     private static final double SEARCH_BONUS = 4.0;
     private static final double MAX_SEARCH_ANGLE = 75.0;
-    private static final double MAX_DASH_DISTANCE = 3.4;
+    private static final double MAX_DASH_DISTANCE = 4.8;
+    private static final double DASH_STEP = 0.30;
+    private static final int DASH_TICKS = 12;
+    private static final double FREE_DASH_DISTANCE = 3.6;
 
     private final double range;
     private final double arcDegrees;
@@ -52,16 +55,16 @@ public final class SkirmishEffect implements TechniqueEffect {
         double stopDistance = Math.max(2.5, reach * 0.7);
         float damage = (float) (EffectSupport.damageOf(player, technique, stack)
                 * AbilityConfigs.damageMultiplier(technique, stack, damageMultiplier));
-        LivingEntity target = bestTarget(player, reach + SEARCH_BONUS);
+        LivingEntity target = player.onGround() ? bestTarget(player, reach + SEARCH_BONUS) : null;
 
         int windup = AbilityConfigs.windupTicks(technique, stack);
         int ticks;
         if (target != null) {
             Vec3 destination = DashMovement.stopPoint(player, target, stopDistance, MAX_DASH_DISTANCE);
-            ticks = DashMovement.run(player, level, destination, 3, windup + 2);
+            ticks = DashMovement.run(player, level, destination, DASH_TICKS, windup + 2, DASH_STEP);
         } else {
-            Vec3 destination = DashMovement.forwardPoint(player, Math.min(MAX_DASH_DISTANCE, 2.4));
-            ticks = DashMovement.run(player, level, destination, 3, windup + 2);
+            Vec3 destination = DashMovement.forwardPoint(player, Math.min(MAX_DASH_DISTANCE, FREE_DASH_DISTANCE));
+            ticks = DashMovement.run(player, level, destination, DASH_TICKS, windup + 2, DASH_STEP);
         }
         scheduleStats(level, player, technique, stack, hitbox, damage, ticks + windup, target);
 
@@ -72,7 +75,7 @@ public final class SkirmishEffect implements TechniqueEffect {
         }
         Vec3 back = flat.normalize().scale(-dash);
         GestureScheduler.schedule(level, retreatDelay, () -> {
-            if (player.isAlive() && !player.isRemoved() && player.level() == level) {
+            if (player.isAlive() && !player.isRemoved() && player.level() == level && player.onGround()) {
                 player.push(back.x, 0.02, back.z);
                 player.hurtMarked = true;
             }

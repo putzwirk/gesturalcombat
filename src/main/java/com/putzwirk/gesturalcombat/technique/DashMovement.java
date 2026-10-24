@@ -39,6 +39,10 @@ public final class DashMovement {
     }
 
     public static int run(ServerPlayer player, Level level, Vec3 destination, int maxTicks, int holdTicks) {
+        return run(player, level, destination, maxTicks, holdTicks, STEP);
+    }
+
+    public static int run(ServerPlayer player, Level level, Vec3 destination, int maxTicks, int holdTicks, double step) {
         Vec3 from = player.position();
         Vec3 end = clamp(player, level, from, destination);
         int hold = Math.max(1, holdTicks);
@@ -49,7 +53,7 @@ public final class DashMovement {
             }
             return 0;
         }
-        int ticks = Math.max(1, Math.min(maxTicks, (int) Math.ceil(distance / STEP)));
+        int ticks = Math.max(1, Math.min(maxTicks, (int) Math.ceil(distance / Math.max(MIN_STEP, step))));
         for (int i = 1; i <= ticks; i++) {
             float progress = i / (float) ticks;
             Vec3 point = from.add(end.subtract(from).scale(progress));
