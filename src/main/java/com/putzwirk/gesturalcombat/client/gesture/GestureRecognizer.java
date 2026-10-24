@@ -163,7 +163,7 @@ public final class GestureRecognizer {
         if (depth < height * 0.38f || Math.abs(startY - endY) > height * 0.62f) {
             return null;
         }
-        if (!narrow && Math.abs(apexX - (startX + endX) * 0.5f) > width * 0.40f) {
+        if (!narrow && Math.abs(apexX - (startX + endX) * 0.5f) > width * 0.50f) {
             return null;
         }
         float firstArm = (float) Math.sqrt((apexX - startX) * (apexX - startX) + (apexY - startY) * (apexY - startY));
@@ -178,14 +178,14 @@ public final class GestureRecognizer {
             if (Math.abs(leftSpan) < width * 0.22f || Math.abs(rightSpan) < width * 0.22f) {
                 return null;
             }
-            if (leftSpan * rightSpan > 0.0f) {
+            if (leftSpan * rightSpan <= 0.0f) {
                 return null;
             }
         }
         float depthScore = clamp01(depth / Math.max(height * 0.7f, 1.0e-5f));
         float symmetry = Math.min(firstArm, secondArm) / longer;
         float turnScore = clamp01((absoluteTurn - 40.0f) / 140.0f);
-        float centerScore = clamp01(1.0f - Math.abs(apexX - (startX + endX) * 0.5f) / Math.max(width * 0.40f, 1.0e-5f));
+        float centerScore = clamp01(1.0f - Math.abs(apexX - (startX + endX) * 0.5f) / Math.max(width * 0.50f, 1.0e-5f));
         float confidence = clamp01(depthScore * 0.30f + symmetry * 0.30f + turnScore * 0.25f + centerScore * 0.15f);
         return confidence >= 0.35f ? new Result(shape, confidence) : null;
     }
