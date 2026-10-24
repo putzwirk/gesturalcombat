@@ -77,9 +77,6 @@ public final class AnimationCatalog {
         if (value.equals("chakram")) {
             return shape == GestureShape.LINE_H || shape == GestureShape.CIRCLE || shape == GestureShape.ZIGZAG;
         }
-        if (value.equals("trident") || value.equals("mace")) {
-            return shape == GestureShape.ZIGZAG;
-        }
         return false;
     }
 

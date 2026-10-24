@@ -44,6 +44,7 @@ public class ThrownChakramEntity extends Entity {
     private boolean saw;
     private int sawHits;
     private int hopIndex;
+    private int stuckUntil;
     private final List<UUID> hops = new ArrayList<>();
 
     public ThrownChakramEntity(EntityType<? extends ThrownChakramEntity> type, Level level) {
@@ -78,9 +79,9 @@ public class ThrownChakramEntity extends Entity {
         ThrownChakramEntity chakram = base(level, player, stack, technique, damage, offhand);
         chakram.chain = true;
         chakram.hops.addAll(path);
-        chakram.outboundTicks = 8 * path.size();
-        chakram.lifetime = 8 * path.size() + 30;
-        chakram.setDeltaMovement(player.getLookAngle().normalize().scale(0.9));
+        chakram.outboundTicks = 20 * path.size();
+        chakram.lifetime = 20 * path.size() + 40;
+        chakram.setDeltaMovement(flatLook(player).scale(0.55));
         level.addFreshEntity(chakram);
         OutLock.lock(player, offhand);
         return true;
@@ -229,7 +230,9 @@ public class ThrownChakramEntity extends Entity {
         }
         ServerPlayer owner = owner();
         if (chain && !returning && owner != null) {
-            if (!advanceHop(owner)) {
+            if (age < stuckUntil) {
+                setDeltaMovement(0.0, 0.0, 0.0);
+            } else if (!advanceHop(owner)) {
                 returning = true;
             }
         }
@@ -259,6 +262,15 @@ public class ThrownChakramEntity extends Entity {
         }
     }
 
+    private static Vec3 flatLook(ServerPlayer player) {
+        Vec3 look = player.getLookAngle();
+        Vec3 flat = new Vec3(look.x, 0.0, look.z);
+        if (flat.lengthSqr() < 1.0e-4) {
+            return player.getLookAngle();
+        }
+        return flat.normalize();
+    }
+
     private boolean advanceHop(ServerPlayer owner) {
         while (hopIndex < hops.size()) {
             Entity entity = level() instanceof ServerLevel server ? server.getEntity(hops.get(hopIndex)) : null;
@@ -271,12 +283,21 @@ public class ThrownChakramEntity extends Entity {
                 Technique technique = Techniques.get(techniqueId);
                 if (technique != null) {
                     double falloff = Math.max(0.55, 1.0 - 0.15 * hopIndex);
-                    EffectSupport.hit(owner, target, (float) (damage * falloff), technique, 0.3, 0.0);
+                    EffectSupport.hit(owner, target, (float) (damage * falloff), technique, 0.0, 0.0);
+                    HitStun.pin(target, 4);
+                    Vec3 direction = flatLook(owner);
+                    GestureScheduler.schedule(level(), 4, () -> {
+                        if (target.isAlive() && !target.isRemoved()) {
+                            target.push(direction.x * 0.35, 0.1, direction.z * 0.35);
+                            target.hurtMarked = true;
+                        }
+                    });
                 }
+                stuckUntil = age + 6;
                 hopIndex++;
                 continue;
             }
-            setDeltaMovement(to.normalize().scale(0.95));
+            setDeltaMovement(to.normalize().scale(0.55));
             return true;
         }
         return false;

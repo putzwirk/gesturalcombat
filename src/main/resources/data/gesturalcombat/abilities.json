@@ -657,6 +657,14 @@
     "pyre_z": {
       "gesture": "ZIGZAG",
       "cooldown_ticks": 42
+    },
+    "trident_z": {
+      "gesture": "ZIGZAG",
+      "cooldown_ticks": 20
+    },
+    "mace_z": {
+      "gesture": "ZIGZAG",
+      "cooldown_ticks": 32
     }
   }
 }

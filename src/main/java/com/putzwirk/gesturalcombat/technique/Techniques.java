@@ -16,6 +16,7 @@ import com.putzwirk.gesturalcombat.technique.effect.FamilyArcEffect;
 import com.putzwirk.gesturalcombat.technique.effect.FamilyFlurryEffect;
 import com.putzwirk.gesturalcombat.technique.effect.GuardEffect;
 import com.putzwirk.gesturalcombat.technique.effect.LinePierceEffect;
+import com.putzwirk.gesturalcombat.technique.effect.MaceSlamEffect;
 import com.putzwirk.gesturalcombat.technique.effect.MomentumDumpEffect;
 import com.putzwirk.gesturalcombat.technique.effect.MomentumSweepEffect;
 import com.putzwirk.gesturalcombat.technique.effect.PostureEffect;
@@ -60,6 +61,15 @@ public final class Techniques {
 
     public static final Technique GLAIVE_Z = add(new Technique("glaive_z", Archetype.SPEAR, GestureShape.ZIGZAG, 7, 36, null, 14,
             new GlaiveSweepEffect(4.2, 220, 1.6), "glaive"));
+
+    public static final Technique TRIDENT_Z = add(new Technique("trident_z", Archetype.SPEAR, GestureShape.ZIGZAG, 4, 20, null, 10,
+            new FamilyFlurryEffect(4.0, 45, 1.5, 3, 3, 0.2, 0.0, (player, target, damage, index) -> {
+                States.addBleed(target, player, 1);
+                return damage;
+            }), "trident"));
+
+    public static final Technique MACE_Z = add(new Technique("mace_z", Archetype.AXE, GestureShape.ZIGZAG, 4, 32, null, 12,
+            new MaceSlamEffect(2.8, 120, 1.8), "mace"));
 
     public static final Technique GREATAXE_SWEEP = add(new Technique("greataxe_sweep", Archetype.AXE, GestureShape.LINE_H, 1, 16, null, 8, new MomentumSweepEffect(4.0, 200, 0.9), "greataxe"));
     public static final Technique GREATAXE_Z = add(new Technique("greataxe_z", Archetype.AXE, GestureShape.ZIGZAG, 7, 42, null, 16,

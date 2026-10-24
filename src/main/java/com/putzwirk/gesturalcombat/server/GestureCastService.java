@@ -123,12 +123,6 @@ public final class GestureCastService {
                 launched = ThrownChakramEntity.launchChain(serverLevel, player, stack, technique, damage, offhand);
             } else if ("chakram".equalsIgnoreCase(family) && shape == GestureShape.ZIGZAG) {
                 launched = ThrownChakramEntity.launchSaw(serverLevel, player, stack, technique, damage, offhand);
-            } else if ("trident".equalsIgnoreCase(family) && shape == GestureShape.ZIGZAG) {
-                launched = ThrownChakramEntity.launchWeapon(serverLevel, player, stack, technique, damage,
-                        EffectSupport.weaponReach(stack), offhand, false);
-            } else if ("mace".equalsIgnoreCase(family) && shape == GestureShape.ZIGZAG) {
-                launched = ThrownChakramEntity.launchWeapon(serverLevel, player, stack, technique, damage,
-                        8.0, offhand, true);
             } else if ("chakram".equalsIgnoreCase(family) && shape == GestureShape.LINE_H) {
                 ThrownChakramEntity.launch(serverLevel, player, stack, technique, damage, EffectSupport.weaponReach(stack), offhand);
                 launched = true;
