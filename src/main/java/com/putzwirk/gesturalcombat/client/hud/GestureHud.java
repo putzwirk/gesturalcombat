@@ -323,6 +323,9 @@ public final class GestureHud {
 
         int slot = 0;
         for (GestureShape shape : STRIP) {
+            if (com.putzwirk.gesturalcombat.weapon.WeaponRules.blocked(stack, shape)) {
+                continue;
+            }
             Technique technique = Techniques.forGesture(held, shape, stack);
             if (technique == null) {
                 continue;

@@ -47,7 +47,7 @@ public class ThrownChakramEntity extends Entity {
     }
 
     public static void launch(ServerLevel level, ServerPlayer player, ItemStack stack, Technique technique,
-                              double damage, double reach) {
+                              double damage, double reach, boolean offhand) {
         ThrownChakramEntity chakram = new ThrownChakramEntity(ModEntities.THROWN_CHAKRAM.get(), level);
         chakram.setPos(player.getX(), player.getEyeY() - 0.25, player.getZ());
         chakram.setYRot(player.getYRot());
@@ -58,9 +58,11 @@ public class ThrownChakramEntity extends Entity {
         chakram.damage = Math.max(1.0, damage);
         chakram.outboundTicks = (int) Math.max(6, Math.min(26, Math.round(reach / 0.7)));
         chakram.lifetime = chakram.outboundTicks * 3 + 6;
+        chakram.offhand = offhand;
         Vec3 direction = player.getLookAngle();
         chakram.setDeltaMovement(direction.normalize().scale(0.7));
         level.addFreshEntity(chakram);
+        OutLock.lock(player, offhand);
     }
 
     public static boolean launchChain(ServerLevel level, ServerPlayer player, ItemStack stack, Technique technique,

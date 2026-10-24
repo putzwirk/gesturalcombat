@@ -67,6 +67,9 @@ public final class GestureCastService {
         if (OutLock.isLocked(player, offhand)) {
             return;
         }
+        if (com.putzwirk.gesturalcombat.weapon.WeaponRules.blocked(player.getItemInHand(offhand ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND), shape)) {
+            return;
+        }
         if (GuardState.isGuarding(player)) {
             GuardState.end(player);
             if (player.isUsingItem()) {
@@ -120,9 +123,8 @@ public final class GestureCastService {
             } else if ("mace".equalsIgnoreCase(family) && shape == GestureShape.ZIGZAG) {
                 launched = ThrownChakramEntity.launchWeapon(serverLevel, player, stack, technique, damage,
                         8.0, offhand, true);
-            } else if ("chakram".equalsIgnoreCase(family)
-                    && (shape == GestureShape.LINE_H || shape == GestureShape.LINE_V_DOWN)) {
-                ThrownChakramEntity.launch(serverLevel, player, stack, technique, damage, EffectSupport.weaponReach(stack));
+            } else if ("chakram".equalsIgnoreCase(family) && shape == GestureShape.LINE_H) {
+                ThrownChakramEntity.launch(serverLevel, player, stack, technique, damage, EffectSupport.weaponReach(stack), offhand);
                 launched = true;
             }
         }
