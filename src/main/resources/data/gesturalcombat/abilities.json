@@ -665,6 +665,42 @@
     "mace_z": {
       "gesture": "ZIGZAG",
       "cooldown_ticks": 32
+    },
+    "glaive_rise": {
+      "gesture": "LINE_V_UP",
+      "cooldown_ticks": 18
+    },
+    "glaive_drop": {
+      "gesture": "LINE_V_DOWN",
+      "cooldown_ticks": 45
+    },
+    "greataxe_rise": {
+      "gesture": "LINE_V_UP",
+      "cooldown_ticks": 20
+    },
+    "greataxe_drop": {
+      "gesture": "LINE_V_DOWN",
+      "cooldown_ticks": 48
+    },
+    "greathammer_rise": {
+      "gesture": "LINE_V_UP",
+      "cooldown_ticks": 21
+    },
+    "pyre_rise": {
+      "gesture": "LINE_V_UP",
+      "cooldown_ticks": 19
+    },
+    "mace_cut": {
+      "gesture": "LINE_H",
+      "cooldown_ticks": 16
+    },
+    "mace_rise": {
+      "gesture": "LINE_V_UP",
+      "cooldown_ticks": 20
+    },
+    "mace_drop": {
+      "gesture": "LINE_V_DOWN",
+      "cooldown_ticks": 45
     }
   }
 }

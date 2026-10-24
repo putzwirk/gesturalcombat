@@ -12,7 +12,7 @@ public final class WeaponRules {
     private static final Set<String> LIGHT = Set.of("rapier", "sickle", "soul_knife", "katana", "trident");
     private static final Set<String> AREA = Set.of("battlestaff", "twinblade", "warglaive", "scythe");
     private static final Set<GestureShape> HEAVY_LOCKED = java.util.EnumSet.of(GestureShape.CIRCLE,
-            GestureShape.CARET, GestureShape.V, GestureShape.LINE_V_UP);
+            GestureShape.CARET, GestureShape.V);
     private static final int HEAVY_TAIL = 12;
 
     private WeaponRules() {
