@@ -26,6 +26,7 @@ public final class TrailCapture {
     private static final Direction[] DIRECTIONS = {
             null, Direction.DOWN, Direction.UP, Direction.NORTH, Direction.SOUTH, Direction.WEST, Direction.EAST
     };
+    private static final double EDGE_START = 0.55;
     private static final Vec3[] FALLBACK = {
             new Vec3(0.5, 0.05, 0.5),
             new Vec3(0.5, 1.0, 0.5)
@@ -109,7 +110,7 @@ public final class TrailCapture {
         if (tip.distanceToSqr(base) < 1.0e-4) {
             return;
         }
-        TrailManager.sample(owner.getId(), base, tip);
+        TrailManager.sample(owner.getId(), base.lerp(tip, EDGE_START), tip);
     }
 
     private static Vec3 toWorld(Camera camera, Vec3 view) {
