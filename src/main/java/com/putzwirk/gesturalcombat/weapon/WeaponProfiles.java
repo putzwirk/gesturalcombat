@@ -106,7 +106,11 @@ public final class WeaponProfiles {
     @javax.annotation.Nullable
     public static String family(ItemStack stack) {
         WeaponProfile profile = profile(stack);
-        return profile == null ? null : profile.family();
+        if (profile != null && profile.family() != null) {
+            return profile.family();
+        }
+        String combat = com.putzwirk.gesturalcombat.compat.BetterCombatBridge.category(stack);
+        return combat == null || combat.isBlank() ? null : combat.toLowerCase(java.util.Locale.ROOT);
     }
 
     public static double damageMultiplier(ItemStack stack) {

@@ -25,6 +25,9 @@ public final class ClientNet {
 
     public static void abilitySync(String abilities, String weapons) {
         com.putzwirk.gesturalcombat.technique.AbilityConfigs.loadFromJson(abilities, weapons);
+        com.putzwirk.gesturalcombat.Gesturalcombat.LOGGER.info("gesturalcombat client sync: {} techniques, {} profiles",
+                com.putzwirk.gesturalcombat.technique.AbilityConfigs.count(),
+                com.putzwirk.gesturalcombat.weapon.WeaponProfiles.count());
     }
 
     public static void mastery(CompoundTag data) {

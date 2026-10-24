@@ -342,6 +342,10 @@ public final class Techniques {
     private Techniques() {
     }
 
+    static {
+        applyConfig();
+    }
+
     private static Technique add(Technique technique) {
         BY_ID.put(technique.id(), technique);
         BY_ARCHETYPE.computeIfAbsent(technique.archetype(), k -> new EnumMap<>(GestureShape.class)).put(technique.shape(), technique);
