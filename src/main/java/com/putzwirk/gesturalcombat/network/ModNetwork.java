@@ -26,6 +26,7 @@ public final class ModNetwork {
         CHANNEL.registerMessage(nextId++, CastEffectPacket.class, CastEffectPacket::encode, CastEffectPacket::decode, CastEffectPacket::handle);
         CHANNEL.registerMessage(nextId++, AbilitySyncPacket.class, AbilitySyncPacket::encode, AbilitySyncPacket::decode, AbilitySyncPacket::handle);
         CHANNEL.registerMessage(nextId++, FxPacket.class, FxPacket::encode, FxPacket::decode, FxPacket::handle);
+        CHANNEL.registerMessage(nextId++, FirePatchPacket.class, FirePatchPacket::encode, FirePatchPacket::decode, FirePatchPacket::handle);
     }
 
     public static void sendToServer(Object message) {
@@ -42,5 +43,10 @@ public final class ModNetwork {
 
     public static void sendToAll(Object message) {
         CHANNEL.send(PacketDistributor.ALL.noArg(), message);
+    }
+
+    public static void sendNear(net.minecraft.world.level.Level level, double x, double y, double z, double radius, Object message) {
+        CHANNEL.send(PacketDistributor.NEAR.with(() -> new PacketDistributor.TargetPoint(
+                x, y, z, radius, level.dimension())), message);
     }
 }

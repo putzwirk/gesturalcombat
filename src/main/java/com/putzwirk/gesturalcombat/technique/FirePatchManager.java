@@ -1,10 +1,11 @@
 package com.putzwirk.gesturalcombat.technique;
 
 import com.putzwirk.gesturalcombat.Gesturalcombat;
-import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.phys.AABB;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.server.ServerStoppedEvent;
@@ -12,20 +13,44 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 @Mod.EventBusSubscriber(modid = Gesturalcombat.MODID)
 public final class FirePatchManager {
     public static final String TAG = "gesturalcombat_fire_arrow";
+
+    private static final int GROWTH_TICKS = 8;
+    private static final int MAX_BLOCKS = 24;
+    private static final int REMOVE_PER_TICK = 2;
+
     private static final List<Patch> PATCHES = new ArrayList<>();
 
     private FirePatchManager() {
     }
 
-    public static void spawn(ServerLevel level, Vec3 pos, int durationTicks, double radius, float damage) {
-        long now = level.getGameTime();
-        PATCHES.add(new Patch(level, pos, now + Math.max(1, durationTicks), now + 20, Math.max(0.5, radius), damage));
+    public static void spawn(ServerLevel level, Vec3 pos, int durationTicks, double radius) {
+        double clamped = Math.max(1.0, radius);
+        PATCHES.add(new Patch(level, BlockPos.containing(pos), level.getGameTime() + Math.max(20, durationTicks), clamped));
+        com.putzwirk.gesturalcombat.network.ModNetwork.sendNear(level, pos.x, pos.y, pos.z, 96.0,
+                new com.putzwirk.gesturalcombat.network.FirePatchPacket(pos.x, pos.y, pos.z, clamped, durationTicks));
+    }
+
+    public static boolean protects(Level level, BlockPos pos) {
+        if (level.isClientSide()) {
+            return com.putzwirk.gesturalcombat.client.FireClientPatches.protects(pos);
+        }
+        if (PATCHES.isEmpty()) {
+            return false;
+        }
+        for (Patch patch : PATCHES) {
+            if (patch.level == level && patch.blocks.contains(pos)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @SubscribeEvent
@@ -40,28 +65,8 @@ public final class FirePatchManager {
                 iterator.remove();
                 continue;
             }
-            long now = patch.level.getGameTime();
-            if (now > patch.until) {
-                patch.level.sendParticles(ParticleTypes.LARGE_SMOKE, patch.pos.x, patch.pos.y + 0.3, patch.pos.z,
-                        8, 0.5, 0.2, 0.5, 0.02);
+            if (!patch.update(patch.level.getGameTime())) {
                 iterator.remove();
-                continue;
-            }
-            for (int i = 0; i < 4; i++) {
-                double angle = patch.level.random.nextDouble() * Math.PI * 2.0;
-                double distance = patch.level.random.nextDouble() * patch.radius;
-                double x = patch.pos.x + Math.cos(angle) * distance;
-                double z = patch.pos.z + Math.sin(angle) * distance;
-                patch.level.sendParticles(ParticleTypes.FLAME, x, patch.pos.y + 0.1, z, 1, 0.0, 0.0, 0.0, 0.0);
-            }
-            if (now >= patch.nextDamage) {
-                patch.nextDamage = now + 20;
-                AABB area = new AABB(patch.pos, patch.pos).inflate(patch.radius);
-                for (LivingEntity entity : patch.level.getEntitiesOfClass(LivingEntity.class, area,
-                        e -> e.isAlive() && !e.isSpectator())) {
-                    entity.setSecondsOnFire(40);
-                    entity.hurt(patch.level.damageSources().inFire(), patch.damage);
-                }
             }
         }
     }
@@ -73,19 +78,113 @@ public final class FirePatchManager {
 
     private static final class Patch {
         private final ServerLevel level;
-        private final Vec3 pos;
+        private final BlockPos center;
         private final long until;
-        private long nextDamage;
         private final double radius;
-        private final float damage;
+        private final Set<BlockPos> blocks = new HashSet<>();
+        private int removalCursor;
 
-        private Patch(ServerLevel level, Vec3 pos, long until, long nextDamage, double radius, float damage) {
+        private Patch(ServerLevel level, BlockPos center, long until, double radius) {
             this.level = level;
-            this.pos = pos;
+            this.center = center;
             this.until = until;
-            this.nextDamage = nextDamage;
             this.radius = radius;
-            this.damage = damage;
+            placeIfValid(center);
+            placeIfValid(center.above());
+            placeIfValid(center.east());
+            placeIfValid(center.west());
+            placeIfValid(center.north());
+            placeIfValid(center.south());
+        }
+
+        private boolean update(long now) {
+            if (now < until) {
+                grow();
+                keepAlive();
+                return true;
+            }
+            return removeStep();
+        }
+
+        private void grow() {
+            if (blocks.size() >= MAX_BLOCKS) {
+                return;
+            }
+            if (level.getGameTime() % 2 != 0) {
+                return;
+            }
+            List<BlockPos> existing = new ArrayList<>(blocks);
+            for (BlockPos origin : existing) {
+                for (int attempt = 0; attempt < 2; attempt++) {
+                    int dx = level.random.nextInt(3) - 1;
+                    int dz = level.random.nextInt(3) - 1;
+                    int dy = level.random.nextInt(5) == 0 ? (level.random.nextBoolean() ? 1 : -1) : 0;
+                    placeIfValid(origin.offset(dx, dy, dz));
+                    if (blocks.size() >= MAX_BLOCKS) {
+                        return;
+                    }
+                }
+            }
+            if (existing.size() < 4) {
+                double angle = level.random.nextDouble() * Math.PI * 2.0;
+                double distance = 1.0 + level.random.nextDouble() * radius;
+                BlockPos spread = BlockPos.containing(center.getX() + 0.5 + Math.cos(angle) * distance,
+                        center.getY() + 0.5, center.getZ() + 0.5 + Math.sin(angle) * distance);
+                placeIfValid(findSupport(spread));
+            }
+        }
+
+        private void keepAlive() {
+            for (BlockPos pos : blocks) {
+                if (!level.getBlockState(pos).is(Blocks.FIRE)) {
+                    level.setBlock(pos, Blocks.FIRE.defaultBlockState(), 2);
+                }
+            }
+        }
+
+        private boolean removeStep() {
+            List<BlockPos> ordered = new ArrayList<>(blocks);
+            int removed = 0;
+            while (removalCursor < ordered.size() && removed < REMOVE_PER_TICK) {
+                BlockPos pos = ordered.get(removalCursor++);
+                if (level.getBlockState(pos).is(Blocks.FIRE)) {
+                    level.setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
+                }
+                blocks.remove(pos);
+                removed++;
+            }
+            return blocks.isEmpty();
+        }
+
+        private void placeIfValid(BlockPos pos) {
+            if (blocks.size() >= MAX_BLOCKS || blocks.contains(pos)) {
+                return;
+            }
+            if (!level.isLoaded(pos) || !level.getBlockState(pos).isAir()) {
+                return;
+            }
+            if (Math.abs(pos.getX() - center.getX()) > radius + 2
+                    || Math.abs(pos.getZ() - center.getZ()) > radius + 2
+                    || Math.abs(pos.getY() - center.getY()) > 3) {
+                return;
+            }
+            BlockState fire = Blocks.FIRE.defaultBlockState();
+            if (!fire.canSurvive(level, pos)) {
+                return;
+            }
+            level.setBlock(pos, fire, 2);
+            blocks.add(pos.immutable());
+        }
+
+        private BlockPos findSupport(BlockPos pos) {
+            for (int dy = 2; dy >= -3; dy--) {
+                BlockPos candidate = pos.offset(0, dy, 0);
+                BlockState fire = Blocks.FIRE.defaultBlockState();
+                if (level.getBlockState(candidate).isAir() && fire.canSurvive(level, candidate)) {
+                    return candidate;
+                }
+            }
+            return pos;
         }
     }
 }

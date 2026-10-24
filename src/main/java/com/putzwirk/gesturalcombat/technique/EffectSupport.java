@@ -70,6 +70,15 @@ public final class EffectSupport {
         return baseRange * reachFactor(player, technique, stack);
     }
 
+    public static double weaponReach(ItemStack stack) {
+        double absolute = WeaponProfiles.reach(stack);
+        if (absolute > 0.0) {
+            return absolute;
+        }
+        double combat = com.putzwirk.gesturalcombat.compat.BetterCombatBridge.attackRange(stack);
+        return Math.max(0.0, combat);
+    }
+
     public static double reachFactor(ServerPlayer player, Technique technique, ItemStack stack) {
         float passive = MasteryCapability.get(player).passive(technique.archetype(), Passive.RANGE);
         return (1.0f + passive) * WeaponProfiles.reachMultiplier(stack);
@@ -78,7 +87,7 @@ public final class EffectSupport {
     public static Hitbox scaleHitbox(ServerPlayer player, Technique technique, ItemStack stack, Hitbox box) {
         float passive = MasteryCapability.get(player).passive(technique.archetype(), Passive.RANGE);
         double factor = 1.0 + passive;
-        double absolute = WeaponProfiles.reach(stack);
+        double absolute = weaponReach(stack);
         double range = absolute > 0.0
                 ? absolute * factor
                 : box.range() * factor * WeaponProfiles.reachMultiplier(stack);

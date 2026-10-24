@@ -76,6 +76,7 @@ public final class ClientTickHandler {
         ClientState.reset();
         com.putzwirk.gesturalcombat.client.render.HitboxDebug.clear();
         com.putzwirk.gesturalcombat.client.fx.TrailManager.clear();
+        com.putzwirk.gesturalcombat.client.FireClientPatches.clear();
         com.putzwirk.gesturalcombat.technique.AbilityConfigs.clear();
         com.putzwirk.gesturalcombat.technique.Techniques.applyConfig();
     }

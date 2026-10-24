@@ -88,7 +88,7 @@ public final class AnimationCatalog {
             }
             return picked.toArray(new String[0]);
         }
-        return null;
+        return preferredHand(pool, twoHanded).toArray(new String[0]);
     }
 
     @Nullable

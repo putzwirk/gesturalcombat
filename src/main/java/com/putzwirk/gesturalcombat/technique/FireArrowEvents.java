@@ -25,7 +25,11 @@ public final class FireArrowEvents {
             return;
         }
         Vec3 at = event.getRayTraceResult() == null ? arrow.position() : event.getRayTraceResult().getLocation();
-        FirePatchManager.spawn(level, at, 100, 2.0, 1.5f);
+        try {
+            FirePatchManager.spawn(level, at, 120, 2.5);
+        } catch (RuntimeException exception) {
+            Gesturalcombat.LOGGER.error("Failed to spawn fire patch", exception);
+        }
         arrow.discard();
         event.setCanceled(true);
     }

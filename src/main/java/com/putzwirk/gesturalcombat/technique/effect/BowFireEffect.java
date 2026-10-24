@@ -19,7 +19,7 @@ public final class BowFireEffect implements TechniqueEffect {
         arrow.setPos(player.getX(), player.getEyeY() - 0.1, player.getZ());
         arrow.shoot(look.x, look.y, look.z, 3.0f, 0.4f);
         arrow.setBaseDamage(EffectSupport.damageOf(player, technique) * 0.3f);
-        arrow.setSecondsOnFire(100);
+        arrow.setCritArrow(true);
         arrow.getPersistentData().putBoolean(FirePatchManager.TAG, true);
         level.addFreshEntity(arrow);
         player.stopUsingItem();

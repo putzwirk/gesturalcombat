@@ -41,7 +41,7 @@ public final class HitboxDebug {
         float passive = ClientState.MASTERY.passive(technique.archetype(),
                 com.putzwirk.gesturalcombat.skill.Passive.RANGE);
         double factor = 1.0 + passive;
-        double absolute = com.putzwirk.gesturalcombat.weapon.WeaponProfiles.reach(stack);
+        double absolute = com.putzwirk.gesturalcombat.technique.EffectSupport.weaponReach(stack);
         box = box.withRange(absolute > 0.0
                 ? absolute * factor
                 : box.range() * factor * com.putzwirk.gesturalcombat.weapon.WeaponProfiles.reachMultiplier(stack));

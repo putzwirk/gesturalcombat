@@ -163,7 +163,8 @@ matched by item id, by glob, or by item tag, in file order — first match wins.
 - `reach` — optional **absolute** reach in blocks. When set it replaces
   `reach_multiplier` for every ability hitbox, so `4.2` means every technique
   with this weapon reaches exactly 4.2 blocks (before the mastery range
-  passive). Useful when a weapon should feel long without needing ratios.
+  passive). When omitted, the weapon's Better Combat `attack_range` is used
+  directly, so modded weapons get their own reach without any config.
 - `animations` — Better Combat animation ids played by gesture casts with this
   weapon. Each id is classified by name (`spin`/`whirl`, `slam`, `rising`,
   `stab`/`throw`, `vertical`, `slash`/`swipe`/`cross`) and matched to the

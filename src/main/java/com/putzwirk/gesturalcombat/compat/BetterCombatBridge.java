@@ -11,6 +11,7 @@ public final class BetterCombatBridge {
     private static boolean resolved;
     private static Method getAttributes;
     private static Method category;
+    private static Method attackRange;
     private static Method twoHanded;
     private static Object mainHand;
     private static Object twoHandedHand;
@@ -33,6 +34,7 @@ public final class BetterCombatBridge {
             getAttributes = registry.getMethod("getAttributes", ItemStack.class);
             Class<?> attributes = Class.forName("net.bettercombat.api.WeaponAttributes");
             category = attributes.getMethod("category");
+            attackRange = attributes.getMethod("attackRange");
             twoHanded = attributes.getMethod("isTwoHanded");
             Class<?> hand = Class.forName("net.bettercombat.logic.AnimatedHand");
             for (Object constant : hand.getEnumConstants()) {
@@ -72,6 +74,19 @@ public final class BetterCombatBridge {
             return result instanceof String text ? text : null;
         } catch (Throwable ignored) {
             return null;
+        }
+    }
+
+    public static double attackRange(ItemStack stack) {
+        Object value = attributes(stack);
+        if (value == null || attackRange == null) {
+            return 0.0;
+        }
+        try {
+            Object result = attackRange.invoke(value);
+            return result instanceof Number number ? number.doubleValue() : 0.0;
+        } catch (Throwable ignored) {
+            return 0.0;
         }
     }
 
