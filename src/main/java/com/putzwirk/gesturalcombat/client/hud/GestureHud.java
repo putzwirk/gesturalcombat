@@ -402,7 +402,7 @@ public final class GestureHud {
             }
             HudDraw.roundedRect(graphics, cx - half, y - half, PLATE_SIZE, PLATE_SIZE, 6.0f, plate);
 
-            boolean textured = AbilityIcons.present(id);
+            boolean textured = AbilityIcons.present(technique);
             int tint;
             if (!available) {
                 tint = textured ? LOCKED_ICON : LOCKED;
@@ -423,7 +423,7 @@ public final class GestureHud {
 
             int color = alpha >= 1.0f ? tint : HudDraw.withAlpha(tint, alpha);
             if (textured) {
-                AbilityIcons.draw(graphics, id, cx + shake, y, GLYPH_SIZE, color);
+                AbilityIcons.draw(graphics, technique, cx + shake, y, GLYPH_SIZE, color);
             } else {
                 HudDraw.drawGestureIcon(graphics, shape, cx + shake, y, GLYPH_SIZE, color);
             }

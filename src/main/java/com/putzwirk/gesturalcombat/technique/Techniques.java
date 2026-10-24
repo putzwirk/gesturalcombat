@@ -37,6 +37,7 @@ import java.util.EnumMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public final class Techniques {
     private static final Map<String, Technique> BY_ID = new LinkedHashMap<>();
@@ -339,6 +340,8 @@ public final class Techniques {
 
     public static final Technique BOW_FIRE = add(new Technique("bow_fire", Archetype.BOW, GestureShape.CIRCLE, 1, 80, null, 12, new BowFireEffect()));
 
+    private static final Set<String> OVERLAY_FAMILIES = Set.of("sword");
+
     private Techniques() {
     }
 
@@ -429,7 +432,13 @@ public final class Techniques {
             if (family != null) {
                 Map<GestureShape, Technique> familyMap = BY_FAMILY.get(family);
                 if (familyMap != null && !familyMap.isEmpty()) {
-                    return familyMap.get(shape);
+                    Technique technique = familyMap.get(shape);
+                    if (technique != null) {
+                        return technique;
+                    }
+                    if (!OVERLAY_FAMILIES.contains(family)) {
+                        return null;
+                    }
                 }
             }
         }
