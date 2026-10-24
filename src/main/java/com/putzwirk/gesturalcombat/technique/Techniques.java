@@ -172,14 +172,14 @@ public final class Techniques {
             }), "soul_knife"));
 
     public static final Technique TWINBLADE_CUT = add(new Technique("twinblade_cut", Archetype.SWORD, GestureShape.LINE_H, 1, 10, null, 6,
-            new FamilyFlurryEffect(3.5, 140, 1.0, 2, 4, 0.2, 0.0, (player, target, damage, index) -> {
+            new FamilyFlurryEffect(3.5, 200, 1.0, 2, 4, 0.2, 0.0, (player, target, damage, index) -> {
                 if (index == 0) {
                     States.addFlow(player, GestureShape.LINE_H);
                 }
                 return damage * (1.0 + 0.1 * States.flow(player));
             }), "battlestaff"));
     public static final Technique TWINBLADE_RISE = add(new Technique("twinblade_rise", Archetype.SWORD, GestureShape.LINE_V_UP, 1, 14, null, 8,
-            new FamilyFlurryEffect(3.5, 150, 1.4, 2, 4, 0.0, 0.3, (player, target, damage, index) -> {
+            new FamilyFlurryEffect(3.5, 200, 1.4, 2, 4, 0.0, 0.3, (player, target, damage, index) -> {
                 if (index == 0) {
                     States.addFlow(player, GestureShape.LINE_V_UP);
                 }
@@ -193,7 +193,7 @@ public final class Techniques {
                 return damage * (1.0 + 0.1 * States.flow(player));
             }), "battlestaff"));
     public static final Technique TWINBLADE_SLAM = add(new Technique("twinblade_slam", Archetype.SWORD, GestureShape.LINE_V_DOWN, 7, 40, null, 15,
-            new FamilyFlurryEffect(3.5, 80, 1.6, 2, 6, 0.5, 0.0, (player, target, damage, index) -> {
+            new FamilyFlurryEffect(3.5, 140, 1.6, 2, 6, 0.5, 0.0, (player, target, damage, index) -> {
                 if (index == 0) {
                     States.addFlow(player, GestureShape.LINE_V_DOWN);
                 }
@@ -203,7 +203,7 @@ public final class Techniques {
     public static final Technique WARGLAIVE_CUT = add(new Technique("warglaive_cut", Archetype.SPEAR, GestureShape.LINE_H, 1, 12, null, 7,
             new EdgePairedEffect(3.1, 0.7, 4, 1.25, 0.2), "warglaive"));
     public static final Technique WARGLAIVE_RISE = add(new Technique("warglaive_rise", Archetype.SPEAR, GestureShape.LINE_V_UP, 1, 14, null, 8,
-            new FamilyFlurryEffect(3.5, 120, 1.9, 5, 2, 0.2, 0.25, (player, target, damage, index) ->
+            new FamilyFlurryEffect(3.5, 200, 1.9, 5, 2, 0.2, 0.25, (player, target, damage, index) ->
                     index >= 2 && States.alternateEdge(player) ? damage * 1.25 : damage), "warglaive"));
     public static final Technique WARGLAIVE_FLURRY = add(new Technique("warglaive_flurry", Archetype.SPEAR, GestureShape.ZIGZAG, 4, 30, null, 12,
             new FamilyFlurryEffect(3.4, 360, 1.7, 3, 4, 0.4, 0.0, (player, target, damage, index) ->
@@ -289,7 +289,7 @@ public final class Techniques {
                 return damage;
             }), "scythe"));
     public static final Technique SCYTHE_DROP = add(new Technique("scythe_drop", Archetype.AXE, GestureShape.LINE_V_DOWN, 7, 45, null, 16,
-            new FamilyArcEffect(3.0, 90, 1.8, 0.4, 0.0, (player, target, damage, index) -> {
+            new FamilyArcEffect(3.0, 140, 1.8, 0.4, 0.0, (player, target, damage, index) -> {
                 boolean execute = target.getHealth() <= target.getMaxHealth() * 0.25f;
                 States.recordHarvest(player, target);
                 return damage * (execute ? 2.0 : 1.0);

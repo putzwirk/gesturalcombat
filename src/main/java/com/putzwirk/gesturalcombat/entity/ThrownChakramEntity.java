@@ -40,7 +40,6 @@ public class ThrownChakramEntity extends Entity {
     private boolean returning;
     private boolean offhand;
     private boolean chain;
-    private boolean airtimeScale;
     private boolean saw;
     private int sawHits;
     private int hopIndex;
@@ -83,18 +82,6 @@ public class ThrownChakramEntity extends Entity {
         chakram.lifetime = 20 * path.size() + 40;
         chakram.setDeltaMovement(flatLook(player).scale(0.55));
         level.addFreshEntity(chakram);
-        OutLock.lock(player, offhand);
-        return true;
-    }
-
-    public static boolean launchWeapon(ServerLevel level, ServerPlayer player, ItemStack stack, Technique technique,
-                                       double damage, double reach, boolean offhand, boolean airtimeScale) {
-        ThrownChakramEntity thrown = base(level, player, stack, technique, damage, offhand);
-        thrown.airtimeScale = airtimeScale;
-        thrown.outboundTicks = (int) Math.max(8, Math.min(30, Math.round(reach / 0.55)));
-        thrown.lifetime = thrown.outboundTicks * 3 + 10;
-        thrown.setDeltaMovement(player.getLookAngle().normalize().scale(airtimeScale ? 0.55 : 0.95));
-        level.addFreshEntity(thrown);
         OutLock.lock(player, offhand);
         return true;
     }
@@ -340,8 +327,7 @@ public class ThrownChakramEntity extends Entity {
                 continue;
             }
             hitCooldowns.put(target.getUUID(), age + 8);
-            double scaled = airtimeScale ? damage * (1.0 + Math.min(0.6, age * 0.02)) : damage;
-            EffectSupport.hit(owner, target, (float) scaled, technique, 0.4, 0.0);
+            EffectSupport.hit(owner, target, (float) damage, technique, 0.4, 0.0);
         }
     }
 
@@ -368,7 +354,6 @@ public class ThrownChakramEntity extends Entity {
         lifetime = Math.max(1, tag.getInt("Lifetime"));
         returning = tag.getBoolean("Returning");
         offhand = tag.getBoolean("Offhand");
-        airtimeScale = tag.getBoolean("Airtime");
         saw = tag.getBoolean("Saw");
         sawHits = tag.getInt("SawHits");
     }
@@ -386,7 +371,6 @@ public class ThrownChakramEntity extends Entity {
         tag.putInt("Lifetime", lifetime);
         tag.putBoolean("Returning", returning);
         tag.putBoolean("Offhand", offhand);
-        tag.putBoolean("Airtime", airtimeScale);
         tag.putBoolean("Saw", saw);
         tag.putInt("SawHits", sawHits);
     }

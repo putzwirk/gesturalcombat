@@ -9,11 +9,25 @@ import java.util.Set;
 
 public final class WeaponRules {
     private static final Set<String> HEAVY = Set.of("claymore", "glaive", "halberd", "greataxe", "greathammer", "heavy_axe");
+    private static final Set<String> LIGHT = Set.of("rapier", "sickle", "soul_knife", "katana", "trident");
     private static final Set<GestureShape> HEAVY_LOCKED = java.util.EnumSet.of(GestureShape.CIRCLE,
             GestureShape.CARET, GestureShape.V, GestureShape.LINE_V_UP);
     private static final int HEAVY_TAIL = 12;
 
     private WeaponRules() {
+    }
+
+    public static boolean light(ItemStack stack) {
+        String family = WeaponProfiles.family(stack);
+        return family != null && LIGHT.contains(family.toLowerCase(java.util.Locale.ROOT));
+    }
+
+    public static double cooldownFactor(ItemStack stack) {
+        return light(stack) ? 0.8 : 1.0;
+    }
+
+    public static double reachFactor(ItemStack stack) {
+        return light(stack) ? 0.93 : 1.0;
     }
 
     public static boolean heavy(ItemStack stack) {

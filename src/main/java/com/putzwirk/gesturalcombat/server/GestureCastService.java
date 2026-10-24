@@ -113,8 +113,10 @@ public final class GestureCastService {
         if (family == null || family.isBlank()) {
             family = com.putzwirk.gesturalcombat.compat.BetterCombatBridge.category(stack);
         }
-        com.putzwirk.gesturalcombat.Gesturalcombat.LOGGER.info("gesturalcombat cast: {} family={} shape={} hand={} special={}",
-                technique.id(), family, shape, offhand ? "off" : "main", special != null);
+        if (Config.INSTANCE.debugCasts.get()) {
+            com.putzwirk.gesturalcombat.Gesturalcombat.LOGGER.info("gesturalcombat cast: {} family={} shape={} hand={} special={}",
+                    technique.id(), family, shape, offhand ? "off" : "main", special != null);
+        }
         boolean launched = false;
         if (special == null && level instanceof ServerLevel serverLevel) {
             double damage = EffectSupport.damageOf(player, technique, stack)

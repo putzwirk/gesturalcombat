@@ -88,9 +88,10 @@ public final class EffectSupport {
         float passive = MasteryCapability.get(player).passive(technique.archetype(), Passive.RANGE);
         double factor = 1.0 + passive;
         double absolute = weaponReach(stack);
+        double family = com.putzwirk.gesturalcombat.weapon.WeaponRules.reachFactor(stack);
         double range = absolute > 0.0
-                ? absolute * factor
-                : box.range() * factor * WeaponProfiles.reachMultiplier(stack);
+                ? absolute * factor * family
+                : box.range() * factor * WeaponProfiles.reachMultiplier(stack) * family;
         return box.withRange(range);
     }
 
@@ -124,7 +125,8 @@ public final class EffectSupport {
         double config = Config.INSTANCE.cooldownMultiplier.get();
         double attackSpeedFactor = attackSpeedFactor(player, technique);
         double weapon = WeaponProfiles.cooldownMultiplier(stack);
-        return Math.max(4, (int) Math.round(baseTicks * config * (1.0f - reduction) * attackSpeedFactor * weapon));
+        double family = com.putzwirk.gesturalcombat.weapon.WeaponRules.cooldownFactor(stack);
+        return Math.max(4, (int) Math.round(baseTicks * config * (1.0f - reduction) * attackSpeedFactor * weapon * family));
     }
 
     private static double attackSpeedFactor(ServerPlayer player, Technique technique) {

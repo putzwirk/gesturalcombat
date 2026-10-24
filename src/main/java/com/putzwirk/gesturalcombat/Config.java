@@ -13,6 +13,7 @@ public final class Config {
     public final ForgeConfigSpec.DoubleValue xpMultiplier;
     public final ForgeConfigSpec.BooleanValue debugHitboxes;
     public final ForgeConfigSpec.BooleanValue weaponTrails;
+    public final ForgeConfigSpec.BooleanValue debugCasts;
 
     static {
         Pair<Config, ForgeConfigSpec> pair = new ForgeConfigSpec.Builder().configure(Config::new);
@@ -28,6 +29,7 @@ public final class Config {
         xpMultiplier = builder.defineInRange("xpMultiplier", 1.0, 0.0, 20.0);
         debugHitboxes = builder.define("debugHitboxes", false);
         weaponTrails = builder.define("weaponTrails", true);
+        debugCasts = builder.define("debugCasts", false);
         builder.pop();
     }
 }
