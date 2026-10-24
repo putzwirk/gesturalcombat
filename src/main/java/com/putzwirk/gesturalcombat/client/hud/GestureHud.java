@@ -336,7 +336,9 @@ public final class GestureHud {
             float cx = rightward ? originX + SLOT_SPACING * slot : originX - SLOT_SPACING * slot;
             slot++;
 
-            boolean available = ClientState.MASTERY.isTechniqueAvailable(technique) && !ClientState.hidden(!rightward);
+            boolean available = ClientState.MASTERY.isTechniqueAvailable(technique)
+                    && !ClientState.hidden(!rightward)
+                    && !ClientState.busy();
             String cooldownKey = CooldownKeys.of(stack, shape, technique);
             int remaining = ClientState.cooldownRemaining(cooldownKey);
             boolean cooling = remaining > 0;

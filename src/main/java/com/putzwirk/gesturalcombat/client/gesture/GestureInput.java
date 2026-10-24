@@ -4,6 +4,7 @@ import com.putzwirk.gesturalcombat.Config;
 import com.putzwirk.gesturalcombat.client.ClientState;
 import com.putzwirk.gesturalcombat.core.Archetype;
 import com.putzwirk.gesturalcombat.core.GestureShape;
+import com.putzwirk.gesturalcombat.weapon.WeaponRules;
 import com.putzwirk.gesturalcombat.core.HandGate;
 import com.putzwirk.gesturalcombat.compat.BetterCombatBridge;
 import com.putzwirk.gesturalcombat.network.CastTechniquePacket;
@@ -257,7 +258,8 @@ public final class GestureInput {
             clearPending();
             return;
         }
-        int remaining = ClientState.cooldownRemaining(pending.cooldownKey());
+        int wait = Math.max(0, pending.readyTick() - ClientState.ticks);
+        int remaining = Math.max(wait, ClientState.cooldownRemaining(pending.cooldownKey()));
         ClientState.pendingTicks = remaining;
         if (remaining <= 0) {
             PendingCast cast = pending;
@@ -453,10 +455,17 @@ public final class GestureInput {
             return false;
         }
         String cooldownKey = CooldownKeys.of(held, result.shape(), technique);
+        if (WeaponRules.busyTicks(technique, held) > 0 && ClientState.busy()) {
+            pending = new PendingCast(technique.id(), result.shape(), result.confidence(), swipe, hand, cooldownKey,
+                    ClientState.busyUntil);
+            ClientState.pendingTechnique = technique.id();
+            ClientState.pendingTicks = ClientState.busyRemaining();
+            return true;
+        }
         int remaining = ClientState.cooldownRemaining(cooldownKey);
         if (remaining > 0) {
             if (remaining <= CAST_BUFFER_TICKS) {
-                pending = new PendingCast(technique.id(), result.shape(), result.confidence(), swipe, hand, cooldownKey);
+                pending = new PendingCast(technique.id(), result.shape(), result.confidence(), swipe, hand, cooldownKey, 0);
                 ClientState.pendingTechnique = technique.id();
                 ClientState.pendingTicks = remaining;
                 return true;
@@ -481,9 +490,14 @@ public final class GestureInput {
         ModNetwork.sendToServer(new CastTechniquePacket(technique.id(), shape, confidence, swipe, hand == InteractionHand.OFF_HAND));
         ClientState.lastTechnique = technique.id();
         ClientState.castTicks = CAST_TICKS;
+        ItemStack held = mc.player == null ? ItemStack.EMPTY : mc.player.getItemInHand(hand);
+        int busy = WeaponRules.busyTicks(technique, held);
+        ClientState.busyUntil = busy <= 0 ? 0 : ClientState.ticks + busy;
+        ClientState.busyTotal = busy;
     }
 
-    private record PendingCast(String id, GestureShape shape, float confidence, int swipe, InteractionHand hand, String cooldownKey) {
+    private record PendingCast(String id, GestureShape shape, float confidence, int swipe, InteractionHand hand,
+                               String cooldownKey, int readyTick) {
     }
 
     private static int swipeDirection() {

@@ -42,6 +42,8 @@ public final class ClientState {
     public static int shieldLockTicks;
     public static String pendingTechnique = "";
     public static int pendingTicks;
+    public static int busyUntil;
+    public static int busyTotal;
 
     private ClientState() {
     }
@@ -73,6 +75,8 @@ public final class ClientState {
         shieldLockTicks = 0;
         pendingTechnique = "";
         pendingTicks = 0;
+        busyUntil = 0;
+        busyTotal = 0;
     }
 
     @Nullable
@@ -133,6 +137,14 @@ public final class ClientState {
 
     public static boolean isReady(String techniqueId) {
         return cooldownRemaining(techniqueId) <= 0;
+    }
+
+    public static boolean busy() {
+        return ticks < busyUntil;
+    }
+
+    public static int busyRemaining() {
+        return Math.max(0, busyUntil - ticks);
     }
 
     public static void setHidden(boolean offhand, boolean hidden) {
