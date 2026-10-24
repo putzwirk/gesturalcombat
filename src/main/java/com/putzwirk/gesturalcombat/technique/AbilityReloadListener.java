@@ -26,6 +26,9 @@ public final class AbilityReloadListener extends SimplePreparableReloadListener<
 
     @Override
     protected void apply(Payload payload, ResourceManager manager, ProfilerFiller profiler) {
+        if (payload.abilities() == null && payload.weapons() == null) {
+            return;
+        }
         AbilityConfigs.load(payload.abilities(), payload.weapons());
         Gesturalcombat.LOGGER.info("Loaded ability configs: {} techniques configured, {} weapon profiles",
                 AbilityConfigs.count(), com.putzwirk.gesturalcombat.weapon.WeaponProfiles.count());
@@ -35,13 +38,13 @@ public final class AbilityReloadListener extends SimplePreparableReloadListener<
     private static JsonObject read(ResourceManager manager, ResourceLocation id) {
         Optional<Resource> resource = manager.getResource(id);
         if (resource.isEmpty()) {
-            return new JsonObject();
+            return null;
         }
         try (Reader reader = resource.get().openAsReader()) {
             return JsonParser.parseReader(reader).getAsJsonObject();
         } catch (Exception e) {
             Gesturalcombat.LOGGER.warn("Failed to read {}", id, e);
-            return new JsonObject();
+            return null;
         }
     }
 }

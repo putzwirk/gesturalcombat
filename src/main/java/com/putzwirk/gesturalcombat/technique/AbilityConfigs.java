@@ -31,6 +31,11 @@ public final class AbilityConfigs {
     }
 
     public static void load(JsonObject abilities, JsonObject weapons) {
+        boolean emptyAbilities = abilities == null || !abilities.has("techniques");
+        boolean emptyWeapons = weapons == null || !weapons.has("weapons");
+        if (emptyAbilities && emptyWeapons && (count() > 0 || com.putzwirk.gesturalcombat.weapon.WeaponProfiles.count() > 0)) {
+            return;
+        }
         clear();
         abilitiesJson = abilities == null ? new JsonObject() : abilities;
         weaponsJson = weapons == null ? new JsonObject() : weapons;
@@ -75,6 +80,9 @@ public final class AbilityConfigs {
     }
 
     public static void loadFromJson(String abilities, String weapons) {
+        if ((abilities == null || abilities.isBlank()) && (weapons == null || weapons.isBlank())) {
+            return;
+        }
         JsonObject ab = parse(abilities);
         JsonObject wp = parse(weapons);
         load(ab, wp);

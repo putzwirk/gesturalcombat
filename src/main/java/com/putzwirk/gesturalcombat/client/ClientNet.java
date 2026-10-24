@@ -24,10 +24,15 @@ public final class ClientNet {
     }
 
     public static void abilitySync(String abilities, String weapons) {
-        com.putzwirk.gesturalcombat.technique.AbilityConfigs.loadFromJson(abilities, weapons);
-        com.putzwirk.gesturalcombat.Gesturalcombat.LOGGER.info("gesturalcombat client sync: {} techniques, {} profiles",
+        boolean empty = (abilities == null || abilities.isBlank()) && (weapons == null || weapons.isBlank());
+        if (!empty) {
+            com.putzwirk.gesturalcombat.technique.AbilityConfigs.loadFromJson(abilities, weapons);
+        }
+        com.putzwirk.gesturalcombat.Gesturalcombat.LOGGER.info(
+                "gesturalcombat client sync: {} techniques, {} profiles (payload {} chars / {} chars)",
                 com.putzwirk.gesturalcombat.technique.AbilityConfigs.count(),
-                com.putzwirk.gesturalcombat.weapon.WeaponProfiles.count());
+                com.putzwirk.gesturalcombat.weapon.WeaponProfiles.count(),
+                abilities == null ? -1 : abilities.length(), weapons == null ? -1 : weapons.length());
     }
 
     public static void mastery(CompoundTag data) {

@@ -29,7 +29,7 @@ public final class Config {
         xpMultiplier = builder.defineInRange("xpMultiplier", 1.0, 0.0, 20.0);
         debugHitboxes = builder.define("debugHitboxes", false);
         weaponTrails = builder.define("weaponTrails", true);
-        debugCasts = builder.define("debugCasts", false);
+        debugCasts = builder.define("debugCasts", true);
         builder.pop();
     }
 }

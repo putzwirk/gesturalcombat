@@ -140,8 +140,7 @@ public final class GestureCastService {
         stack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(slot));
         player.causeFoodExhaustion(0.3f);
         player.resetAttackStrengthTicker();
-        if (AbilityConfigs.hits(technique) <= 1
-                && technique.shape() != GestureShape.V
+        if (technique.shape() != GestureShape.V
                 && technique.shape() != GestureShape.CARET
                 && technique.archetype() != Archetype.SHIELD
                 && technique.archetype() != Archetype.BOW) {
