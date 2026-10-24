@@ -1,0 +1,350 @@
+{
+  "techniques": {
+    "sword_slash": {
+      "gesture": "LINE_H",
+      "hitbox": {
+        "shape": "ARC",
+        "range": 2.8,
+        "angle": 110,
+        "width": 1.0,
+        "height": 3.6,
+        "vertical_offset": 0.2,
+        "forward_offset": 0.0,
+        "max_targets": 16,
+        "line_of_sight": false
+      },
+      "damage_multiplier": 1.0,
+      "knockback": 0.25,
+      "lift": 0.0,
+      "cooldown_ticks": 10
+    },
+    "sword_rising": {
+      "gesture": "LINE_V_UP",
+      "hitbox": {
+        "shape": "VERTICAL_ARC",
+        "range": 2.8,
+        "angle": 140,
+        "width": 0.9,
+        "height": 2.6,
+        "vertical_offset": 0.0,
+        "forward_offset": 0.0,
+        "max_targets": 16,
+        "line_of_sight": false
+      },
+      "damage_multiplier": 1.25,
+      "knockback": 0.0,
+      "lift": 0.55,
+      "cooldown_ticks": 16
+    },
+    "sword_whirl": {
+      "gesture": "CIRCLE",
+      "hitbox": {
+        "shape": "SPHERE",
+        "range": 3.1,
+        "angle": 0.0,
+        "width": 1.0,
+        "height": 1.6,
+        "vertical_offset": 0.0,
+        "forward_offset": 0.0,
+        "max_targets": 16,
+        "line_of_sight": false
+      },
+      "damage_multiplier": 0.85,
+      "hits": 2,
+      "hit_interval": 8,
+      "cooldown_ticks": 30
+    },
+    "sword_flurry": {
+      "gesture": "ZIGZAG",
+      "hitbox": {
+        "shape": "ARC",
+        "range": 2.9,
+        "angle": 67.5,
+        "width": 1.0,
+        "height": 3.6,
+        "vertical_offset": 0.2,
+        "forward_offset": 0.0,
+        "max_targets": 16,
+        "line_of_sight": false
+      },
+      "damage_multiplier": 1.4,
+      "hits": 4,
+      "hit_interval": 4,
+      "cooldown_ticks": 40
+    },
+    "sword_execute": {
+      "gesture": "LINE_V_DOWN",
+      "hitbox": {
+        "shape": "VERTICAL_ARC",
+        "range": 2.6,
+        "angle": 120,
+        "width": 0.9,
+        "height": 2.8,
+        "vertical_offset": 0.0,
+        "forward_offset": 0.0,
+        "max_targets": 16,
+        "line_of_sight": false
+      },
+      "damage_multiplier": 2.1,
+      "knockback": 0.0,
+      "lift": 0.5,
+      "cooldown_ticks": 50
+    },
+    "sword_guard": {
+      "gesture": "V",
+      "cooldown_ticks": 200
+    },
+    "sword_skirmish": {
+      "gesture": "CARET",
+      "hitbox": {
+        "shape": "ARC",
+        "range": 3.9,
+        "angle": 120,
+        "width": 1.0,
+        "height": 3.6,
+        "vertical_offset": 0.2,
+        "forward_offset": 0.0,
+        "max_targets": 16,
+        "line_of_sight": false
+      },
+      "damage_multiplier": 1.05,
+      "knockback": 0.05,
+      "cooldown_ticks": 60
+    },
+    "axe_cleave": {
+      "gesture": "LINE_V_DOWN",
+      "hitbox": {
+        "shape": "VERTICAL_ARC",
+        "range": 2.9,
+        "angle": 120,
+        "width": 1.0,
+        "height": 2.8,
+        "vertical_offset": 0.0,
+        "forward_offset": 0.0,
+        "max_targets": 16,
+        "line_of_sight": false
+      },
+      "damage_multiplier": 1.15,
+      "knockback": 0.0,
+      "lift": 0.35,
+      "cooldown_ticks": 12
+    },
+    "axe_wide": {
+      "gesture": "LINE_H",
+      "hitbox": {
+        "shape": "ARC",
+        "range": 3.5,
+        "angle": 175,
+        "width": 1.0,
+        "height": 3.6,
+        "vertical_offset": 0.2,
+        "forward_offset": 0.0,
+        "max_targets": 16,
+        "line_of_sight": false
+      },
+      "damage_multiplier": 0.9,
+      "knockback": 0.0,
+      "lift": 0.6,
+      "cooldown_ticks": 20
+    },
+    "axe_rend": {
+      "gesture": "LINE_V_UP",
+      "hitbox": {
+        "shape": "VERTICAL_ARC",
+        "range": 2.7,
+        "angle": 120,
+        "width": 1.0,
+        "height": 2.6,
+        "vertical_offset": 0.0,
+        "forward_offset": 0.0,
+        "max_targets": 16,
+        "line_of_sight": false
+      },
+      "damage_multiplier": 1.0,
+      "knockback": 0.2,
+      "cooldown_ticks": 25
+    },
+    "axe_cyclone": {
+      "gesture": "CIRCLE",
+      "hitbox": {
+        "shape": "SPHERE",
+        "range": 3.5,
+        "angle": 0.0,
+        "width": 1.0,
+        "height": 1.6,
+        "vertical_offset": 0.0,
+        "forward_offset": 0.0,
+        "max_targets": 16,
+        "line_of_sight": false
+      },
+      "damage_multiplier": 1.0,
+      "hits": 2,
+      "hit_interval": 10,
+      "cooldown_ticks": 35
+    },
+    "axe_quake": {
+      "gesture": "ZIGZAG",
+      "hitbox": {
+        "shape": "SPHERE",
+        "range": 4.2,
+        "angle": 0.0,
+        "width": 1.0,
+        "height": 1.6,
+        "vertical_offset": 0.0,
+        "forward_offset": 0.0,
+        "max_targets": 16,
+        "line_of_sight": false
+      },
+      "damage_multiplier": 1.3,
+      "knockback": 1.2,
+      "lift": 0.5,
+      "cooldown_ticks": 55
+    },
+    "spear_thrust": {
+      "gesture": "LINE_V_UP",
+      "hitbox": {
+        "shape": "BOX",
+        "range": 4.4,
+        "angle": 0.0,
+        "width": 1.6,
+        "height": 1.6,
+        "vertical_offset": 0.0,
+        "forward_offset": 0.0,
+        "max_targets": 16,
+        "line_of_sight": true
+      },
+      "damage_multiplier": 1.0,
+      "knockback": 0.15,
+      "cooldown_ticks": 9
+    },
+    "spear_sweep": {
+      "gesture": "LINE_H",
+      "hitbox": {
+        "shape": "ARC",
+        "range": 3.7,
+        "angle": 130,
+        "width": 1.0,
+        "height": 3.6,
+        "vertical_offset": 0.2,
+        "forward_offset": 0.0,
+        "max_targets": 16,
+        "line_of_sight": false
+      },
+      "damage_multiplier": 0.85,
+      "cooldown_ticks": 15
+    },
+    "spear_impale": {
+      "gesture": "ZIGZAG",
+      "hitbox": {
+        "shape": "ARC",
+        "range": 3.8,
+        "angle": 33.75,
+        "width": 1.0,
+        "height": 3.6,
+        "vertical_offset": 0.2,
+        "forward_offset": 0.0,
+        "max_targets": 16,
+        "line_of_sight": false
+      },
+      "damage_multiplier": 0.65,
+      "hits": 3,
+      "hit_interval": 5,
+      "cooldown_ticks": 28
+    },
+    "spear_tempest": {
+      "gesture": "CIRCLE",
+      "hitbox": {
+        "shape": "SPHERE",
+        "range": 3.9,
+        "angle": 0.0,
+        "width": 1.0,
+        "height": 1.6,
+        "vertical_offset": 0.0,
+        "forward_offset": 0.0,
+        "max_targets": 16,
+        "line_of_sight": false
+      },
+      "damage_multiplier": 0.9,
+      "hits": 3,
+      "hit_interval": 7,
+      "cooldown_ticks": 42
+    },
+    "spear_skyfall": {
+      "gesture": "LINE_V_DOWN",
+      "hitbox": {
+        "shape": "VERTICAL_ARC",
+        "range": 3.1,
+        "angle": 110,
+        "width": 0.9,
+        "height": 3.0,
+        "vertical_offset": 0.0,
+        "forward_offset": 0.0,
+        "max_targets": 16,
+        "line_of_sight": false
+      },
+      "damage_multiplier": 1.7,
+      "knockback": 0.0,
+      "lift": 0.8,
+      "cooldown_ticks": 50
+    },
+    "shield_bash": {
+      "gesture": "LINE_H",
+      "hitbox": {
+        "shape": "ARC",
+        "range": 2.8,
+        "angle": 180,
+        "width": 1.0,
+        "height": 2.8,
+        "vertical_offset": 0.2,
+        "forward_offset": 0.0,
+        "max_targets": 16,
+        "line_of_sight": false
+      },
+      "damage_multiplier": 0.45,
+      "knockback": 1.15,
+      "lift": 0.12,
+      "cooldown_ticks": 20
+    },
+    "shield_guard": {
+      "gesture": "LINE_V_DOWN",
+      "cooldown_ticks": 200
+    },
+    "shield_charge": {
+      "gesture": "LINE_V_UP",
+      "hitbox": {
+        "shape": "ARC",
+        "range": 3.2,
+        "angle": 110,
+        "width": 1.0,
+        "height": 3.6,
+        "vertical_offset": 0.2,
+        "forward_offset": 0.0,
+        "max_targets": 16,
+        "line_of_sight": false
+      },
+      "damage_multiplier": 1.0,
+      "knockback": 0.0,
+      "cooldown_ticks": 60,
+      "self_knockback": 0.45
+    },
+    "shield_throw": {
+      "gesture": "CIRCLE",
+      "hitbox": {
+        "shape": "ARC",
+        "range": 14.0,
+        "angle": 60,
+        "width": 1.0,
+        "height": 3.6,
+        "vertical_offset": 0.2,
+        "forward_offset": 0.0,
+        "max_targets": 3,
+        "line_of_sight": false
+      },
+      "cooldown_ticks": 120
+    },
+    "bow_fire": {
+      "gesture": "CIRCLE",
+      "cooldown_ticks": 80
+    }
+  }
+}

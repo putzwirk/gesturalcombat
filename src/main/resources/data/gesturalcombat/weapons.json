@@ -1,0 +1,3599 @@
+{
+  "categories": {
+    "halberd": [
+      "simplyswords:halberd_slash_vertical_right",
+      "simplyswords:halberd_stab_right",
+      "bettercombat:two_handed_slash_vertical_right",
+      "bettercombat:two_handed_stab_right",
+      "bettercombat:two_handed_slash_vertical_left"
+    ],
+    "claymore": [
+      "simplyswords:dragable_slash_upward",
+      "bettercombat:two_handed_slash_horizontal_right",
+      "bettercombat:two_handed_slash_horizontal_left",
+      "bettercombat:two_handed_spin",
+      "bettercombat:two_handed_stab_left",
+      "bettercombat:two_handed_slam"
+    ],
+    "sickle": [
+      "bettercombat:one_handed_slash_horizontal_right",
+      "bettercombat:dual_handed_slash_cross",
+      "bettercombat:dual_handed_slash_uncross",
+      "bettercombat:one_handed_slash_horizontal_left",
+      "bettercombat:one_handed_slam"
+    ],
+    "rapier": [
+      "bettercombat:one_handed_slash_horizontal_left",
+      "bettercombat:one_handed_stab"
+    ],
+    "chakram": [
+      "simplyswords:one_handed_chakram_throw_left",
+      "simplyswords:chakram_spin",
+      "simplyswords:chakram_spin_long_grounded"
+    ],
+    "scythe": [
+      "bettercombat:two_handed_slash_horizontal_left",
+      "bettercombat:two_handed_slash_horizontal_right",
+      "bettercombat:two_handed_spin",
+      "bettercombat:one_handed_slash_horizontal_right",
+      "bettercombat:one_handed_slash_horizontal_left"
+    ],
+    "glaive": [
+      "simplyswords:halberd_stab_right",
+      "bettercombat:two_handed_slash_vertical_right",
+      "bettercombat:two_handed_slash_vertical_left",
+      "bettercombat:two_handed_slash_horizontal_right"
+    ],
+    "greataxe": [
+      "bettercombat:two_handed_slash_horizontal_left",
+      "bettercombat:two_handed_slash_horizontal_right",
+      "bettercombat:two_handed_spin"
+    ],
+    "greathammer": [
+      "bettercombat:two_handed_slash_horizontal_left",
+      "bettercombat:two_handed_slash_horizontal_right",
+      "bettercombat:two_handed_slam"
+    ],
+    "katana": [
+      "bettercombat:two_handed_slash_horizontal_right",
+      "bettercombat:two_handed_slash_vertical_left",
+      "bettercombat:two_handed_slash_vertical_right",
+      "bettercombat:two_handed_slash_horizontal_left",
+      "bettercombat:two_handed_stab_right"
+    ],
+    "sword": [
+      "bettercombat:one_handed_slash_horizontal_right",
+      "bettercombat:one_handed_slash_horizontal_left",
+      "bettercombat:one_handed_stab",
+      "bettercombat:two_handed_spin"
+    ],
+    "soul_knife": [
+      "bettercombat:one_handed_stab"
+    ],
+    "trident": [
+      "bettercombat:one_handed_stab"
+    ],
+    "battlestaff": [
+      "simplyswords:chakram_spin",
+      "bettercombat:two_handed_slash_horizontal_right",
+      "bettercombat:two_handed_slash_horizontal_left",
+      "bettercombat:two_handed_spin",
+      "bettercombat:two_handed_stab_left",
+      "bettercombat:two_handed_stab_right",
+      "bettercombat:two_handed_slam"
+    ],
+    "warglaive": [
+      "simplyswords:warglaive_slash_horizontal_right",
+      "simplyswords:warglaive_slash_horizontal_left",
+      "simplyswords:warglaive_spin",
+      "bettercombat:dual_handed_slash_cross",
+      "bettercombat:dual_handed_slash_uncross"
+    ],
+    "mace": [
+      "bettercombat:one_handed_slash_horizontal_right",
+      "bettercombat:one_handed_slash_horizontal_left",
+      "bettercombat:one_handed_slam"
+    ],
+    "heavy_axe": [
+      "bettercombat:two_handed_slash_horizontal_right",
+      "bettercombat:two_handed_slash_horizontal_left",
+      "bettercombat:two_handed_spin"
+    ],
+    "anchor": [
+      "bettercombat:two_handed_slam_heavy"
+    ],
+    "axe": [
+      "bettercombat:one_handed_slash_horizontal_left",
+      "bettercombat:one_handed_slash_horizontal_right"
+    ],
+    "claw": [
+      "bettercombat:one_handed_punch",
+      "bettercombat:one_handed_swipe_horizontal_right"
+    ],
+    "coral_blade": [
+      "bettercombat:one_handed_slash_horizontal_left",
+      "bettercombat:one_handed_slash_horizontal_right",
+      "bettercombat:one_handed_uppercut_right"
+    ],
+    "dagger": [
+      "bettercombat:dual_handed_stab",
+      "bettercombat:one_handed_slash_horizontal_left",
+      "bettercombat:one_handed_slash_horizontal_right"
+    ],
+    "double_axe": [
+      "bettercombat:two_handed_slash_horizontal_right",
+      "bettercombat:two_handed_spin"
+    ],
+    "fist": [
+      "bettercombat:one_handed_punch"
+    ],
+    "hammer": [
+      "bettercombat:two_handed_slam"
+    ],
+    "lance": [
+      "bettercombat:one_handed_stab",
+      "bettercombat:one_handed_stab_mounted"
+    ],
+    "pickaxe": [
+      "bettercombat:one_handed_slam"
+    ],
+    "spear": [
+      "bettercombat:two_handed_stab_right"
+    ],
+    "staff": [
+      "bettercombat:two_handed_slash_horizontal_left",
+      "bettercombat:two_handed_slash_horizontal_right",
+      "bettercombat:two_handed_slam"
+    ],
+    "twin_blade": [
+      "bettercombat:one_handed_slash_switch_blade_left",
+      "bettercombat:one_handed_slash_switch_blade_right"
+    ],
+    "wand": [
+      "bettercombat:one_handed_stab"
+    ]
+  },
+  "weapons": [
+    {
+      "items": [
+        "simplyswords:arcanethyst"
+      ],
+      "archetype": "spear",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.29,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "simplyswords:halberd_slash_vertical_right",
+        "simplyswords:halberd_stab_right",
+        "bettercombat:two_handed_slash_vertical_right"
+      ],
+      "specials": [
+        {
+          "gesture": "LINE_V_UP",
+          "cooldown_ticks": 140,
+          "damage_multiplier": 1.3,
+          "knockback": 0.35,
+          "lift": 0.35,
+          "hitbox": {
+            "shape": "ARC",
+            "range": 3.1,
+            "angle": 100,
+            "height": 3.4,
+            "vertical_offset": 0.2,
+            "max_targets": 8
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:levitation",
+              "duration": 40,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [],
+          "heal": 0.0,
+          "sound": "minecraft:block.amethyst_block.chime",
+          "particles": "end_rod"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:awakened_lichblade"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.64,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_spin",
+        "bettercombat:two_handed_stab_left"
+      ],
+      "specials": [
+        {
+          "gesture": "ZIGZAG",
+          "cooldown_ticks": 140,
+          "damage_multiplier": 1.35,
+          "knockback": 0.4,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "ARC",
+            "range": 3.0,
+            "angle": 110,
+            "height": 3.4,
+            "vertical_offset": 0.2,
+            "max_targets": 6
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:wither",
+              "duration": 80,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [
+            {
+              "id": "minecraft:absorption",
+              "duration": 120,
+              "amplifier": 0
+            }
+          ],
+          "heal": 0.0,
+          "sound": "minecraft:entity.wither.spawn",
+          "particles": "soul"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:bloodwake"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.12,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:one_handed_slash_horizontal_right",
+        "bettercombat:dual_handed_slash_cross",
+        "bettercombat:dual_handed_slash_uncross"
+      ],
+      "specials": [
+        {
+          "gesture": "LINE_H",
+          "cooldown_ticks": 140,
+          "damage_multiplier": 1.25,
+          "knockback": 0.5,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "ARC",
+            "range": 3.3,
+            "angle": 130,
+            "height": 3.4,
+            "vertical_offset": 0.2,
+            "max_targets": 8
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:wither",
+              "duration": 60,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [
+            {
+              "id": "minecraft:regeneration",
+              "duration": 100,
+              "amplifier": 0
+            }
+          ],
+          "heal": 4.0,
+          "sound": "minecraft:entity.player.attack_crit",
+          "particles": "crit"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:bramblethorn"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.3,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:one_handed_slash_horizontal_left",
+        "bettercombat:one_handed_stab"
+      ],
+      "specials": [
+        {
+          "gesture": "ZIGZAG",
+          "cooldown_ticks": 140,
+          "damage_multiplier": 1.35,
+          "knockback": 0.4,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "ARC",
+            "range": 3.0,
+            "angle": 110,
+            "height": 3.4,
+            "vertical_offset": 0.2,
+            "max_targets": 6
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:glowing",
+              "duration": 60,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [],
+          "heal": 0.0,
+          "sound": "minecraft:entity.player.attack_strong",
+          "particles": "crit"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:brimstone_claymore"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.6,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_spin"
+      ],
+      "specials": [
+        {
+          "gesture": "LINE_V_DOWN",
+          "cooldown_ticks": 180,
+          "damage_multiplier": 1.6,
+          "knockback": 0.9,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "VERTICAL_ARC",
+            "range": 3.2,
+            "angle": 120,
+            "width": 1.0,
+            "height": 2.8,
+            "max_targets": 8
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:fire",
+              "duration": 100,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [
+            {
+              "id": "minecraft:strength",
+              "duration": 100,
+              "amplifier": 0
+            }
+          ],
+          "heal": 0.0,
+          "sound": "minecraft:item.firecharge.use",
+          "particles": "flame"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:caelestis"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.6,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_spin"
+      ],
+      "specials": [
+        {
+          "gesture": "CIRCLE",
+          "cooldown_ticks": 180,
+          "damage_multiplier": 1.4,
+          "knockback": 0.7,
+          "lift": 0.35,
+          "hitbox": {
+            "shape": "SPHERE",
+            "range": 4.0,
+            "max_targets": 10
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:levitation",
+              "duration": 40,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [],
+          "heal": 0.0,
+          "sound": "minecraft:block.amethyst_block.chime",
+          "particles": "end_rod"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:chompolotl"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.8,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "simplyswords:one_handed_chakram_throw_left",
+        "simplyswords:chakram_spin",
+        "simplyswords:chakram_spin_long_grounded"
+      ],
+      "specials": [
+        {
+          "gesture": "CIRCLE",
+          "cooldown_ticks": 180,
+          "damage_multiplier": 1.4,
+          "knockback": 0.7,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "SPHERE",
+            "range": 4.0,
+            "max_targets": 10
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:glowing",
+              "duration": 60,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [],
+          "heal": 0.0,
+          "sound": "minecraft:entity.player.attack_strong",
+          "particles": "crit"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:dawnquiver"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.6,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slam"
+      ],
+      "specials": [
+        {
+          "gesture": "LINE_H",
+          "cooldown_ticks": 140,
+          "damage_multiplier": 1.25,
+          "knockback": 0.5,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "ARC",
+            "range": 3.3,
+            "angle": 130,
+            "height": 3.4,
+            "vertical_offset": 0.2,
+            "max_targets": 8
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:fire",
+              "duration": 100,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [
+            {
+              "id": "minecraft:strength",
+              "duration": 100,
+              "amplifier": 0
+            }
+          ],
+          "heal": 0.0,
+          "sound": "minecraft:item.firecharge.use",
+          "particles": "flame"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:decaying_relic"
+      ],
+      "archetype": "axe",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.38,
+      "cooldown_multiplier": 1.0
+    },
+    {
+      "items": [
+        "simplyswords:diamond_chakram"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.8,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "simplyswords:one_handed_chakram_throw_left",
+        "simplyswords:chakram_spin",
+        "simplyswords:chakram_spin_long_grounded"
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:diamond_claymore"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.6,
+      "cooldown_multiplier": 1.0
+    },
+    {
+      "items": [
+        "simplyswords:diamond_cutlass"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.2,
+      "cooldown_multiplier": 1.0
+    },
+    {
+      "items": [
+        "simplyswords:diamond_glaive"
+      ],
+      "archetype": "spear",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.07,
+      "cooldown_multiplier": 1.0
+    },
+    {
+      "items": [
+        "simplyswords:diamond_greataxe"
+      ],
+      "archetype": "axe",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.38,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_spin"
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:diamond_greathammer"
+      ],
+      "archetype": "axe",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.38,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slam"
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:diamond_halberd"
+      ],
+      "archetype": "spear",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.29,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "simplyswords:halberd_stab_right",
+        "simplyswords:halberd_slash_vertical_right",
+        "bettercombat:two_handed_slash_vertical_right"
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:diamond_katana"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.24,
+      "cooldown_multiplier": 1.0
+    },
+    {
+      "items": [
+        "simplyswords:diamond_longsword"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.24,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:one_handed_slash_horizontal_right",
+        "bettercombat:one_handed_slash_horizontal_left",
+        "bettercombat:one_handed_stab"
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:diamond_rapier"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.4,
+      "cooldown_multiplier": 1.0
+    },
+    {
+      "items": [
+        "simplyswords:diamond_sai"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 0.92,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:one_handed_stab"
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:diamond_scythe"
+      ],
+      "archetype": "axe",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.38,
+      "cooldown_multiplier": 1.0
+    },
+    {
+      "items": [
+        "simplyswords:diamond_spear"
+      ],
+      "archetype": "spear",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.14,
+      "cooldown_multiplier": 1.0
+    },
+    {
+      "items": [
+        "simplyswords:diamond_twinblade"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.4,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_spin"
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:diamond_warglaive"
+      ],
+      "archetype": "spear",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 0.89,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "simplyswords:warglaive_slash_horizontal_right",
+        "simplyswords:warglaive_slash_horizontal_left",
+        "simplyswords:warglaive_spin"
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:dormant_relic"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.24,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:one_handed_slash_horizontal_right",
+        "bettercombat:one_handed_slash_horizontal_left",
+        "bettercombat:one_handed_stab"
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:dreadwhisper"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.24,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slash_vertical_left",
+        "bettercombat:two_handed_slash_vertical_right",
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_stab_right"
+      ],
+      "specials": [
+        {
+          "gesture": "CARET",
+          "cooldown_ticks": 140,
+          "damage_multiplier": 1.2,
+          "knockback": 0.6,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "BOX",
+            "range": 3.6,
+            "width": 1.6,
+            "height": 2.0,
+            "max_targets": 4
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:blindness",
+              "duration": 80,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [
+            {
+              "id": "minecraft:invisibility",
+              "duration": 80,
+              "amplifier": 0
+            }
+          ],
+          "heal": 0.0,
+          "sound": "minecraft:entity.enderman.teleport",
+          "particles": "enchanted_hit"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:emberblade"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.24,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:one_handed_slash_horizontal_right",
+        "bettercombat:one_handed_slash_horizontal_left",
+        "bettercombat:one_handed_stab"
+      ],
+      "specials": [
+        {
+          "gesture": "LINE_H",
+          "cooldown_ticks": 140,
+          "damage_multiplier": 1.25,
+          "knockback": 0.5,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "ARC",
+            "range": 3.3,
+            "angle": 130,
+            "height": 3.4,
+            "vertical_offset": 0.2,
+            "max_targets": 8
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:fire",
+              "duration": 100,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [
+            {
+              "id": "minecraft:strength",
+              "duration": 100,
+              "amplifier": 0
+            }
+          ],
+          "heal": 0.0,
+          "sound": "minecraft:item.firecharge.use",
+          "particles": "flame"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:emberlash"
+      ],
+      "archetype": "spear",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 0.71,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "simplyswords:warglaive_slash_horizontal_right",
+        "simplyswords:warglaive_slash_horizontal_left",
+        "bettercombat:dual_handed_slash_cross",
+        "bettercombat:dual_handed_slash_uncross"
+      ],
+      "specials": [
+        {
+          "gesture": "CARET",
+          "cooldown_ticks": 140,
+          "damage_multiplier": 1.2,
+          "knockback": 0.6,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "BOX",
+            "range": 3.6,
+            "width": 1.6,
+            "height": 2.0,
+            "max_targets": 4
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:fire",
+              "duration": 100,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [
+            {
+              "id": "minecraft:strength",
+              "duration": 100,
+              "amplifier": 0
+            }
+          ],
+          "heal": 0.0,
+          "sound": "minecraft:item.firecharge.use",
+          "particles": "flame"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:enigma"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.56,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "simplyswords:dragable_slash_upward",
+        "bettercombat:two_handed_slam"
+      ],
+      "specials": [
+        {
+          "gesture": "CIRCLE",
+          "cooldown_ticks": 180,
+          "damage_multiplier": 1.4,
+          "knockback": 0.7,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "SPHERE",
+            "range": 4.0,
+            "max_targets": 10
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:glowing",
+              "duration": 80,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [
+            {
+              "id": "minecraft:speed",
+              "duration": 100,
+              "amplifier": 0
+            }
+          ],
+          "heal": 0.0,
+          "sound": "minecraft:item.trident.thunder",
+          "particles": "electric_spark"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:flamewind"
+      ],
+      "archetype": "spear",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.07,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "simplyswords:halberd_stab_right",
+        "bettercombat:two_handed_slash_vertical_right",
+        "bettercombat:two_handed_slash_vertical_left",
+        "bettercombat:two_handed_slash_horizontal_right"
+      ],
+      "specials": [
+        {
+          "gesture": "ZIGZAG",
+          "cooldown_ticks": 140,
+          "damage_multiplier": 1.35,
+          "knockback": 0.4,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "ARC",
+            "range": 3.0,
+            "angle": 110,
+            "height": 3.4,
+            "vertical_offset": 0.2,
+            "max_targets": 6
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:fire",
+              "duration": 100,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [
+            {
+              "id": "minecraft:strength",
+              "duration": 100,
+              "amplifier": 0
+            }
+          ],
+          "heal": 0.0,
+          "sound": "minecraft:item.firecharge.use",
+          "particles": "flame"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:frostfall"
+      ],
+      "archetype": "axe",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 0.97,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:one_handed_slash_horizontal_right",
+        "bettercombat:one_handed_slash_horizontal_left",
+        "bettercombat:one_handed_slam"
+      ],
+      "specials": [
+        {
+          "gesture": "LINE_V_UP",
+          "cooldown_ticks": 140,
+          "damage_multiplier": 1.3,
+          "knockback": 0.35,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "ARC",
+            "range": 3.1,
+            "angle": 100,
+            "height": 3.4,
+            "vertical_offset": 0.2,
+            "max_targets": 8
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:slowness",
+              "duration": 120,
+              "amplifier": 1
+            }
+          ],
+          "self_effects": [
+            {
+              "id": "minecraft:resistance",
+              "duration": 100,
+              "amplifier": 0
+            }
+          ],
+          "heal": 0.0,
+          "sound": "minecraft:block.glass.break",
+          "particles": "snowflake"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:gloampiercer"
+      ],
+      "archetype": "spear",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.06,
+      "cooldown_multiplier": 1.0,
+      "specials": [
+        {
+          "gesture": "ZIGZAG",
+          "cooldown_ticks": 140,
+          "damage_multiplier": 1.35,
+          "knockback": 0.4,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "ARC",
+            "range": 3.0,
+            "angle": 110,
+            "height": 3.4,
+            "vertical_offset": 0.2,
+            "max_targets": 6
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:blindness",
+              "duration": 80,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [
+            {
+              "id": "minecraft:invisibility",
+              "duration": 80,
+              "amplifier": 0
+            }
+          ],
+          "heal": 0.0,
+          "sound": "minecraft:entity.enderman.teleport",
+          "particles": "enchanted_hit"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:gold_chakram"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.8,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "simplyswords:one_handed_chakram_throw_left",
+        "simplyswords:chakram_spin",
+        "simplyswords:chakram_spin_long_grounded"
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:gold_claymore"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.6,
+      "cooldown_multiplier": 1.0
+    },
+    {
+      "items": [
+        "simplyswords:gold_cutlass"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.2,
+      "cooldown_multiplier": 1.0
+    },
+    {
+      "items": [
+        "simplyswords:gold_glaive"
+      ],
+      "archetype": "spear",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.07,
+      "cooldown_multiplier": 1.0
+    },
+    {
+      "items": [
+        "simplyswords:gold_greataxe"
+      ],
+      "archetype": "axe",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.38,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_spin"
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:gold_greathammer"
+      ],
+      "archetype": "axe",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.38,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slam"
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:gold_halberd"
+      ],
+      "archetype": "spear",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.29,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "simplyswords:halberd_stab_right",
+        "simplyswords:halberd_slash_vertical_right",
+        "bettercombat:two_handed_slash_vertical_right"
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:gold_katana"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.24,
+      "cooldown_multiplier": 1.0
+    },
+    {
+      "items": [
+        "simplyswords:gold_longsword"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.24,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:one_handed_slash_horizontal_right",
+        "bettercombat:one_handed_slash_horizontal_left",
+        "bettercombat:one_handed_stab"
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:gold_rapier"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.4,
+      "cooldown_multiplier": 1.0
+    },
+    {
+      "items": [
+        "simplyswords:gold_sai"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 0.92,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:one_handed_stab"
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:gold_scythe"
+      ],
+      "archetype": "axe",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.38,
+      "cooldown_multiplier": 1.0
+    },
+    {
+      "items": [
+        "simplyswords:gold_spear"
+      ],
+      "archetype": "spear",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.14,
+      "cooldown_multiplier": 1.0
+    },
+    {
+      "items": [
+        "simplyswords:gold_twinblade"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.4,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_spin"
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:gold_warglaive"
+      ],
+      "archetype": "spear",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 0.89,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "simplyswords:warglaive_slash_horizontal_right",
+        "simplyswords:warglaive_slash_horizontal_left",
+        "simplyswords:warglaive_spin"
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:harbinger"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.24,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:one_handed_slash_horizontal_right",
+        "bettercombat:one_handed_slash_horizontal_left",
+        "bettercombat:one_handed_stab",
+        "bettercombat:two_handed_spin"
+      ],
+      "specials": [
+        {
+          "gesture": "LINE_V_DOWN",
+          "cooldown_ticks": 180,
+          "damage_multiplier": 1.6,
+          "knockback": 0.9,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "VERTICAL_ARC",
+            "range": 3.2,
+            "angle": 120,
+            "width": 1.0,
+            "height": 2.8,
+            "max_targets": 8
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:glowing",
+              "duration": 60,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [],
+          "heal": 0.0,
+          "sound": "minecraft:entity.player.attack_strong",
+          "particles": "crit"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:hearthflame"
+      ],
+      "archetype": "axe",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.38,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slam"
+      ],
+      "specials": [
+        {
+          "gesture": "ZIGZAG",
+          "cooldown_ticks": 140,
+          "damage_multiplier": 1.35,
+          "knockback": 0.4,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "ARC",
+            "range": 3.0,
+            "angle": 110,
+            "height": 3.4,
+            "vertical_offset": 0.2,
+            "max_targets": 6
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:fire",
+              "duration": 100,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [
+            {
+              "id": "minecraft:strength",
+              "duration": 100,
+              "amplifier": 0
+            }
+          ],
+          "heal": 0.0,
+          "sound": "minecraft:item.firecharge.use",
+          "particles": "flame"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:hiveheart"
+      ],
+      "archetype": "axe",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.38,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slam"
+      ],
+      "specials": [
+        {
+          "gesture": "ZIGZAG",
+          "cooldown_ticks": 140,
+          "damage_multiplier": 1.35,
+          "knockback": 0.4,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "ARC",
+            "range": 3.0,
+            "angle": 110,
+            "height": 3.4,
+            "vertical_offset": 0.2,
+            "max_targets": 6
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:glowing",
+              "duration": 60,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [],
+          "heal": 0.0,
+          "sound": "minecraft:entity.player.attack_strong",
+          "particles": "crit"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:icewhisper"
+      ],
+      "archetype": "spear",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.29,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "simplyswords:halberd_slash_vertical_right",
+        "simplyswords:halberd_stab_right",
+        "bettercombat:two_handed_slash_vertical_right"
+      ],
+      "specials": [
+        {
+          "gesture": "LINE_V_DOWN",
+          "cooldown_ticks": 180,
+          "damage_multiplier": 1.6,
+          "knockback": 0.9,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "VERTICAL_ARC",
+            "range": 3.2,
+            "angle": 120,
+            "width": 1.0,
+            "height": 2.8,
+            "max_targets": 8
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:slowness",
+              "duration": 120,
+              "amplifier": 1
+            }
+          ],
+          "self_effects": [
+            {
+              "id": "minecraft:resistance",
+              "duration": 100,
+              "amplifier": 0
+            }
+          ],
+          "heal": 0.0,
+          "sound": "minecraft:block.glass.break",
+          "particles": "snowflake"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:ionbound_stormscale"
+      ],
+      "archetype": "spear",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.07,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "simplyswords:halberd_stab_right",
+        "bettercombat:two_handed_slash_vertical_right",
+        "bettercombat:two_handed_slash_vertical_left",
+        "bettercombat:two_handed_slash_horizontal_right"
+      ],
+      "specials": [
+        {
+          "gesture": "LINE_H",
+          "cooldown_ticks": 140,
+          "damage_multiplier": 1.25,
+          "knockback": 0.5,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "ARC",
+            "range": 3.3,
+            "angle": 130,
+            "height": 3.4,
+            "vertical_offset": 0.2,
+            "max_targets": 8
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:glowing",
+              "duration": 80,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [
+            {
+              "id": "minecraft:speed",
+              "duration": 100,
+              "amplifier": 0
+            }
+          ],
+          "heal": 0.0,
+          "sound": "minecraft:item.trident.thunder",
+          "particles": "electric_spark"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:iron_chakram"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.8,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "simplyswords:one_handed_chakram_throw_left",
+        "simplyswords:chakram_spin",
+        "simplyswords:chakram_spin_long_grounded"
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:iron_claymore"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.6,
+      "cooldown_multiplier": 1.0
+    },
+    {
+      "items": [
+        "simplyswords:iron_cutlass"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.2,
+      "cooldown_multiplier": 1.0
+    },
+    {
+      "items": [
+        "simplyswords:iron_glaive"
+      ],
+      "archetype": "spear",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.07,
+      "cooldown_multiplier": 1.0
+    },
+    {
+      "items": [
+        "simplyswords:iron_greataxe"
+      ],
+      "archetype": "axe",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.38,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_spin"
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:iron_greathammer"
+      ],
+      "archetype": "axe",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.38,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slam"
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:iron_halberd"
+      ],
+      "archetype": "spear",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.29,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "simplyswords:halberd_stab_right",
+        "simplyswords:halberd_slash_vertical_right",
+        "bettercombat:two_handed_slash_vertical_right"
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:iron_katana"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.24,
+      "cooldown_multiplier": 1.0
+    },
+    {
+      "items": [
+        "simplyswords:iron_longsword"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.24,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:one_handed_slash_horizontal_right",
+        "bettercombat:one_handed_slash_horizontal_left",
+        "bettercombat:one_handed_stab"
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:iron_rapier"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.4,
+      "cooldown_multiplier": 1.0
+    },
+    {
+      "items": [
+        "simplyswords:iron_sai"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 0.92,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:one_handed_stab"
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:iron_scythe"
+      ],
+      "archetype": "axe",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.38,
+      "cooldown_multiplier": 1.0
+    },
+    {
+      "items": [
+        "simplyswords:iron_spear"
+      ],
+      "archetype": "spear",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.14,
+      "cooldown_multiplier": 1.0
+    },
+    {
+      "items": [
+        "simplyswords:iron_twinblade"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.4,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_spin"
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:iron_warglaive"
+      ],
+      "archetype": "spear",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 0.89,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "simplyswords:warglaive_slash_horizontal_right",
+        "simplyswords:warglaive_slash_horizontal_left",
+        "simplyswords:warglaive_spin"
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:livyatan"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.12,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:one_handed_slash_horizontal_right",
+        "bettercombat:one_handed_slash_horizontal_left",
+        "bettercombat:one_handed_slam",
+        "bettercombat:dual_handed_slash_cross",
+        "bettercombat:dual_handed_slash_uncross"
+      ],
+      "specials": [
+        {
+          "gesture": "LINE_V_UP",
+          "cooldown_ticks": 140,
+          "damage_multiplier": 1.3,
+          "knockback": 0.35,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "ARC",
+            "range": 3.1,
+            "angle": 100,
+            "height": 3.4,
+            "vertical_offset": 0.2,
+            "max_targets": 8
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:glowing",
+              "duration": 80,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [
+            {
+              "id": "minecraft:speed",
+              "duration": 100,
+              "amplifier": 0
+            }
+          ],
+          "heal": 0.0,
+          "sound": "minecraft:item.trident.thunder",
+          "particles": "electric_spark"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:magiblade"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.4,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_spin"
+      ],
+      "specials": [
+        {
+          "gesture": "CIRCLE",
+          "cooldown_ticks": 180,
+          "damage_multiplier": 1.4,
+          "knockback": 0.7,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "SPHERE",
+            "range": 4.0,
+            "max_targets": 10
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:fire",
+              "duration": 100,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [
+            {
+              "id": "minecraft:strength",
+              "duration": 100,
+              "amplifier": 0
+            }
+          ],
+          "heal": 0.0,
+          "sound": "minecraft:item.firecharge.use",
+          "particles": "flame"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:magiscythe"
+      ],
+      "archetype": "axe",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.38,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_spin"
+      ],
+      "specials": [
+        {
+          "gesture": "LINE_V_DOWN",
+          "cooldown_ticks": 180,
+          "damage_multiplier": 1.6,
+          "knockback": 0.9,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "VERTICAL_ARC",
+            "range": 3.2,
+            "angle": 120,
+            "width": 1.0,
+            "height": 2.8,
+            "max_targets": 8
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:glowing",
+              "duration": 80,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [
+            {
+              "id": "minecraft:speed",
+              "duration": 100,
+              "amplifier": 0
+            }
+          ],
+          "heal": 0.0,
+          "sound": "minecraft:item.trident.thunder",
+          "particles": "electric_spark"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:magispear"
+      ],
+      "archetype": "spear",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.06,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:one_handed_stab"
+      ],
+      "specials": [
+        {
+          "gesture": "LINE_V_UP",
+          "cooldown_ticks": 140,
+          "damage_multiplier": 1.3,
+          "knockback": 0.35,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "ARC",
+            "range": 3.1,
+            "angle": 100,
+            "height": 3.4,
+            "vertical_offset": 0.2,
+            "max_targets": 8
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:glowing",
+              "duration": 60,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [],
+          "heal": 0.0,
+          "sound": "minecraft:entity.player.attack_strong",
+          "particles": "crit"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:mjolnir"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.8,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "simplyswords:one_handed_chakram_throw_left",
+        "simplyswords:chakram_spin",
+        "simplyswords:chakram_spin_long_grounded"
+      ],
+      "specials": [
+        {
+          "gesture": "LINE_V_DOWN",
+          "cooldown_ticks": 180,
+          "damage_multiplier": 1.6,
+          "knockback": 0.9,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "VERTICAL_ARC",
+            "range": 3.2,
+            "angle": 120,
+            "width": 1.0,
+            "height": 2.8,
+            "max_targets": 8
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:glowing",
+              "duration": 80,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [
+            {
+              "id": "minecraft:speed",
+              "duration": 100,
+              "amplifier": 0
+            }
+          ],
+          "heal": 0.0,
+          "sound": "minecraft:item.trident.thunder",
+          "particles": "electric_spark"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:molten_edge"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.12,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:one_handed_slash_horizontal_right",
+        "bettercombat:dual_handed_slash_cross",
+        "bettercombat:dual_handed_slash_uncross"
+      ],
+      "specials": [
+        {
+          "gesture": "CIRCLE",
+          "cooldown_ticks": 180,
+          "damage_multiplier": 1.4,
+          "knockback": 0.7,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "SPHERE",
+            "range": 4.0,
+            "max_targets": 10
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:glowing",
+              "duration": 60,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [],
+          "heal": 0.0,
+          "sound": "minecraft:entity.player.attack_strong",
+          "particles": "crit"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:netherite_chakram"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.8,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "simplyswords:one_handed_chakram_throw_left",
+        "simplyswords:chakram_spin",
+        "simplyswords:chakram_spin_long_grounded"
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:netherite_claymore"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.6,
+      "cooldown_multiplier": 1.0
+    },
+    {
+      "items": [
+        "simplyswords:netherite_cutlass"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.2,
+      "cooldown_multiplier": 1.0
+    },
+    {
+      "items": [
+        "simplyswords:netherite_glaive"
+      ],
+      "archetype": "spear",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.07,
+      "cooldown_multiplier": 1.0
+    },
+    {
+      "items": [
+        "simplyswords:netherite_greataxe"
+      ],
+      "archetype": "axe",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.38,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_spin"
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:netherite_greathammer"
+      ],
+      "archetype": "axe",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.38,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slam"
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:netherite_halberd"
+      ],
+      "archetype": "spear",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.29,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "simplyswords:halberd_stab_right",
+        "simplyswords:halberd_slash_vertical_right",
+        "bettercombat:two_handed_slash_vertical_right"
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:netherite_katana"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.24,
+      "cooldown_multiplier": 1.0
+    },
+    {
+      "items": [
+        "simplyswords:netherite_longsword"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.12,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:one_handed_slash_horizontal_right",
+        "bettercombat:one_handed_slash_horizontal_left",
+        "bettercombat:one_handed_stab"
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:netherite_rapier"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.4,
+      "cooldown_multiplier": 1.0
+    },
+    {
+      "items": [
+        "simplyswords:netherite_sai"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 0.92,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:one_handed_stab"
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:netherite_scythe"
+      ],
+      "archetype": "axe",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.38,
+      "cooldown_multiplier": 1.0
+    },
+    {
+      "items": [
+        "simplyswords:netherite_spear"
+      ],
+      "archetype": "spear",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.14,
+      "cooldown_multiplier": 1.0
+    },
+    {
+      "items": [
+        "simplyswords:netherite_twinblade"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.4,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_spin"
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:netherite_warglaive"
+      ],
+      "archetype": "spear",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 0.89,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "simplyswords:warglaive_slash_horizontal_right",
+        "simplyswords:warglaive_slash_horizontal_left",
+        "simplyswords:warglaive_spin"
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:ribboncleaver"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.56,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "simplyswords:dragable_slash_upward",
+        "bettercombat:two_handed_slam"
+      ],
+      "specials": [
+        {
+          "gesture": "CARET",
+          "cooldown_ticks": 140,
+          "damage_multiplier": 1.2,
+          "knockback": 0.6,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "BOX",
+            "range": 3.6,
+            "width": 1.6,
+            "height": 2.0,
+            "max_targets": 4
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:glowing",
+              "duration": 60,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [],
+          "heal": 0.0,
+          "sound": "minecraft:entity.player.attack_strong",
+          "particles": "crit"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:riftmane"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.6,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slam"
+      ],
+      "specials": [
+        {
+          "gesture": "LINE_H",
+          "cooldown_ticks": 140,
+          "damage_multiplier": 1.25,
+          "knockback": 0.5,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "ARC",
+            "range": 3.3,
+            "angle": 130,
+            "height": 3.4,
+            "vertical_offset": 0.2,
+            "max_targets": 8
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:blindness",
+              "duration": 80,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [
+            {
+              "id": "minecraft:invisibility",
+              "duration": 80,
+              "amplifier": 0
+            }
+          ],
+          "heal": 0.0,
+          "sound": "minecraft:entity.enderman.teleport",
+          "particles": "enchanted_hit"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:righteous_relic"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.24,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:one_handed_slash_horizontal_right",
+        "bettercombat:one_handed_slash_horizontal_left",
+        "bettercombat:one_handed_stab"
+      ],
+      "specials": [
+        {
+          "gesture": "LINE_V_DOWN",
+          "cooldown_ticks": 180,
+          "damage_multiplier": 1.6,
+          "knockback": 0.9,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "VERTICAL_ARC",
+            "range": 3.2,
+            "angle": 120,
+            "width": 1.0,
+            "height": 2.8,
+            "max_targets": 8
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:glowing",
+              "duration": 60,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [],
+          "heal": 0.0,
+          "sound": "minecraft:entity.player.attack_strong",
+          "particles": "crit"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:runic_chakram"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.8,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "simplyswords:one_handed_chakram_throw_left",
+        "simplyswords:chakram_spin",
+        "simplyswords:chakram_spin_long_grounded"
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:runic_claymore"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.6,
+      "cooldown_multiplier": 1.0
+    },
+    {
+      "items": [
+        "simplyswords:runic_cutlass"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.2,
+      "cooldown_multiplier": 1.0
+    },
+    {
+      "items": [
+        "simplyswords:runic_glaive"
+      ],
+      "archetype": "spear",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.07,
+      "cooldown_multiplier": 1.0
+    },
+    {
+      "items": [
+        "simplyswords:runic_greataxe"
+      ],
+      "archetype": "axe",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.38,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_spin"
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:runic_greathammer"
+      ],
+      "archetype": "axe",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.38,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slam"
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:runic_halberd"
+      ],
+      "archetype": "spear",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.29,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "simplyswords:halberd_stab_right",
+        "simplyswords:halberd_slash_vertical_right",
+        "bettercombat:two_handed_slash_vertical_right"
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:runic_katana"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.24,
+      "cooldown_multiplier": 1.0
+    },
+    {
+      "items": [
+        "simplyswords:runic_longsword"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.24,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:one_handed_slash_horizontal_right",
+        "bettercombat:one_handed_slash_horizontal_left",
+        "bettercombat:one_handed_stab"
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:runic_rapier"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.4,
+      "cooldown_multiplier": 1.0
+    },
+    {
+      "items": [
+        "simplyswords:runic_sai"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 0.92,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:one_handed_stab"
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:runic_scythe"
+      ],
+      "archetype": "axe",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.38,
+      "cooldown_multiplier": 1.0
+    },
+    {
+      "items": [
+        "simplyswords:runic_spear"
+      ],
+      "archetype": "spear",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.14,
+      "cooldown_multiplier": 1.0
+    },
+    {
+      "items": [
+        "simplyswords:runic_twinblade"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.4,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_spin"
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:runic_warglaive"
+      ],
+      "archetype": "spear",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 0.89,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "simplyswords:warglaive_slash_horizontal_right",
+        "simplyswords:warglaive_slash_horizontal_left",
+        "simplyswords:warglaive_spin"
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:shadowsting"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.4,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:one_handed_slash_horizontal_left",
+        "bettercombat:one_handed_stab"
+      ],
+      "specials": [
+        {
+          "gesture": "CARET",
+          "cooldown_ticks": 140,
+          "damage_multiplier": 1.2,
+          "knockback": 0.6,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "BOX",
+            "range": 3.6,
+            "width": 1.6,
+            "height": 2.0,
+            "max_targets": 4
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:blindness",
+              "duration": 80,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [
+            {
+              "id": "minecraft:invisibility",
+              "duration": 80,
+              "amplifier": 0
+            }
+          ],
+          "heal": 0.0,
+          "sound": "minecraft:entity.enderman.teleport",
+          "particles": "enchanted_hit"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:slumbering_lichblade"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.64,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_spin",
+        "bettercombat:two_handed_stab_left"
+      ],
+      "specials": [
+        {
+          "gesture": "ZIGZAG",
+          "cooldown_ticks": 140,
+          "damage_multiplier": 1.35,
+          "knockback": 0.4,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "ARC",
+            "range": 3.0,
+            "angle": 110,
+            "height": 3.4,
+            "vertical_offset": 0.2,
+            "max_targets": 6
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:wither",
+              "duration": 80,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [
+            {
+              "id": "minecraft:absorption",
+              "duration": 120,
+              "amplifier": 0
+            }
+          ],
+          "heal": 0.0,
+          "sound": "minecraft:entity.wither.spawn",
+          "particles": "soul"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:soulkeeper"
+      ],
+      "archetype": "axe",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.38,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slam"
+      ],
+      "specials": [
+        {
+          "gesture": "CIRCLE",
+          "cooldown_ticks": 180,
+          "damage_multiplier": 1.4,
+          "knockback": 0.7,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "SPHERE",
+            "range": 4.0,
+            "max_targets": 10
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:wither",
+              "duration": 80,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [
+            {
+              "id": "minecraft:absorption",
+              "duration": 120,
+              "amplifier": 0
+            }
+          ],
+          "heal": 0.0,
+          "sound": "minecraft:entity.wither.spawn",
+          "particles": "soul"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:soulpyre"
+      ],
+      "archetype": "axe",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.41,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_spin"
+      ],
+      "specials": [
+        {
+          "gesture": "CIRCLE",
+          "cooldown_ticks": 180,
+          "damage_multiplier": 1.4,
+          "knockback": 0.7,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "SPHERE",
+            "range": 4.0,
+            "max_targets": 10
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:fire",
+              "duration": 100,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [
+            {
+              "id": "minecraft:strength",
+              "duration": 100,
+              "amplifier": 0
+            }
+          ],
+          "heal": 0.0,
+          "sound": "minecraft:item.firecharge.use",
+          "particles": "flame"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:soulrender"
+      ],
+      "archetype": "axe",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.38,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:one_handed_slash_horizontal_right",
+        "bettercombat:one_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right"
+      ],
+      "specials": [
+        {
+          "gesture": "CIRCLE",
+          "cooldown_ticks": 180,
+          "damage_multiplier": 1.4,
+          "knockback": 0.7,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "SPHERE",
+            "range": 4.0,
+            "max_targets": 10
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:wither",
+              "duration": 80,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [
+            {
+              "id": "minecraft:absorption",
+              "duration": 120,
+              "amplifier": 0
+            }
+          ],
+          "heal": 0.0,
+          "sound": "minecraft:entity.wither.spawn",
+          "particles": "soul"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:soulstalker"
+      ],
+      "archetype": "axe",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.38,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:one_handed_slash_horizontal_right",
+        "bettercombat:one_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right"
+      ],
+      "specials": [
+        {
+          "gesture": "CARET",
+          "cooldown_ticks": 140,
+          "damage_multiplier": 1.2,
+          "knockback": 0.6,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "BOX",
+            "range": 3.6,
+            "width": 1.6,
+            "height": 2.0,
+            "max_targets": 4
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:wither",
+              "duration": 80,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [
+            {
+              "id": "minecraft:absorption",
+              "duration": 120,
+              "amplifier": 0
+            }
+          ],
+          "heal": 0.0,
+          "sound": "minecraft:entity.wither.spawn",
+          "particles": "soul"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:soulstealer"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.1,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:one_handed_stab"
+      ],
+      "specials": [
+        {
+          "gesture": "CARET",
+          "cooldown_ticks": 140,
+          "damage_multiplier": 1.2,
+          "knockback": 0.6,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "BOX",
+            "range": 3.6,
+            "width": 1.6,
+            "height": 2.0,
+            "max_targets": 4
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:wither",
+              "duration": 80,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [
+            {
+              "id": "minecraft:absorption",
+              "duration": 120,
+              "amplifier": 0
+            }
+          ],
+          "heal": 0.0,
+          "sound": "minecraft:entity.wither.spawn",
+          "particles": "soul"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:stars_edge"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.4,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slash_horizontal_left"
+      ],
+      "specials": [
+        {
+          "gesture": "CARET",
+          "cooldown_ticks": 140,
+          "damage_multiplier": 1.2,
+          "knockback": 0.6,
+          "lift": 0.35,
+          "hitbox": {
+            "shape": "BOX",
+            "range": 3.6,
+            "width": 1.6,
+            "height": 2.0,
+            "max_targets": 4
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:levitation",
+              "duration": 40,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [],
+          "heal": 0.0,
+          "sound": "minecraft:block.amethyst_block.chime",
+          "particles": "end_rod"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:stormbringer"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.24,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:one_handed_slash_horizontal_right",
+        "bettercombat:one_handed_slash_horizontal_left",
+        "bettercombat:one_handed_stab"
+      ],
+      "specials": [
+        {
+          "gesture": "V",
+          "cooldown_ticks": 140,
+          "damage_multiplier": 1.05,
+          "knockback": 0.2,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "ARC",
+            "range": 2.8,
+            "angle": 90,
+            "height": 3.2,
+            "vertical_offset": 0.2,
+            "max_targets": 6
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:glowing",
+              "duration": 80,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [
+            {
+              "id": "minecraft:speed",
+              "duration": 100,
+              "amplifier": 0
+            }
+          ],
+          "heal": 0.0,
+          "sound": "minecraft:item.trident.thunder",
+          "particles": "electric_spark"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:storms_edge"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.4,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_spin"
+      ],
+      "specials": [
+        {
+          "gesture": "CARET",
+          "cooldown_ticks": 140,
+          "damage_multiplier": 1.2,
+          "knockback": 0.6,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "BOX",
+            "range": 3.6,
+            "width": 1.6,
+            "height": 2.0,
+            "max_targets": 4
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:glowing",
+              "duration": 80,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [
+            {
+              "id": "minecraft:speed",
+              "duration": 100,
+              "amplifier": 0
+            }
+          ],
+          "heal": 0.0,
+          "sound": "minecraft:item.trident.thunder",
+          "particles": "electric_spark"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:stormscale"
+      ],
+      "archetype": "spear",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.07,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "simplyswords:halberd_stab_right",
+        "bettercombat:two_handed_slash_vertical_right",
+        "bettercombat:two_handed_slash_vertical_left",
+        "bettercombat:two_handed_slash_horizontal_right"
+      ],
+      "specials": [
+        {
+          "gesture": "LINE_V_DOWN",
+          "cooldown_ticks": 180,
+          "damage_multiplier": 1.6,
+          "knockback": 0.9,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "VERTICAL_ARC",
+            "range": 3.2,
+            "angle": 120,
+            "width": 1.0,
+            "height": 2.8,
+            "max_targets": 8
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:glowing",
+              "duration": 80,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [
+            {
+              "id": "minecraft:speed",
+              "duration": 100,
+              "amplifier": 0
+            }
+          ],
+          "heal": 0.0,
+          "sound": "minecraft:item.trident.thunder",
+          "particles": "electric_spark"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:sunfire"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.24,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:one_handed_slash_horizontal_right",
+        "bettercombat:one_handed_slash_horizontal_left",
+        "bettercombat:one_handed_stab",
+        "bettercombat:two_handed_spin"
+      ],
+      "specials": [
+        {
+          "gesture": "LINE_V_DOWN",
+          "cooldown_ticks": 180,
+          "damage_multiplier": 1.6,
+          "knockback": 0.9,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "VERTICAL_ARC",
+            "range": 3.2,
+            "angle": 120,
+            "width": 1.0,
+            "height": 2.8,
+            "max_targets": 8
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:fire",
+              "duration": 100,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [
+            {
+              "id": "minecraft:strength",
+              "duration": 100,
+              "amplifier": 0
+            }
+          ],
+          "heal": 0.0,
+          "sound": "minecraft:item.firecharge.use",
+          "particles": "flame"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:sword_on_a_stick"
+      ],
+      "archetype": "spear",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 0.89,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:one_handed_stab"
+      ],
+      "specials": [
+        {
+          "gesture": "LINE_V_UP",
+          "cooldown_ticks": 140,
+          "damage_multiplier": 1.3,
+          "knockback": 0.35,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "ARC",
+            "range": 3.1,
+            "angle": 100,
+            "height": 3.4,
+            "vertical_offset": 0.2,
+            "max_targets": 8
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:glowing",
+              "duration": 60,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [],
+          "heal": 0.0,
+          "sound": "minecraft:entity.player.attack_strong",
+          "particles": "crit"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:tainted_relic"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.24,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:one_handed_slash_horizontal_right",
+        "bettercombat:one_handed_slash_horizontal_left",
+        "bettercombat:one_handed_stab"
+      ],
+      "specials": [
+        {
+          "gesture": "LINE_V_DOWN",
+          "cooldown_ticks": 180,
+          "damage_multiplier": 1.6,
+          "knockback": 0.9,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "VERTICAL_ARC",
+            "range": 3.2,
+            "angle": 120,
+            "width": 1.0,
+            "height": 2.8,
+            "max_targets": 8
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:glowing",
+              "duration": 60,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [],
+          "heal": 0.0,
+          "sound": "minecraft:entity.player.attack_strong",
+          "particles": "crit"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:tempest"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.8,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "simplyswords:one_handed_chakram_throw_left",
+        "simplyswords:chakram_spin",
+        "simplyswords:chakram_spin_long_grounded"
+      ],
+      "specials": [
+        {
+          "gesture": "CIRCLE",
+          "cooldown_ticks": 180,
+          "damage_multiplier": 1.4,
+          "knockback": 0.7,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "SPHERE",
+            "range": 4.0,
+            "max_targets": 10
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:glowing",
+              "duration": 80,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [
+            {
+              "id": "minecraft:speed",
+              "duration": 100,
+              "amplifier": 0
+            }
+          ],
+          "heal": 0.0,
+          "sound": "minecraft:item.trident.thunder",
+          "particles": "electric_spark"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:the_devourer"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.6,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_stab_left",
+        "bettercombat:two_handed_slam"
+      ],
+      "specials": [
+        {
+          "gesture": "V",
+          "cooldown_ticks": 140,
+          "damage_multiplier": 1.05,
+          "knockback": 0.2,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "ARC",
+            "range": 2.8,
+            "angle": 90,
+            "height": 3.2,
+            "vertical_offset": 0.2,
+            "max_targets": 6
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:wither",
+              "duration": 60,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [
+            {
+              "id": "minecraft:regeneration",
+              "duration": 100,
+              "amplifier": 0
+            }
+          ],
+          "heal": 4.0,
+          "sound": "minecraft:entity.player.attack_crit",
+          "particles": "crit"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:thunderbrand"
+      ],
+      "archetype": "spear",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.29,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "simplyswords:halberd_slash_vertical_right",
+        "simplyswords:halberd_stab_right",
+        "bettercombat:two_handed_slash_vertical_right"
+      ],
+      "specials": [
+        {
+          "gesture": "CARET",
+          "cooldown_ticks": 140,
+          "damage_multiplier": 1.2,
+          "knockback": 0.6,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "BOX",
+            "range": 3.6,
+            "width": 1.6,
+            "height": 2.0,
+            "max_targets": 4
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:fire",
+              "duration": 100,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [
+            {
+              "id": "minecraft:strength",
+              "duration": 100,
+              "amplifier": 0
+            }
+          ],
+          "heal": 0.0,
+          "sound": "minecraft:item.firecharge.use",
+          "particles": "flame"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:toxic_longsword"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.24,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:one_handed_slash_horizontal_right",
+        "bettercombat:one_handed_slash_horizontal_left",
+        "bettercombat:one_handed_stab"
+      ],
+      "specials": [
+        {
+          "gesture": "CIRCLE",
+          "cooldown_ticks": 180,
+          "damage_multiplier": 1.4,
+          "knockback": 0.7,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "SPHERE",
+            "range": 4.0,
+            "max_targets": 10
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:poison",
+              "duration": 120,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [],
+          "heal": 0.0,
+          "sound": "minecraft:entity.spider.ambient",
+          "particles": "witch"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:twisted_blade"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.6,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slam"
+      ],
+      "specials": [
+        {
+          "gesture": "ZIGZAG",
+          "cooldown_ticks": 120,
+          "damage_multiplier": 1.45,
+          "knockback": 1.2,
+          "lift": 0.25,
+          "hitbox": {
+            "shape": "SPHERE",
+            "range": 3.8,
+            "max_targets": 8
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:glowing",
+              "duration": 80,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [
+            {
+              "id": "minecraft:speed",
+              "duration": 140,
+              "amplifier": 1
+            },
+            {
+              "id": "minecraft:strength",
+              "duration": 120,
+              "amplifier": 0
+            }
+          ],
+          "heal": 0.0,
+          "sound": "minecraft:entity.player.attack_crit",
+          "particles": "crit"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:waking_lichblade"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.64,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_spin",
+        "bettercombat:two_handed_stab_left"
+      ],
+      "specials": [
+        {
+          "gesture": "ZIGZAG",
+          "cooldown_ticks": 140,
+          "damage_multiplier": 1.35,
+          "knockback": 0.4,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "ARC",
+            "range": 3.0,
+            "angle": 110,
+            "height": 3.4,
+            "vertical_offset": 0.2,
+            "max_targets": 6
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:wither",
+              "duration": 80,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [
+            {
+              "id": "minecraft:absorption",
+              "duration": 120,
+              "amplifier": 0
+            }
+          ],
+          "heal": 0.0,
+          "sound": "minecraft:entity.wither.spawn",
+          "particles": "soul"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:watcher_claymore"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.6,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_stab_left",
+        "bettercombat:two_handed_slam"
+      ],
+      "specials": [
+        {
+          "gesture": "ZIGZAG",
+          "cooldown_ticks": 140,
+          "damage_multiplier": 1.35,
+          "knockback": 0.4,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "ARC",
+            "range": 3.0,
+            "angle": 110,
+            "height": 3.4,
+            "vertical_offset": 0.2,
+            "max_targets": 6
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:blindness",
+              "duration": 80,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [
+            {
+              "id": "minecraft:invisibility",
+              "duration": 80,
+              "amplifier": 0
+            }
+          ],
+          "heal": 0.0,
+          "sound": "minecraft:entity.enderman.teleport",
+          "particles": "enchanted_hit"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:watching_warglaive"
+      ],
+      "archetype": "spear",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 0.89,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "simplyswords:warglaive_slash_horizontal_right",
+        "simplyswords:warglaive_slash_horizontal_left",
+        "simplyswords:warglaive_spin"
+      ],
+      "specials": [
+        {
+          "gesture": "ZIGZAG",
+          "cooldown_ticks": 140,
+          "damage_multiplier": 1.35,
+          "knockback": 0.4,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "ARC",
+            "range": 3.0,
+            "angle": 110,
+            "height": 3.4,
+            "vertical_offset": 0.2,
+            "max_targets": 6
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:blindness",
+              "duration": 80,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [
+            {
+              "id": "minecraft:invisibility",
+              "duration": 80,
+              "amplifier": 0
+            }
+          ],
+          "heal": 0.0,
+          "sound": "minecraft:entity.enderman.teleport",
+          "particles": "enchanted_hit"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:waxweaver"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.64,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slam",
+        "bettercombat:two_handed_stab_left"
+      ],
+      "specials": [
+        {
+          "gesture": "CIRCLE",
+          "cooldown_ticks": 180,
+          "damage_multiplier": 1.4,
+          "knockback": 0.7,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "SPHERE",
+            "range": 4.0,
+            "max_targets": 10
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:fire",
+              "duration": 100,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [
+            {
+              "id": "minecraft:strength",
+              "duration": 100,
+              "amplifier": 0
+            }
+          ],
+          "heal": 0.0,
+          "sound": "minecraft:item.firecharge.use",
+          "particles": "flame"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:whisperwind"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.24,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slash_vertical_left",
+        "bettercombat:two_handed_slash_vertical_right",
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_stab_right"
+      ],
+      "specials": [
+        {
+          "gesture": "CARET",
+          "cooldown_ticks": 140,
+          "damage_multiplier": 1.2,
+          "knockback": 0.6,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "BOX",
+            "range": 3.6,
+            "width": 1.6,
+            "height": 2.0,
+            "max_targets": 4
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:glowing",
+              "duration": 80,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [
+            {
+              "id": "minecraft:speed",
+              "duration": 100,
+              "amplifier": 0
+            }
+          ],
+          "heal": 0.0,
+          "sound": "minecraft:item.trident.thunder",
+          "particles": "electric_spark"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:wickpiercer"
+      ],
+      "archetype": "spear",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.06,
+      "cooldown_multiplier": 1.0,
+      "specials": [
+        {
+          "gesture": "LINE_V_UP",
+          "cooldown_ticks": 140,
+          "damage_multiplier": 1.3,
+          "knockback": 0.35,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "ARC",
+            "range": 3.1,
+            "angle": 100,
+            "height": 3.4,
+            "vertical_offset": 0.2,
+            "max_targets": 8
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:glowing",
+              "duration": 60,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [],
+          "heal": 0.0,
+          "sound": "minecraft:entity.player.attack_strong",
+          "particles": "crit"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:wraithfang"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.12,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:one_handed_slash_horizontal_right",
+        "bettercombat:dual_handed_slash_cross",
+        "bettercombat:dual_handed_slash_uncross"
+      ],
+      "specials": [
+        {
+          "gesture": "CARET",
+          "cooldown_ticks": 140,
+          "damage_multiplier": 1.2,
+          "knockback": 0.6,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "BOX",
+            "range": 3.6,
+            "width": 1.6,
+            "height": 2.0,
+            "max_targets": 4
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:wither",
+              "duration": 80,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [
+            {
+              "id": "minecraft:absorption",
+              "duration": 120,
+              "amplifier": 0
+            }
+          ],
+          "heal": 0.0,
+          "sound": "minecraft:entity.wither.spawn",
+          "particles": "soul"
+        }
+      ]
+    },
+    {
+      "items": [
+        "simplyswords:wraithmaw"
+      ],
+      "archetype": "sword",
+      "damage_multiplier": 1.0,
+      "reach_multiplier": 1.12,
+      "cooldown_multiplier": 1.0,
+      "animations": [
+        "bettercombat:one_handed_slash_horizontal_right",
+        "bettercombat:dual_handed_slash_cross",
+        "bettercombat:dual_handed_slash_uncross"
+      ],
+      "specials": [
+        {
+          "gesture": "ZIGZAG",
+          "cooldown_ticks": 140,
+          "damage_multiplier": 1.35,
+          "knockback": 0.4,
+          "lift": 0.1,
+          "hitbox": {
+            "shape": "ARC",
+            "range": 3.0,
+            "angle": 110,
+            "height": 3.4,
+            "vertical_offset": 0.2,
+            "max_targets": 6
+          },
+          "target_effects": [
+            {
+              "id": "minecraft:wither",
+              "duration": 80,
+              "amplifier": 0
+            }
+          ],
+          "self_effects": [
+            {
+              "id": "minecraft:absorption",
+              "duration": 120,
+              "amplifier": 0
+            }
+          ],
+          "heal": 0.0,
+          "sound": "minecraft:entity.wither.spawn",
+          "particles": "soul"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,2622 @@
+{
+  "mod_version": "1.70.2-1.20.1",
+  "weapons": [
+    {
+      "id": "simplyswords:arcanethyst",
+      "name": "Arcanethyst",
+      "category": "halberd",
+      "parent": "halberd",
+      "two_handed": true,
+      "attack_range": 4.5,
+      "damage": 7,
+      "attack_speed": -2.7,
+      "attack_animations": [
+        "simplyswords:halberd_slash_vertical_right",
+        "simplyswords:halberd_stab_right",
+        "bettercombat:two_handed_slash_vertical_right"
+      ],
+      "special": "Arcane Assault - on-hit chance levitates the target; the active lifts nearby medium enemies with arcane force for a moment, then slams them into the ground.",
+      "suggested_gesture": "LINE_V_UP",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.ArcanethystSwordItem.activate",
+        "net.sweenus.simplyswords.item.custom.ArcanethystSwordItem.m_7579_",
+        "net.sweenus.simplyswords.world.ArcanethystAssaultManager"
+      ]
+    },
+    {
+      "id": "simplyswords:awakened_lichblade",
+      "name": "Awakened Lichblade",
+      "category": "claymore",
+      "parent": "heavy_axe",
+      "two_handed": true,
+      "attack_range": 4.1,
+      "damage": 7,
+      "attack_speed": -3.1,
+      "attack_animations": [
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_spin",
+        "bettercombat:two_handed_stab_left"
+      ],
+      "special": "Soul Anguish III - same soul ability at the final awakening tier (strongest souls, damage and absorption).",
+      "suggested_gesture": "ZIGZAG",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.LichbladeSwordItem.activate",
+        "net.sweenus.simplyswords.item.custom.LichbladeSwordItem.m_7579_"
+      ]
+    },
+    {
+      "id": "simplyswords:bloodwake",
+      "name": "Bloodwake",
+      "category": "sickle",
+      "parent": "sickle",
+      "two_handed": false,
+      "attack_range": 2.8,
+      "damage": 1,
+      "attack_speed": -2.0,
+      "attack_animations": [
+        "bettercombat:one_handed_slash_horizontal_right",
+        "bettercombat:dual_handed_slash_cross",
+        "bettercombat:dual_handed_slash_uncross"
+      ],
+      "special": "Crimson Revelry - hits inflict Bleed; striking a max-Bleed enemy bursts for area bleed damage and grants Blood Frenzy, which is spent to invoke escalating blood rites up to the Red Tide wave, and bloodstains slow enemies while healing you.",
+      "suggested_gesture": "LINE_H",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.BloodwakeSwordItem.activate",
+        "net.sweenus.simplyswords.item.custom.BloodwakeSwordItem.m_7579_",
+        "net.sweenus.simplyswords.world.BloodwakeAbilityManager",
+        "net.sweenus.simplyswords.effect.BleedEffect",
+        "net.sweenus.simplyswords.effect.BloodFrenzyEffect"
+      ]
+    },
+    {
+      "id": "simplyswords:bramblethorn",
+      "name": "Bramblethorn",
+      "category": "rapier",
+      "parent": "rapier",
+      "two_handed": false,
+      "attack_range": 3.25,
+      "damage": 3,
+      "attack_speed": -1.8,
+      "attack_animations": [
+        "bettercombat:one_handed_slash_horizontal_left",
+        "bettercombat:one_handed_stab"
+      ],
+      "special": "Grasp of the Wild - the active sends a living bramble that binds the target and nearby enemies so damage echoes between them; on-hit a bramble travels from the previous target to the new one, damaging and slowing along its path.",
+      "suggested_gesture": "ZIGZAG",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.BrambleSwordItem.activate",
+        "net.sweenus.simplyswords.item.custom.BrambleSwordItem.m_7579_",
+        "net.sweenus.simplyswords.world.BramblethornAbilityManager",
+        "net.sweenus.simplyswords.entity.BrambleRootVisualEntity"
+      ]
+    },
+    {
+      "id": "simplyswords:brimstone_claymore",
+      "name": "Brimstone Claymore",
+      "category": "claymore",
+      "parent": "heavy_axe",
+      "two_handed": true,
+      "attack_range": 4,
+      "damage": 6,
+      "attack_speed": -2.8,
+      "attack_animations": [
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_spin"
+      ],
+      "special": "Brimstone - chance on hit to spew explosive brimstone; the active summons a Brimstone Claymore above the target that pulses area fire damage before plunging into the ground.",
+      "suggested_gesture": "LINE_V_DOWN",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.BrimstoneClaymoreItem.activate",
+        "net.sweenus.simplyswords.item.custom.BrimstoneClaymoreItem.m_7579_",
+        "net.sweenus.simplyswords.world.BrimstoneClaymoreAbilityManager"
+      ]
+    },
+    {
+      "id": "simplyswords:caelestis",
+      "name": "Caelestis",
+      "category": "claymore",
+      "parent": "heavy_axe",
+      "two_handed": true,
+      "attack_range": 4,
+      "damage": 6,
+      "attack_speed": -2.9,
+      "attack_animations": [
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_spin"
+      ],
+      "special": "Astral Breach - tears open a dimensional breach that expands and summons friendly corrupted creatures (with a chance to release an Unbound hunter) before collapsing and pulling them back.",
+      "suggested_gesture": "CIRCLE",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.CaelestisSwordItem.activate",
+        "net.sweenus.simplyswords.item.custom.CaelestisSwordItem.m_7579_",
+        "net.sweenus.simplyswords.world.CaelestisBreachManager",
+        "net.sweenus.simplyswords.entity.CaelestisBreachCreature"
+      ]
+    },
+    {
+      "id": "simplyswords:chompolotl",
+      "name": "Chomp'olotl",
+      "category": "chakram",
+      "parent": "chakram",
+      "two_handed": false,
+      "attack_range": 5.5,
+      "damage": 0,
+      "attack_speed": -2.5,
+      "attack_animations": [
+        "simplyswords:one_handed_chakram_throw_left",
+        "simplyswords:chakram_spin",
+        "simplyswords:chakram_spin_long_grounded"
+      ],
+      "special": "Chompocalypse - hits summon axolotls that fight nearby enemies (and can perch on your shoulders for area buffs); the active summons a swarm including a rare blue axolotl.",
+      "suggested_gesture": "CIRCLE",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.ChompolotlSwordItem.activate",
+        "net.sweenus.simplyswords.item.custom.ChompolotlSwordItem.m_7579_",
+        "net.sweenus.simplyswords.entity.SimplySwordsAxolotlEntity"
+      ]
+    },
+    {
+      "id": "simplyswords:dawnquiver",
+      "name": "Dawnquiver",
+      "category": "claymore",
+      "parent": "claymore",
+      "two_handed": true,
+      "attack_range": 4,
+      "damage": 6,
+      "attack_speed": -2.9,
+      "attack_animations": [
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slam"
+      ],
+      "special": "Seraph's Draw - a lesser bow periodically fires at your most distant visible enemy and can build Dawn Chorus; holding draws a great bow whose arrow scales with draw time and spends Chorus on Dawn Volley, Sunlance or Seraphic Chorus.",
+      "suggested_gesture": "LINE_H",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.DawnquiverSwordItem.activate",
+        "net.sweenus.simplyswords.world.DawnquiverAbilityManager",
+        "net.sweenus.simplyswords.entity.DawnquiverArrowEntity"
+      ]
+    },
+    {
+      "id": "simplyswords:decaying_relic",
+      "name": "Decaying relic",
+      "category": "scythe",
+      "parent": "scythe",
+      "two_handed": true,
+      "attack_range": 4,
+      "damage": 4,
+      "attack_speed": -2.4,
+      "attack_animations": [],
+      "special": null,
+      "suggested_gesture": "CIRCLE",
+      "arsenal_role": "basic",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:diamond_chakram",
+      "name": "Diamond Chakram",
+      "category": "chakram",
+      "parent": "chakram",
+      "two_handed": false,
+      "attack_range": 5.5,
+      "damage": 2,
+      "attack_speed": -3.0,
+      "attack_animations": [
+        "simplyswords:one_handed_chakram_throw_left",
+        "simplyswords:chakram_spin",
+        "simplyswords:chakram_spin_long_grounded"
+      ],
+      "special": null,
+      "suggested_gesture": "CIRCLE",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:diamond_claymore",
+      "name": "Diamond Claymore",
+      "category": "claymore",
+      "parent": "claymore",
+      "two_handed": true,
+      "attack_range": 4,
+      "damage": 5,
+      "attack_speed": -2.8,
+      "attack_animations": [],
+      "special": null,
+      "suggested_gesture": "LINE_V_DOWN",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:diamond_cutlass",
+      "name": "Diamond Cutlass",
+      "category": "sickle",
+      "parent": "sickle",
+      "two_handed": false,
+      "attack_range": 3,
+      "damage": 3,
+      "attack_speed": -2.0,
+      "attack_animations": [],
+      "special": null,
+      "suggested_gesture": "LINE_H",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:diamond_glaive",
+      "name": "Diamond Glaive",
+      "category": "glaive",
+      "parent": "glaive",
+      "two_handed": true,
+      "attack_range": 3.75,
+      "damage": 3,
+      "attack_speed": -2.6,
+      "attack_animations": [],
+      "special": null,
+      "suggested_gesture": "LINE_H",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:diamond_greataxe",
+      "name": "Diamond Greataxe",
+      "category": "greataxe",
+      "parent": "heavy_axe",
+      "two_handed": true,
+      "attack_range": 4,
+      "damage": 6,
+      "attack_speed": -3.1,
+      "attack_animations": [
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_spin"
+      ],
+      "special": null,
+      "suggested_gesture": "LINE_V_DOWN",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:diamond_greathammer",
+      "name": "Diamond Greathammer",
+      "category": "greathammer",
+      "parent": "heavy_axe",
+      "two_handed": true,
+      "attack_range": 4,
+      "damage": 7,
+      "attack_speed": -3.2,
+      "attack_animations": [
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slam"
+      ],
+      "special": null,
+      "suggested_gesture": "LINE_V_DOWN",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:diamond_halberd",
+      "name": "Diamond Halberd",
+      "category": "halberd",
+      "parent": "halberd",
+      "two_handed": true,
+      "attack_range": 4.5,
+      "damage": 6,
+      "attack_speed": -2.8,
+      "attack_animations": [
+        "simplyswords:halberd_stab_right",
+        "simplyswords:halberd_slash_vertical_right",
+        "bettercombat:two_handed_slash_vertical_right"
+      ],
+      "special": null,
+      "suggested_gesture": "LINE_V_DOWN",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:diamond_katana",
+      "name": "Diamond Katana",
+      "category": "katana",
+      "parent": "katana",
+      "two_handed": true,
+      "attack_range": 3.1,
+      "damage": 3,
+      "attack_speed": -2.0,
+      "attack_animations": [],
+      "special": null,
+      "suggested_gesture": "LINE_H",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:diamond_longsword",
+      "name": "Diamond Longsword",
+      "category": "sword",
+      "parent": "sword",
+      "two_handed": false,
+      "attack_range": 3.1,
+      "damage": 3,
+      "attack_speed": -2.4,
+      "attack_animations": [
+        "bettercombat:one_handed_slash_horizontal_right",
+        "bettercombat:one_handed_slash_horizontal_left",
+        "bettercombat:one_handed_stab"
+      ],
+      "special": null,
+      "suggested_gesture": "LINE_H",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:diamond_rapier",
+      "name": "Diamond Rapier",
+      "category": "rapier",
+      "parent": "rapier",
+      "two_handed": false,
+      "attack_range": 3.5,
+      "damage": 2,
+      "attack_speed": -1.8,
+      "attack_animations": [],
+      "special": null,
+      "suggested_gesture": "LINE_V_UP",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:diamond_sai",
+      "name": "Diamond Sai",
+      "category": "soul_knife",
+      "parent": "soul_knife",
+      "two_handed": false,
+      "attack_range": 2.3,
+      "damage": 0,
+      "attack_speed": -1.5,
+      "attack_animations": [
+        "bettercombat:one_handed_stab"
+      ],
+      "special": null,
+      "suggested_gesture": "LINE_V_UP",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:diamond_scythe",
+      "name": "Diamond Scythe",
+      "category": "scythe",
+      "parent": "scythe",
+      "two_handed": true,
+      "attack_range": 4.0,
+      "damage": 4,
+      "attack_speed": -2.7,
+      "attack_animations": [],
+      "special": null,
+      "suggested_gesture": "CIRCLE",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:diamond_spear",
+      "name": "Diamond Spear",
+      "category": "trident",
+      "parent": "trident",
+      "two_handed": false,
+      "attack_range": 4,
+      "damage": 3,
+      "attack_speed": -2.7,
+      "attack_animations": [],
+      "special": null,
+      "suggested_gesture": "LINE_V_UP",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:diamond_twinblade",
+      "name": "Diamond Twinblade",
+      "category": "battlestaff",
+      "parent": "battlestaff",
+      "two_handed": true,
+      "attack_range": 3.5,
+      "damage": 3,
+      "attack_speed": -2.0,
+      "attack_animations": [
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_spin"
+      ],
+      "special": null,
+      "suggested_gesture": "ZIGZAG",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:diamond_warglaive",
+      "name": "Diamond Warglaive",
+      "category": "warglaive",
+      "parent": "warglaive",
+      "two_handed": false,
+      "attack_range": 3.1,
+      "damage": 3,
+      "attack_speed": -2.2,
+      "attack_animations": [
+        "simplyswords:warglaive_slash_horizontal_right",
+        "simplyswords:warglaive_slash_horizontal_left",
+        "simplyswords:warglaive_spin"
+      ],
+      "special": null,
+      "suggested_gesture": "CIRCLE",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:dormant_relic",
+      "name": "Dormant Relic",
+      "category": "sword",
+      "parent": "sword",
+      "two_handed": false,
+      "attack_range": 3.1,
+      "damage": 3,
+      "attack_speed": -2.4,
+      "attack_animations": [
+        "bettercombat:one_handed_slash_horizontal_right",
+        "bettercombat:one_handed_slash_horizontal_left",
+        "bettercombat:one_handed_stab"
+      ],
+      "special": null,
+      "suggested_gesture": "LINE_H",
+      "arsenal_role": "basic",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:dreadwhisper",
+      "name": "Dreadwhisper",
+      "category": "katana",
+      "parent": "katana",
+      "two_handed": true,
+      "attack_range": 3.1,
+      "damage": 3,
+      "attack_speed": -2.0,
+      "attack_animations": [
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slash_vertical_left",
+        "bettercombat:two_handed_slash_vertical_right",
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_stab_right"
+      ],
+      "special": "Shadow Rend - hits leave a Corrupted Wound; striking a wounded target guarantees a critical hit and ruptures the wound; the active surges through enemies leaving Gloam and healing a share of damage dealt.",
+      "suggested_gesture": "CARET",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.DreadwhisperSwordItem.activate",
+        "net.sweenus.simplyswords.world.DreadwhisperAbilityManager",
+        "net.sweenus.simplyswords.effect.CorruptedWoundEffect"
+      ]
+    },
+    {
+      "id": "simplyswords:emberblade",
+      "name": "Emberblade",
+      "category": "sword",
+      "parent": "sword",
+      "two_handed": false,
+      "attack_range": 3.1,
+      "damage": 3,
+      "attack_speed": -2.4,
+      "attack_animations": [
+        "bettercombat:one_handed_slash_horizontal_right",
+        "bettercombat:one_handed_slash_horizontal_left",
+        "bettercombat:one_handed_stab"
+      ],
+      "special": "Ember Ire - hold to channel; release fires fiery shrapnel at the aimed target with damage scaling by channel time (an extra shrapnel on a last-second release) and a chance for Speed, Haste and Strength.",
+      "suggested_gesture": "LINE_H",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.EmberIreSwordItem.activate",
+        "net.sweenus.simplyswords.item.custom.EmberIreSwordItem.m_7579_"
+      ]
+    },
+    {
+      "id": "simplyswords:emberlash",
+      "name": "Emberlash",
+      "category": "warglaive",
+      "parent": "warglaive",
+      "two_handed": false,
+      "attack_range": 2.5,
+      "damage": 0,
+      "attack_speed": -1.5,
+      "attack_animations": [
+        "simplyswords:warglaive_slash_horizontal_right",
+        "simplyswords:warglaive_slash_horizontal_left",
+        "bettercombat:dual_handed_slash_cross",
+        "bettercombat:dual_handed_slash_uncross"
+      ],
+      "special": "Smoulder - attacks inflict Smouldering for bonus damage per stack; the active evades backwards while cauterising the wound, healing a percentage of max health.",
+      "suggested_gesture": "CARET",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.EmberlashSwordItem.activate",
+        "net.sweenus.simplyswords.item.custom.EmberlashSwordItem.m_7579_",
+        "net.sweenus.simplyswords.world.EmberlashSmoulderVisualManager",
+        "net.sweenus.simplyswords.effect.SmoulderingEffect"
+      ]
+    },
+    {
+      "id": "simplyswords:enigma",
+      "name": "Enigma",
+      "category": "claymore",
+      "parent": "claymore",
+      "two_handed": true,
+      "attack_range": 3.9,
+      "damage": 7,
+      "attack_speed": -3.2,
+      "attack_animations": [
+        "simplyswords:dragable_slash_upward",
+        "bettercombat:two_handed_slam"
+      ],
+      "special": "Galeforce - the active summons a twister that chases nearby enemies, dealing more damage the longer they stay inside; standing near it grants Haste.",
+      "suggested_gesture": "CIRCLE",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.EnigmaSwordItem.activate",
+        "net.sweenus.simplyswords.item.custom.EnigmaSwordItem.m_7579_",
+        "net.sweenus.simplyswords.entity.BattleStandardDarkEntity",
+        "net.sweenus.simplyswords.entity.AtmosphericVisualEntity"
+      ]
+    },
+    {
+      "id": "simplyswords:flamewind",
+      "name": "Flamewind",
+      "category": "glaive",
+      "parent": "glaive",
+      "two_handed": true,
+      "attack_range": 3.75,
+      "damage": 3,
+      "attack_speed": -2.6,
+      "attack_animations": [
+        "simplyswords:halberd_stab_right",
+        "bettercombat:two_handed_slash_vertical_right",
+        "bettercombat:two_handed_slash_vertical_left",
+        "bettercombat:two_handed_slash_horizontal_right"
+      ],
+      "special": "Emberstorm - the active plants a flame seed in the nearest enemy for damage over time; on expiry it detonates for area damage and spreads to nearby enemies, and each detonation grants Haste.",
+      "suggested_gesture": "ZIGZAG",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.FlamewindSwordItem.activate",
+        "net.sweenus.simplyswords.item.custom.FlamewindSwordItem.m_7579_",
+        "net.sweenus.simplyswords.world.FlamewindVisualManager",
+        "net.sweenus.simplyswords.effect.FlameSeedEffect"
+      ]
+    },
+    {
+      "id": "simplyswords:frostfall",
+      "name": "Frostfall",
+      "category": "mace",
+      "parent": "mace",
+      "two_handed": false,
+      "attack_range": 2.8,
+      "damage": 5,
+      "attack_speed": -2.5,
+      "attack_animations": [
+        "bettercombat:one_handed_slash_horizontal_right",
+        "bettercombat:one_handed_slash_horizontal_left",
+        "bettercombat:one_handed_slam"
+      ],
+      "special": "Frost Fury - thrown with impact scaling by airtime and angle; on landing it pulses five times, damaging, slowing and pulling enemies; innate Loyalty III.",
+      "suggested_gesture": "LINE_V_UP",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.FrostfallSwordItem.activate",
+        "net.sweenus.simplyswords.item.custom.FrostfallSwordItem.m_7579_",
+        "net.sweenus.simplyswords.entity.FrostfallEntity",
+        "net.sweenus.simplyswords.world.FrostfallIceSpikeFieldManager"
+      ]
+    },
+    {
+      "id": "simplyswords:gloampiercer",
+      "name": "Gloampiercer",
+      "category": "trident",
+      "parent": "trident",
+      "two_handed": false,
+      "attack_range": 3.7,
+      "damage": 4,
+      "attack_speed": -2.1,
+      "attack_animations": [],
+      "special": "Phantom Phalanx - swinging at an enemy 3-12 blocks away summons an airborne shadow clone that hurls an explosive spear; the active lifts you and bombards the area with Gloam spears.",
+      "suggested_gesture": "ZIGZAG",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.GloampiercerSwordItem.activate",
+        "net.sweenus.simplyswords.world.GloampiercerAbilityManager",
+        "net.sweenus.simplyswords.entity.GloampiercerSpearEntity"
+      ]
+    },
+    {
+      "id": "simplyswords:gold_chakram",
+      "name": "Gold Chakram",
+      "category": "chakram",
+      "parent": "chakram",
+      "two_handed": false,
+      "attack_range": 5.5,
+      "damage": 2,
+      "attack_speed": -3.0,
+      "attack_animations": [
+        "simplyswords:one_handed_chakram_throw_left",
+        "simplyswords:chakram_spin",
+        "simplyswords:chakram_spin_long_grounded"
+      ],
+      "special": null,
+      "suggested_gesture": "CIRCLE",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:gold_claymore",
+      "name": "Gold Claymore",
+      "category": "claymore",
+      "parent": "claymore",
+      "two_handed": true,
+      "attack_range": 4,
+      "damage": 5,
+      "attack_speed": -2.8,
+      "attack_animations": [],
+      "special": null,
+      "suggested_gesture": "LINE_V_DOWN",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:gold_cutlass",
+      "name": "Gold Cutlass",
+      "category": "sickle",
+      "parent": "sickle",
+      "two_handed": false,
+      "attack_range": 3,
+      "damage": 3,
+      "attack_speed": -2.0,
+      "attack_animations": [],
+      "special": null,
+      "suggested_gesture": "LINE_H",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:gold_glaive",
+      "name": "Gold Glaive",
+      "category": "glaive",
+      "parent": "glaive",
+      "two_handed": true,
+      "attack_range": 3.75,
+      "damage": 3,
+      "attack_speed": -2.6,
+      "attack_animations": [],
+      "special": null,
+      "suggested_gesture": "LINE_H",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:gold_greataxe",
+      "name": "Gold Greataxe",
+      "category": "greataxe",
+      "parent": "heavy_axe",
+      "two_handed": true,
+      "attack_range": 4,
+      "damage": 6,
+      "attack_speed": -3.1,
+      "attack_animations": [
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_spin"
+      ],
+      "special": null,
+      "suggested_gesture": "LINE_V_DOWN",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:gold_greathammer",
+      "name": "Gold Greathammer",
+      "category": "greathammer",
+      "parent": "heavy_axe",
+      "two_handed": true,
+      "attack_range": 4,
+      "damage": 7,
+      "attack_speed": -3.2,
+      "attack_animations": [
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slam"
+      ],
+      "special": null,
+      "suggested_gesture": "LINE_V_DOWN",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:gold_halberd",
+      "name": "Gold Halberd",
+      "category": "halberd",
+      "parent": "halberd",
+      "two_handed": true,
+      "attack_range": 4.5,
+      "damage": 6,
+      "attack_speed": -2.8,
+      "attack_animations": [
+        "simplyswords:halberd_stab_right",
+        "simplyswords:halberd_slash_vertical_right",
+        "bettercombat:two_handed_slash_vertical_right"
+      ],
+      "special": null,
+      "suggested_gesture": "LINE_V_DOWN",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:gold_katana",
+      "name": "Gold Katana",
+      "category": "katana",
+      "parent": "katana",
+      "two_handed": true,
+      "attack_range": 3.1,
+      "damage": 3,
+      "attack_speed": -2.0,
+      "attack_animations": [],
+      "special": null,
+      "suggested_gesture": "LINE_H",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:gold_longsword",
+      "name": "Gold Longsword",
+      "category": "sword",
+      "parent": "sword",
+      "two_handed": false,
+      "attack_range": 3.1,
+      "damage": 3,
+      "attack_speed": -2.4,
+      "attack_animations": [
+        "bettercombat:one_handed_slash_horizontal_right",
+        "bettercombat:one_handed_slash_horizontal_left",
+        "bettercombat:one_handed_stab"
+      ],
+      "special": null,
+      "suggested_gesture": "LINE_H",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:gold_rapier",
+      "name": "Gold Rapier",
+      "category": "rapier",
+      "parent": "rapier",
+      "two_handed": false,
+      "attack_range": 3.5,
+      "damage": 2,
+      "attack_speed": -1.8,
+      "attack_animations": [],
+      "special": null,
+      "suggested_gesture": "LINE_V_UP",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:gold_sai",
+      "name": "Gold Sai",
+      "category": "soul_knife",
+      "parent": "soul_knife",
+      "two_handed": false,
+      "attack_range": 2.3,
+      "damage": 0,
+      "attack_speed": -1.5,
+      "attack_animations": [
+        "bettercombat:one_handed_stab"
+      ],
+      "special": null,
+      "suggested_gesture": "LINE_V_UP",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:gold_scythe",
+      "name": "Gold Scythe",
+      "category": "scythe",
+      "parent": "scythe",
+      "two_handed": true,
+      "attack_range": 4.0,
+      "damage": 4,
+      "attack_speed": -2.7,
+      "attack_animations": [],
+      "special": null,
+      "suggested_gesture": "CIRCLE",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:gold_spear",
+      "name": "Gold Spear",
+      "category": "trident",
+      "parent": "trident",
+      "two_handed": false,
+      "attack_range": 4,
+      "damage": 3,
+      "attack_speed": -2.7,
+      "attack_animations": [],
+      "special": null,
+      "suggested_gesture": "LINE_V_UP",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:gold_twinblade",
+      "name": "Gold Twinblade",
+      "category": "battlestaff",
+      "parent": "battlestaff",
+      "two_handed": true,
+      "attack_range": 3.5,
+      "damage": 3,
+      "attack_speed": -2.0,
+      "attack_animations": [
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_spin"
+      ],
+      "special": null,
+      "suggested_gesture": "ZIGZAG",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:gold_warglaive",
+      "name": "Gold Warglaive",
+      "category": "warglaive",
+      "parent": "warglaive",
+      "two_handed": false,
+      "attack_range": 3.1,
+      "damage": 3,
+      "attack_speed": -2.2,
+      "attack_animations": [
+        "simplyswords:warglaive_slash_horizontal_right",
+        "simplyswords:warglaive_slash_horizontal_left",
+        "simplyswords:warglaive_spin"
+      ],
+      "special": null,
+      "suggested_gesture": "CIRCLE",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:harbinger",
+      "name": "Harbinger",
+      "category": "sword",
+      "parent": "sword",
+      "two_handed": false,
+      "attack_range": 3.1,
+      "damage": 3,
+      "attack_speed": -2.4,
+      "attack_animations": [
+        "bettercombat:one_handed_slash_horizontal_right",
+        "bettercombat:one_handed_slash_horizontal_left",
+        "bettercombat:one_handed_stab",
+        "bettercombat:two_handed_spin"
+      ],
+      "special": "Abyssal Standard - on-hit chance inflicts weakness; the active plants a standard that pulls, damages and slows enemies while periodically granting Haste to nearby allies.",
+      "suggested_gesture": "LINE_V_DOWN",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.HarbingerSwordItem.activate",
+        "net.sweenus.simplyswords.item.custom.HarbingerSwordItem.m_7579_",
+        "net.sweenus.simplyswords.entity.BattleStandardDarkEntity"
+      ]
+    },
+    {
+      "id": "simplyswords:hearthflame",
+      "name": "Hearthflame",
+      "category": "greathammer",
+      "parent": "heavy_axe",
+      "two_handed": true,
+      "attack_range": 4,
+      "damage": 8,
+      "attack_speed": -3.2,
+      "attack_animations": [
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slam"
+      ],
+      "special": "Chains of the Furnace - hits brand and ignite; the active binds nearby enemies with molten chains that echo fire damage between them and build pressure until every chain shatters for area damage.",
+      "suggested_gesture": "ZIGZAG",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.HearthflameSwordItem.activate",
+        "net.sweenus.simplyswords.item.custom.HearthflameSwordItem.m_7579_",
+        "net.sweenus.simplyswords.world.HearthflameAbilityManager",
+        "net.sweenus.simplyswords.entity.FurnaceChainVisualEntity"
+      ]
+    },
+    {
+      "id": "simplyswords:hiveheart",
+      "name": "Hiveheart",
+      "category": "greathammer",
+      "parent": "heavy_axe",
+      "two_handed": true,
+      "attack_range": 4,
+      "damage": 7,
+      "attack_speed": -3.0,
+      "attack_animations": [
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slam"
+      ],
+      "special": "Hivemind - hits release a stinging bee; the active releases a swarm of tiny bees that repeatedly slows and damages nearby enemies.",
+      "suggested_gesture": "ZIGZAG",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.HiveheartSwordItem.activate",
+        "net.sweenus.simplyswords.item.custom.HiveheartSwordItem.m_7579_",
+        "net.sweenus.simplyswords.world.HivemindSwarmManager",
+        "net.sweenus.simplyswords.entity.SimplySwordsBeeEntity"
+      ]
+    },
+    {
+      "id": "simplyswords:icewhisper",
+      "name": "Icewhisper",
+      "category": "halberd",
+      "parent": "halberd",
+      "two_handed": true,
+      "attack_range": 4.5,
+      "damage": 7,
+      "attack_speed": -2.7,
+      "attack_animations": [
+        "simplyswords:halberd_slash_vertical_right",
+        "simplyswords:halberd_stab_right",
+        "bettercombat:two_handed_slash_vertical_right"
+      ],
+      "special": "Permafrost - a passive frost aura damages and slows enemies around you; the active calls ice comets down around you for area damage.",
+      "suggested_gesture": "LINE_V_DOWN",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.IcewhisperSwordItem.activate",
+        "net.sweenus.simplyswords.item.custom.IcewhisperSwordItem.m_7579_",
+        "net.sweenus.simplyswords.world.IcewhisperCometManager",
+        "net.sweenus.simplyswords.entity.IcewhisperCometVisualEntity"
+      ]
+    },
+    {
+      "id": "simplyswords:ionbound_stormscale",
+      "name": "Ionbound Stormscale",
+      "category": "glaive",
+      "parent": "glaive",
+      "two_handed": true,
+      "attack_range": 3.75,
+      "damage": 3,
+      "attack_speed": -2.6,
+      "attack_animations": [
+        "simplyswords:halberd_stab_right",
+        "bettercombat:two_handed_slash_vertical_right",
+        "bettercombat:two_handed_slash_vertical_left",
+        "bettercombat:two_handed_slash_horizontal_right"
+      ],
+      "special": "Ion Containment - cubes recharge and negate a single large hit as a 2s shield; the active consumes a cube to raise a corridor that pulls enemies in and slams shut, then channels a steerable beam that damages and paralyses.",
+      "suggested_gesture": "LINE_H",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.IonboundStormscaleSwordItem.activate",
+        "net.sweenus.simplyswords.world.IonboundStormscaleAbilityManager"
+      ]
+    },
+    {
+      "id": "simplyswords:iron_chakram",
+      "name": "Iron Chakram",
+      "category": "chakram",
+      "parent": "chakram",
+      "two_handed": false,
+      "attack_range": 5.5,
+      "damage": 2,
+      "attack_speed": -3.0,
+      "attack_animations": [
+        "simplyswords:one_handed_chakram_throw_left",
+        "simplyswords:chakram_spin",
+        "simplyswords:chakram_spin_long_grounded"
+      ],
+      "special": null,
+      "suggested_gesture": "CIRCLE",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:iron_claymore",
+      "name": "Iron Claymore",
+      "category": "claymore",
+      "parent": "claymore",
+      "two_handed": true,
+      "attack_range": 4,
+      "damage": 5,
+      "attack_speed": -2.8,
+      "attack_animations": [],
+      "special": null,
+      "suggested_gesture": "LINE_V_DOWN",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:iron_cutlass",
+      "name": "Iron Cutlass",
+      "category": "sickle",
+      "parent": "sickle",
+      "two_handed": false,
+      "attack_range": 3,
+      "damage": 3,
+      "attack_speed": -2.0,
+      "attack_animations": [],
+      "special": null,
+      "suggested_gesture": "LINE_H",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:iron_glaive",
+      "name": "Iron Glaive",
+      "category": "glaive",
+      "parent": "glaive",
+      "two_handed": true,
+      "attack_range": 3.75,
+      "damage": 3,
+      "attack_speed": -2.6,
+      "attack_animations": [],
+      "special": null,
+      "suggested_gesture": "LINE_H",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:iron_greataxe",
+      "name": "Iron Greataxe",
+      "category": "greataxe",
+      "parent": "heavy_axe",
+      "two_handed": true,
+      "attack_range": 4,
+      "damage": 6,
+      "attack_speed": -3.1,
+      "attack_animations": [
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_spin"
+      ],
+      "special": null,
+      "suggested_gesture": "LINE_V_DOWN",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:iron_greathammer",
+      "name": "Iron Greathammer",
+      "category": "greathammer",
+      "parent": "heavy_axe",
+      "two_handed": true,
+      "attack_range": 4,
+      "damage": 7,
+      "attack_speed": -3.2,
+      "attack_animations": [
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slam"
+      ],
+      "special": null,
+      "suggested_gesture": "LINE_V_DOWN",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:iron_halberd",
+      "name": "Iron Halberd",
+      "category": "halberd",
+      "parent": "halberd",
+      "two_handed": true,
+      "attack_range": 4.5,
+      "damage": 6,
+      "attack_speed": -2.8,
+      "attack_animations": [
+        "simplyswords:halberd_stab_right",
+        "simplyswords:halberd_slash_vertical_right",
+        "bettercombat:two_handed_slash_vertical_right"
+      ],
+      "special": null,
+      "suggested_gesture": "LINE_V_DOWN",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:iron_katana",
+      "name": "Iron Katana",
+      "category": "katana",
+      "parent": "katana",
+      "two_handed": true,
+      "attack_range": 3.1,
+      "damage": 3,
+      "attack_speed": -2.0,
+      "attack_animations": [],
+      "special": null,
+      "suggested_gesture": "LINE_H",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:iron_longsword",
+      "name": "Iron Longsword",
+      "category": "sword",
+      "parent": "sword",
+      "two_handed": false,
+      "attack_range": 3.1,
+      "damage": 3,
+      "attack_speed": -2.4,
+      "attack_animations": [
+        "bettercombat:one_handed_slash_horizontal_right",
+        "bettercombat:one_handed_slash_horizontal_left",
+        "bettercombat:one_handed_stab"
+      ],
+      "special": null,
+      "suggested_gesture": "LINE_H",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:iron_rapier",
+      "name": "Iron Rapier",
+      "category": "rapier",
+      "parent": "rapier",
+      "two_handed": false,
+      "attack_range": 3.5,
+      "damage": 2,
+      "attack_speed": -1.8,
+      "attack_animations": [],
+      "special": null,
+      "suggested_gesture": "LINE_V_UP",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:iron_sai",
+      "name": "Iron Sai",
+      "category": "soul_knife",
+      "parent": "soul_knife",
+      "two_handed": false,
+      "attack_range": 2.3,
+      "damage": 0,
+      "attack_speed": -1.5,
+      "attack_animations": [
+        "bettercombat:one_handed_stab"
+      ],
+      "special": null,
+      "suggested_gesture": "LINE_V_UP",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:iron_scythe",
+      "name": "Iron Scythe",
+      "category": "scythe",
+      "parent": "scythe",
+      "two_handed": true,
+      "attack_range": 4.0,
+      "damage": 4,
+      "attack_speed": -2.7,
+      "attack_animations": [],
+      "special": null,
+      "suggested_gesture": "CIRCLE",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:iron_spear",
+      "name": "Iron Spear",
+      "category": "trident",
+      "parent": "trident",
+      "two_handed": false,
+      "attack_range": 4,
+      "damage": 3,
+      "attack_speed": -2.7,
+      "attack_animations": [],
+      "special": null,
+      "suggested_gesture": "LINE_V_UP",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:iron_twinblade",
+      "name": "Iron Twinblade",
+      "category": "battlestaff",
+      "parent": "battlestaff",
+      "two_handed": true,
+      "attack_range": 3.5,
+      "damage": 3,
+      "attack_speed": -2.0,
+      "attack_animations": [
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_spin"
+      ],
+      "special": null,
+      "suggested_gesture": "ZIGZAG",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:iron_warglaive",
+      "name": "Iron Warglaive",
+      "category": "warglaive",
+      "parent": "warglaive",
+      "two_handed": false,
+      "attack_range": 3.1,
+      "damage": 3,
+      "attack_speed": -2.2,
+      "attack_animations": [
+        "simplyswords:warglaive_slash_horizontal_right",
+        "simplyswords:warglaive_slash_horizontal_left",
+        "simplyswords:warglaive_spin"
+      ],
+      "special": null,
+      "suggested_gesture": "CIRCLE",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:livyatan",
+      "name": "Livyatan",
+      "category": "sickle",
+      "parent": "sickle",
+      "two_handed": false,
+      "attack_range": 2.8,
+      "damage": 4,
+      "attack_speed": -2.1,
+      "attack_animations": [
+        "bettercombat:one_handed_slash_horizontal_right",
+        "bettercombat:one_handed_slash_horizontal_left",
+        "bettercombat:one_handed_slam",
+        "bettercombat:dual_handed_slash_cross",
+        "bettercombat:dual_handed_slash_uncross"
+      ],
+      "special": "Leviathan's Wake - thrown (impact scales with airtime); on return it creates a wave that pulls enemies with a chance of lightning strikes, and swings release damaging waves; innate Loyalty III.",
+      "suggested_gesture": "LINE_V_UP",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.LivyatanSwordItem.activate",
+        "net.sweenus.simplyswords.item.custom.LivyatanSwordItem.m_7579_",
+        "net.sweenus.simplyswords.entity.LivyatanEntity",
+        "net.sweenus.simplyswords.world.LivyatanWaveManager"
+      ]
+    },
+    {
+      "id": "simplyswords:magiblade",
+      "name": "Magiblade",
+      "category": "battlestaff",
+      "parent": "battlestaff",
+      "two_handed": true,
+      "attack_range": 3.5,
+      "damage": 3,
+      "attack_speed": -2.0,
+      "attack_animations": [
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_spin"
+      ],
+      "special": "Magisonic - passively detects and repels approaching enemies; after charging, summons an orbiting Warden head that periodically fires sonic waves at nearby enemies.",
+      "suggested_gesture": "CIRCLE",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.MagibladeSwordItem.activate",
+        "net.sweenus.simplyswords.item.custom.MagibladeSwordItem.m_7579_",
+        "net.sweenus.simplyswords.world.MagibladeAbilityManager",
+        "net.sweenus.simplyswords.entity.MagibladeWardenHeadVisualEntity"
+      ]
+    },
+    {
+      "id": "simplyswords:magiscythe",
+      "name": "Magiscythe",
+      "category": "scythe",
+      "parent": "scythe",
+      "two_handed": true,
+      "attack_range": 4,
+      "damage": 4,
+      "attack_speed": -2.4,
+      "attack_animations": [
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_spin"
+      ],
+      "special": "Magistorm - the active manifests a localised magic storm above you that strikes nearby enemies, each strike having a chance to refresh its duration and raise its severity; attacking while it is up can repair an equipped item.",
+      "suggested_gesture": "LINE_V_DOWN",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.MagiscytheSwordItem.activate",
+        "net.sweenus.simplyswords.item.custom.MagiscytheSwordItem.m_7579_",
+        "net.sweenus.simplyswords.effect.MagistormEffect"
+      ]
+    },
+    {
+      "id": "simplyswords:magispear",
+      "name": "Magispear",
+      "category": "trident",
+      "parent": "spear",
+      "two_handed": false,
+      "attack_range": 3.7,
+      "damage": 4,
+      "attack_speed": -2.5,
+      "attack_animations": [
+        "bettercombat:one_handed_stab"
+      ],
+      "special": "Magislam - on-hit chance deals bonus magic damage; the active launches the spear skyward to rain magic spears, then leaps (immune) to the target area for a final slam.",
+      "suggested_gesture": "LINE_V_UP",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.MagispearSwordItem.activate",
+        "net.sweenus.simplyswords.item.custom.MagispearSwordItem.m_7579_",
+        "net.sweenus.simplyswords.world.MagispearAbilityManager",
+        "net.sweenus.simplyswords.entity.MagispearFallingSpearVisualEntity"
+      ]
+    },
+    {
+      "id": "simplyswords:mjolnir",
+      "name": "Mjolnir",
+      "category": "chakram",
+      "parent": "chakram",
+      "two_handed": false,
+      "attack_range": 5.5,
+      "damage": 3,
+      "attack_speed": -3.0,
+      "attack_animations": [
+        "simplyswords:one_handed_chakram_throw_left",
+        "simplyswords:chakram_spin",
+        "simplyswords:chakram_spin_long_grounded"
+      ],
+      "special": "Storm - hits make enemies Conductive (they release a thunderclap when struck); the active summons a mobile storm that repeatedly bolts nearby enemies and ends in a thunderclap.",
+      "suggested_gesture": "LINE_V_DOWN",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.StormSwordItem.activate",
+        "net.sweenus.simplyswords.item.custom.StormSwordItem.m_7579_",
+        "net.sweenus.simplyswords.world.MjolnirStormManager",
+        "net.sweenus.simplyswords.effect.StormEffect"
+      ]
+    },
+    {
+      "id": "simplyswords:molten_edge",
+      "name": "Molten Edge",
+      "category": "sickle",
+      "parent": "sickle",
+      "two_handed": false,
+      "attack_range": 2.8,
+      "damage": 4,
+      "attack_speed": -2.1,
+      "attack_animations": [
+        "bettercombat:one_handed_slash_horizontal_right",
+        "bettercombat:dual_handed_slash_cross",
+        "bettercombat:dual_handed_slash_uncross"
+      ],
+      "special": "Furnace Heart - dealing and taking damage builds Heat (increasing damage dealt and received); at maximum Heat you deal +50%, take +100% and ignite, and the active vents a molten shockwave while swings release magma ruptures.",
+      "suggested_gesture": "CIRCLE",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.MoltenEdgeSwordItem.activate",
+        "net.sweenus.simplyswords.item.custom.MoltenEdgeSwordItem.m_7579_",
+        "net.sweenus.simplyswords.world.MoltenEdgeAbilityManager",
+        "net.sweenus.simplyswords.entity.MoltenRuptureVisualEntity"
+      ]
+    },
+    {
+      "id": "simplyswords:netherite_chakram",
+      "name": "Netherite Chakram",
+      "category": "chakram",
+      "parent": "chakram",
+      "two_handed": false,
+      "attack_range": 5.5,
+      "damage": 2,
+      "attack_speed": -3.0,
+      "attack_animations": [
+        "simplyswords:one_handed_chakram_throw_left",
+        "simplyswords:chakram_spin",
+        "simplyswords:chakram_spin_long_grounded"
+      ],
+      "special": null,
+      "suggested_gesture": "CIRCLE",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:netherite_claymore",
+      "name": "Netherite Claymore",
+      "category": "claymore",
+      "parent": "claymore",
+      "two_handed": true,
+      "attack_range": 4,
+      "damage": 5,
+      "attack_speed": -2.8,
+      "attack_animations": [],
+      "special": null,
+      "suggested_gesture": "LINE_V_DOWN",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:netherite_cutlass",
+      "name": "Netherite Cutlass",
+      "category": "sickle",
+      "parent": "sickle",
+      "two_handed": false,
+      "attack_range": 3,
+      "damage": 3,
+      "attack_speed": -2.0,
+      "attack_animations": [],
+      "special": null,
+      "suggested_gesture": "LINE_H",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:netherite_glaive",
+      "name": "Netherite Glaive",
+      "category": "glaive",
+      "parent": "glaive",
+      "two_handed": true,
+      "attack_range": 3.75,
+      "damage": 3,
+      "attack_speed": -2.6,
+      "attack_animations": [],
+      "special": null,
+      "suggested_gesture": "LINE_H",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:netherite_greataxe",
+      "name": "Netherite Greataxe",
+      "category": "greataxe",
+      "parent": "heavy_axe",
+      "two_handed": true,
+      "attack_range": 4,
+      "damage": 6,
+      "attack_speed": -3.1,
+      "attack_animations": [
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_spin"
+      ],
+      "special": null,
+      "suggested_gesture": "LINE_V_DOWN",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:netherite_greathammer",
+      "name": "Netherite Greathammer",
+      "category": "greathammer",
+      "parent": "heavy_axe",
+      "two_handed": true,
+      "attack_range": 4,
+      "damage": 7,
+      "attack_speed": -3.2,
+      "attack_animations": [
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slam"
+      ],
+      "special": null,
+      "suggested_gesture": "LINE_V_DOWN",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:netherite_halberd",
+      "name": "Netherite Halberd",
+      "category": "halberd",
+      "parent": "halberd",
+      "two_handed": true,
+      "attack_range": 4.5,
+      "damage": 6,
+      "attack_speed": -2.8,
+      "attack_animations": [
+        "simplyswords:halberd_stab_right",
+        "simplyswords:halberd_slash_vertical_right",
+        "bettercombat:two_handed_slash_vertical_right"
+      ],
+      "special": null,
+      "suggested_gesture": "LINE_V_DOWN",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:netherite_katana",
+      "name": "Netherite Katana",
+      "category": "katana",
+      "parent": "katana",
+      "two_handed": true,
+      "attack_range": 3.1,
+      "damage": 3,
+      "attack_speed": -2.0,
+      "attack_animations": [],
+      "special": null,
+      "suggested_gesture": "LINE_H",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:netherite_longsword",
+      "name": "Netherite Longsword",
+      "category": "sword",
+      "parent": "sword",
+      "two_handed": false,
+      "attack_range": 2.8,
+      "damage": 3,
+      "attack_speed": -2.4,
+      "attack_animations": [
+        "bettercombat:one_handed_slash_horizontal_right",
+        "bettercombat:one_handed_slash_horizontal_left",
+        "bettercombat:one_handed_stab"
+      ],
+      "special": null,
+      "suggested_gesture": "LINE_H",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:netherite_rapier",
+      "name": "Netherite Rapier",
+      "category": "rapier",
+      "parent": "rapier",
+      "two_handed": false,
+      "attack_range": 3.5,
+      "damage": 2,
+      "attack_speed": -1.8,
+      "attack_animations": [],
+      "special": null,
+      "suggested_gesture": "LINE_V_UP",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:netherite_sai",
+      "name": "Netherite Sai",
+      "category": "soul_knife",
+      "parent": "soul_knife",
+      "two_handed": false,
+      "attack_range": 2.3,
+      "damage": 0,
+      "attack_speed": -1.5,
+      "attack_animations": [
+        "bettercombat:one_handed_stab"
+      ],
+      "special": null,
+      "suggested_gesture": "LINE_V_UP",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:netherite_scythe",
+      "name": "Netherite Scythe",
+      "category": "scythe",
+      "parent": "scythe",
+      "two_handed": true,
+      "attack_range": 4.0,
+      "damage": 4,
+      "attack_speed": -2.7,
+      "attack_animations": [],
+      "special": null,
+      "suggested_gesture": "CIRCLE",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:netherite_spear",
+      "name": "Netherite Spear",
+      "category": "trident",
+      "parent": "trident",
+      "two_handed": false,
+      "attack_range": 4,
+      "damage": 3,
+      "attack_speed": -2.7,
+      "attack_animations": [],
+      "special": null,
+      "suggested_gesture": "LINE_V_UP",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:netherite_twinblade",
+      "name": "Netherite Twinblade",
+      "category": "battlestaff",
+      "parent": "battlestaff",
+      "two_handed": true,
+      "attack_range": 3.5,
+      "damage": 3,
+      "attack_speed": -2.0,
+      "attack_animations": [
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_spin"
+      ],
+      "special": null,
+      "suggested_gesture": "ZIGZAG",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:netherite_warglaive",
+      "name": "Netherite Warglaive",
+      "category": "warglaive",
+      "parent": "warglaive",
+      "two_handed": false,
+      "attack_range": 3.1,
+      "damage": 3,
+      "attack_speed": -2.2,
+      "attack_animations": [
+        "simplyswords:warglaive_slash_horizontal_right",
+        "simplyswords:warglaive_slash_horizontal_left",
+        "simplyswords:warglaive_spin"
+      ],
+      "special": null,
+      "suggested_gesture": "CIRCLE",
+      "arsenal_role": "stat_only",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:ribboncleaver",
+      "name": "Ribboncleaver",
+      "category": "claymore",
+      "parent": "claymore",
+      "two_handed": true,
+      "attack_range": 3.9,
+      "damage": 7,
+      "attack_speed": -3.2,
+      "attack_animations": [
+        "simplyswords:dragable_slash_upward",
+        "bettercombat:two_handed_slam"
+      ],
+      "special": "Ribbonwrath - wielding costs 5% movement speed but grants 15% damage reduction; the active dashes forward ignoring the next hits, gaining knockback resistance, and makes your next attack deal +95% to one target.",
+      "suggested_gesture": "CARET",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.RibboncleaverSwordItem.activate",
+        "net.sweenus.simplyswords.item.custom.RibboncleaverSwordItem.m_7579_",
+        "net.sweenus.simplyswords.effect.RibbonwrathEffect",
+        "net.sweenus.simplyswords.effect.RibboncleaveEffect"
+      ]
+    },
+    {
+      "id": "simplyswords:riftmane",
+      "name": "Riftmane",
+      "category": "claymore",
+      "parent": "claymore",
+      "two_handed": true,
+      "attack_range": 4,
+      "damage": 6,
+      "attack_speed": -2.9,
+      "attack_animations": [
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slam"
+      ],
+      "special": "Vanguard - chance on swing to tear a rift that looses a spectral charger at a distant foe; the active opens a rank of chargers that surge forward, goring and scattering everything in their path.",
+      "suggested_gesture": "LINE_H",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.RiftmaneSwordItem.activate",
+        "net.sweenus.simplyswords.world.RiftmaneAbilityManager",
+        "net.sweenus.simplyswords.entity.RiftmaneChargerEntity"
+      ]
+    },
+    {
+      "id": "simplyswords:righteous_relic",
+      "name": "Righteous Relic",
+      "category": "sword",
+      "parent": "sword",
+      "two_handed": false,
+      "attack_range": 3.1,
+      "damage": 3,
+      "attack_speed": -2.4,
+      "attack_animations": [
+        "bettercombat:one_handed_slash_horizontal_right",
+        "bettercombat:one_handed_slash_horizontal_left",
+        "bettercombat:one_handed_stab"
+      ],
+      "special": "Righteous Standard - on-hit chance regenerates health; the active plants a standard that ignites, damages and slows enemies while periodically granting Strength and healing to nearby allies.",
+      "suggested_gesture": "LINE_V_DOWN",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.RighteousRelicSwordItem.m_7579_",
+        "net.sweenus.simplyswords.entity.BattleStandardEntity"
+      ]
+    },
+    {
+      "id": "simplyswords:runic_chakram",
+      "name": "Runic Chakram",
+      "category": "chakram",
+      "parent": "chakram",
+      "two_handed": false,
+      "attack_range": 5.5,
+      "damage": 2,
+      "attack_speed": -3.0,
+      "attack_animations": [
+        "simplyswords:one_handed_chakram_throw_left",
+        "simplyswords:chakram_spin",
+        "simplyswords:chakram_spin_long_grounded"
+      ],
+      "special": null,
+      "suggested_gesture": "CIRCLE",
+      "arsenal_role": "basic",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:runic_claymore",
+      "name": "Runic Claymore",
+      "category": "claymore",
+      "parent": "claymore",
+      "two_handed": true,
+      "attack_range": 4,
+      "damage": 5,
+      "attack_speed": -2.8,
+      "attack_animations": [],
+      "special": null,
+      "suggested_gesture": "LINE_V_DOWN",
+      "arsenal_role": "basic",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:runic_cutlass",
+      "name": "Runic Cutlass",
+      "category": "sickle",
+      "parent": "sickle",
+      "two_handed": false,
+      "attack_range": 3,
+      "damage": 3,
+      "attack_speed": -2.0,
+      "attack_animations": [],
+      "special": null,
+      "suggested_gesture": "LINE_H",
+      "arsenal_role": "basic",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:runic_glaive",
+      "name": "Runic Glaive",
+      "category": "glaive",
+      "parent": "glaive",
+      "two_handed": true,
+      "attack_range": 3.75,
+      "damage": 3,
+      "attack_speed": -2.6,
+      "attack_animations": [],
+      "special": null,
+      "suggested_gesture": "LINE_H",
+      "arsenal_role": "basic",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:runic_greataxe",
+      "name": "Runic Greataxe",
+      "category": "greataxe",
+      "parent": "heavy_axe",
+      "two_handed": true,
+      "attack_range": 4,
+      "damage": 6,
+      "attack_speed": -3.1,
+      "attack_animations": [
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_spin"
+      ],
+      "special": null,
+      "suggested_gesture": "LINE_V_DOWN",
+      "arsenal_role": "basic",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:runic_greathammer",
+      "name": "Runic Greathammer",
+      "category": "greathammer",
+      "parent": "heavy_axe",
+      "two_handed": true,
+      "attack_range": 4,
+      "damage": 7,
+      "attack_speed": -3.2,
+      "attack_animations": [
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slam"
+      ],
+      "special": null,
+      "suggested_gesture": "LINE_V_DOWN",
+      "arsenal_role": "basic",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:runic_halberd",
+      "name": "Runic Halberd",
+      "category": "halberd",
+      "parent": "halberd",
+      "two_handed": true,
+      "attack_range": 4.5,
+      "damage": 6,
+      "attack_speed": -2.8,
+      "attack_animations": [
+        "simplyswords:halberd_stab_right",
+        "simplyswords:halberd_slash_vertical_right",
+        "bettercombat:two_handed_slash_vertical_right"
+      ],
+      "special": null,
+      "suggested_gesture": "LINE_V_DOWN",
+      "arsenal_role": "basic",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:runic_katana",
+      "name": "Runic Katana",
+      "category": "katana",
+      "parent": "katana",
+      "two_handed": true,
+      "attack_range": 3.1,
+      "damage": 3,
+      "attack_speed": -2.0,
+      "attack_animations": [],
+      "special": null,
+      "suggested_gesture": "LINE_H",
+      "arsenal_role": "basic",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:runic_longsword",
+      "name": "Runic Longsword",
+      "category": "sword",
+      "parent": "sword",
+      "two_handed": false,
+      "attack_range": 3.1,
+      "damage": 3,
+      "attack_speed": -2.4,
+      "attack_animations": [
+        "bettercombat:one_handed_slash_horizontal_right",
+        "bettercombat:one_handed_slash_horizontal_left",
+        "bettercombat:one_handed_stab"
+      ],
+      "special": null,
+      "suggested_gesture": "LINE_H",
+      "arsenal_role": "basic",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:runic_rapier",
+      "name": "Runic Rapier",
+      "category": "rapier",
+      "parent": "rapier",
+      "two_handed": false,
+      "attack_range": 3.5,
+      "damage": 2,
+      "attack_speed": -1.8,
+      "attack_animations": [],
+      "special": null,
+      "suggested_gesture": "LINE_V_UP",
+      "arsenal_role": "basic",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:runic_sai",
+      "name": "Runic Sai",
+      "category": "soul_knife",
+      "parent": "soul_knife",
+      "two_handed": false,
+      "attack_range": 2.3,
+      "damage": 0,
+      "attack_speed": -1.5,
+      "attack_animations": [
+        "bettercombat:one_handed_stab"
+      ],
+      "special": null,
+      "suggested_gesture": "LINE_V_UP",
+      "arsenal_role": "basic",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:runic_scythe",
+      "name": "Runic Scythe",
+      "category": "scythe",
+      "parent": "scythe",
+      "two_handed": true,
+      "attack_range": 4.0,
+      "damage": 4,
+      "attack_speed": -2.7,
+      "attack_animations": [],
+      "special": null,
+      "suggested_gesture": "CIRCLE",
+      "arsenal_role": "basic",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:runic_spear",
+      "name": "Runic Spear",
+      "category": "trident",
+      "parent": "trident",
+      "two_handed": false,
+      "attack_range": 4,
+      "damage": 3,
+      "attack_speed": -2.7,
+      "attack_animations": [],
+      "special": null,
+      "suggested_gesture": "LINE_V_UP",
+      "arsenal_role": "basic",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:runic_twinblade",
+      "name": "Runic Twinblade",
+      "category": "battlestaff",
+      "parent": "battlestaff",
+      "two_handed": true,
+      "attack_range": 3.5,
+      "damage": 3,
+      "attack_speed": -2.0,
+      "attack_animations": [
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_spin"
+      ],
+      "special": null,
+      "suggested_gesture": "ZIGZAG",
+      "arsenal_role": "basic",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:runic_warglaive",
+      "name": "Runic Warglaive",
+      "category": "warglaive",
+      "parent": "warglaive",
+      "two_handed": false,
+      "attack_range": 3.1,
+      "damage": 3,
+      "attack_speed": -2.2,
+      "attack_animations": [
+        "simplyswords:warglaive_slash_horizontal_right",
+        "simplyswords:warglaive_slash_horizontal_left",
+        "simplyswords:warglaive_spin"
+      ],
+      "special": null,
+      "suggested_gesture": "CIRCLE",
+      "arsenal_role": "basic",
+      "implementation": []
+    },
+    {
+      "id": "simplyswords:shadowsting",
+      "name": "Shadowsting",
+      "category": "rapier",
+      "parent": "rapier",
+      "two_handed": false,
+      "attack_range": 3.5,
+      "damage": 1,
+      "attack_speed": -1.7,
+      "attack_animations": [
+        "bettercombat:one_handed_slash_horizontal_left",
+        "bettercombat:one_handed_stab"
+      ],
+      "special": "Shadow Dance - on-hit chance summons a shadow clone that repeats your attack; the active grants brief immunity and shadowsteps between nearby enemies, striking each for weapon damage.",
+      "suggested_gesture": "CARET",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.ShadowstingSwordItem.activate",
+        "net.sweenus.simplyswords.item.custom.ShadowstingSwordItem.m_7579_",
+        "net.sweenus.simplyswords.world.ShadowstingShadowDanceManager",
+        "net.sweenus.simplyswords.entity.ShadowstingAfterimageVisualEntity"
+      ]
+    },
+    {
+      "id": "simplyswords:slumbering_lichblade",
+      "name": "Slumbering Lichblade",
+      "category": "claymore",
+      "parent": "heavy_axe",
+      "two_handed": true,
+      "attack_range": 4.1,
+      "damage": 7,
+      "attack_speed": -3.1,
+      "attack_animations": [
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_spin",
+        "bettercombat:two_handed_stab_left"
+      ],
+      "special": "Soul Anguish I - passive souls radiate from you damaging nearby enemies; the active commands them to rapidly strike a distant target (chance to siphon health), then returns them to grant absorption.",
+      "suggested_gesture": "ZIGZAG",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.LichbladeSwordItem.activate",
+        "net.sweenus.simplyswords.item.custom.LichbladeSwordItem.m_7579_"
+      ]
+    },
+    {
+      "id": "simplyswords:soulkeeper",
+      "name": "Soulkeeper",
+      "category": "greathammer",
+      "parent": "heavy_axe",
+      "two_handed": true,
+      "attack_range": 4,
+      "damage": 8,
+      "attack_speed": -2.9,
+      "attack_animations": [
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slam"
+      ],
+      "special": "Soul Meld - two soul lanterns orbit and damage enemies they touch, speeding up as you land hits; the active temporarily summons two more lanterns.",
+      "suggested_gesture": "CIRCLE",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.SoulkeeperSwordItem.activate",
+        "net.sweenus.simplyswords.item.custom.SoulkeeperSwordItem.m_7579_",
+        "net.sweenus.simplyswords.world.SoulkeeperLanternManager",
+        "net.sweenus.simplyswords.entity.SoulkeeperLanternVisualEntity"
+      ]
+    },
+    {
+      "id": "simplyswords:soulpyre",
+      "name": "Soul Pyre",
+      "category": "heavy_axe",
+      "parent": "heavy_axe",
+      "two_handed": true,
+      "attack_range": 4.1,
+      "damage": 7,
+      "attack_speed": -3.0,
+      "attack_animations": [
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_spin"
+      ],
+      "special": "Soul Tether - the ground around you becomes nether terrain that grows with each kill, granting 50% damage reduction and knockback resistance, while defeated enemies become homing soul projectiles.",
+      "suggested_gesture": "CIRCLE",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.SoulPyreSwordItem.activate",
+        "net.sweenus.simplyswords.item.custom.SoulPyreSwordItem.m_7579_",
+        "net.sweenus.simplyswords.world.SoulPyreAbilityManager",
+        "net.sweenus.simplyswords.entity.SoulPyreWispEntity",
+        "net.sweenus.simplyswords.effect.SoulTetherEffect"
+      ]
+    },
+    {
+      "id": "simplyswords:soulrender",
+      "name": "Soulrender",
+      "category": "scythe",
+      "parent": "scythe",
+      "two_handed": false,
+      "attack_range": 4,
+      "damage": 3,
+      "attack_speed": -2.4,
+      "attack_animations": [
+        "bettercombat:one_handed_slash_horizontal_right",
+        "bettercombat:one_handed_slash_horizontal_left",
+        "simplyswords:one_handed_chakram_throw_left",
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right"
+      ],
+      "special": "Soul Rend - hits stack weakening marks; the active consumes the stacks of all nearby foes, damaging them and healing you per stack consumed.",
+      "suggested_gesture": "CIRCLE",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.SoulrenderSwordItem.activate",
+        "net.sweenus.simplyswords.item.custom.SoulrenderSwordItem.m_7579_",
+        "net.sweenus.simplyswords.world.SoulrenderMarkVisualManager"
+      ]
+    },
+    {
+      "id": "simplyswords:soulstalker",
+      "name": "Soulstalker",
+      "category": "scythe",
+      "parent": "scythe",
+      "two_handed": false,
+      "attack_range": 4,
+      "damage": 3,
+      "attack_speed": -2.4,
+      "attack_animations": [
+        "bettercombat:one_handed_slash_horizontal_right",
+        "bettercombat:one_handed_slash_horizontal_left",
+        "simplyswords:one_handed_chakram_throw_left",
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right"
+      ],
+      "special": "Stygian Stride - abyssal limbs lift you to stride over terrain and charge-jump; footsteps spread Gloam, swings release shadow cleaves, and tendrils periodically pierce nearby enemies.",
+      "suggested_gesture": "CARET",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.SoulstalkerSwordItem.activate",
+        "net.sweenus.simplyswords.world.SoulstalkerAbilityManager",
+        "net.sweenus.simplyswords.entity.SoulstalkerStrideEntity",
+        "net.sweenus.simplyswords.entity.SoulstalkerCleaveEntity"
+      ]
+    },
+    {
+      "id": "simplyswords:soulstealer",
+      "name": "Soulstealer",
+      "category": "soul_knife",
+      "parent": "soul_knife",
+      "two_handed": false,
+      "attack_range": 2.75,
+      "damage": 0,
+      "attack_speed": -1.5,
+      "attack_animations": [
+        "bettercombat:one_handed_stab"
+      ],
+      "special": "Soul Steal - hits and kills steal soul debt; the active spends all debt to blink behind the target and backstab for up to 5x weapon damage.",
+      "suggested_gesture": "CARET",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.StealSwordItem.activate",
+        "net.sweenus.simplyswords.item.custom.StealSwordItem.m_7579_"
+      ]
+    },
+    {
+      "id": "simplyswords:stars_edge",
+      "name": "Star's Edge",
+      "category": "battlestaff",
+      "parent": "battlestaff",
+      "two_handed": true,
+      "attack_range": 3.5,
+      "damage": 3,
+      "attack_speed": -2.0,
+      "attack_animations": [
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slash_horizontal_left",
+        "simplyswords:chakram_spin"
+      ],
+      "special": "Astral Reprise - bonus damage by day and lifesteal by night; the active dashes forward leaving a constellation trail that damages on contact and explodes each star for area damage on expiry.",
+      "suggested_gesture": "CARET",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.StarsEdgeSwordItem.activate",
+        "net.sweenus.simplyswords.item.custom.StarsEdgeSwordItem.m_7579_",
+        "net.sweenus.simplyswords.world.StarsEdgeAbilityManager",
+        "net.sweenus.simplyswords.entity.StarsEdgeConstellationVisualEntity"
+      ]
+    },
+    {
+      "id": "simplyswords:stormbringer",
+      "name": "Stormbringer",
+      "category": "sword",
+      "parent": "sword",
+      "two_handed": false,
+      "attack_range": 3.1,
+      "damage": 3,
+      "attack_speed": -2.4,
+      "attack_animations": [
+        "bettercombat:one_handed_slash_horizontal_right",
+        "bettercombat:one_handed_slash_horizontal_left",
+        "bettercombat:one_handed_stab"
+      ],
+      "special": "Shock Deflect - hold to focus the blade (brief damage immunity); a well-timed release counters the attacker and grants Storm Charges, each spent on hit to chain lightning between nearby enemies.",
+      "suggested_gesture": "V",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.StormbringerSwordItem.activate",
+        "net.sweenus.simplyswords.item.custom.StormbringerSwordItem.m_7579_",
+        "net.sweenus.simplyswords.world.StormbringerParryManager"
+      ]
+    },
+    {
+      "id": "simplyswords:storms_edge",
+      "name": "Storm's Edge",
+      "category": "battlestaff",
+      "parent": "battlestaff",
+      "two_handed": true,
+      "attack_range": 3.5,
+      "damage": 3,
+      "attack_speed": -2.0,
+      "attack_animations": [
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_spin"
+      ],
+      "special": "Stormbreak - turn into lightning and dash forward with invulnerability, tearing through enemies and releasing a thunderclap, then keep lingering Speed and Haste; hits can refresh the cooldown.",
+      "suggested_gesture": "CARET",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.StormsEdgeSwordItem.activate",
+        "net.sweenus.simplyswords.item.custom.StormsEdgeSwordItem.m_7579_",
+        "net.sweenus.simplyswords.world.StormsEdgeAbilityManager"
+      ]
+    },
+    {
+      "id": "simplyswords:stormscale",
+      "name": "Stormscale",
+      "category": "glaive",
+      "parent": "glaive",
+      "two_handed": true,
+      "attack_range": 3.75,
+      "damage": 3,
+      "attack_speed": -2.6,
+      "attack_animations": [
+        "simplyswords:halberd_stab_right",
+        "bettercombat:two_handed_slash_vertical_right",
+        "bettercombat:two_handed_slash_vertical_left",
+        "bettercombat:two_handed_slash_horizontal_right"
+      ],
+      "special": "Lightning Rod - the active plants a spectral glaive that pulses area lightning whenever you land a melee hit, each hit adding 1% pulse damage and radius up to 80%.",
+      "suggested_gesture": "LINE_V_DOWN",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.StormscaleSwordItem.activate",
+        "net.sweenus.simplyswords.item.custom.StormscaleSwordItem.m_7579_",
+        "net.sweenus.simplyswords.world.StormscaleLightningRodManager",
+        "net.sweenus.simplyswords.entity.StormscaleRodVisualEntity"
+      ]
+    },
+    {
+      "id": "simplyswords:sunfire",
+      "name": "Sunfire",
+      "category": "sword",
+      "parent": "sword",
+      "two_handed": false,
+      "attack_range": 3.1,
+      "damage": 3,
+      "attack_speed": -2.4,
+      "attack_animations": [
+        "bettercombat:one_handed_slash_horizontal_right",
+        "bettercombat:one_handed_slash_horizontal_left",
+        "bettercombat:one_handed_stab",
+        "bettercombat:two_handed_spin"
+      ],
+      "special": "Righteous Standard - on-hit chance regenerates health; the active plants a standard that ignites, damages and slows enemies while periodically granting Strength and healing to nearby allies.",
+      "suggested_gesture": "LINE_V_DOWN",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.SunfireSwordItem.activate",
+        "net.sweenus.simplyswords.item.custom.SunfireSwordItem.m_7579_",
+        "net.sweenus.simplyswords.entity.BattleStandardEntity"
+      ]
+    },
+    {
+      "id": "simplyswords:sword_on_a_stick",
+      "name": "Sword on a Stick",
+      "category": "trident",
+      "parent": "spear",
+      "two_handed": false,
+      "attack_range": 3.1,
+      "damage": 5,
+      "attack_speed": -2.6,
+      "attack_animations": [
+        "bettercombat:one_handed_stab"
+      ],
+      "special": "Joke unique: a throwable sword on a stick with innate Loyalty III, so it can be hurled and returns.",
+      "suggested_gesture": "LINE_V_UP",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.SimplySwordsThrowableItem.m_7203_"
+      ]
+    },
+    {
+      "id": "simplyswords:tainted_relic",
+      "name": "Tainted Relic",
+      "category": "sword",
+      "parent": "sword",
+      "two_handed": false,
+      "attack_range": 3.1,
+      "damage": 3,
+      "attack_speed": -2.4,
+      "attack_animations": [
+        "bettercombat:one_handed_slash_horizontal_right",
+        "bettercombat:one_handed_slash_horizontal_left",
+        "bettercombat:one_handed_stab"
+      ],
+      "special": "Abyssal Standard - on-hit chance inflicts weakness; the active plants a standard that pulls, damages and slows enemies while periodically granting Haste to nearby allies.",
+      "suggested_gesture": "LINE_V_DOWN",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.TaintedRelicSwordItem.m_7579_",
+        "net.sweenus.simplyswords.entity.BattleStandardDarkEntity"
+      ]
+    },
+    {
+      "id": "simplyswords:tempest",
+      "name": "Tempest",
+      "category": "chakram",
+      "parent": "chakram",
+      "two_handed": false,
+      "attack_range": 5.5,
+      "damage": 0,
+      "attack_speed": -2.5,
+      "attack_animations": [
+        "simplyswords:one_handed_chakram_throw_left",
+        "simplyswords:chakram_spin",
+        "simplyswords:chakram_spin_long_grounded"
+      ],
+      "special": "Vortex - attacks attach stacking elemental energy (damage over time plus element-specific debuffs); the active recalls all nearby elements into a growing vortex that damages enemies around you.",
+      "suggested_gesture": "CIRCLE",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.TempestSwordItem.activate",
+        "net.sweenus.simplyswords.item.custom.TempestSwordItem.m_7579_",
+        "net.sweenus.simplyswords.effect.ElementalVortexEffect"
+      ]
+    },
+    {
+      "id": "simplyswords:the_devourer",
+      "name": "The Devourer",
+      "category": "claymore",
+      "parent": "claymore",
+      "two_handed": true,
+      "attack_range": 4,
+      "damage": 6,
+      "attack_speed": -2.8,
+      "attack_animations": [
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_stab_left",
+        "bettercombat:two_handed_slam"
+      ],
+      "special": "Devouring Mass - deflecting an attack opens an abyssal maw that damages and drags enemies toward its core; the active launches an abyssal seed that blooms into a living, feeding mass.",
+      "suggested_gesture": "V",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.DevourerClaymoreItem.activate",
+        "net.sweenus.simplyswords.world.DevourerAbilityManager",
+        "net.sweenus.simplyswords.world.DevourerReprisalManager",
+        "net.sweenus.simplyswords.entity.DevourerMassVisualEntity"
+      ]
+    },
+    {
+      "id": "simplyswords:thunderbrand",
+      "name": "Thunderbrand",
+      "category": "halberd",
+      "parent": "halberd",
+      "two_handed": true,
+      "attack_range": 4.5,
+      "damage": 7,
+      "attack_speed": -2.7,
+      "attack_animations": [
+        "simplyswords:halberd_slash_vertical_right",
+        "simplyswords:halberd_stab_right",
+        "bettercombat:two_handed_slash_vertical_right"
+      ],
+      "special": "Thunder Blitz - hold to charge while immune to damage; the release dashes through enemies and fires a chain-lightning bolt for each hit absorbed, and hits can refresh the cooldown.",
+      "suggested_gesture": "CARET",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.ThunderbrandSwordItem.activate",
+        "net.sweenus.simplyswords.item.custom.ThunderbrandSwordItem.m_7579_",
+        "net.sweenus.simplyswords.world.ThunderbrandAbilityManager"
+      ]
+    },
+    {
+      "id": "simplyswords:toxic_longsword",
+      "name": "Longsword of the Plague",
+      "category": "sword",
+      "parent": "sword",
+      "two_handed": false,
+      "attack_range": 3.1,
+      "damage": 3,
+      "attack_speed": -2.4,
+      "attack_animations": [
+        "bettercombat:one_handed_slash_horizontal_right",
+        "bettercombat:one_handed_slash_horizontal_left",
+        "bettercombat:one_handed_stab"
+      ],
+      "special": "Death Knell - hits build Fever; at the threshold a plague bell tolls for area damage, spreads Fever and cascades through nearby enemies, and positive effects on the victim are converted into ailments for bonus Fever.",
+      "suggested_gesture": "CIRCLE",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.PlagueSwordItem.m_7579_",
+        "net.sweenus.simplyswords.world.DeathKnellAbilityManager",
+        "net.sweenus.simplyswords.entity.DeathKnellVisualEntity"
+      ]
+    },
+    {
+      "id": "simplyswords:twisted_blade",
+      "name": "Twisted Blade",
+      "category": "claymore",
+      "parent": "claymore",
+      "two_handed": true,
+      "attack_range": 4,
+      "damage": 0,
+      "attack_speed": -2.6,
+      "attack_animations": [
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slam"
+      ],
+      "special": "Ferocity - hits grant stacking Ferocity (attack speed) and trigger Crescendo area strikes; the active consumes all stacks so the next hit becomes a Grand Crescendo with scaling damage, radius and knockback.",
+      "suggested_gesture": "ZIGZAG",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.TwistedBladeItem.activate",
+        "net.sweenus.simplyswords.item.custom.TwistedBladeItem.m_7579_",
+        "net.sweenus.simplyswords.world.TwistedBladeAbilityManager",
+        "net.sweenus.simplyswords.effect.FerocityEffect"
+      ]
+    },
+    {
+      "id": "simplyswords:waking_lichblade",
+      "name": "Waking Lichblade",
+      "category": "claymore",
+      "parent": "heavy_axe",
+      "two_handed": true,
+      "attack_range": 4.1,
+      "damage": 7,
+      "attack_speed": -3.1,
+      "attack_animations": [
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_spin",
+        "bettercombat:two_handed_stab_left"
+      ],
+      "special": "Soul Anguish II - same soul ability as the Slumbering Lichblade at the second awakening tier (stronger souls, damage and absorption).",
+      "suggested_gesture": "ZIGZAG",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.LichbladeSwordItem.activate",
+        "net.sweenus.simplyswords.item.custom.LichbladeSwordItem.m_7579_"
+      ]
+    },
+    {
+      "id": "simplyswords:watcher_claymore",
+      "name": "The Watcher",
+      "category": "claymore",
+      "parent": "claymore",
+      "two_handed": true,
+      "attack_range": 4,
+      "damage": 6,
+      "attack_speed": -2.8,
+      "attack_animations": [
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_stab_left",
+        "bettercombat:two_handed_slam"
+      ],
+      "special": "Final Omen - hits build Dread and summon bats; the active looses a bat barrage that repeatedly tears the target and executes enemies left below a health threshold at maximum Dread.",
+      "suggested_gesture": "ZIGZAG",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.WatcherClaymoreItem.getWatcherWeaponType",
+        "net.sweenus.simplyswords.world.WatcherAbilityManager",
+        "net.sweenus.simplyswords.entity.WatcherBatEntity"
+      ]
+    },
+    {
+      "id": "simplyswords:watching_warglaive",
+      "name": "Watching Warglaive",
+      "category": "warglaive",
+      "parent": "warglaive",
+      "two_handed": false,
+      "attack_range": 3.1,
+      "damage": 3,
+      "attack_speed": -2.2,
+      "attack_animations": [
+        "simplyswords:warglaive_slash_horizontal_right",
+        "simplyswords:warglaive_slash_horizontal_left",
+        "simplyswords:warglaive_spin"
+      ],
+      "special": "Night Pursuit - releases Dread-marked bats that hunt nearby enemies, striking them and siphoning life for every Dread stack consumed.",
+      "suggested_gesture": "ZIGZAG",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.WatchingWarglaiveItem.getWatcherWeaponType",
+        "net.sweenus.simplyswords.world.WatcherAbilityManager",
+        "net.sweenus.simplyswords.entity.WatcherBatEntity"
+      ]
+    },
+    {
+      "id": "simplyswords:waxweaver",
+      "name": "Waxweaver",
+      "category": "claymore",
+      "parent": "heavy_axe",
+      "two_handed": true,
+      "attack_range": 4.1,
+      "damage": 6,
+      "attack_speed": -2.9,
+      "attack_animations": [
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_slam",
+        "bettercombat:two_handed_stab_left"
+      ],
+      "special": "Waxweave - hits on burning enemies grant Strength and Haste; the active encases an enemy in wax (immobile and taunted by its allies) which detonates on expiry or death, and on lethal damage you are revived in wax at full health.",
+      "suggested_gesture": "CIRCLE",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.WaxweaverSwordItem.activate",
+        "net.sweenus.simplyswords.item.custom.WaxweaverSwordItem.m_7579_",
+        "net.sweenus.simplyswords.world.WaxweaverEncasementManager",
+        "net.sweenus.simplyswords.effect.WaxEncasedEffect"
+      ]
+    },
+    {
+      "id": "simplyswords:whisperwind",
+      "name": "Whisperwind",
+      "category": "katana",
+      "parent": "katana",
+      "two_handed": true,
+      "attack_range": 3.1,
+      "damage": 3,
+      "attack_speed": -2.0,
+      "attack_animations": [
+        "bettercombat:two_handed_slash_horizontal_right",
+        "bettercombat:two_handed_slash_vertical_left",
+        "bettercombat:two_handed_slash_vertical_right",
+        "bettercombat:two_handed_slash_horizontal_left",
+        "bettercombat:two_handed_stab_right"
+      ],
+      "special": "Fatal Flicker - dash forward gaining Resistance and Absorption, with enemies in the path taking damage after a short delay; hits can refresh the cooldown.",
+      "suggested_gesture": "CARET",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.WhisperwindSwordItem.activate",
+        "net.sweenus.simplyswords.item.custom.WhisperwindSwordItem.m_7579_",
+        "net.sweenus.simplyswords.world.WhisperwindVisualManager"
+      ]
+    },
+    {
+      "id": "simplyswords:wickpiercer",
+      "name": "Wickpiercer",
+      "category": "trident",
+      "parent": "trident",
+      "two_handed": false,
+      "attack_range": 3.7,
+      "damage": 4,
+      "attack_speed": -2.1,
+      "attack_animations": [],
+      "special": "Flicker Fury - thrown with innate Loyalty III; throwing grants up to 5 Frenzy stacks that raise attack speed and allow double hits, and stacks are lost when you are hit.",
+      "suggested_gesture": "LINE_V_UP",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.WickpiercerSwordItem.activate",
+        "net.sweenus.simplyswords.item.custom.WickpiercerSwordItem.m_7579_",
+        "net.sweenus.simplyswords.entity.WickpiercerEntity",
+        "net.sweenus.simplyswords.effect.FrenzyEffect"
+      ]
+    },
+    {
+      "id": "simplyswords:wraithfang",
+      "name": "Wraithfang",
+      "category": "sickle",
+      "parent": "sickle",
+      "two_handed": false,
+      "attack_range": 2.8,
+      "damage": 1,
+      "attack_speed": -2.0,
+      "attack_animations": [
+        "bettercombat:one_handed_slash_horizontal_right",
+        "bettercombat:dual_handed_slash_cross",
+        "bettercombat:dual_handed_slash_uncross"
+      ],
+      "special": "Spectral Leap - throw Wraithfang and leap to it, briefly immune, gaining Haste on arrival; innate Loyalty I.",
+      "suggested_gesture": "CARET",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.WraithfangSwordItem.activate",
+        "net.sweenus.simplyswords.item.custom.WraithfangSwordItem.m_7579_",
+        "net.sweenus.simplyswords.entity.WraithfangEntity"
+      ]
+    },
+    {
+      "id": "simplyswords:wraithmaw",
+      "name": "Wraithmaw",
+      "category": "sickle",
+      "parent": "sickle",
+      "two_handed": false,
+      "attack_range": 2.8,
+      "damage": 1,
+      "attack_speed": -2.0,
+      "attack_animations": [
+        "bettercombat:one_handed_slash_horizontal_right",
+        "bettercombat:dual_handed_slash_cross",
+        "bettercombat:dual_handed_slash_uncross"
+      ],
+      "special": "Spectral Downpour - collected spectral cutlasses float above you and seek targets when you swing; the active sends a barrage of cutlasses that leave Gloam where they land.",
+      "suggested_gesture": "ZIGZAG",
+      "arsenal_role": "signature",
+      "implementation": [
+        "net.sweenus.simplyswords.item.custom.WraithmawSwordItem.activate",
+        "net.sweenus.simplyswords.world.WraithmawAbilityManager",
+        "net.sweenus.simplyswords.entity.WraithmawCutlassEntity"
+      ]
+    }
+  ]
+}
