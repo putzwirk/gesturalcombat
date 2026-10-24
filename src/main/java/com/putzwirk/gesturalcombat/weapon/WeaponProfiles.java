@@ -103,6 +103,43 @@ public final class WeaponProfiles {
         return profile == null ? null : profile.special(shape);
     }
 
+    private static final String[][] FAMILY_TOKENS = {
+            {"soulknife", "soul_knife"},
+            {"battlestaff", "battlestaff"},
+            {"greathammer", "greathammer"},
+            {"warglaive", "warglaive"},
+            {"greataxe", "greataxe"},
+            {"heavy_axe", "heavy_axe"},
+            {"claymore", "claymore"},
+            {"halberd", "halberd"},
+            {"chakram", "chakram"},
+            {"cutlass", "sickle"},
+            {"sickle", "sickle"},
+            {"scythe", "scythe"},
+            {"trident", "trident"},
+            {"rapier", "rapier"},
+            {"katana", "katana"},
+            {"glaive", "glaive"},
+            {"mace", "mace"},
+            {"sword", "sword"}
+    };
+
+    @javax.annotation.Nullable
+    private static String familyFromId(ItemStack stack) {
+        net.minecraft.resources.ResourceLocation id =
+                net.minecraftforge.registries.ForgeRegistries.ITEMS.getKey(stack.getItem());
+        if (id == null) {
+            return null;
+        }
+        String path = id.getPath().toLowerCase(java.util.Locale.ROOT);
+        for (String[] token : FAMILY_TOKENS) {
+            if (path.contains(token[0])) {
+                return token[1];
+            }
+        }
+        return null;
+    }
+
     @javax.annotation.Nullable
     public static String family(ItemStack stack) {
         WeaponProfile profile = profile(stack);
@@ -110,7 +147,10 @@ public final class WeaponProfiles {
             return profile.family();
         }
         String combat = com.putzwirk.gesturalcombat.compat.BetterCombatBridge.category(stack);
-        return combat == null || combat.isBlank() ? null : combat.toLowerCase(java.util.Locale.ROOT);
+        if (combat != null && !combat.isBlank()) {
+            return combat.toLowerCase(java.util.Locale.ROOT);
+        }
+        return familyFromId(stack);
     }
 
     public static double damageMultiplier(ItemStack stack) {

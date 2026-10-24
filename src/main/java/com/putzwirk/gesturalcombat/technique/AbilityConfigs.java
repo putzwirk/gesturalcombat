@@ -30,25 +30,65 @@ public final class AbilityConfigs {
         weaponsJson = new JsonObject();
     }
 
-    public static void load(JsonObject abilities, JsonObject weapons) {
-        boolean emptyAbilities = abilities == null || !abilities.has("techniques");
-        boolean emptyWeapons = weapons == null || !weapons.has("weapons");
-        if (emptyAbilities && emptyWeapons && (count() > 0 || com.putzwirk.gesturalcombat.weapon.WeaponProfiles.count() > 0)) {
+    public static boolean hasTechniques() {
+        return count() > 0;
+    }
+
+    public static boolean hasWeapons() {
+        return com.putzwirk.gesturalcombat.weapon.WeaponProfiles.count() > 0;
+    }
+
+    public static boolean loaded() {
+        return hasTechniques() && hasWeapons();
+    }
+
+    public static void ensureLoaded() {
+        if (loaded()) {
             return;
         }
-        clear();
-        abilitiesJson = abilities == null ? new JsonObject() : abilities;
-        weaponsJson = weapons == null ? new JsonObject() : weapons;
-        if (abilitiesJson.has("techniques") && abilitiesJson.get("techniques").isJsonObject()) {
-            for (Map.Entry<String, com.google.gson.JsonElement> entry : abilitiesJson.getAsJsonObject("techniques").entrySet()) {
+        JsonObject bundledAbilities = readBundled("/data/gesturalcombat/abilities.json");
+        JsonObject bundledWeapons = readBundled("/data/gesturalcombat/weapons.json");
+        if (bundledAbilities == null || bundledWeapons == null) {
+            return;
+        }
+        load(bundledAbilities, bundledWeapons);
+    }
+
+    private static JsonObject readBundled(String path) {
+        try (java.io.InputStream stream = AbilityConfigs.class.getResourceAsStream(path)) {
+            if (stream == null) {
+                return null;
+            }
+            try (java.io.Reader reader = new java.io.InputStreamReader(stream, java.nio.charset.StandardCharsets.UTF_8)) {
+                return JsonParser.parseReader(reader).getAsJsonObject();
+            }
+        } catch (RuntimeException | java.io.IOException e) {
+            return null;
+        }
+    }
+
+    public static void load(JsonObject abilities, JsonObject weapons) {
+        boolean hasAbilities = abilities != null && abilities.has("techniques");
+        boolean hasWeapons = weapons != null && weapons.has("weapons");
+        if (!hasAbilities && !hasWeapons) {
+            return;
+        }
+        if (hasAbilities) {
+            BY_ID.clear();
+            abilitiesJson = abilities;
+            for (Map.Entry<String, com.google.gson.JsonElement> entry : abilities.getAsJsonObject("techniques").entrySet()) {
                 if (!entry.getValue().isJsonObject()) {
                     continue;
                 }
                 BY_ID.computeIfAbsent(entry.getKey(), AbilityConfig::new).read(entry.getValue().getAsJsonObject());
             }
         }
-        readCategories();
-        WeaponProfiles.load(weaponsJson);
+        if (hasWeapons) {
+            CATEGORY_ANIMATIONS.clear();
+            weaponsJson = weapons;
+            readCategories();
+            com.putzwirk.gesturalcombat.weapon.WeaponProfiles.load(weapons);
+        }
         Techniques.applyConfig();
     }
 

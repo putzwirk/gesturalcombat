@@ -312,11 +312,30 @@ public final class GestureHud {
         return config != null && config.cooldownTicks() != null ? config.cooldownTicks() : technique.cooldownTicks();
     }
 
+    private static String lastLoggedWeapon;
+
+    private static void logResolution(ItemStack stack, Archetype held) {
+        if (!com.putzwirk.gesturalcombat.Config.INSTANCE.debugCasts.get()) {
+            return;
+        }
+        net.minecraft.resources.ResourceLocation id =
+                net.minecraftforge.registries.ForgeRegistries.ITEMS.getKey(stack.getItem());
+        String key = id + "/" + held;
+        if (key.equals(lastLoggedWeapon)) {
+            return;
+        }
+        lastLoggedWeapon = key;
+        com.putzwirk.gesturalcombat.Gesturalcombat.LOGGER.info(
+                "gesturalcombat held: item={} archetype={} family={}", id, held,
+                com.putzwirk.gesturalcombat.weapon.WeaponProfiles.family(stack));
+    }
+
     private static void drawStrip(GuiGraphics graphics, Archetype held, ItemStack stack, float originX, float y,
                                   boolean rightward, float partialTick, boolean highlighted) {
         if (held == null) {
             return;
         }
+        logResolution(stack, held);
         Minecraft mc = Minecraft.getInstance();
         GestureShape shown = highlighted && ClientState.stroking && ClientState.shownShape != null && ClientState.shownShape.isKnown()
                 ? ClientState.shownShape : null;

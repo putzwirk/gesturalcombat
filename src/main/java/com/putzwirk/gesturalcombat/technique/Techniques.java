@@ -428,11 +428,8 @@ public final class Techniques {
             String family = family(stack);
             if (family != null) {
                 Map<GestureShape, Technique> familyMap = BY_FAMILY.get(family);
-                if (familyMap != null) {
-                    Technique technique = familyMap.get(shape);
-                    if (technique != null && technique.archetype() == archetype) {
-                        return technique;
-                    }
+                if (familyMap != null && !familyMap.isEmpty()) {
+                    return familyMap.get(shape);
                 }
             }
         }
