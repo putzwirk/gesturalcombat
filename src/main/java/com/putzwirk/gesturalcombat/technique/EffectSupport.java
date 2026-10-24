@@ -58,8 +58,9 @@ public final class EffectSupport {
         float base = (float) player.getAttributeValue(Attributes.ATTACK_DAMAGE);
         float passive = 1.0f + MasteryCapability.get(player).passive(technique.archetype(), Passive.DAMAGE);
         double weapon = WeaponProfiles.damageMultiplier(stack);
+        double weight = com.putzwirk.gesturalcombat.weapon.WeaponRules.damageFactor(stack);
         double config = Config.INSTANCE.damageMultiplier.get();
-        return (float) (base * passive * weapon * config);
+        return (float) (base * passive * weapon * weight * config);
     }
 
     public static double reachOf(ServerPlayer player, Technique technique, double baseRange) {

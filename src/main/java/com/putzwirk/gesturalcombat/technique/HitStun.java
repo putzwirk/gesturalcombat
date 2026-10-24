@@ -40,7 +40,11 @@ public final class HitStun {
             ANCHORS.entrySet().removeIf(entry -> entry.getValue().until < now);
         }
         boolean hadNoAi = existing != null ? existing.hadNoAi : target instanceof Mob mob && mob.isNoAi();
-        long until = target.level().getGameTime() + Math.max(4, ticks);
+        long now = target.level().getGameTime();
+        long until = now + Math.max(4, ticks);
+        if (existing != null && existing.until > until) {
+            until = existing.until;
+        }
         ANCHORS.put(id, new Anchor(target.level().dimension(), target.getX(), target.getZ(), until, hadNoAi, stars));
         Vec3 motion = target.getDeltaMovement();
         target.setDeltaMovement(0.0, motion.y, 0.0);
