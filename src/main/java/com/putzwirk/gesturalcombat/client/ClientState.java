@@ -17,6 +17,9 @@ import java.util.List;
 import java.util.Map;
 
 public final class ClientState {
+    public static boolean hiddenMain;
+    public static boolean hiddenOff;
+
     public static final PlayerMastery MASTERY = new PlayerMastery();
     public static final List<TrailPoint> TRAIL = new ArrayList<>();
     public static final Map<String, Integer> COOLDOWN_END = new HashMap<>();
@@ -130,5 +133,17 @@ public final class ClientState {
 
     public static boolean isReady(String techniqueId) {
         return cooldownRemaining(techniqueId) <= 0;
+    }
+
+    public static void setHidden(boolean offhand, boolean hidden) {
+        if (offhand) {
+            hiddenOff = hidden;
+        } else {
+            hiddenMain = hidden;
+        }
+    }
+
+    public static boolean hidden(boolean leftHand) {
+        return leftHand ? hiddenOff : hiddenMain;
     }
 }

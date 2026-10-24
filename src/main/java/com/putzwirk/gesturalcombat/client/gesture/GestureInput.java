@@ -438,6 +438,10 @@ public final class GestureInput {
             ClientState.rejectTicks = REJECT_TICKS;
             return false;
         }
+        if (ClientState.hidden(hand == InteractionHand.OFF_HAND)) {
+            ClientState.rejectTicks = REJECT_TICKS;
+            return false;
+        }
         ItemStack held = mc.player == null ? ItemStack.EMPTY : mc.player.getItemInHand(hand);
         Technique technique = Techniques.forGesture(archetype, result.shape(), held);
         if (technique == null || !ClientState.MASTERY.isTechniqueAvailable(technique)) {

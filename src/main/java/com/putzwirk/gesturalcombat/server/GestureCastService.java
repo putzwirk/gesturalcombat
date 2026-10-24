@@ -18,6 +18,7 @@ import com.putzwirk.gesturalcombat.technique.Technique;
 import com.putzwirk.gesturalcombat.technique.Techniques;
 import com.putzwirk.gesturalcombat.entity.ThrownChakramEntity;
 import com.putzwirk.gesturalcombat.technique.effect.WeaponSpecialEffect;
+import com.putzwirk.gesturalcombat.technique.OutLock;
 import com.putzwirk.gesturalcombat.weapon.WeaponProfiles;
 import com.putzwirk.gesturalcombat.weapon.WeaponSpecial;
 import net.minecraft.server.MinecraftServer;
@@ -63,6 +64,9 @@ public final class GestureCastService {
         if (offhand && HandGate.blocksOffhand(player.getMainHandItem())) {
             return;
         }
+        if (OutLock.isLocked(player, offhand)) {
+            return;
+        }
         if (GuardState.isGuarding(player)) {
             GuardState.end(player);
             if (player.isUsingItem()) {
@@ -98,19 +102,28 @@ public final class GestureCastService {
                 : EffectSupport.specialCooldown(player, technique, stack, special.cooldownTicks());
         playerCooldowns.put(cooldownKey, now + cooldown);
         ModNetwork.sendToTracking(player, new CastEffectPacket(player.getId(), technique.id(), cooldown, swipe, offhand, cooldownKey));
-        String category = com.putzwirk.gesturalcombat.compat.BetterCombatBridge.category(stack);
-        boolean chakramThrow = special == null
-                && "chakram".equalsIgnoreCase(category)
-                && (shape == GestureShape.LINE_H || shape == GestureShape.LINE_V_DOWN)
-                && level instanceof ServerLevel;
+        String family = WeaponProfiles.family(stack);
+        boolean launched = false;
+        if (special == null && level instanceof ServerLevel serverLevel) {
+            double damage = EffectSupport.damageOf(player, technique, stack)
+                    * AbilityConfigs.damageMultiplier(technique, stack, 1.0);
+            if ("chakram".equalsIgnoreCase(family) && shape == GestureShape.ZIGZAG) {
+                launched = ThrownChakramEntity.launchChain(serverLevel, player, stack, technique, damage, offhand);
+            } else if ("trident".equalsIgnoreCase(family) && shape == GestureShape.ZIGZAG) {
+                launched = ThrownChakramEntity.launchWeapon(serverLevel, player, stack, technique, damage,
+                        EffectSupport.weaponReach(stack), offhand, false);
+            } else if ("mace".equalsIgnoreCase(family) && shape == GestureShape.ZIGZAG) {
+                launched = ThrownChakramEntity.launchWeapon(serverLevel, player, stack, technique, damage,
+                        8.0, offhand, true);
+            } else if ("chakram".equalsIgnoreCase(family)
+                    && (shape == GestureShape.LINE_H || shape == GestureShape.LINE_V_DOWN)) {
+                ThrownChakramEntity.launch(serverLevel, player, stack, technique, damage, EffectSupport.weaponReach(stack));
+                launched = true;
+            }
+        }
         if (special != null) {
             WeaponSpecialEffect.execute(player, level, stack, technique, special);
-        } else if (chakramThrow) {
-            ThrownChakramEntity.launch((ServerLevel) level, player, stack, technique,
-                    EffectSupport.damageOf(player, technique, stack)
-                            * AbilityConfigs.damageMultiplier(technique, stack, 1.0),
-                    EffectSupport.weaponReach(stack));
-        } else {
+        } else if (!launched) {
             technique.effect().execute(player, level, stack, technique);
         }
         MasteryService.award(player, technique.archetype(), technique.xp());

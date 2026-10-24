@@ -1,6 +1,7 @@
 package com.putzwirk.gesturalcombat.entity;
 
 import com.putzwirk.gesturalcombat.technique.EffectSupport;
+import com.putzwirk.gesturalcombat.technique.OutLock;
 import com.putzwirk.gesturalcombat.technique.Technique;
 import com.putzwirk.gesturalcombat.technique.Techniques;
 import net.minecraft.nbt.CompoundTag;
@@ -17,7 +18,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -33,6 +36,11 @@ public class ThrownChakramEntity extends Entity {
     private int outboundTicks = 10;
     private int lifetime = 34;
     private boolean returning;
+    private boolean offhand;
+    private boolean chain;
+    private boolean airtimeScale;
+    private int hopIndex;
+    private final List<UUID> hops = new ArrayList<>();
 
     public ThrownChakramEntity(EntityType<? extends ThrownChakramEntity> type, Level level) {
         super(type, level);
@@ -53,6 +61,91 @@ public class ThrownChakramEntity extends Entity {
         Vec3 direction = player.getLookAngle();
         chakram.setDeltaMovement(direction.normalize().scale(0.7));
         level.addFreshEntity(chakram);
+    }
+
+    public static boolean launchChain(ServerLevel level, ServerPlayer player, ItemStack stack, Technique technique,
+                                      double damage, boolean offhand) {
+        List<UUID> path = chainPath(level, player);
+        if (path.isEmpty()) {
+            return false;
+        }
+        ThrownChakramEntity chakram = base(level, player, stack, technique, damage, offhand);
+        chakram.chain = true;
+        chakram.hops.addAll(path);
+        chakram.outboundTicks = 8 * path.size();
+        chakram.lifetime = 8 * path.size() + 30;
+        chakram.setDeltaMovement(player.getLookAngle().normalize().scale(0.9));
+        level.addFreshEntity(chakram);
+        OutLock.lock(player, offhand);
+        return true;
+    }
+
+    public static boolean launchWeapon(ServerLevel level, ServerPlayer player, ItemStack stack, Technique technique,
+                                       double damage, double reach, boolean offhand, boolean airtimeScale) {
+        ThrownChakramEntity thrown = base(level, player, stack, technique, damage, offhand);
+        thrown.airtimeScale = airtimeScale;
+        thrown.outboundTicks = (int) Math.max(8, Math.min(30, Math.round(reach / 0.55)));
+        thrown.lifetime = thrown.outboundTicks * 3 + 10;
+        thrown.setDeltaMovement(player.getLookAngle().normalize().scale(airtimeScale ? 0.55 : 0.95));
+        level.addFreshEntity(thrown);
+        OutLock.lock(player, offhand);
+        return true;
+    }
+
+    private static ThrownChakramEntity base(ServerLevel level, ServerPlayer player, ItemStack stack,
+                                            Technique technique, double damage, boolean offhand) {
+        ThrownChakramEntity thrown = new ThrownChakramEntity(ModEntities.THROWN_CHAKRAM.get(), level);
+        thrown.setPos(player.getX(), player.getEyeY() - 0.25, player.getZ());
+        thrown.setYRot(player.getYRot());
+        thrown.setXRot(player.getXRot());
+        thrown.setItem(stack);
+        thrown.ownerId = player.getUUID();
+        thrown.techniqueId = technique.id();
+        thrown.damage = Math.max(1.0, damage);
+        thrown.offhand = offhand;
+        return thrown;
+    }
+
+    private static List<UUID> chainPath(ServerLevel level, ServerPlayer player) {
+        List<UUID> path = new ArrayList<>();
+        List<LivingEntity> chosen = new ArrayList<>();
+        Vec3 anchor = player.position();
+        for (int i = 0; i < 4; i++) {
+            LivingEntity next = nearest(level, player, anchor, chosen);
+            if (next == null) {
+                break;
+            }
+            chosen.add(next);
+            path.add(next.getUUID());
+            anchor = next.position();
+        }
+        return path;
+    }
+
+    private static LivingEntity nearest(ServerLevel level, ServerPlayer player, Vec3 anchor, List<LivingEntity> chosen) {
+        LivingEntity best = null;
+        double bestDistance = Double.MAX_VALUE;
+        for (LivingEntity candidate : level.getEntitiesOfClass(LivingEntity.class,
+                new AABB(anchor, anchor).inflate(6.0), entity -> entity != player && entity.isAlive() && !entity.isSpectator())) {
+            if (chosen.contains(candidate) || candidate.distanceToSqr(player) > 144.0) {
+                continue;
+            }
+            double distance = candidate.distanceToSqr(anchor);
+            if (distance < bestDistance) {
+                bestDistance = distance;
+                best = candidate;
+            }
+        }
+        return best;
+    }
+
+    @Override
+    public void remove(RemovalReason reason) {
+        ServerPlayer owner = owner();
+        if (owner != null) {
+            OutLock.unlock(owner);
+        }
+        super.remove(reason);
     }
 
     public ItemStack getItem() {
@@ -80,7 +173,12 @@ public class ThrownChakramEntity extends Entity {
             return;
         }
         ServerPlayer owner = owner();
-        if (age >= outboundTicks) {
+        if (chain && !returning && owner != null) {
+            if (!advanceHop(owner)) {
+                returning = true;
+            }
+        }
+        if (!chain && age >= outboundTicks) {
             returning = true;
         }
         if (returning) {
@@ -90,6 +188,7 @@ public class ThrownChakramEntity extends Entity {
             }
             Vec3 toOwner = owner.getEyePosition().subtract(position());
             if (toOwner.length() < 1.1) {
+                OutLock.unlock(owner);
                 discard();
                 return;
             }
@@ -100,7 +199,32 @@ public class ThrownChakramEntity extends Entity {
         }
         Vec3 motion = getDeltaMovement();
         setPos(getX() + motion.x, getY() + motion.y, getZ() + motion.z);
-        sweep(owner);
+        if (!chain) {
+            sweep(owner);
+        }
+    }
+
+    private boolean advanceHop(ServerPlayer owner) {
+        while (hopIndex < hops.size()) {
+            Entity entity = level() instanceof ServerLevel server ? server.getEntity(hops.get(hopIndex)) : null;
+            if (!(entity instanceof LivingEntity target) || !target.isAlive()) {
+                hopIndex++;
+                continue;
+            }
+            Vec3 to = target.getBoundingBox().getCenter().subtract(position());
+            if (to.length() < 1.4) {
+                Technique technique = Techniques.get(techniqueId);
+                if (technique != null) {
+                    double falloff = Math.max(0.55, 1.0 - 0.15 * hopIndex);
+                    EffectSupport.hit(owner, target, (float) (damage * falloff), technique, 0.3, 0.0);
+                }
+                hopIndex++;
+                continue;
+            }
+            setDeltaMovement(to.normalize().scale(0.95));
+            return true;
+        }
+        return false;
     }
 
     private void sweep(ServerPlayer owner) {
@@ -119,7 +243,8 @@ public class ThrownChakramEntity extends Entity {
                 continue;
             }
             hitCooldowns.put(target.getUUID(), age + 8);
-            EffectSupport.hit(owner, target, (float) damage, technique, 0.4, 0.0);
+            double scaled = airtimeScale ? damage * (1.0 + Math.min(0.6, age * 0.02)) : damage;
+            EffectSupport.hit(owner, target, (float) scaled, technique, 0.4, 0.0);
         }
     }
 
@@ -145,6 +270,8 @@ public class ThrownChakramEntity extends Entity {
         outboundTicks = Math.max(1, tag.getInt("Outbound"));
         lifetime = Math.max(1, tag.getInt("Lifetime"));
         returning = tag.getBoolean("Returning");
+        offhand = tag.getBoolean("Offhand");
+        airtimeScale = tag.getBoolean("Airtime");
     }
 
     @Override
@@ -159,6 +286,8 @@ public class ThrownChakramEntity extends Entity {
         tag.putInt("Outbound", outboundTicks);
         tag.putInt("Lifetime", lifetime);
         tag.putBoolean("Returning", returning);
+        tag.putBoolean("Offhand", offhand);
+        tag.putBoolean("Airtime", airtimeScale);
     }
 
     @Override

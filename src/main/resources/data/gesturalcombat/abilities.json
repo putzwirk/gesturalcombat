@@ -493,6 +493,146 @@
       "knockback": 0.6,
       "lift": 0.0,
       "cooldown_ticks": 30
+    },
+    "sword_link": {
+      "gesture": "LINE_H",
+      "cooldown_ticks": 12
+    },
+    "rapier_cut": {
+      "gesture": "LINE_H",
+      "cooldown_ticks": 10
+    },
+    "rapier_lunge": {
+      "gesture": "LINE_V_UP",
+      "cooldown_ticks": 14
+    },
+    "rapier_flurry": {
+      "gesture": "ZIGZAG",
+      "cooldown_ticks": 30
+    },
+    "rapier_drop": {
+      "gesture": "LINE_V_DOWN",
+      "cooldown_ticks": 40
+    },
+    "claymore_sweep": {
+      "gesture": "LINE_H",
+      "cooldown_ticks": 14
+    },
+    "claymore_rise": {
+      "gesture": "LINE_V_UP",
+      "cooldown_ticks": 18
+    },
+    "claymore_break": {
+      "gesture": "LINE_V_DOWN",
+      "cooldown_ticks": 45
+    },
+    "sickle_cut": {
+      "gesture": "LINE_H",
+      "cooldown_ticks": 9
+    },
+    "sickle_harvest": {
+      "gesture": "LINE_V_UP",
+      "cooldown_ticks": 14
+    },
+    "sickle_flurry": {
+      "gesture": "ZIGZAG",
+      "cooldown_ticks": 30
+    },
+    "sickle_eviscerate": {
+      "gesture": "LINE_V_DOWN",
+      "cooldown_ticks": 40
+    },
+    "saidebt_cut": {
+      "gesture": "LINE_H",
+      "cooldown_ticks": 8
+    },
+    "saidebt_flurry": {
+      "gesture": "ZIGZAG",
+      "cooldown_ticks": 20
+    },
+    "saidebt_spike": {
+      "gesture": "LINE_V_DOWN",
+      "cooldown_ticks": 50
+    },
+    "twinblade_cut": {
+      "gesture": "LINE_H",
+      "cooldown_ticks": 10
+    },
+    "twinblade_rise": {
+      "gesture": "LINE_V_UP",
+      "cooldown_ticks": 14
+    },
+    "twinblade_flurry": {
+      "gesture": "ZIGZAG",
+      "cooldown_ticks": 30
+    },
+    "twinblade_slam": {
+      "gesture": "LINE_V_DOWN",
+      "cooldown_ticks": 40
+    },
+    "warglaive_cut": {
+      "gesture": "LINE_H",
+      "cooldown_ticks": 12
+    },
+    "warglaive_rise": {
+      "gesture": "LINE_V_UP",
+      "cooldown_ticks": 14
+    },
+    "warglaive_flurry": {
+      "gesture": "ZIGZAG",
+      "cooldown_ticks": 30
+    },
+    "warglaive_slam": {
+      "gesture": "LINE_V_DOWN",
+      "cooldown_ticks": 40
+    },
+    "halberd_cut": {
+      "gesture": "LINE_H",
+      "cooldown_ticks": 18
+    },
+    "halberd_rise": {
+      "gesture": "LINE_V_UP",
+      "cooldown_ticks": 20
+    },
+    "halberd_drop": {
+      "gesture": "LINE_V_DOWN",
+      "cooldown_ticks": 50
+    },
+    "halberd_flurry": {
+      "gesture": "ZIGZAG",
+      "cooldown_ticks": 35
+    },
+    "greathammer_cut": {
+      "gesture": "LINE_H",
+      "cooldown_ticks": 18
+    },
+    "greathammer_drop": {
+      "gesture": "LINE_V_DOWN",
+      "cooldown_ticks": 55
+    },
+    "scythe_cut": {
+      "gesture": "LINE_H",
+      "cooldown_ticks": 14
+    },
+    "scythe_whirl": {
+      "gesture": "CIRCLE",
+      "cooldown_ticks": 35
+    },
+    "scythe_drop": {
+      "gesture": "LINE_V_DOWN",
+      "cooldown_ticks": 45
+    },
+    "pyre_sweep": {
+      "gesture": "LINE_H",
+      "cooldown_ticks": 16
+    },
+    "pyre_drop": {
+      "gesture": "LINE_V_DOWN",
+      "cooldown_ticks": 50
+    },
+    "pyre_stoke": {
+      "gesture": "CARET",
+      "cooldown_ticks": 40
     }
   }
 }

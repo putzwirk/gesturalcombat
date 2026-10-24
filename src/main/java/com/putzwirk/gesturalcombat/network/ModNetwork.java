@@ -27,6 +27,7 @@ public final class ModNetwork {
         CHANNEL.registerMessage(nextId++, AbilitySyncPacket.class, AbilitySyncPacket::encode, AbilitySyncPacket::decode, AbilitySyncPacket::handle);
         CHANNEL.registerMessage(nextId++, FxPacket.class, FxPacket::encode, FxPacket::decode, FxPacket::handle);
         CHANNEL.registerMessage(nextId++, FirePatchPacket.class, FirePatchPacket::encode, FirePatchPacket::decode, FirePatchPacket::handle);
+        CHANNEL.registerMessage(nextId++, OutLockPacket.class, OutLockPacket::encode, OutLockPacket::decode, OutLockPacket::handle);
     }
 
     public static void sendToServer(Object message) {
