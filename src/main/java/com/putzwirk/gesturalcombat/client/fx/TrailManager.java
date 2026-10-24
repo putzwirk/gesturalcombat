@@ -13,12 +13,13 @@ import java.util.Map;
 public final class TrailManager {
     private static final int MAX_SAMPLES = 64;
     public static final long FADE_MS = 170L;
+    private static final long FINISH_FADE_MS = 90L;
     private static final Map<Integer, Trail> TRAILS = new HashMap<>();
 
     private TrailManager() {
     }
 
-    public static void start(int playerId, int lifeTicks, int tint, boolean offhand) {
+    public static void start(int playerId, int lifeTicks, int windupTicks, int tint, boolean offhand) {
         if (!Config.INSTANCE.weaponTrails.get()) {
             return;
         }
@@ -26,8 +27,13 @@ public final class TrailManager {
         long expires = now + Math.max(120L, lifeTicks * 50L) + FADE_MS;
         Trail trail = TRAILS.computeIfAbsent(playerId, id -> new Trail());
         trail.expiresAt = expires;
+        trail.startedAt = now;
+        trail.windupMs = Math.max(0, windupTicks) * 50L;
         trail.tint = tint;
         trail.offhand = offhand;
+        trail.finished = false;
+        trail.fadeMillis = FADE_MS;
+        trail.samples.clear();
     }
 
     public static boolean active(int playerId, boolean offhand) {
@@ -37,12 +43,19 @@ public final class TrailManager {
 
     public static void sample(int playerId, Vec3 base, Vec3 tip) {
         Trail trail = TRAILS.get(playerId);
-        if (trail == null) {
+        if (trail == null || trail.finished) {
             return;
         }
         long now = System.currentTimeMillis();
         if (now > trail.expiresAt) {
             return;
+        }
+        if (now - trail.startedAt < trail.windupMs) {
+            return;
+        }
+        if (trail.endDetector.update(tip, now)) {
+            trail.finished = true;
+            trail.fadeMillis = FINISH_FADE_MS;
         }
         trail.samples.addLast(new Sample(now, base, tip));
         while (trail.samples.size() > MAX_SAMPLES) {
@@ -67,7 +80,7 @@ public final class TrailManager {
                 iterator.remove();
                 continue;
             }
-            while (!trail.samples.isEmpty() && now - trail.samples.peekFirst().time() > FADE_MS) {
+            while (!trail.samples.isEmpty() && now - trail.samples.peekFirst().time() > trail.fadeMillis) {
                 trail.samples.removeFirst();
             }
         }
@@ -78,8 +91,13 @@ public final class TrailManager {
 
     static final class Trail {
         final Deque<Sample> samples = new ArrayDeque<>();
+        final TrailEndDetector endDetector = new TrailEndDetector();
         long expiresAt;
+        long startedAt;
+        long windupMs;
+        long fadeMillis = FADE_MS;
         int tint = 0xFFFFFF;
         boolean offhand;
+        boolean finished;
     }
 }

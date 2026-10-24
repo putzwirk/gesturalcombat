@@ -46,11 +46,11 @@ public final class TrailRenderer {
         for (int i = 1; i < count; i++) {
             TrailManager.Sample previous = samples.get(i - 1);
             TrailManager.Sample current = samples.get(i);
-            float fadeCurrent = fade(now, current.time());
+            float fadeCurrent = fade(now, current.time(), trail.fadeMillis);
             if (fadeCurrent <= 0.0f) {
                 continue;
             }
-            float fadePrevious = fade(now, previous.time());
+            float fadePrevious = fade(now, previous.time(), trail.fadeMillis);
             float v0 = 1.0f - fadePrevious;
             float v1 = 1.0f - fadeCurrent;
             Vec3 tipPrevious = previous.tip();
@@ -89,12 +89,12 @@ public final class TrailRenderer {
         vertex(consumer, pose, origin, base1, r, g, b, baseAlpha1, 0.0f, v1);
     }
 
-    private static float fade(long now, long time) {
+    private static float fade(long now, long time, long fadeMillis) {
         long age = now - time;
-        if (age >= TrailManager.FADE_MS) {
+        if (age >= fadeMillis) {
             return 0.0f;
         }
-        return 1.0f - age / (float) TrailManager.FADE_MS;
+        return 1.0f - age / (float) fadeMillis;
     }
 
     private static void vertex(VertexConsumer consumer, PoseStack.Pose pose, Vec3 origin, Vec3 at,
