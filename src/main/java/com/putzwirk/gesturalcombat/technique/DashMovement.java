@@ -2,17 +2,12 @@ package com.putzwirk.gesturalcombat.technique;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.RelativeMovement;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-
-import java.util.EnumSet;
-import java.util.Set;
 
 public final class DashMovement {
     private static final double STEP = 0.55;
     private static final double MIN_STEP = 0.12;
-    private static final Set<RelativeMovement> KEEP_ROTATION = EnumSet.of(RelativeMovement.X_ROT, RelativeMovement.Y_ROT);
 
     private DashMovement() {
     }
@@ -49,26 +44,51 @@ public final class DashMovement {
         double distance = horizontal(from, end);
         if (distance < MIN_STEP) {
             for (int i = 1; i <= hold; i++) {
-                GestureScheduler.schedule(level, i, () -> step(player, level, from, false));
+                GestureScheduler.schedule(level, i, () -> brake(player, level));
             }
             return 0;
         }
         int ticks = Math.max(1, Math.min(maxTicks, (int) Math.ceil(distance / Math.max(MIN_STEP, step))));
+        double total = 0.0;
+        double[] weights = new double[ticks];
+        for (int i = 0; i < ticks; i++) {
+            double u = (i + 0.5) / ticks;
+            weights[i] = 0.40 + 0.60 * Math.sin(Math.PI * u);
+            total += weights[i];
+        }
+        Vec3 delta = new Vec3(end.x - from.x, 0.0, end.z - from.z);
         for (int i = 1; i <= ticks; i++) {
-            float progress = i / (float) ticks;
-            Vec3 point = from.add(end.subtract(from).scale(progress));
-            GestureScheduler.schedule(level, i, () -> step(player, level, point, true));
+            Vec3 perTick = delta.scale(weights[i - 1] / total);
+            GestureScheduler.schedule(level, i, () -> push(player, level, perTick));
         }
         for (int i = 1; i <= hold; i++) {
-            GestureScheduler.schedule(level, ticks + i, () -> step(player, level, end, false));
+            GestureScheduler.schedule(level, ticks + i, () -> brake(player, level));
         }
         return ticks;
     }
 
+    private static void push(ServerPlayer player, Level level, Vec3 perTick) {
+        if (!player.isAlive() || player.isRemoved() || player.level() != level) {
+            return;
+        }
+        player.setDeltaMovement(perTick.x, player.getDeltaMovement().y, perTick.z);
+        player.hurtMarked = true;
+        player.fallDistance = 0.0f;
+    }
+
+    private static void brake(ServerPlayer player, Level level) {
+        if (!player.isAlive() || player.isRemoved() || player.level() != level) {
+            return;
+        }
+        Vec3 motion = player.getDeltaMovement();
+        player.setDeltaMovement(0.0, motion.y, 0.0);
+        player.hurtMarked = true;
+        player.fallDistance = 0.0f;
+    }
+
     public static void hold(ServerPlayer player, Level level, int ticks) {
-        Vec3 at = player.position();
         for (int i = 1; i <= Math.max(1, ticks); i++) {
-            GestureScheduler.schedule(level, i, () -> step(player, level, at, false));
+            GestureScheduler.schedule(level, i, () -> brake(player, level));
         }
     }
 
@@ -82,20 +102,6 @@ public final class DashMovement {
             delta = delta.scale(0.6);
         }
         return from;
-    }
-
-    private static void step(ServerPlayer player, Level level, Vec3 point, boolean trail) {
-        if (!player.isAlive() || player.isRemoved() || player.level() != level) {
-            return;
-        }
-        double dx = point.x - player.getX();
-        double dz = point.z - player.getZ();
-        if (!level.noCollision(player, player.getBoundingBox().move(dx, 0.0, dz))) {
-            return;
-        }
-        player.connection.teleport(point.x, player.getY(), point.z, player.getYRot(), player.getXRot(), KEEP_ROTATION);
-        player.setDeltaMovement(Vec3.ZERO);
-        player.hurtMarked = true;
     }
 
     private static double horizontal(Vec3 from, Vec3 to) {
