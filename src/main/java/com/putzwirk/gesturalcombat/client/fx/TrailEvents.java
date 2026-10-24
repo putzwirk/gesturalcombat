@@ -17,5 +17,6 @@ public final class TrailEvents {
             return;
         }
         TrailRenderer.render(event.getPoseStack(), event.getCamera(), event.getPartialTick());
+        ProjectileTrails.render(event.getPoseStack(), event.getCamera());
     }
 }

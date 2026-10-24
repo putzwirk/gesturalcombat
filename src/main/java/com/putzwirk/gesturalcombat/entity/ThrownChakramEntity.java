@@ -6,7 +6,6 @@ import com.putzwirk.gesturalcombat.technique.Technique;
 import com.putzwirk.gesturalcombat.technique.Techniques;
 import com.putzwirk.gesturalcombat.technique.GestureScheduler;
 import com.putzwirk.gesturalcombat.technique.HitStun;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -221,7 +220,6 @@ public class ThrownChakramEntity extends Entity {
     public void tick() {
         super.tick();
         if (level().isClientSide) {
-            spinTrail();
             return;
         }
         age++;
@@ -259,20 +257,6 @@ public class ThrownChakramEntity extends Entity {
         if (!chain) {
             sweep(owner);
         }
-    }
-
-    private void spinTrail() {
-        Vec3 motion = getDeltaMovement();
-        if (motion.lengthSqr() < 1.0e-5) {
-            return;
-        }
-        Vec3 side = motion.normalize().cross(new Vec3(0.0, 1.0, 0.0));
-        if (side.lengthSqr() < 1.0e-5) {
-            return;
-        }
-        side = side.normalize().scale(0.42);
-        level().addParticle(ParticleTypes.END_ROD, getX() + side.x, getY(), getZ() + side.z, 0.0, 0.0, 0.0);
-        level().addParticle(ParticleTypes.END_ROD, getX() - side.x, getY(), getZ() - side.z, 0.0, 0.0, 0.0);
     }
 
     private boolean advanceHop(ServerPlayer owner) {
