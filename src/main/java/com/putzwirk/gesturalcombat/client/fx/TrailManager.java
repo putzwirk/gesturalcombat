@@ -12,7 +12,7 @@ import java.util.Map;
 
 public final class TrailManager {
     private static final int MAX_SAMPLES = 64;
-    public static final long FADE_MS = 300L;
+    public static final long FADE_MS = 170L;
     private static final Map<Integer, Trail> TRAILS = new HashMap<>();
 
     private TrailManager() {
