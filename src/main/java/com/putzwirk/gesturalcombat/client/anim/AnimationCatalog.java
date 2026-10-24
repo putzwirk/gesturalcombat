@@ -48,6 +48,13 @@ public final class AnimationCatalog {
         if (archetype == null || shape == null || shape == GestureShape.UNKNOWN) {
             return null;
         }
+        String family = WeaponProfiles.family(stack);
+        if (throwsWeapon(family, shape)) {
+            String thrown = throwAnimation(stack);
+            if (thrown != null) {
+                return new String[]{thrown};
+            }
+        }
         String[] pair = weaponSequence(shape, stack, swipe);
         if (pair == null) {
             pair = pairFor(archetype, shape, twoHanded(stack), swipe);
@@ -61,6 +68,46 @@ public final class AnimationCatalog {
             out[i] = pair[i % pair.length];
         }
         return out;
+    }
+
+    private static boolean throwsWeapon(@Nullable String family, GestureShape shape) {
+        if (family == null) {
+            return false;
+        }
+        String value = family.toLowerCase(Locale.ROOT);
+        if (value.equals("chakram")) {
+            return shape == GestureShape.LINE_H || shape == GestureShape.LINE_V_DOWN || shape == GestureShape.ZIGZAG;
+        }
+        if (value.equals("trident") || value.equals("mace")) {
+            return shape == GestureShape.ZIGZAG;
+        }
+        return false;
+    }
+
+    @Nullable
+    private static String throwAnimation(ItemStack stack) {
+        List<String> animations = WeaponProfiles.animations(stack);
+        String fallback = null;
+        for (String id : animations) {
+            if (id == null || id.isBlank() || BetterCombatBridge.animation(id) == null) {
+                continue;
+            }
+            if (id.toLowerCase(Locale.ROOT).contains("throw")) {
+                return id;
+            }
+            if (fallback == null && kind(id) == Kind.STAB) {
+                fallback = id;
+            }
+        }
+        if (fallback != null) {
+            return fallback;
+        }
+        for (String id : animations) {
+            if (id != null && !id.isBlank() && BetterCombatBridge.animation(id) != null) {
+                return id;
+            }
+        }
+        return null;
     }
 
     @Nullable
