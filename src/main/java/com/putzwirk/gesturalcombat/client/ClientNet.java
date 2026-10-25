@@ -83,6 +83,11 @@ public final class ClientNet {
         ItemStack stack = caster != null ? caster.getItemInHand(hand) : ItemStack.EMPTY;
         Archetype archetype = technique.archetype();
         int swings = Math.max(1, AbilityConfigs.hits(technique));
+        String family = com.putzwirk.gesturalcombat.weapon.WeaponProfiles.family(stack);
+        if ("greathammer".equalsIgnoreCase(family) && technique.shape() != null
+                && technique.shape() != com.putzwirk.gesturalcombat.core.GestureShape.LINE_H) {
+            swings = 1;
+        }
         int interval = AbilityConfigs.hitInterval(technique);
         String[] sequence = AnimationCatalog.sequenceFor(archetype, technique.shape(), stack, swipe, swings);
         if (sequence == null) {
