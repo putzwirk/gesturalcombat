@@ -1121,7 +1121,7 @@
     "mace_z": {
       "gesture": "ZIGZAG",
       "cooldown_ticks": 36,
-      "damage_multiplier": 1.92,
+      "damage_multiplier": 2.2,
       "hits": 1,
       "windup_ticks": 4,
       "knockback": 0.6,
@@ -1298,7 +1298,7 @@
     "mace_drop": {
       "gesture": "LINE_V_DOWN",
       "cooldown_ticks": 50,
-      "damage_multiplier": 2.32,
+      "damage_multiplier": 2.7,
       "hits": 1,
       "windup_ticks": 6,
       "knockback": 0.8,

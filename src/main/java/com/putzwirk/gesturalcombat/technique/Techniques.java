@@ -111,9 +111,9 @@ public final class Techniques {
                 return damage;
             }), "mace"));
     public static final Technique MACE_DROP = add(new Technique("mace_drop", Archetype.AXE, GestureShape.LINE_V_DOWN, 7, 50, null, 16,
-            new MaceSlamEffect(2.9, 90, 2.32), "mace"));
+            new MaceSlamEffect(2.9, 90, 2.70), "mace"));
     public static final Technique MACE_Z = add(new Technique("mace_z", Archetype.AXE, GestureShape.ZIGZAG, 4, 36, null, 12,
-            new FamilyArcEffect(3.2, 210, 1.92, 0.60, 0.0, (player, target, damage, index) -> {
+            new FamilyArcEffect(3.2, 210, 2.20, 0.60, 0.0, (player, target, damage, index) -> {
                 States.stagger(target, 20);
                 return damage;
             }), "mace"));
