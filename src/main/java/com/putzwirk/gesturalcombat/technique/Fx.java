@@ -53,17 +53,17 @@ public final class Fx {
         send(player, FxType.WAVE, at.add(0.0, 0.02, 0.0), scale * 0.68f, tint, 10);
     }
 
-    private static final int STUN_TINT = 0xFFE9A0;
+    private static final int STUN_TINT = 0xCFB583;
 
     public static void stun(LivingEntity entity) {
-        double base = entity.getY() + entity.getBbHeight() + 0.22;
+        double base = entity.getY() + entity.getBbHeight() + 0.18;
         double phase = (entity.level().getGameTime() % 20) / 20.0 * Math.PI * 2.0;
         for (int i = 0; i < 3; i++) {
             double angle = phase + i * (Math.PI * 2.0 / 3.0);
-            double x = entity.getX() + Math.cos(angle) * 0.40;
-            double z = entity.getZ() + Math.sin(angle) * 0.40;
+            double x = entity.getX() + Math.cos(angle) * 0.32;
+            double z = entity.getZ() + Math.sin(angle) * 0.32;
             ModNetwork.sendToTracking(entity, new FxPacket(FxType.STARS, x, base, z,
-                    0.0f, 0.012f, 0.0f, (float) angle, 0.22f + 0.06f * i, 0.5f, STUN_TINT, 11));
+                    0.0f, 0.010f, 0.0f, (float) angle, 0.28f, 0.12f + 0.03f * i, STUN_TINT, 9));
         }
     }
 

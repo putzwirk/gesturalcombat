@@ -100,7 +100,7 @@ public final class HitStun {
         entity.setDeltaMovement(0.0, Math.min(motion.y, 0.0), 0.0);
         entity.hurtMarked = true;
         freeze(entity);
-        if (anchor.stars && entity.level().getGameTime() % 4 == 0) {
+        if (anchor.stars && entity.level().getGameTime() % 5 == 0) {
             Fx.stun(entity);
         }
     }
