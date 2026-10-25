@@ -12,6 +12,14 @@ RES = ROOT / "src" / "main" / "resources" / "data" / "gesturalcombat"
 SLOT_ORDER = ["LINE_H", "LINE_V_UP", "LINE_V_DOWN", "CIRCLE", "ZIGZAG", "V", "CARET"]
 HORIZON = 1200
 
+BANDS = {
+    "light": (22.5, 24.9),
+    "normal": (19.9, 22.0),
+    "area": (19.8, 21.9),
+    "heavy": (19.4, 21.4),
+}
+PAIRED_UPLIFT = 1.20
+
 BASE_DAMAGE = {
     "soul_knife": 4.0,
     "sickle": 5.0,
@@ -253,6 +261,18 @@ def parse_weapon_rules():
     }
 
 
+def parse_dual_wield():
+    text = read(JAVA / "weapon" / "DualWield.java")
+    scale = re.search(r"COOLDOWN_SCALE\s*=\s*([0-9.]+)", text)
+    echo = re.search(r"ECHO_DAMAGE\s*=\s*([0-9.]+)", text)
+    link = re.search(r"LINK_TICKS\s*=\s*(\d+)", text)
+    return {
+        "cooldown_scale": float(scale.group(1)) if scale else 0.9,
+        "echo_damage": float(echo.group(1)) if echo else 0.3,
+        "link_ticks": int(link.group(1)) if link else 10,
+    }
+
+
 def family_class(family, rules):
     if family and family in rules["heavy"]:
         return "heavy"
@@ -352,12 +372,14 @@ def build_kits(techniques, profiles):
     return kits
 
 
-def simulate(kit, cast_ticks=4):
+def simulate(kit, cast_ticks=4, dual=False, echo_uptime=0.33, dual_rules=None):
     weight = kit["weight"]
     tuning = tuning_for(kit.get("tuning_family") or kit["family"])
     stun_ticks = tuning["stun"]
     damage_factor = tuning["damage"]
     cooldown_factor = tuning["cooldown"]
+    if dual and dual_rules:
+        cooldown_factor = cooldown_factor * dual_rules["cooldown_scale"]
     base = kit["damage_multiplier"] * damage_factor * BASE_DAMAGE.get(kit["family"] or kit["archetype"].lower(), 6.0)
     heavy = weight == "heavy"
     slots = [(shape, kit["slots"][shape]) for shape in SLOT_ORDER if shape in kit["slots"]]
@@ -370,6 +392,7 @@ def simulate(kit, cast_ticks=4):
     casts = 0
     schedule = []
     per_tech = {tech["id"]: {"damage": 0.0, "casts": 0} for _, tech in slots}
+    cast_payload = 0.0
     stun_end = 0
     immune_until = 0
     chain_start = 0
@@ -425,6 +448,7 @@ def simulate(kit, cast_ticks=4):
             for index in range(hits):
                 schedule.append((first + index * tech["interval"], per_hit, tech))
             per_tech[tech["id"]]["casts"] += 1
+            cast_payload += base * tech["multiplier"]
             casts += 1
             cast_lock = tick + cast_ticks
             if heavy:
@@ -435,6 +459,11 @@ def simulate(kit, cast_ticks=4):
     if gap_run:
         gaps.append(gap_run)
         longest_gap = max(longest_gap, gap_run)
+
+    echo_damage = 0.0
+    if dual and dual_rules:
+        echo_damage = cast_payload * dual_rules["echo_damage"] * echo_uptime
+        total_damage += echo_damage
 
     seconds = HORIZON / 20.0
     return {
@@ -455,6 +484,7 @@ def simulate(kit, cast_ticks=4):
         "kit_slots": slots,
         "per_tech": per_tech,
         "stun_ticks": stun_ticks,
+        "echo_damage": echo_damage,
     }
 
 
@@ -488,19 +518,63 @@ def render(rows, show_techs):
     return "\n".join(lines)
 
 
+def render_dual(rows):
+    header = (f"{'weapon':<18}{'class':<8}{'single':>8}{'paired':>8}{'uplift':>8}"
+              f"{'stun%':>8}{'gap':>7}{'ceiling':>9}  verdict")
+    lines = [header, "-" * len(header)]
+    for row in rows:
+        top = BANDS.get(row["weight"], (0.0, 999.0))[1]
+        ceiling = top * PAIRED_UPLIFT
+        verdict = "PASS" if row["dual_dps"] <= ceiling and row["gap"] >= 0.30 else "FAIL"
+        uplift = row["dual_dps"] / row["dps"] if row["dps"] else 0.0
+        lines.append(
+            f"{row['family']:<18}{row['weight']:<8}{row['dps']:>8.2f}{row['dual_dps']:>8.2f}"
+            f"{uplift:>7.0%}{row['stun']:>7.1f}%{row['gap']:>6.2f}s{ceiling:>9.2f}  {verdict}"
+        )
+    return "\n".join(lines)
+
+
+def dual_eligible(kit):
+    if kit["weight"] == "heavy":
+        return False
+    return kit["archetype"] not in ("SHIELD", "BOW")
+
+
 def main():
     parser = argparse.ArgumentParser(description="DPS and stunlock analysis for gesturalcombat weapon kits")
     parser.add_argument("--techs", action="store_true", help="print per-technique breakdown")
     parser.add_argument("--sort", default="dps", choices=["dps", "stun", "name"])
     parser.add_argument("--cast-ticks", type=int, default=4, help="ticks spent drawing each gesture")
     parser.add_argument("--json", action="store_true", help="emit machine-readable results")
+    parser.add_argument("--dual", action="store_true", help="audit the dual-wield paired buff")
+    parser.add_argument("--echo-uptime", type=float, default=0.33,
+                        help="share of casts that land the paired echo (default 0.33)")
     args = parser.parse_args()
 
     global RULES
     RULES = parse_weapon_rules()
+    dual_rules = parse_dual_wield()
     techniques = parse_abilities(parse_techniques(effect_parameters()))
     kits = build_kits(techniques, weapon_profiles())
     rows = [simulate(kit, args.cast_ticks) for kit in kits.values() if kit["slots"]]
+    if args.dual:
+        dual_rows = []
+        for kit in kits.values():
+            if not kit["slots"] or not dual_eligible(kit):
+                continue
+            single = simulate(kit, args.cast_ticks)
+            paired = simulate(kit, args.cast_ticks, dual=True, echo_uptime=args.echo_uptime,
+                              dual_rules=dual_rules)
+            single["dual_dps"] = paired["dps"]
+            dual_rows.append(single)
+        dual_rows.sort(key=lambda row: -row["dual_dps"])
+        print(f"paired = same family in both hands, cooldowns x{dual_rules['cooldown_scale']:.2f}, "
+              f"echo {dual_rules['echo_damage']:.2f}x on {args.echo_uptime:.0%} of casts "
+              f"(link window {dual_rules['link_ticks']}t)")
+        print(f"ceiling = class band top x{PAIRED_UPLIFT:.2f}, gap must stay >= 0.30s")
+        print(render_dual(dual_rows))
+        return
+
     if args.sort == "stun":
         rows.sort(key=lambda row: -row["stun"])
     elif args.sort == "name":

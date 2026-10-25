@@ -128,7 +128,9 @@ public final class EffectSupport {
         double attackSpeedFactor = attackSpeedFactor(player, technique);
         double weapon = WeaponProfiles.cooldownMultiplier(stack);
         double family = com.putzwirk.gesturalcombat.weapon.WeaponRules.cooldownFactor(stack);
-        return Math.max(4, (int) Math.round(baseTicks * config * (1.0f - reduction) * attackSpeedFactor * weapon * family));
+        double dual = com.putzwirk.gesturalcombat.weapon.DualWield.paired(player)
+                ? com.putzwirk.gesturalcombat.weapon.DualWield.COOLDOWN_SCALE : 1.0;
+        return Math.max(4, (int) Math.round(baseTicks * config * (1.0f - reduction) * attackSpeedFactor * weapon * family * dual));
     }
 
     private static double attackSpeedFactor(ServerPlayer player, Technique technique) {

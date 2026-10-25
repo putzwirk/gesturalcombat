@@ -109,6 +109,10 @@ public final class GestureCastService {
                 ? EffectSupport.cooldownOf(player, technique, stack)
                 : EffectSupport.specialCooldown(player, technique, stack, special.cooldownTicks());
         playerCooldowns.put(cooldownKey, now + cooldown);
+        boolean twin = special == null
+                && shape != GestureShape.V
+                && com.putzwirk.gesturalcombat.weapon.DualWield.paired(player)
+                && com.putzwirk.gesturalcombat.weapon.DualWield.link(player, offhand, now);
         ModNetwork.sendToTracking(player, new CastEffectPacket(player.getId(), technique.id(), cooldown, swipe, offhand, cooldownKey));
         String family = WeaponProfiles.family(stack);
         if (family == null || family.isBlank()) {
@@ -170,6 +174,11 @@ public final class GestureCastService {
                     }
                 });
             }
+        }
+        if (twin) {
+            int echoDelay = lead + 3;
+            com.putzwirk.gesturalcombat.technique.GestureScheduler.schedule(level, echoDelay,
+                    () -> com.putzwirk.gesturalcombat.server.TwinEcho.strike(player, level, offhand, cast, swipe));
         }
         MasteryService.award(player, cast.archetype(), cast.xp());
         EquipmentSlot slot = offhand ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND;

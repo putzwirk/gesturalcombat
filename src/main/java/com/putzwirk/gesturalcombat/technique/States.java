@@ -42,6 +42,8 @@ public final class States {
     private static final Map<UUID, Map<UUID, Long>> HARVEST = new HashMap<>();
     private static final Map<UUID, Integer> DOMAIN = new HashMap<>();
     private static final Map<UUID, long[]> DUAL = new HashMap<>();
+    private static final Map<UUID, long[]> PAIR = new HashMap<>();
+    private static final int PAIR_TTL = 200;
 
     private States() {
     }
@@ -213,6 +215,14 @@ public final class States {
         return linked;
     }
 
+    public static boolean pairLink(ServerPlayer player, boolean offhand, long now, int window) {
+        int hand = offhand ? 1 : 0;
+        long[] previous = PAIR.get(player.getUUID());
+        boolean linked = previous != null && previous[1] != hand && now - previous[0] <= window;
+        PAIR.put(player.getUUID(), new long[]{now, hand});
+        return linked;
+    }
+
     public static void clear() {
         STAGGER.clear();
         SEAM.clear();
@@ -224,6 +234,7 @@ public final class States {
         HARVEST.clear();
         DOMAIN.clear();
         DUAL.clear();
+        PAIR.clear();
     }
 
     private static int add(Map<UUID, Timed> map, LivingEntity target, int amount, int cap, int ticks) {
@@ -244,6 +255,7 @@ public final class States {
         MinecraftServer server = event.getServer();
         long now = server.overworld().getGameTime();
         STAGGER.entrySet().removeIf(entry -> entry.getValue() < now);
+        PAIR.entrySet().removeIf(entry -> entry.getValue()[0] + PAIR_TTL < now);
         SEAM.entrySet().removeIf(entry -> entry.getValue().expiry < now);
         SUNDER.entrySet().removeIf(entry -> entry.getValue().expiry < now);
         if (!BLEED.isEmpty()) {

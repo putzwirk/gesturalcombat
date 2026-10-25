@@ -361,7 +361,11 @@ public final class GestureHud {
             String cooldownKey = CooldownKeys.of(stack, shape, technique);
             int remaining = ClientState.cooldownRemaining(cooldownKey);
             boolean cooling = remaining > 0;
-            float total = Math.max(1, ClientState.cooldownTotal(cooldownKey, cooldownTicks(technique, stack, shape)));
+            int preview = cooldownTicks(technique, stack, shape);
+            if (com.putzwirk.gesturalcombat.weapon.DualWield.paired(mc.player)) {
+                preview = (int) Math.round(preview * com.putzwirk.gesturalcombat.weapon.DualWield.COOLDOWN_SCALE);
+            }
+            float total = Math.max(1, ClientState.cooldownTotal(cooldownKey, preview));
             float fraction = cooling ? Mth.clamp((remaining - partialTick) / total, 0.0f, 1.0f) : 0.0f;
 
             float previous = LAST_FRACTION.getOrDefault(id, 0.0f);

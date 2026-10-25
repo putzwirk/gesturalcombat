@@ -9,7 +9,7 @@ import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 
 public final class ModNetwork {
-    private static final String VERSION = "9";
+    private static final String VERSION = "10";
     public static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
             new ResourceLocation(Gesturalcombat.MODID, "main"), () -> VERSION, VERSION::equals, VERSION::equals);
 
@@ -27,6 +27,7 @@ public final class ModNetwork {
         CHANNEL.registerMessage(nextId++, AbilitySyncPacket.class, AbilitySyncPacket::encode, AbilitySyncPacket::decode, AbilitySyncPacket::handle);
         CHANNEL.registerMessage(nextId++, FxPacket.class, FxPacket::encode, FxPacket::decode, FxPacket::handle);
         CHANNEL.registerMessage(nextId++, FirePatchPacket.class, FirePatchPacket::encode, FirePatchPacket::decode, FirePatchPacket::handle);
+        CHANNEL.registerMessage(nextId++, TwinCastPacket.class, TwinCastPacket::encode, TwinCastPacket::decode, TwinCastPacket::handle);
         CHANNEL.registerMessage(nextId++, OutLockPacket.class, OutLockPacket::encode, OutLockPacket::decode, OutLockPacket::handle);
     }
 

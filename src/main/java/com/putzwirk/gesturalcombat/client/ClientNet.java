@@ -77,7 +77,19 @@ public final class ClientNet {
         }
     }
 
+    public static void twinCast(int casterId, String techniqueId, int swipe, boolean offhand) {
+        Technique technique = Techniques.get(techniqueId);
+        if (technique == null) {
+            return;
+        }
+        playCastAnimation(casterId, technique, swipe, offhand, true);
+    }
+
     private static void playCastAnimation(int casterId, Technique technique, int swipe, boolean offhand) {
+        playCastAnimation(casterId, technique, swipe, offhand, false);
+    }
+
+    private static void playCastAnimation(int casterId, Technique technique, int swipe, boolean offhand, boolean echo) {
         Minecraft mc = Minecraft.getInstance();
         Player caster = casterOf(mc, casterId);
         InteractionHand hand = offhand ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND;
@@ -93,6 +105,13 @@ public final class ClientNet {
         String[] sequence = AnimationCatalog.sequenceFor(archetype, technique.shape(), stack, swipe, swings);
         if (sequence == null) {
             return;
+        }
+        if (echo && sequence.length > 1) {
+            for (int i = 0; i < sequence.length / 2; i++) {
+                String swap = sequence[i];
+                sequence[i] = sequence[sequence.length - 1 - i];
+                sequence[sequence.length - 1 - i] = swap;
+            }
         }
         float baseLength = AnimationCatalog.swingLength(archetype, stack);
         float fastLength = AnimationCatalog.swingLength(interval);
@@ -119,7 +138,8 @@ public final class ClientNet {
         AnimationScheduler.playSequence(casterId, sequence, handName, lengths, upswings, 0, interval);
         if (archetype == Archetype.SWORD || archetype == Archetype.AXE || archetype == Archetype.SPEAR) {
             int life = windup + (swings - 1) * interval + (int) Math.ceil(lengths[0]) + 6;
-            com.putzwirk.gesturalcombat.client.fx.TrailManager.start(casterId, life, windup, 0xFFFFFF, offhand);
+            com.putzwirk.gesturalcombat.client.fx.TrailManager.start(casterId, life, windup,
+                    echo ? 0xDCD2FF : 0xFFFFFF, offhand);
         }
     }
 
