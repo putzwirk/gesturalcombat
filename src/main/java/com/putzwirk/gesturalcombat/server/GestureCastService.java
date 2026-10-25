@@ -155,6 +155,22 @@ public final class GestureCastService {
         int interval = AbilityConfigs.hitInterval(cast);
         int lead = windup > 0 ? windup : Math.max(2, interval);
         com.putzwirk.gesturalcombat.technique.GestureScheduler.schedule(level, lead, resolve);
+        if (sound) {
+            int swings = Math.max(1, AbilityConfigs.hits(cast));
+            String swingFamily = WeaponProfiles.family(stack);
+            if ("greathammer".equalsIgnoreCase(swingFamily) && cast.shape() != GestureShape.LINE_H) {
+                swings = 1;
+            }
+            int step = Math.max(1, interval);
+            for (int i = 1; i < swings; i++) {
+                int delay = lead + i * step;
+                com.putzwirk.gesturalcombat.technique.GestureScheduler.schedule(level, delay, () -> {
+                    if (player.isAlive() && !player.isRemoved()) {
+                        EffectSupport.swingSound(level, player, cast);
+                    }
+                });
+            }
+        }
         MasteryService.award(player, cast.archetype(), cast.xp());
         EquipmentSlot slot = offhand ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND;
         stack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(slot));
