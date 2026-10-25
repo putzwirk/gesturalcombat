@@ -3,6 +3,15 @@
 Draw mouse gestures while holding attack to unleash weapon techniques.
 Forge 1.20.1. Requires Better Combat and Player Animator.
 
+> [!IMPORTANT]
+> **Disclaimer: this mod was made with AI.** The code, the ability data, the
+> animations and this documentation were written by an AI coding agent working
+> from my direction, iterating in a running game. I reviewed and playtested the
+> result, but it has not been audited line by line the way a hand-written mod
+> would be. Treat it as a personal project rather than production code: read
+> the source before pointing it at a server you care about, and expect rough
+> edges that a human author would have sanded off.
+
 ## Gestures (hold the weapon's mouse button and move the mouse)
 
 Main-hand weapon gestures use LMB, off-hand weapon gestures use RMB. Hold a
