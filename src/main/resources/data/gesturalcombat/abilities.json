@@ -125,8 +125,8 @@
         "line_of_sight": false
       },
       "damage_multiplier": 1.15,
-      "knockback": 0.0,
-      "lift": 0.35,
+      "knockback": 0.35,
+      "lift": 0.0,
       "cooldown_ticks": 12
     },
     "axe_wide": {
@@ -143,8 +143,8 @@
         "line_of_sight": false
       },
       "damage_multiplier": 0.9,
-      "knockback": 0.0,
-      "lift": 0.6,
+      "knockback": 0.6,
+      "lift": 0.0,
       "cooldown_ticks": 20
     },
     "axe_rend": {
