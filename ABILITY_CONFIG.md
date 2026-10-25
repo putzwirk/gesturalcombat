@@ -356,10 +356,15 @@ is a relative knob, not a flat damage number.
 - **Families own their kits.** A family technique can be re-tuned or moved to
   another symbol, but a family that defines its own move for a symbol
   (`sickle` + `CARET`) shadows the archetype move for that symbol.
-- **The server owns the numbers in multiplayer.** It parses the files and syncs
-  the result; clients only fall back to their own bundled copy before the first
-  sync, for HUD previews. If a player sees old numbers, the server needs to
-  `/reload` (or they need to reconnect).
+- **The server owns the numbers in multiplayer, and it overwrites the client.**
+  The server parses the files, then pushes the parsed result (gzipped) to every
+  player on join, on respawn, on dimension change and after every `/reload`; the
+  client also asks for it as soon as it connects, so a missed push cannot leave
+  it stale. A client with its own bundled copy, an older copy, or a filtered mod
+  pack ends up running the server's numbers as soon as the packet lands. The
+  client copy is only used for the first frames of a join, before the sync
+  arrives. Since the sync is compressed, a large `weapons/` folder does not
+  bloat login traffic.
 - **Datapacks need `pack_format` 15** for 1.20.1 or the pack won't load at all.
 
 ---

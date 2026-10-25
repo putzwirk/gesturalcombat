@@ -27,6 +27,7 @@ public final class ClientNet {
         boolean empty = (abilities == null || abilities.isBlank()) && (weapons == null || weapons.isBlank());
         if (!empty) {
             com.putzwirk.gesturalcombat.technique.AbilityConfigs.loadFromJson(abilities, weapons);
+            com.putzwirk.gesturalcombat.technique.AbilityConfigs.markSynced();
         }
         com.putzwirk.gesturalcombat.Gesturalcombat.LOGGER.info(
                 "gesturalcombat client sync: {} techniques, {} profiles (payload {} chars / {} chars)",

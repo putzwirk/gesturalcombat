@@ -20,6 +20,7 @@ public final class AbilityConfigs {
     private static final Map<String, List<String>> CATEGORY_ANIMATIONS = new HashMap<>();
     private static JsonObject abilitiesJson = new JsonObject();
     private static JsonObject weaponsJson = new JsonObject();
+    private static boolean synced;
 
     private AbilityConfigs() {
     }
@@ -29,6 +30,15 @@ public final class AbilityConfigs {
         CATEGORY_ANIMATIONS.clear();
         abilitiesJson = new JsonObject();
         weaponsJson = new JsonObject();
+        synced = false;
+    }
+
+    public static boolean synced() {
+        return synced;
+    }
+
+    public static void markSynced() {
+        synced = true;
     }
 
     public static boolean hasTechniques() {

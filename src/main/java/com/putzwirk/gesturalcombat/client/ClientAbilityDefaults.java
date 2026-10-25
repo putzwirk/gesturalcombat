@@ -15,11 +15,12 @@ public final class ClientAbilityDefaults {
 
     @SubscribeEvent
     public static void onLoggingIn(ClientPlayerNetworkEvent.LoggingIn event) {
-        if (AbilityConfigs.loaded()) {
-            return;
+        if (!AbilityConfigs.loaded() && !AbilityConfigs.synced()) {
+            AbilityConfigs.ensureLoaded();
+            Gesturalcombat.LOGGER.info("gesturalcombat bundled defaults: {} techniques, {} profiles",
+                    AbilityConfigs.count(), WeaponProfiles.count());
         }
-        AbilityConfigs.ensureLoaded();
-        Gesturalcombat.LOGGER.info("gesturalcombat bundled defaults: {} techniques, {} profiles",
-                AbilityConfigs.count(), WeaponProfiles.count());
+        com.putzwirk.gesturalcombat.network.ModNetwork.sendToServer(
+                new com.putzwirk.gesturalcombat.network.ConfigRequestPacket());
     }
 }

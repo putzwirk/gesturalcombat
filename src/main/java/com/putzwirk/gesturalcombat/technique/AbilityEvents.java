@@ -25,4 +25,18 @@ public final class AbilityEvents {
             OutLock.unlock(player);
         }
     }
+
+    @SubscribeEvent
+    public static void onRespawn(PlayerEvent.PlayerRespawnEvent event) {
+        if (event.getEntity() instanceof ServerPlayer player) {
+            AbilitySync.send(player);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onChangedDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
+        if (event.getEntity() instanceof ServerPlayer player) {
+            AbilitySync.send(player);
+        }
+    }
 }

@@ -8,19 +8,19 @@ import net.minecraftforge.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public record AbilitySyncPacket(String abilities, String weapons) {
+public record AbilitySyncPacket(byte[] abilities, byte[] weapons) {
     public void encode(FriendlyByteBuf buf) {
-        buf.writeUtf(abilities == null ? "" : abilities, 262144);
-        buf.writeUtf(weapons == null ? "" : weapons, 262144);
+        buf.writeByteArray(abilities == null ? new byte[0] : abilities);
+        buf.writeByteArray(weapons == null ? new byte[0] : weapons);
     }
 
     public static AbilitySyncPacket decode(FriendlyByteBuf buf) {
-        return new AbilitySyncPacket(buf.readUtf(262144), buf.readUtf(262144));
+        return new AbilitySyncPacket(buf.readByteArray(), buf.readByteArray());
     }
 
     public void handle(Supplier<NetworkEvent.Context> context) {
         context.get().enqueueWork(() -> DistExecutor.unsafeRunWhenOn(Dist.CLIENT,
-                () -> () -> ClientNet.abilitySync(abilities, weapons)));
+                () -> () -> ClientNet.abilitySync(ConfigPayload.unpack(abilities), ConfigPayload.unpack(weapons))));
         context.get().setPacketHandled(true);
     }
 }

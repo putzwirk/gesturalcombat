@@ -2,6 +2,7 @@ package com.putzwirk.gesturalcombat.technique;
 
 import com.putzwirk.gesturalcombat.Gesturalcombat;
 import com.putzwirk.gesturalcombat.network.AbilitySyncPacket;
+import com.putzwirk.gesturalcombat.network.ConfigPayload;
 import com.putzwirk.gesturalcombat.network.ModNetwork;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerPlayer;
@@ -32,6 +33,8 @@ public final class AbilitySync {
             Gesturalcombat.LOGGER.warn("Ability config sync has no data: {} techniques, {} profiles",
                     AbilityConfigs.count(), com.putzwirk.gesturalcombat.weapon.WeaponProfiles.count());
         }
-        return new AbilitySyncPacket(AbilityConfigs.abilitiesJson(), AbilityConfigs.weaponsJson());
+        return new AbilitySyncPacket(
+                ConfigPayload.pack(AbilityConfigs.abilitiesJson()),
+                ConfigPayload.pack(AbilityConfigs.weaponsJson()));
     }
 }
