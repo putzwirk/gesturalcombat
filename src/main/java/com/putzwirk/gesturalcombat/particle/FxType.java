@@ -2,7 +2,8 @@ package com.putzwirk.gesturalcombat.particle;
 
 public enum FxType {
     RING("ring"),
-    BURST("burst");
+    BURST("burst"),
+    WAVE("wave");
 
     private final String id;
 

@@ -39,6 +39,7 @@ public final class MaceSlamEffect implements TechniqueEffect {
             target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, CHILL_TICKS, 1, false, true, true));
         }
         EffectSupport.ringParticles(level, player, CHILL_RADIUS, technique, stack);
+        EffectSupport.groundWave(level, player, technique, stack, CHILL_RADIUS);
         EffectSupport.sound(level, player, SoundEvents.GLASS_BREAK, 0.8f, 0.7f);
     }
 }

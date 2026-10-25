@@ -16,8 +16,8 @@ public final class FxClient {
             return;
         }
         Particle particle = mc.particleEngine.createParticle(ModParticles.type(type), x, y, z, vx, vy, vz);
-        if (particle instanceof SlashParticle slash) {
-            slash.configure(roll, spin, scale, rgb, life);
+        if (particle instanceof FxParticle fx) {
+            fx.configure(roll, spin, scale, rgb, life);
         }
     }
 }

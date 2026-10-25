@@ -37,6 +37,7 @@ public final class GroundSlamEffect implements TechniqueEffect {
             EffectSupport.hit(player, target, damage, technique, force, lift);
         }
         EffectSupport.ringParticles(level, player, hitbox.range(), technique, stack);
+        EffectSupport.groundWave(level, player, technique, stack, hitbox.range());
         EffectSupport.sound(level, player, SoundEvents.GENERIC_EXPLODE, 0.6f, 0.8f);
     }
 }

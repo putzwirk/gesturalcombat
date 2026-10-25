@@ -8,7 +8,7 @@ import net.minecraft.client.particle.SpriteSet;
 import net.minecraft.client.particle.TextureSheetParticle;
 import net.minecraft.core.particles.SimpleParticleType;
 
-public class SlashParticle extends TextureSheetParticle {
+public class SlashParticle extends TextureSheetParticle implements FxParticle {
     private final SpriteSet sprites;
     private float spin;
     private float fade = 0.45f;
@@ -25,6 +25,7 @@ public class SlashParticle extends TextureSheetParticle {
         this.setSpriteFromAge(sprites);
     }
 
+    @Override
     public void configure(float roll, float spin, float scale, int rgb, int life) {
         this.roll = roll;
         this.oRoll = roll;

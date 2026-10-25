@@ -16,7 +16,11 @@ public final class ParticleSetup {
     @SubscribeEvent
     public static void registerProviders(RegisterParticleProvidersEvent event) {
         for (FxType type : FxType.values()) {
-            event.registerSpriteSet(ModParticles.holder(type).get(), SlashParticle.Provider::new);
+            if (type == FxType.WAVE) {
+                event.registerSpriteSet(ModParticles.holder(type).get(), GroundWaveParticle.Provider::new);
+            } else {
+                event.registerSpriteSet(ModParticles.holder(type).get(), SlashParticle.Provider::new);
+            }
         }
     }
 }

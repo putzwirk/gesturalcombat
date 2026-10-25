@@ -8,6 +8,7 @@ import com.putzwirk.gesturalcombat.skill.Passive;
 import com.putzwirk.gesturalcombat.technique.hitbox.Hitbox;
 import com.putzwirk.gesturalcombat.weapon.WeaponProfiles;
 import net.minecraft.core.particles.ParticleOptions;
+import com.putzwirk.gesturalcombat.technique.GestureScheduler;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -322,6 +323,58 @@ public final class EffectSupport {
 
     public static void ringParticles(Level level, ServerPlayer player, double radius, Technique technique, ItemStack stack) {
         Fx.ring(player, technique, stack, player.position().add(0.0, 0.25, 0.0), radius);
+    }
+
+    public static void groundWave(Level level, ServerPlayer player, Technique technique, ItemStack stack, double radius) {
+        double reach = Math.max(2.0, Math.min(5.0, radius));
+        Vec3 at = player.position().add(0.0, 0.05, 0.0);
+        Fx.wave(player, technique, stack, at, reach);
+        if (!(level instanceof net.minecraft.server.level.ServerLevel server)) {
+            return;
+        }
+        ParticleOptions debris = groundDebris(level, at);
+        int rings = 5;
+        for (int step = 0; step < rings; step++) {
+            int wave = step;
+            double ringRadius = reach * (0.22 + 0.78 * wave / (double) (rings - 1));
+            int age = wave * 2;
+            GestureScheduler.schedule(level, age, () -> {
+                int count = 20;
+                for (int i = 0; i < count; i++) {
+                    double angle = Math.PI * 2.0 * i / count + wave * 0.23;
+                    double dx = Math.cos(angle) * ringRadius;
+                    double dz = Math.sin(angle) * ringRadius;
+                    server.sendParticles(debris, at.x + dx, at.y + 0.12, at.z + dz, 1, 0.04, 0.02, 0.04, 0.02);
+                    if ((i + wave) % 4 == 0) {
+                        server.sendParticles(net.minecraft.core.particles.ParticleTypes.CLOUD,
+                                at.x + dx, at.y + 0.28, at.z + dz, 1, 0.12, 0.05, 0.12, 0.01);
+                    }
+                }
+            });
+        }
+        sound(level, player, SoundEvents.GENERIC_EXPLODE, 0.45f, 0.55f);
+        for (LivingEntity entity : Hitbox.sphere(reach * 0.95).query(player, level)) {
+            Vec3 away = entity.position().subtract(player.position());
+            Vec3 flat = new Vec3(away.x, 0.0, away.z);
+            if (flat.lengthSqr() < 1.0E-4) {
+                continue;
+            }
+            Vec3 shove = flat.normalize().scale(0.32);
+            entity.push(shove.x, 0.12, shove.z);
+            entity.hurtMarked = true;
+        }
+    }
+
+    private static ParticleOptions groundDebris(Level level, Vec3 at) {
+        net.minecraft.core.BlockPos pos = net.minecraft.core.BlockPos.containing(at.x, at.y - 0.2, at.z);
+        net.minecraft.world.level.block.state.BlockState state = level.getBlockState(pos);
+        if (state.isAir()) {
+            state = level.getBlockState(pos.below());
+        }
+        if (state.isAir()) {
+            return net.minecraft.core.particles.ParticleTypes.CLOUD;
+        }
+        return new net.minecraft.core.particles.BlockParticleOption(net.minecraft.core.particles.ParticleTypes.BLOCK, state);
     }
 
     public static void sound(Level level, ServerPlayer player, SoundEvent sound, float volume, float pitch) {

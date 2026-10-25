@@ -46,6 +46,13 @@ public final class Fx {
         }
     }
 
+    public static void wave(ServerPlayer player, Technique technique, ItemStack stack, Vec3 at, double radius) {
+        int tint = tint(technique, stack);
+        float scale = (float) Math.max(1.0, Math.min(5.5, radius));
+        send(player, FxType.WAVE, at, scale, tint, 14);
+        send(player, FxType.WAVE, at.add(0.0, 0.02, 0.0), scale * 0.68f, tint, 10);
+    }
+
     public static void stun(LivingEntity entity) {
         Vec3 at = new Vec3(entity.getX(), entity.getY() + entity.getBbHeight() + 0.25, entity.getZ());
         ModNetwork.sendToTracking(entity, packet(FxType.BURST, at, 0.55f, 0xFFF0B0, 8));
