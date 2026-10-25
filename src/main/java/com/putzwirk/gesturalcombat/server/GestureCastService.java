@@ -157,7 +157,9 @@ public final class GestureCastService {
         if (sound) {
             int swings = Math.max(1, AbilityConfigs.hits(cast));
             String swingFamily = WeaponProfiles.family(stack);
-            if ("greathammer".equalsIgnoreCase(swingFamily) && cast.shape() != GestureShape.LINE_H) {
+            if ("greathammer".equalsIgnoreCase(swingFamily)
+                    && cast.shape() != GestureShape.LINE_H
+                    && cast.shape() != GestureShape.ZIGZAG) {
                 swings = 1;
             }
             int[] ramps = AbilityConfigs.hitDelays(cast, stack);
