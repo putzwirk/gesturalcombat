@@ -8,7 +8,8 @@
         "born_in_chaos_v1:nightmare_claw"
       ],
       "archetype": "sword",
-      "family": "dagger"
+      "family": "dagger",
+      "reach_multiplier": 0.95
     },
     {
       "items": [
@@ -16,7 +17,8 @@
         "born_in_chaos_v1:soulbane"
       ],
       "archetype": "sword",
-      "family": "sickle"
+      "family": "sickle",
+      "reach_multiplier": 1.07
     },
     {
       "items": [
@@ -28,28 +30,32 @@
         "born_in_chaos_v1:spiritual_sword"
       ],
       "archetype": "sword",
-      "family": "sword"
+      "family": "sword",
+      "reach_multiplier": 1.06
     },
     {
       "items": [
         "born_in_chaos_v1:spider_bite_sword"
       ],
       "archetype": "sword",
-      "family": "rapier"
+      "family": "rapier",
+      "reach_multiplier": 1.08
     },
     {
       "items": [
         "born_in_chaos_v1:darkwarblade"
       ],
       "archetype": "sword",
-      "family": "claymore"
+      "family": "claymore",
+      "reach_multiplier": 1.2
     },
     {
       "items": [
         "born_in_chaos_v1:nightmare_scythe"
       ],
       "archetype": "axe",
-      "family": "scythe"
+      "family": "scythe",
+      "reach_multiplier": 1.03
     },
     {
       "items": [
@@ -60,7 +66,8 @@
         "born_in_chaos_v1:stop_hammer"
       ],
       "archetype": "axe",
-      "family": "axe"
+      "family": "axe",
+      "reach_multiplier": 0.91
     },
     {
       "items": [
@@ -68,7 +75,8 @@
         "born_in_chaos_v1:skullbreaker_hammer"
       ],
       "archetype": "axe",
-      "family": "mace"
+      "family": "mace",
+      "reach_multiplier": 0.91
     },
     {
       "items": [
