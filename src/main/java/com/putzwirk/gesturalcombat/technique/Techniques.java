@@ -588,6 +588,15 @@ public final class Techniques {
     }
 
     @Nullable
+    public static Technique familyTechnique(String family, GestureShape shape) {
+        if (family == null || shape == null) {
+            return null;
+        }
+        Map<GestureShape, Technique> map = BY_FAMILY.get(family.toLowerCase(java.util.Locale.ROOT));
+        return map == null ? null : map.get(shape);
+    }
+
+    @Nullable
     public static Technique forGesture(Archetype archetype, GestureShape shape) {
         return forGesture(archetype, shape, null);
     }

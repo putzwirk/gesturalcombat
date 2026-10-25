@@ -71,7 +71,12 @@ them, and bows fire their own way.
 
 `config/gesturalcombat-common.toml` has the damage and cooldown multipliers,
 `weaponTrails` for the swing ribbon, and `debugHitboxes` / `debugCasts` if you
-want to see what the server thinks you just did.
+want to see what the server thinks you just did. `debugWeapons` turns on the
+weapon self-check: on every load it walks every weapon in the pack and reports
+which gestures each one actually has, then tells you which ones are broken —
+a slot whose move never resolves, a slot with no icon of its own, a weapon with
+two slots drawn from the same icon, or a cast that was swung with a mob in range
+and hit nothing.
 
 ## Modded weapons
 

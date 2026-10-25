@@ -10,6 +10,10 @@ public enum GestureShape {
     CARET("caret", 0xFFFFFF),
     UNKNOWN("unknown", 0x808080);
 
+    public static final GestureShape[] STRIP = {
+            LINE_H, LINE_V_UP, LINE_V_DOWN, CIRCLE, ZIGZAG, V, CARET
+    };
+
     private final String id;
     private final int color;
 

@@ -376,6 +376,57 @@ is a relative knob, not a flat damage number.
 
 ---
 
+## Weapon self-check
+
+Set `debugWeapons = true` and the game checks every weapon in the pack against
+itself, on both sides, every time the configs load. `/gesturalcombat audit`
+(permission level 2) runs it on demand and re-syncs clients so they re-check too.
+
+The server walks the item registry, resolves each weapon's strip with the same
+`Techniques.available` call the HUD and the cast gate use, and logs one line per
+weapon:
+
+```
+weapon check: [startup] born_in_chaos_v1:nightmare_scythe arch=axe family=scythe reach=1.03x profile=yes slots=5 [line_h=scythe_cut line_v_up=scythe_rise line_v_down=scythe_drop circle=scythe_whirl zigzag=scythe_z] gaps=0
+```
+
+Anything wrong is a separate `weapon check gap:` line, tagged with what kind of
+problem it is:
+
+| tag | means |
+| --- | --- |
+| `unreachable` | the family defines a move for a gesture the weapon rules lock (a heavy family with `^`, for example) — that move can never fire |
+| `unresolved` | the move exists but the resolver refuses it, so the slot is dead |
+| `archetype` | the family's move is registered for a different archetype than the item resolves to |
+| `no-tuning` | no entry in `abilities.json`; the move runs on its code defaults instead of your numbers |
+| `no-reach` | the hitbox has no range or no target slots, so the move cannot touch anything |
+| `duplicate` | two gestures resolve to the same technique |
+| `no-profile` | no profile under `weapons/`; the bare archetype kit is used (informational) |
+| `allowed-off` | hidden on purpose by the profile's `gestures` allow-list (informational) |
+
+The client receives the server's slot list inside the ability sync and rebuilds
+the same table from its own copy, then compares: a weapon that resolves
+differently on the two sides gets `weapon check gap: [...] <item> server=... local=...`,
+so a client with stale or half-applied data can't silently show a different kit
+than the one the server will accept. On top of that the client checks icons,
+which the server cannot see: a slot with no texture of its own is reported as
+falling back to the gesture glyph, and a slot whose icon an earlier slot already
+draws is reported as a duplicate.
+
+Casts get checked too. With `debugWeapons` on, any cast that was made with a
+living entity within 8 blocks is watched for 80 ticks, and one that lands zero
+hits is reported:
+
+```
+weapon check gap: born_in_chaos_v1:nightmare_scythe scythe_step cast with a target within 8 blocks but hit nothing in 80 ticks
+```
+
+That is the empirical half: static checks catch moves that cannot work, the
+cast watcher catches moves that are mapped correctly but miss in practice
+(blind dashes that overshoot, arcs aimed behind the target).
+
+---
+
 ## Contributing: adding a technique
 
 Data covers re-tuning existing moves. A *new* move needs a `TechniqueEffect`

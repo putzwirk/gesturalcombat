@@ -49,6 +49,9 @@ public final class AbilityReloadListener extends SimplePreparableReloadListener<
         AbilityConfigs.load(payload.abilities(), payload.weapons());
         Gesturalcombat.LOGGER.info("Loaded ability configs: {} techniques configured, {} weapon profiles",
                 AbilityConfigs.count(), com.putzwirk.gesturalcombat.weapon.WeaponProfiles.count());
+        if (com.putzwirk.gesturalcombat.Config.INSTANCE.debugWeapons.get()) {
+            com.putzwirk.gesturalcombat.weapon.WeaponAudit.log("reload");
+        }
         AbilitySync.broadcast();
     }
 

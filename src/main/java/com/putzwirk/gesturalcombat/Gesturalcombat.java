@@ -24,6 +24,10 @@ public class Gesturalcombat {
         ModParticles.TYPES.register(modBus);
         com.putzwirk.gesturalcombat.world.ModTerrain.register(modBus);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+        net.minecraftforge.common.MinecraftForge.EVENT_BUS.addListener(
+                com.putzwirk.gesturalcombat.weapon.WeaponAudit::onRegisterCommands);
+        net.minecraftforge.common.MinecraftForge.EVENT_BUS.addListener(
+                com.putzwirk.gesturalcombat.weapon.WeaponAudit::onServerStarted);
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {

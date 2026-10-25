@@ -21,15 +21,7 @@ import java.util.Locale;
 
 public final class GestureHud {
     private static final int TRAIL_LIFE = 18;
-    private static final GestureShape[] STRIP = {
-            GestureShape.LINE_H,
-            GestureShape.LINE_V_UP,
-            GestureShape.LINE_V_DOWN,
-            GestureShape.CIRCLE,
-            GestureShape.ZIGZAG,
-            GestureShape.V,
-            GestureShape.CARET
-    };
+    private static final GestureShape[] STRIP = GestureShape.STRIP;
     private static final float GLYPH_SIZE = 16.0f;
     private static final float SLOT_SPACING = 21.0f;
     private static final float PLATE_SIZE = 19.0f;

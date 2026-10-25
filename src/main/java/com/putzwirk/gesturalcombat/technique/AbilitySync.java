@@ -33,8 +33,11 @@ public final class AbilitySync {
             Gesturalcombat.LOGGER.warn("Ability config sync has no data: {} techniques, {} profiles",
                     AbilityConfigs.count(), com.putzwirk.gesturalcombat.weapon.WeaponProfiles.count());
         }
+        String audit = com.putzwirk.gesturalcombat.Config.INSTANCE.debugWeapons.get()
+                ? com.putzwirk.gesturalcombat.weapon.WeaponAudit.summary() : "";
         return new AbilitySyncPacket(
                 ConfigPayload.pack(AbilityConfigs.abilitiesJson()),
-                ConfigPayload.pack(AbilityConfigs.weaponsJson()));
+                ConfigPayload.pack(AbilityConfigs.weaponsJson()),
+                ConfigPayload.pack(audit));
     }
 }

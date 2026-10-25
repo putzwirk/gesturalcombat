@@ -186,6 +186,7 @@ public final class GestureCastService {
             com.putzwirk.gesturalcombat.technique.GestureScheduler.schedule(level, echoDelay,
                     () -> com.putzwirk.gesturalcombat.server.TwinEcho.strike(player, level, offhand, cast, swipe));
         }
+        com.putzwirk.gesturalcombat.weapon.WeaponAudit.beginCast(player, cast, stack);
         EquipmentSlot slot = offhand ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND;
         stack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(slot));
         player.causeFoodExhaustion(0.3f);

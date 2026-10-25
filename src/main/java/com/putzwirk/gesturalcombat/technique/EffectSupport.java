@@ -240,6 +240,7 @@ public final class EffectSupport {
     }
 
     public static void hit(ServerPlayer player, LivingEntity target, float damage, Technique technique, double knockback, double lift, boolean pin) {
+        com.putzwirk.gesturalcombat.weapon.WeaponAudit.noteHit(player, technique);
         target.invulnerableTime = 0;
         ItemStack weapon = onHitWeapon(player, technique);
         boolean delegated = !weapon.isEmpty() && delegate(player, target, weapon, damage);

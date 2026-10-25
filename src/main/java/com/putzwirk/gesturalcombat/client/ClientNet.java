@@ -23,7 +23,7 @@ public final class ClientNet {
     private ClientNet() {
     }
 
-    public static void abilitySync(String abilities, String weapons) {
+    public static void abilitySync(String abilities, String weapons, String audit) {
         boolean empty = (abilities == null || abilities.isBlank()) && (weapons == null || weapons.isBlank());
         if (!empty) {
             com.putzwirk.gesturalcombat.technique.AbilityConfigs.loadFromJson(abilities, weapons);
@@ -34,6 +34,7 @@ public final class ClientNet {
                 com.putzwirk.gesturalcombat.technique.AbilityConfigs.count(),
                 com.putzwirk.gesturalcombat.weapon.WeaponProfiles.count(),
                 abilities == null ? -1 : abilities.length(), weapons == null ? -1 : weapons.length());
+        com.putzwirk.gesturalcombat.client.WeaponAuditClient.run(audit);
     }
 
     public static void castEffect(int casterId, String techniqueId, int cooldownTicks, int swipe, boolean offhand, String cooldownKey) {
