@@ -230,6 +230,37 @@ public final class AbilityConfigs {
         return config == null || config.hitInterval() == null ? fallback : Math.max(0, config.hitInterval());
     }
 
+    public static int hitIntervalEnd(Technique technique, ItemStack stack, int fallback) {
+        AbilityConfig config = effective(technique, stack);
+        return config == null || config.hitIntervalEnd() == null ? fallback : Math.max(1, config.hitIntervalEnd());
+    }
+
+    public static int hitIntervalEnd(Technique technique) {
+        AbilityConfig config = of(technique);
+        return config == null || config.hitIntervalEnd() == null ? hitInterval(technique) : Math.max(1, config.hitIntervalEnd());
+    }
+
+    public static int[] hitDelays(Technique technique, ItemStack stack) {
+        return hitDelays(technique, stack,
+                Math.max(1, technique.effect().hitCount()),
+                Math.max(0, technique.effect().hitIntervalTicks()),
+                Math.max(0, technique.effect().hitIntervalEndTicks()));
+    }
+
+    public static int[] hitDelays(Technique technique, ItemStack stack, int fallbackHits, int fallbackStart, int fallbackEnd) {
+        int count = Math.max(1, hits(technique, stack, fallbackHits));
+        int start = hitInterval(technique, stack, fallbackStart);
+        int end = hitIntervalEnd(technique, stack, fallbackEnd);
+        int[] delays = new int[count];
+        int at = 0;
+        for (int i = 1; i < count; i++) {
+            double t = count <= 2 ? 0.0 : (i - 1) / (double) (count - 2);
+            at += Math.max(1, (int) Math.round(start + (end - start) * t));
+            delays[i] = at;
+        }
+        return delays;
+    }
+
     public static int windupTicks(Technique technique, ItemStack stack) {
         AbilityConfig config = effective(technique, stack);
         return config == null || config.windupTicks() == null ? technique.effect().windupTicks() : Math.max(0, config.windupTicks());

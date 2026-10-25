@@ -334,24 +334,35 @@ public final class EffectSupport {
         if (!(level instanceof net.minecraft.server.level.ServerLevel server)) {
             return;
         }
-        ParticleOptions debris = groundDebris(level, at);
-        int rings = 5;
+        int rings = 7;
         for (int step = 0; step < rings; step++) {
             int wave = step;
-            double ringRadius = reach * (0.22 + 0.78 * wave / (double) (rings - 1));
-            int age = wave * 2;
-            GestureScheduler.schedule(level, age, () -> {
-                int count = 20;
+            double ringRadius = reach * (0.16 + 0.84 * wave / (double) (rings - 1));
+            GestureScheduler.schedule(level, wave, () -> {
+                int count = 14 + wave * 2;
                 for (int i = 0; i < count; i++) {
-                    double angle = Math.PI * 2.0 * i / count + wave * 0.23;
+                    double angle = Math.PI * 2.0 * i / count + wave * 0.21;
                     double dx = Math.cos(angle) * ringRadius;
                     double dz = Math.sin(angle) * ringRadius;
-                    server.sendParticles(debris, at.x + dx, at.y + 0.12, at.z + dz, 1, 0.04, 0.02, 0.04, 0.02);
-                    if ((i + wave) % 4 == 0) {
+                    ParticleOptions chunk = debrisAt(level, at, dx, dz);
+                    server.sendParticles(chunk, at.x + dx, at.y + 0.1, at.z + dz, 1,
+                            0.05, 0.24, 0.05, 0.16);
+                    if ((i + wave) % 3 == 0) {
                         server.sendParticles(net.minecraft.core.particles.ParticleTypes.CLOUD,
-                                at.x + dx, at.y + 0.28, at.z + dz, 1, 0.12, 0.05, 0.12, 0.01);
+                                at.x + dx, at.y + 0.18, at.z + dz, 1, 0.14, 0.12, 0.14, 0.03);
                     }
                 }
+                GestureScheduler.schedule(level, 4, () -> {
+                    int settle = Math.max(4, count / 2);
+                    for (int i = 0; i < settle; i++) {
+                        double angle = Math.PI * 2.0 * i / settle + wave * 0.21 + 0.16;
+                        double dx = Math.cos(angle) * ringRadius;
+                        double dz = Math.sin(angle) * ringRadius;
+                        ParticleOptions chunk = debrisAt(level, at, dx, dz);
+                        server.sendParticles(chunk, at.x + dx, at.y + 0.34, at.z + dz, 1,
+                                0.03, 0.0, 0.03, 0.04);
+                    }
+                });
             });
         }
         sound(level, player, SoundEvents.GENERIC_EXPLODE, 0.45f, 0.55f);
@@ -365,6 +376,18 @@ public final class EffectSupport {
             entity.push(shove.x, 0.12, shove.z);
             entity.hurtMarked = true;
         }
+    }
+
+    private static ParticleOptions debrisAt(Level level, Vec3 origin, double dx, double dz) {
+        net.minecraft.core.BlockPos pos = net.minecraft.core.BlockPos.containing(origin.x + dx, origin.y - 0.2, origin.z + dz);
+        net.minecraft.world.level.block.state.BlockState state = level.getBlockState(pos);
+        if (state.isAir()) {
+            state = level.getBlockState(pos.below());
+        }
+        if (state.isAir()) {
+            return net.minecraft.core.particles.ParticleTypes.CLOUD;
+        }
+        return new net.minecraft.core.particles.BlockParticleOption(net.minecraft.core.particles.ParticleTypes.BLOCK, state);
     }
 
     private static ParticleOptions groundDebris(Level level, Vec3 at) {

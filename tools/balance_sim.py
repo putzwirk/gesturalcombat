@@ -155,6 +155,7 @@ def parse_techniques(effect_params):
             "multiplier": 1.0,
             "hits": 1,
             "interval": 0,
+            "interval_end": 0,
             "windup": 0,
             "knockback": 0.0,
             "lift": 0.0,
@@ -208,6 +209,8 @@ def parse_abilities(techniques):
             tech["hits"] = max(1, int(entry["hits"]))
         if entry.get("hit_interval") is not None:
             tech["interval"] = max(0, int(entry["hit_interval"]))
+        if entry.get("hit_interval_end") is not None:
+            tech["interval_end"] = max(0, int(entry["hit_interval_end"]))
         if entry.get("windup_ticks") is not None:
             tech["windup"] = max(0, int(entry["windup_ticks"]))
         if entry.get("knockback") is not None:
@@ -448,14 +451,22 @@ def simulate(kit, cast_ticks=4, dual=False, echo_uptime=0.33, dual_rules=None):
             hits = tech["hits"]
             per_hit = base * tech["multiplier"] / hits
             first = tick + tech["windup"]
+            start = tech["interval"]
+            end = tech.get("interval_end") or start
+            delays = [0]
+            at = 0
+            for index in range(1, hits):
+                t = 0.0 if hits <= 2 else (index - 1) / float(hits - 2)
+                at += max(1, round(start + (end - start) * t))
+                delays.append(at)
             for index in range(hits):
-                schedule.append((first + index * tech["interval"], per_hit, tech))
+                schedule.append((first + delays[index], per_hit, tech))
             per_tech[tech["id"]]["casts"] += 1
             cast_payload += base * tech["multiplier"]
             casts += 1
             cast_lock = tick + cast_ticks
             if heavy:
-                busy_until = tick + tech["windup"] + (hits - 1) * tech["interval"] + RULES["heavy_tail"]
+                busy_until = tick + tech["windup"] + delays[-1] + RULES["heavy_tail"]
             cursor = (cursor + offset + 1) % len(slots)
             break
 

@@ -98,7 +98,8 @@ public final class ClientNet {
         int swings = Math.max(1, AbilityConfigs.hits(technique));
         String family = com.putzwirk.gesturalcombat.weapon.WeaponProfiles.family(stack);
         if ("greathammer".equalsIgnoreCase(family) && technique.shape() != null
-                && technique.shape() != com.putzwirk.gesturalcombat.core.GestureShape.LINE_H) {
+                && technique.shape() != com.putzwirk.gesturalcombat.core.GestureShape.LINE_H
+                && technique.shape() != com.putzwirk.gesturalcombat.core.GestureShape.ZIGZAG) {
             swings = 1;
         }
         int interval = AbilityConfigs.hitInterval(technique);
@@ -114,20 +115,21 @@ public final class ClientNet {
             }
         }
         float baseLength = AnimationCatalog.swingLength(archetype, stack);
-        float fastLength = AnimationCatalog.swingLength(interval);
         int fixed = AnimationCatalog.fixedLength(technique.shape());
+        int[] ramps = AbilityConfigs.hitDelays(technique, stack);
+        int[] swingDelays = new int[sequence.length];
         float[] lengths = new float[sequence.length];
         float[] upswings = new float[sequence.length];
-        for (int i = 0; i < sequence.length; i++) {
-            lengths[i] = fixed > 0 ? fixed : interval > 0 ? fastLength : baseLength;
-            upswings[i] = fixed > 0 ? 0.25f : interval > 0 ? 0.5f : 0.2f;
-        }
         String handName = offhand ? "OFF_HAND" : BetterCombatBridge.handName(stack);
         int windup = AbilityConfigs.windupTicks(technique);
-        if (windup > 0) {
-            for (int i = 0; i < sequence.length; i++) {
-                if (interval > 0) {
-                    lengths[i] = Math.max(lengths[i], windup + interval + 2);
+        for (int i = 0; i < sequence.length; i++) {
+            int step = i + 1 < ramps.length ? ramps[i + 1] - ramps[i] : interval;
+            swingDelays[i] = i < ramps.length ? ramps[i] : ramps.length > 0 ? ramps[ramps.length - 1] : i * interval;
+            lengths[i] = fixed > 0 ? fixed : step > 0 ? AnimationCatalog.swingLength(step) : baseLength;
+            upswings[i] = fixed > 0 ? 0.25f : step > 0 ? 0.5f : 0.2f;
+            if (windup > 0) {
+                if (step > 0) {
+                    lengths[i] = Math.max(lengths[i], windup + step + 2);
                     upswings[i] = 0.45f;
                 } else {
                     lengths[i] = lengths[i] + windup;
@@ -135,9 +137,10 @@ public final class ClientNet {
                 }
             }
         }
-        AnimationScheduler.playSequence(casterId, sequence, handName, lengths, upswings, 0, interval);
+        AnimationScheduler.playSequence(casterId, sequence, handName, lengths, upswings, 0, swingDelays);
         if (archetype == Archetype.SWORD || archetype == Archetype.AXE || archetype == Archetype.SPEAR) {
-            int life = windup + (swings - 1) * interval + (int) Math.ceil(lengths[0]) + 6;
+            int last = swingDelays.length > 0 ? swingDelays[swingDelays.length - 1] : 0;
+            int life = windup + last + (int) Math.ceil(lengths[0]) + 6;
             com.putzwirk.gesturalcombat.client.fx.TrailManager.start(casterId, life, windup,
                     echo ? 0xDCD2FF : 0xFFFFFF, offhand);
         }

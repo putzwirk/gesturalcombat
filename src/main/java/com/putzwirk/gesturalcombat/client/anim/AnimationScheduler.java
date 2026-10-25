@@ -25,8 +25,21 @@ public final class AnimationScheduler {
             return;
         }
         int step = Math.max(0, intervalTicks);
+        int[] delays = new int[animations.length];
         for (int i = 0; i < animations.length; i++) {
-            TASKS.add(new Task(ticks + Math.max(0, startDelay) + i * step, playerId, animations[i], hand, lengths[i], upswings[i]));
+            delays[i] = i * step;
+        }
+        playSequence(playerId, animations, hand, lengths, upswings, startDelay, delays);
+    }
+
+    public static void playSequence(int playerId, String[] animations, String hand, float[] lengths, float[] upswings, int startDelay, int[] delays) {
+        cancel(playerId);
+        if (animations == null || animations.length == 0) {
+            return;
+        }
+        for (int i = 0; i < animations.length; i++) {
+            int due = Math.max(0, startDelay) + (delays != null && i < delays.length ? Math.max(0, delays[i]) : 0);
+            TASKS.add(new Task(ticks + due, playerId, animations[i], hand, lengths[i], upswings[i]));
         }
     }
 

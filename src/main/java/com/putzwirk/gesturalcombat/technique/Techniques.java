@@ -22,6 +22,7 @@ import com.putzwirk.gesturalcombat.technique.effect.MomentumDumpEffect;
 import com.putzwirk.gesturalcombat.technique.effect.MomentumSweepEffect;
 import com.putzwirk.gesturalcombat.technique.effect.PostureEffect;
 import com.putzwirk.gesturalcombat.technique.effect.PostureFlurryEffect;
+import com.putzwirk.gesturalcombat.technique.effect.RampFlurryEffect;
 import com.putzwirk.gesturalcombat.technique.effect.ShieldBashEffect;
 import com.putzwirk.gesturalcombat.technique.effect.ShieldChargeEffect;
 import com.putzwirk.gesturalcombat.technique.effect.ShieldGuardEffect;
@@ -369,10 +370,10 @@ public final class Techniques {
                 HitStun.pin(target, 9);
                 return damage * bonus;
             }), "greathammer"));
-    public static final Technique GREATHAMMER_Z = add(new Technique("greathammer_z", Archetype.AXE, GestureShape.ZIGZAG, 7, 56, null, 18,
-            new FamilyArcEffect(3.2, 180, 3.27, 1.10, 0.0, (player, target, damage, index) -> {
+    public static final Technique GREATHAMMER_Z = add(new Technique("greathammer_z", Archetype.AXE, GestureShape.ZIGZAG, 7, 74, null, 20,
+            new RampFlurryEffect(3.2, 170, 3.60, 5, 9, 4, 0.60, 0.0, (player, target, damage, index) -> {
                 States.stagger(target, 40);
-                HitStun.pin(target, 9);
+                HitStun.pin(target, index >= 3 ? 10 : 7);
                 return damage;
             }), "greathammer"));
     public static final Technique SCYTHE_CUT = add(new Technique("scythe_cut", Archetype.AXE, GestureShape.LINE_H, 1, 18, null, 7,

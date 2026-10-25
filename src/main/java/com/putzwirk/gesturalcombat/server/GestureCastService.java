@@ -165,9 +165,9 @@ public final class GestureCastService {
             if ("greathammer".equalsIgnoreCase(swingFamily) && cast.shape() != GestureShape.LINE_H) {
                 swings = 1;
             }
-            int step = Math.max(1, interval);
+            int[] ramps = AbilityConfigs.hitDelays(cast, stack);
             for (int i = 1; i < swings; i++) {
-                int delay = lead + i * step;
+                int delay = lead + (i < ramps.length ? ramps[i] : i * Math.max(1, interval));
                 com.putzwirk.gesturalcombat.technique.GestureScheduler.schedule(level, delay, () -> {
                     if (player.isAlive() && !player.isRemoved()) {
                         EffectSupport.swingSound(level, player, cast);

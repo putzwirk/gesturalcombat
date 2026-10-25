@@ -34,6 +34,8 @@ public final class AbilityConfig {
     @Nullable
     private Integer hitInterval;
     @Nullable
+    private Integer hitIntervalEnd;
+    @Nullable
     private Integer windupTicks;
 
     public AbilityConfig(String id) {
@@ -94,6 +96,11 @@ public final class AbilityConfig {
     }
 
     @Nullable
+    public Integer hitIntervalEnd() {
+        return hitIntervalEnd;
+    }
+
+    @Nullable
     public Integer windupTicks() {
         return windupTicks;
     }
@@ -116,6 +123,7 @@ public final class AbilityConfig {
         cooldownTicks = readInt(json, "cooldown_ticks", cooldownTicks);
         hits = readInt(json, "hits", hits);
         hitInterval = readInt(json, "hit_interval", hitInterval);
+        hitIntervalEnd = readInt(json, "hit_interval_end", hitIntervalEnd);
         windupTicks = readInt(json, "windup_ticks", windupTicks);
     }
 
@@ -150,6 +158,9 @@ public final class AbilityConfig {
         }
         if (override.hitInterval != null) {
             hitInterval = override.hitInterval;
+        }
+        if (override.hitIntervalEnd != null) {
+            hitIntervalEnd = override.hitIntervalEnd;
         }
         if (override.windupTicks != null) {
             windupTicks = override.windupTicks;
@@ -188,6 +199,7 @@ public final class AbilityConfig {
         put(json, "cooldown_ticks", cooldownTicks);
         put(json, "hits", hits);
         put(json, "hit_interval", hitInterval);
+        put(json, "hit_interval_end", hitIntervalEnd);
         put(json, "windup_ticks", windupTicks);
         return json;
     }

@@ -16,6 +16,10 @@ public interface TechniqueEffect {
         return 0;
     }
 
+    default int hitIntervalEndTicks() {
+        return hitIntervalTicks();
+    }
+
     default int windupTicks() {
         return 0;
     }
