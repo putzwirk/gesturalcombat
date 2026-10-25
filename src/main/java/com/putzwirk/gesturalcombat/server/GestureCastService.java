@@ -152,11 +152,9 @@ public final class GestureCastService {
             }
         };
         int windup = AbilityConfigs.windupTicks(cast);
-        if (windup > 0) {
-            com.putzwirk.gesturalcombat.technique.GestureScheduler.schedule(level, windup, resolve);
-        } else {
-            resolve.run();
-        }
+        int interval = AbilityConfigs.hitInterval(cast);
+        int lead = windup > 0 ? windup : Math.max(2, interval);
+        com.putzwirk.gesturalcombat.technique.GestureScheduler.schedule(level, lead, resolve);
         MasteryService.award(player, cast.archetype(), cast.xp());
         EquipmentSlot slot = offhand ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND;
         stack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(slot));

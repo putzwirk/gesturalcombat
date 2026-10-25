@@ -320,10 +320,16 @@ public final class EffectSupport {
     }
 
     public static void swingSound(Level level, ServerPlayer player, Technique technique) {
+        net.minecraft.world.item.ItemStack stack = player.getMainHandItem();
+        boolean heavy = com.putzwirk.gesturalcombat.weapon.WeaponRules.heavy(stack);
+        boolean light = com.putzwirk.gesturalcombat.weapon.WeaponRules.light(stack);
+        float basePitch = heavy ? 0.62f : light ? 1.34f : 1.0f;
+        float pitch = basePitch + player.getRandom().nextFloat() * 0.12f;
+        float volume = heavy ? 1.0f : light ? 0.65f : 0.85f;
         switch (technique.archetype()) {
-            case SWORD -> sound(level, player, SoundEvents.PLAYER_ATTACK_SWEEP, 0.9f, 1.0f + player.getRandom().nextFloat() * 0.2f);
-            case AXE -> sound(level, player, SoundEvents.PLAYER_ATTACK_CRIT, 0.9f, 0.8f);
-            case SPEAR -> sound(level, player, SoundEvents.TRIDENT_RIPTIDE_1, 0.6f, 1.4f);
+            case SWORD -> sound(level, player, SoundEvents.PLAYER_ATTACK_SWEEP, volume, pitch);
+            case AXE -> sound(level, player, SoundEvents.PLAYER_ATTACK_SWEEP, volume * 1.05f, pitch * 0.92f);
+            case SPEAR -> sound(level, player, SoundEvents.TRIDENT_RIPTIDE_1, heavy ? 0.55f : 0.7f, heavy ? 1.15f : 1.45f);
             case SHIELD -> sound(level, player, SoundEvents.SHIELD_BLOCK, 1.0f, 1.0f);
             case BOW -> sound(level, player, SoundEvents.ARROW_SHOOT, 0.8f, 1.0f);
         }
