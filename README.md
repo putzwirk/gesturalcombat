@@ -58,9 +58,9 @@ common config.
 Better Combat 1.9.0 and Player Animator 1.0.2-rc1 are SRG-compiled Forge jars.
 ModDevGradle's official-mapped dev runtime cannot load them as-is: their
 prebuilt refmaps lack field entries, so `@Shadow` fields fail to resolve.
-`run/mods` therefore contains dev-only copies produced by
-`/tmp/opencode/remap` (tiny-remapper SRG->official using the project's
-intermediateToNamed.srg, refmap field-entries patch, ASM rename of remaining
-SRG shadow fields to official names). Production (real instances) uses the
+`run/mods` therefore contains dev-only copies produced by a tiny-remapper
+SRG->official pass (using the project's `intermediateToNamed.srg`, a refmap
+field-entries patch, and an ASM rename of the remaining SRG shadow fields to
+official names). Production (real instances) uses the
 unmodified jars, where SRG names resolve natively. Do not ship the dev copies.
-`mmt cp <instance>` deploys only this mod's jar.
+Deploying only copies this mod's own jar into an instance's `mods` folder.
