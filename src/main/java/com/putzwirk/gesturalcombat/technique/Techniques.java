@@ -45,17 +45,17 @@ public final class Techniques {
     private static final Map<String, Map<GestureShape, Technique>> BY_FAMILY = new LinkedHashMap<>();
 
     public static final Technique SWORD_SLASH = add(new Technique("sword_slash", Archetype.SWORD, GestureShape.LINE_H, 1, 10, null, 6, new ArcSweepEffect(2.8, 110, 1.0, 0.0, 0.25)));
-    public static final Technique SWORD_RISING = add(new Technique("sword_rising", Archetype.SWORD, GestureShape.LINE_V_UP, 1, 16, "sword_t1", 8, new ArcSweepEffect(2.8, 120, 1.25, 0.55, 0.0)));
-    public static final Technique SWORD_WHIRL = add(new Technique("sword_whirl", Archetype.SWORD, GestureShape.CIRCLE, 4, 30, "sword_t2", 12, new SpinEffect(3.1, 0.85, 2, 8)));
-    public static final Technique SWORD_FLURRY = add(new Technique("sword_flurry", Archetype.SWORD, GestureShape.ZIGZAG, 7, 40, "sword_t3", 14, new FlurryEffect(2.9, 90, 1.4, 4, 4)));
-    public static final Technique SWORD_EXECUTE = add(new Technique("sword_execute", Archetype.SWORD, GestureShape.LINE_V_DOWN, 10, 50, "sword_t4", 20, new ArcSweepEffect(2.6, 70, 2.1, 0.0, 0.5)));
+    public static final Technique SWORD_RISING = add(new Technique("sword_rising", Archetype.SWORD, GestureShape.LINE_V_UP, 1, 18, "sword_t1", 8, new ArcSweepEffect(2.8, 120, 1.10, 0.55, 0.0)));
+    public static final Technique SWORD_WHIRL = add(new Technique("sword_whirl", Archetype.SWORD, GestureShape.CIRCLE, 4, 30, "sword_t2", 12, new SpinEffect(3.1, 1.35, 2, 8)));
+    public static final Technique SWORD_FLURRY = add(new Technique("sword_flurry", Archetype.SWORD, GestureShape.ZIGZAG, 7, 44, "sword_t3", 14, new FlurryEffect(2.9, 90, 1.65, 3, 5)));
+    public static final Technique SWORD_EXECUTE = add(new Technique("sword_execute", Archetype.SWORD, GestureShape.LINE_V_DOWN, 10, 50, "sword_t4", 20, new ArcSweepEffect(2.6, 70, 1.95, 0.0, 0.5)));
     public static final Technique SWORD_GUARD = add(new Technique("sword_guard", Archetype.SWORD, GestureShape.V, 1, 200, null, 10, new GuardEffect(20, 2)));
     public static final Technique SWORD_SKIRMISH = add(new Technique("sword_skirmish", Archetype.SWORD, GestureShape.CARET, 1, 60, null, 10, new SkirmishEffect(3.9, 120, 1.05, 2.6, 12)));
 
     public static final Technique KATANA_SLASH = add(new Technique("katana_slash", Archetype.SWORD, GestureShape.LINE_H, 1, 12, null, 7, new PostureEffect(3.1, 100, 0.9, 18), "katana"));
     public static final Technique KATANA_RISING = add(new Technique("katana_rising", Archetype.SWORD, GestureShape.LINE_V_UP, 1, 16, null, 8, new PostureEffect(2.6, 120, 1.15, 15, 0.4), "katana"));
-    public static final Technique KATANA_WHIRL = add(new Technique("katana_whirl", Archetype.SWORD, GestureShape.CIRCLE, 4, 30, null, 12, new PostureFlurryEffect(3.1, 360, 0.8, 2, 8, 12), "katana"));
-    public static final Technique KATANA_FLURRY = add(new Technique("katana_flurry", Archetype.SWORD, GestureShape.ZIGZAG, 7, 40, null, 14, new PostureFlurryEffect(3.1, 90, 1.9, 5, 3, 9), "katana"));
+    public static final Technique KATANA_WHIRL = add(new Technique("katana_whirl", Archetype.SWORD, GestureShape.CIRCLE, 4, 26, null, 12, new PostureEffect(3.1, 150, 1.3, 25), "katana"));
+    public static final Technique KATANA_FLURRY = add(new Technique("katana_flurry", Archetype.SWORD, GestureShape.ZIGZAG, 7, 44, null, 14, new PostureFlurryEffect(3.1, 90, 2.0, 3, 5, 9), "katana"));
     public static final Technique KATANA_EXECUTE = add(new Technique("katana_execute", Archetype.SWORD, GestureShape.LINE_V_DOWN, 10, 50, null, 20, new DeathblowEffect(2.6, 110, 2.4), "katana"));
 
     public static final Technique GLAIVE_SWEEP = add(new Technique("glaive_sweep", Archetype.SPEAR, GestureShape.LINE_H, 1, 14, "spear_t1", 8, new GlaiveSweepEffect(3.75, 150, 0.75), "glaive"));
@@ -137,7 +137,7 @@ public final class Techniques {
     public static final Technique GREATAXE_DUMP = add(new Technique("greataxe_dump", Archetype.AXE, GestureShape.CARET, 4, 30, null, 12, new MomentumDumpEffect(4.0), "greataxe"));
 
     public static final Technique SWORD_LINK = add(new Technique("sword_link", Archetype.SWORD, GestureShape.LINE_H, 1, 12, null, 6,
-            new CrossSlashEffect(3.1, 1.35, 0.9), "sword"));
+            new CrossSlashEffect(3.1, 1.35, 0.85), "sword"));
 
     public static final Technique RAPIER_CUT = add(new Technique("rapier_thrust", Archetype.SWORD, GestureShape.LINE_H, 1, 10, null, 6,
             new FamilyArcEffect(4.2, 24, 0.5, 0.0, 0.0, (player, target, damage, index) -> {
@@ -197,18 +197,18 @@ public final class Techniques {
                 States.addBleed(target, player, 1);
                 return damage;
             }), "sickle"));
-    public static final Technique SICKLE_HARVEST = add(new Technique("sickle_harvest", Archetype.SWORD, GestureShape.LINE_V_UP, 1, 14, null, 8,
-            new FamilyArcEffect(2.6, 110, 1.0, 0.0, 0.35, (player, target, damage, index) -> {
+    public static final Technique SICKLE_HARVEST = add(new Technique("sickle_hook", Archetype.SWORD, GestureShape.LINE_V_UP, 1, 16, null, 8,
+            new FamilyArcEffect(2.6, 110, 1.05, 0.0, 0.35, (player, target, damage, index) -> {
                 States.refreshBleed(target, player, 1);
                 return damage;
             }), "sickle"));
-    public static final Technique SICKLE_FLURRY = add(new Technique("sickle_flurry", Archetype.SWORD, GestureShape.ZIGZAG, 4, 30, null, 12,
-            new FamilyFlurryEffect(2.8, 90, 1.2, 8, 1, 0.0, 0.0, (player, target, damage, index) -> {
+    public static final Technique SICKLE_FLURRY = add(new Technique("sickle_flurry", Archetype.SWORD, GestureShape.ZIGZAG, 4, 32, null, 12,
+            new FamilyFlurryEffect(2.8, 90, 1.75, 5, 3, 0.0, 0.0, (player, target, damage, index) -> {
                 States.addBleed(target, player, 1);
                 return damage;
             }), "sickle"));
-    public static final Technique SICKLE_EVISCERATE = add(new Technique("sickle_eviscerate", Archetype.SWORD, GestureShape.LINE_V_DOWN, 7, 40, null, 15,
-            new FamilyArcEffect(2.6, 90, 1.4, 0.0, 0.3, (player, target, damage, index) -> {
+    public static final Technique SICKLE_EVISCERATE = add(new Technique("sickle_eviscerate", Archetype.SWORD, GestureShape.LINE_V_DOWN, 7, 42, null, 15,
+            new FamilyArcEffect(2.6, 90, 1.9, 0.0, 0.3, (player, target, damage, index) -> {
                 return damage + States.consumeBleed(target);
             }), "sickle"));
 
