@@ -44,7 +44,8 @@ public final class ClientNet {
         if (technique == null) {
             return;
         }
-        CameraEffects.pulse(technique.archetype());
+        CameraEffects.pulse(technique.archetype(),
+                com.putzwirk.gesturalcombat.weapon.WeaponRules.shakeScale(technique.family()));
         playCastAnimation(casterId, technique, swipe, offhand);
         Minecraft mc = Minecraft.getInstance();
         if (mc.player != null && mc.player.getId() == casterId) {

@@ -232,6 +232,7 @@ def parse_weapon_rules():
                 "stun": int(default_match.group(3)), "reach": float(default_match.group(4))}
                if default_match else {"damage": 1.0, "cooldown": 1.0, "stun": 4, "reach": 1.0})
 
+    tail = re.search(r"HEAVY_TAIL\s*=\s*(\d+)", text)
     locked = re.search(r"HEAVY_LOCKED\s*=\s*java\.util\.EnumSet\.of\(([^)]*)\)", text, re.S)
     locked_shapes = set(re.findall(r"GestureShape\.(\w+)", locked.group(1))) if locked else set()
 
@@ -244,6 +245,7 @@ def parse_weapon_rules():
         "light": group("LIGHT"),
         "area": group("AREA"),
         "heavy_locked": locked_shapes,
+        "heavy_tail": int(tail.group(1)) if tail else 12,
         "immunity": int(immunity.group(1)) if immunity else 0,
         "chain": int(chain_match.group(1)) if chain_match else 999,
         "tuning": tuning,
@@ -426,7 +428,7 @@ def simulate(kit, cast_ticks=4):
             casts += 1
             cast_lock = tick + cast_ticks
             if heavy:
-                busy_until = tick + tech["windup"] + (hits - 1) * tech["interval"] + 12
+                busy_until = tick + tech["windup"] + (hits - 1) * tech["interval"] + RULES["heavy_tail"]
             cursor = (cursor + offset + 1) % len(slots)
             break
 

@@ -23,12 +23,18 @@ public final class CameraEffects {
 
     private static int remaining;
     private static Archetype archetype;
+    private static float weightScale = 1.0f;
 
     private CameraEffects() {
     }
 
     public static void pulse(@Nullable Archetype source) {
+        pulse(source, 1.0f);
+    }
+
+    public static void pulse(@Nullable Archetype source, float scale) {
         archetype = source;
+        weightScale = Math.max(0.4f, Math.min(1.8f, scale));
         remaining = DURATION;
     }
 
@@ -45,7 +51,7 @@ public final class CameraEffects {
         if (envelope <= 0.0f) {
             return;
         }
-        float strength = strength(archetype);
+        float strength = strength(archetype) * weightScale;
         float age = DURATION - remaining + Minecraft.getInstance().getFrameTime();
         float roll = MAX_ROLL_DEGREES * envelope * strength;
         float yaw = YAW_KICK_DEGREES * envelope * strength;

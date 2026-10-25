@@ -462,7 +462,7 @@
       "cooldown_ticks": 20,
       "hits": 1,
       "hit_interval": 0,
-      "windup_ticks": 6
+      "windup_ticks": 4
     },
     "greataxe_dump": {
       "gesture": "CARET",
@@ -508,7 +508,7 @@
       "damage_multiplier": 1.56,
       "hits": 1,
       "hit_interval": 0,
-      "windup_ticks": 5,
+      "windup_ticks": 3,
       "knockback": 0.3,
       "hitbox": {
         "shape": "ARC",
@@ -528,7 +528,7 @@
       "damage_multiplier": 2.12,
       "hits": 1,
       "hit_interval": 0,
-      "windup_ticks": 6,
+      "windup_ticks": 4,
       "knockback": 0.15,
       "lift": 0.55,
       "hitbox": {
@@ -549,7 +549,7 @@
       "damage_multiplier": 3.38,
       "hits": 2,
       "hit_interval": 6,
-      "windup_ticks": 8,
+      "windup_ticks": 5,
       "knockback": 0.55,
       "hitbox": {
         "shape": "VERTICAL_ARC",
@@ -617,7 +617,7 @@
     },
     "saidebt_flurry": {
       "gesture": "ZIGZAG",
-      "cooldown_ticks": 24,
+      "cooldown_ticks": 28,
       "damage_multiplier": 1.5,
       "hits": 4
     },
@@ -790,7 +790,7 @@
       "gesture": "LINE_H",
       "cooldown_ticks": 18,
       "damage_multiplier": 1.05,
-      "windup_ticks": 1,
+      "windup_ticks": 0,
       "knockback": 0.15,
       "hitbox": {
         "shape": "ARC",
@@ -808,7 +808,7 @@
       "gesture": "LINE_V_UP",
       "cooldown_ticks": 22,
       "damage_multiplier": 1.32,
-      "windup_ticks": 2,
+      "windup_ticks": 1,
       "lift": 0.6,
       "hitbox": {
         "shape": "VERTICAL_ARC",
@@ -826,7 +826,7 @@
       "gesture": "LINE_V_DOWN",
       "cooldown_ticks": 46,
       "damage_multiplier": 2.2,
-      "windup_ticks": 4,
+      "windup_ticks": 3,
       "knockback": 0.3,
       "hitbox": {
         "shape": "VERTICAL_ARC",
@@ -844,7 +844,7 @@
       "gesture": "ZIGZAG",
       "cooldown_ticks": 44,
       "damage_multiplier": 2.35,
-      "windup_ticks": 3,
+      "windup_ticks": 2,
       "knockback": 0.8,
       "hitbox": {
         "shape": "ARC",
@@ -864,7 +864,7 @@
       "damage_multiplier": 2.78,
       "hits": 2,
       "hit_interval": 7,
-      "windup_ticks": 8,
+      "windup_ticks": 5,
       "knockback": 0.5,
       "hitbox": {
         "shape": "ARC",
@@ -884,7 +884,7 @@
       "damage_multiplier": 4.24,
       "hits": 2,
       "hit_interval": 7,
-      "windup_ticks": 11,
+      "windup_ticks": 7,
       "knockback": 1.2,
       "hitbox": {
         "shape": "VERTICAL_ARC",
@@ -959,7 +959,7 @@
       "damage_multiplier": 2.43,
       "hits": 2,
       "hit_interval": 6,
-      "windup_ticks": 6,
+      "windup_ticks": 4,
       "knockback": 0.3,
       "hitbox": {
         "shape": "ARC",
@@ -979,7 +979,7 @@
       "damage_multiplier": 3.24,
       "hits": 2,
       "hit_interval": 7,
-      "windup_ticks": 8,
+      "windup_ticks": 6,
       "knockback": 1.0,
       "hitbox": {
         "shape": "VERTICAL_ARC",
@@ -1003,7 +1003,7 @@
       "damage_multiplier": 2.98,
       "hits": 2,
       "hit_interval": 8,
-      "windup_ticks": 6,
+      "windup_ticks": 4,
       "knockback": 0.55,
       "hitbox": {
         "shape": "ARC",
@@ -1021,7 +1021,7 @@
       "gesture": "ZIGZAG",
       "cooldown_ticks": 38,
       "damage_multiplier": 1.72,
-      "windup_ticks": 2,
+      "windup_ticks": 1,
       "knockback": 0.2,
       "hitbox": {
         "shape": "ARC",
@@ -1041,7 +1041,7 @@
       "damage_multiplier": 2.99,
       "hits": 3,
       "hit_interval": 6,
-      "windup_ticks": 7,
+      "windup_ticks": 5,
       "knockback": 0.8,
       "hitbox": {
         "shape": "ARC",
@@ -1061,7 +1061,7 @@
       "damage_multiplier": 3.27,
       "hits": 2,
       "hit_interval": 7,
-      "windup_ticks": 9,
+      "windup_ticks": 6,
       "knockback": 1.1,
       "hitbox": {
         "shape": "ARC",
@@ -1099,7 +1099,7 @@
       "damage_multiplier": 3.14,
       "hits": 3,
       "hit_interval": 6,
-      "windup_ticks": 7,
+      "windup_ticks": 5,
       "knockback": 0.6,
       "hitbox": {
         "shape": "ARC",
@@ -1123,7 +1123,7 @@
       "cooldown_ticks": 36,
       "damage_multiplier": 2.2,
       "hits": 1,
-      "windup_ticks": 4,
+      "windup_ticks": 2,
       "knockback": 0.6,
       "hitbox": {
         "shape": "ARC",
@@ -1141,7 +1141,7 @@
       "gesture": "LINE_V_UP",
       "cooldown_ticks": 20,
       "damage_multiplier": 1.3,
-      "windup_ticks": 2,
+      "windup_ticks": 1,
       "lift": 0.5,
       "hitbox": {
         "shape": "VERTICAL_ARC",
@@ -1159,7 +1159,7 @@
       "gesture": "LINE_V_DOWN",
       "cooldown_ticks": 44,
       "damage_multiplier": 2.15,
-      "windup_ticks": 4,
+      "windup_ticks": 3,
       "knockback": 0.7,
       "hitbox": {
         "shape": "VERTICAL_ARC",
@@ -1179,7 +1179,7 @@
       "damage_multiplier": 2.13,
       "hits": 1,
       "hit_interval": 0,
-      "windup_ticks": 7,
+      "windup_ticks": 4,
       "knockback": 0.15,
       "lift": 0.55,
       "hitbox": {
@@ -1200,7 +1200,7 @@
       "damage_multiplier": 3.5,
       "hits": 2,
       "hit_interval": 6,
-      "windup_ticks": 9,
+      "windup_ticks": 6,
       "knockback": 1.0,
       "hitbox": {
         "shape": "VERTICAL_ARC",
@@ -1220,7 +1220,7 @@
       "damage_multiplier": 3.07,
       "hits": 2,
       "hit_interval": 7,
-      "windup_ticks": 9,
+      "windup_ticks": 6,
       "knockback": 0.2,
       "lift": 0.45,
       "hitbox": {
@@ -1241,7 +1241,7 @@
       "damage_multiplier": 2.23,
       "hits": 1,
       "hit_interval": 0,
-      "windup_ticks": 7,
+      "windup_ticks": 5,
       "knockback": 0.15,
       "lift": 0.5,
       "hitbox": {
@@ -1261,7 +1261,7 @@
       "cooldown_ticks": 11,
       "damage_multiplier": 1.77,
       "hits": 1,
-      "windup_ticks": 3,
+      "windup_ticks": 2,
       "knockback": 0.5,
       "hitbox": {
         "shape": "ARC",
@@ -1280,7 +1280,7 @@
       "cooldown_ticks": 12,
       "damage_multiplier": 1.92,
       "hits": 1,
-      "windup_ticks": 4,
+      "windup_ticks": 2,
       "knockback": 0.2,
       "lift": 0.4,
       "hitbox": {
@@ -1300,7 +1300,7 @@
       "cooldown_ticks": 50,
       "damage_multiplier": 2.7,
       "hits": 1,
-      "windup_ticks": 6,
+      "windup_ticks": 4,
       "knockback": 0.8,
       "hitbox": {
         "shape": "VERTICAL_ARC",
@@ -1431,6 +1431,224 @@
     "trident_whirl": {
       "gesture": "CIRCLE",
       "cooldown_ticks": 38
+    },
+    "katana_step": {
+      "gesture": "CARET",
+      "hitbox": {
+        "shape": "ARC",
+        "range": 3.0,
+        "angle": 130.0,
+        "width": 1.0,
+        "height": 3.6,
+        "vertical_offset": 0.2,
+        "forward_offset": 0.0,
+        "max_targets": 6,
+        "line_of_sight": false
+      },
+      "damage_multiplier": 0.45,
+      "knockback": 0.05,
+      "cooldown_ticks": 30,
+      "windup_ticks": 1
+    },
+    "sickle_step": {
+      "gesture": "CARET",
+      "hitbox": {
+        "shape": "ARC",
+        "range": 2.8,
+        "angle": 150.0,
+        "width": 1.0,
+        "height": 3.6,
+        "vertical_offset": 0.2,
+        "forward_offset": 0.0,
+        "max_targets": 6,
+        "line_of_sight": false
+      },
+      "damage_multiplier": 0.45,
+      "knockback": 0.05,
+      "cooldown_ticks": 28,
+      "windup_ticks": 1
+    },
+    "saidebt_poke": {
+      "gesture": "LINE_H",
+      "hitbox": {
+        "shape": "ARC",
+        "range": 2.7,
+        "angle": 55.0,
+        "width": 0.9,
+        "height": 3.6,
+        "vertical_offset": 0.2,
+        "forward_offset": 0.0,
+        "max_targets": 6,
+        "line_of_sight": false
+      },
+      "damage_multiplier": 0.85,
+      "knockback": 0.0,
+      "cooldown_ticks": 12,
+      "windup_ticks": 0
+    },
+    "saidebt_step": {
+      "gesture": "CARET",
+      "hitbox": {
+        "shape": "ARC",
+        "range": 2.6,
+        "angle": 70.0,
+        "width": 0.9,
+        "height": 3.6,
+        "vertical_offset": 0.2,
+        "forward_offset": 0.0,
+        "max_targets": 6,
+        "line_of_sight": false
+      },
+      "damage_multiplier": 0.45,
+      "knockback": 0.05,
+      "cooldown_ticks": 26,
+      "windup_ticks": 1
+    },
+    "twinblade_step": {
+      "gesture": "CARET",
+      "hitbox": {
+        "shape": "ARC",
+        "range": 2.8,
+        "angle": 200.0,
+        "width": 1.0,
+        "height": 3.6,
+        "vertical_offset": 0.2,
+        "forward_offset": 0.0,
+        "max_targets": 6,
+        "line_of_sight": false
+      },
+      "damage_multiplier": 0.5,
+      "knockback": 0.05,
+      "cooldown_ticks": 28,
+      "windup_ticks": 1
+    },
+    "warglaive_step": {
+      "gesture": "CARET",
+      "hitbox": {
+        "shape": "ARC",
+        "range": 3.2,
+        "angle": 170.0,
+        "width": 1.0,
+        "height": 3.6,
+        "vertical_offset": 0.2,
+        "forward_offset": 0.0,
+        "max_targets": 6,
+        "line_of_sight": false
+      },
+      "damage_multiplier": 0.55,
+      "knockback": 0.05,
+      "cooldown_ticks": 30,
+      "windup_ticks": 1
+    },
+    "trident_surge": {
+      "gesture": "CARET",
+      "hitbox": {
+        "shape": "ARC",
+        "range": 3.8,
+        "angle": 80.0,
+        "width": 0.9,
+        "height": 3.6,
+        "vertical_offset": 0.2,
+        "forward_offset": 0.0,
+        "max_targets": 6,
+        "line_of_sight": false
+      },
+      "damage_multiplier": 0.45,
+      "knockback": 0.05,
+      "cooldown_ticks": 30,
+      "windup_ticks": 1
+    },
+    "scythe_step": {
+      "gesture": "CARET",
+      "hitbox": {
+        "shape": "ARC",
+        "range": 3.0,
+        "angle": 220.0,
+        "width": 1.0,
+        "height": 3.6,
+        "vertical_offset": 0.2,
+        "forward_offset": 0.0,
+        "max_targets": 6,
+        "line_of_sight": false
+      },
+      "damage_multiplier": 0.5,
+      "knockback": 0.05,
+      "cooldown_ticks": 32,
+      "windup_ticks": 1
+    },
+    "spear_step": {
+      "gesture": "CARET",
+      "hitbox": {
+        "shape": "ARC",
+        "range": 4.2,
+        "angle": 50.0,
+        "width": 0.8,
+        "height": 3.6,
+        "vertical_offset": 0.2,
+        "forward_offset": 0.0,
+        "max_targets": 6,
+        "line_of_sight": false
+      },
+      "damage_multiplier": 0.5,
+      "knockback": 0.05,
+      "cooldown_ticks": 26,
+      "windup_ticks": 1
+    },
+    "axe_step": {
+      "gesture": "CARET",
+      "hitbox": {
+        "shape": "ARC",
+        "range": 3.2,
+        "angle": 150.0,
+        "width": 1.0,
+        "height": 3.6,
+        "vertical_offset": 0.2,
+        "forward_offset": 0.0,
+        "max_targets": 6,
+        "line_of_sight": false
+      },
+      "damage_multiplier": 0.5,
+      "knockback": 0.05,
+      "cooldown_ticks": 28,
+      "windup_ticks": 1
+    },
+    "rapier_fleche": {
+      "gesture": "CARET",
+      "hitbox": {
+        "shape": "ARC",
+        "range": 3.6,
+        "angle": 45.0,
+        "width": 0.8,
+        "height": 3.6,
+        "vertical_offset": 0.2,
+        "forward_offset": 0.0,
+        "max_targets": 6,
+        "line_of_sight": false
+      },
+      "damage_multiplier": 0.5,
+      "knockback": 0.05,
+      "cooldown_ticks": 28,
+      "windup_ticks": 1
+    },
+    "sickle_whirl": {
+      "gesture": "CIRCLE",
+      "hitbox": {
+        "shape": "ARC",
+        "range": 2.8,
+        "angle": 360.0,
+        "width": 1.0,
+        "height": 3.6,
+        "vertical_offset": 0.2,
+        "forward_offset": 0.0,
+        "max_targets": 6,
+        "line_of_sight": false
+      },
+      "damage_multiplier": 0.6,
+      "knockback": 0.2,
+      "cooldown_ticks": 34,
+      "windup_ticks": 0,
+      "hits": 2,
+      "hit_interval": 7
     }
   }
 }

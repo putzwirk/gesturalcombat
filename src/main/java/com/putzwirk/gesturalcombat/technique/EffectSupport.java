@@ -287,7 +287,16 @@ public final class EffectSupport {
             }
         }
         Level level = player.level();
-        level.playSound(null, target.getX(), target.getY(), target.getZ(), SoundEvents.PLAYER_ATTACK_STRONG, SoundSource.PLAYERS, 0.55f, 1.15f + player.getRandom().nextFloat() * 0.15f);
+        boolean heavy = com.putzwirk.gesturalcombat.weapon.WeaponRules.heavy(held);
+        boolean light = com.putzwirk.gesturalcombat.weapon.WeaponRules.light(held);
+        float pitch = (heavy ? 0.70f : light ? 1.42f : 1.05f) + player.getRandom().nextFloat() * 0.10f;
+        float volume = heavy ? 0.95f : light ? 0.45f : 0.65f;
+        level.playSound(null, target.getX(), target.getY(), target.getZ(), SoundEvents.PLAYER_ATTACK_STRONG,
+                SoundSource.PLAYERS, volume, pitch);
+        if (heavy) {
+            level.playSound(null, target.getX(), target.getY(), target.getZ(), SoundEvents.ANVIL_LAND,
+                    SoundSource.PLAYERS, 0.30f, 1.35f + player.getRandom().nextFloat() * 0.15f);
+        }
     }
 
     private static ItemStack onHitWeapon(ServerPlayer player, Technique technique) {
