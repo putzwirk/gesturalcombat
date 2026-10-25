@@ -104,7 +104,6 @@ public final class GestureHud {
         float[] xs = new float[capacity];
         float[] ys = new float[capacity];
         float[] fades = new float[capacity];
-        int[] seeds = new int[capacity];
         int count = 0;
         for (int i = from; i < to; i++) {
             ClientState.TrailPoint point = ClientState.TRAIL.get(i);
@@ -115,7 +114,6 @@ public final class GestureHud {
             xs[count] = point.x();
             ys[count] = point.y();
             fades[count] = fade;
-            seeds[count] = trailSeed(point);
             count++;
         }
         if (count < 2) {
@@ -181,21 +179,20 @@ public final class GestureHud {
         int[] sheenColors = new int[count];
 
         for (int i = 0; i < count; i++) {
-            float t = i / (float) (count - 1);
-            float taper = (float) Math.pow(Math.sin(Math.PI * t), 0.55);
-            int seed = seeds[i];
-            float jag = energy ? 0.92f + 0.08f * trailNoise(seed) : 0.70f + 0.60f * trailNoise(seed);
-            float base = (energy ? 2.2f + 5.4f * fades[i] : 2.0f + 6.2f * fades[i]) * taper * jag;
-            widths[i] = Math.max(0.45f, base);
-            under[i] = widths[i] * (energy ? 1.55f : 1.38f);
-            wet[i] = widths[i] * (energy ? 0.34f : 0.42f);
-            sheen[i] = Math.max(0.8f, widths[i] * (energy ? 0.22f : 0.17f));
-            underColors[i] = HudDraw.withAlpha(deepColor, 0.96f * fades[i]);
-            int color = HudDraw.mix(bodyBase, bodyMix, 0.12f + 0.55f * trailNoise(seed ^ 0x41));
+            float t = count <= 1 ? 1.0f : i / (float) (count - 1);
+            float head = Mth.clamp(t, 0.0f, 1.0f);
+            float dissolve = (float) (0.16 + 0.84 * Math.pow(head, 0.85));
+            float swell = 1.0f + 0.18f * (float) Math.sin(Math.PI * Math.pow(head, 0.7));
+            float base = (2.6f + 7.2f * fades[i]) * dissolve * swell * (energy ? 0.94f : 1.0f);
+            widths[i] = Math.max(0.35f, base);
+            under[i] = widths[i] * 1.40f;
+            wet[i] = widths[i] * 0.44f;
+            sheen[i] = Math.max(0.9f, widths[i] * 0.20f);
+            underColors[i] = HudDraw.withAlpha(deepColor, 0.92f * fades[i]);
+            int color = HudDraw.mix(bodyBase, bodyMix, 0.20f + 0.62f * head);
             bodyColors[i] = HudDraw.withAlpha(color, 0.97f * fades[i]);
-            wetColors[i] = HudDraw.withAlpha(wetColor, 0.55f * fades[i]);
-            float sheenAlpha = trailNoise(seed ^ 0x8D) > 0.42f ? 0.55f : 0.10f;
-            sheenColors[i] = HudDraw.withAlpha(brightColor, sheenAlpha * fades[i]);
+            wetColors[i] = HudDraw.withAlpha(wetColor, (0.30f + 0.35f * head) * fades[i]);
+            sheenColors[i] = HudDraw.withAlpha(brightColor, (0.10f + 0.50f * head) * fades[i]);
         }
 
         HudDraw.beginGlow(graphics, HudDraw.GLOW);
@@ -206,9 +203,9 @@ public final class GestureHud {
                 continue;
             }
             HudDraw.glowLine(graphics, xs[i - 1], ys[i - 1], xs[i], ys[i],
-                    widths[i - 1] * 2.3f, widths[i] * 2.3f,
-                    HudDraw.withAlpha(glowColor, 0.35f * fades[i - 1]),
-                    HudDraw.withAlpha(glowColor, 0.35f * fades[i]));
+                    widths[i - 1] * 2.8f, widths[i] * 2.8f,
+                    HudDraw.withAlpha(glowColor, 0.42f * fades[i - 1]),
+                    HudDraw.withAlpha(glowColor, 0.42f * fades[i]));
         }
         HudDraw.endGlow();
 
@@ -216,36 +213,6 @@ public final class GestureHud {
         HudDraw.ribbon(graphics, xs, ys, widths, bodyColors, count);
         HudDraw.ribbon(graphics, xs, ys, wet, wetColors, count);
         HudDraw.ribbon(graphics, xs, ys, sheen, sheenColors, count);
-
-        for (int i = 1; i < count - 1 && !energy; i++) {
-            float fade = fades[i];
-            int seed = seeds[i];
-            float dx = xs[i + 1] - xs[i - 1];
-            float dy = ys[i + 1] - ys[i - 1];
-            float length = Mth.sqrt(dx * dx + dy * dy);
-            if (length < 0.8f) {
-                continue;
-            }
-            float nx = -dy / length;
-            float ny = dx / length;
-            float edge = widths[i] * 0.58f;
-            if (trailNoise(seed ^ 0xE1) > 0.72f) {
-                float spur = 2.5f + trailNoise(seed ^ 0xE5) * 6.0f;
-                float side = trailNoise(seed ^ 0xE9) > 0.5f ? 1.0f : -1.0f;
-                float baseX = xs[i] + nx * side * edge;
-                float baseY = ys[i] + ny * side * edge;
-                HudDraw.taperedLine(graphics, baseX, baseY,
-                        baseX + nx * side * spur + dx * 0.15f,
-                        baseY + ny * side * spur + dy * 0.15f,
-                        Math.max(1.2f, widths[i] * 0.30f), 0.5f,
-                        HudDraw.withAlpha(WOUND_WET, 0.75f * fade));
-            }
-            if (trailNoise(seed ^ 0xD1) > 0.80f && fade > 0.25f) {
-                float dripLength = 8.0f + trailNoise(seed ^ 0xD7) * 18.0f;
-                float dripWidth = Math.max(1.4f, widths[i] * 0.34f);
-                drip(graphics, xs[i] + nx * edge * 0.5f, ys[i] + ny * edge * 0.5f, dripLength, dripWidth, fade);
-            }
-        }
 
         int newest = count - 1;
         ClientState.TrailPoint lastPoint = ClientState.TRAIL.get(to - 1);
@@ -258,36 +225,9 @@ public final class GestureHud {
         }
     }
 
-    private static void drip(GuiGraphics graphics, float x, float y, float length, float width, float fade) {
-        HudDraw.taperedLine(graphics, x, y, x, y + length, width, width * 0.55f,
-                HudDraw.withAlpha(WOUND_WET, 0.92f * fade));
-        HudDraw.disc(graphics, x, y + length, width * 0.72f, HudDraw.withAlpha(WOUND_WET, 0.92f * fade));
-        HudDraw.taperedLine(graphics, x - width * 0.22f, y + 1.0f, x - width * 0.22f, y + length * 0.82f,
-                Math.max(0.6f, width * 0.28f), 0.6f, HudDraw.withAlpha(WOUND_BRIGHT, 0.30f * fade));
-        HudDraw.taperedLine(graphics, x + width * 0.18f, y, x + width * 0.18f, y + length * 0.7f,
-                Math.max(0.5f, width * 0.18f), 0.5f, HudDraw.withAlpha(WOUND_DEEP, 0.55f * fade));
-    }
-
     private static float trailFade(ClientState.TrailPoint point) {
         float age = ClientState.ticks - point.tick();
         return Mth.clamp(1.0f - Math.max(0.0f, age) / TRAIL_LIFE, 0.0f, 1.0f);
-    }
-
-    private static int trailSeed(ClientState.TrailPoint point) {
-        int hash = point.tick() * 73856093;
-        hash ^= Float.floatToIntBits(point.x()) * 19349663;
-        hash ^= Float.floatToIntBits(point.y()) * 83492791;
-        return hash;
-    }
-
-    private static float trailNoise(int seed) {
-        int hash = seed;
-        hash ^= hash >>> 15;
-        hash *= 0x2C1B3C6D;
-        hash ^= hash >>> 12;
-        hash *= 0x297A2D39;
-        hash ^= hash >>> 15;
-        return (hash & 0x7FFFFFFF) / (float) 0x7FFFFFFF;
     }
 
     private static int cooldownTicks(Technique technique, ItemStack stack, GestureShape shape) {
