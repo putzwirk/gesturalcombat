@@ -45,6 +45,12 @@ public final class AnimationCatalog {
 
     @Nullable
     public static String[] sequenceFor(Archetype archetype, GestureShape shape, ItemStack stack, int swipe, int swings) {
+        return sequenceFor(archetype, shape, stack, swipe, swings, false);
+    }
+
+    @Nullable
+    public static String[] sequenceFor(Archetype archetype, GestureShape shape, ItemStack stack, int swipe, int swings,
+                                       boolean paired) {
         if (archetype == null || shape == null || shape == GestureShape.UNKNOWN) {
             return null;
         }
@@ -65,7 +71,7 @@ public final class AnimationCatalog {
         }
         String[] pair = weaponSequence(shape, stack, swipe);
         if (pair == null) {
-            pair = pairFor(archetype, shape, twoHanded(stack), swipe);
+            pair = pairFor(archetype, shape, twoHanded(stack), swipe, paired);
         }
         if (pair == null || pair.length == 0) {
             return null;
@@ -129,8 +135,9 @@ public final class AnimationCatalog {
             return swipe >= 0 ? new String[]{left, right, "bettercombat:one_handed_stab"}
                     : new String[]{right, left, "bettercombat:one_handed_stab"};
         }
-        if (value.equals("sword") && shape == GestureShape.CARET) {
-            return raw("bettercombat:one_handed_stab");
+        if (shape == GestureShape.CARET
+                && (value.equals("sword") || value.equals("sickle") || value.equals("soul_knife"))) {
+            return raw("bettercombat:dual_handed_stab", "bettercombat:one_handed_stab");
         }
         if (value.equals("claymore") && shape == GestureShape.LINE_V_DOWN) {
             List<String> pool = pool(stack);
@@ -342,7 +349,7 @@ public final class AnimationCatalog {
     }
 
     @Nullable
-    private static String[] pairFor(Archetype archetype, GestureShape shape, boolean twoHanded, int swipe) {
+    private static String[] pairFor(Archetype archetype, GestureShape shape, boolean twoHanded, int swipe, boolean paired) {
         boolean fromLeft = swipe >= 0;
         return switch (shape) {
             case LINE_H -> archetype == Archetype.SHIELD
@@ -366,7 +373,12 @@ public final class AnimationCatalog {
             case ZIGZAG -> twoHanded
                     ? horizontalPair("two_handed_slash_horizontal_left", "two_handed_slash_horizontal_right", fromLeft)
                     : horizontalPair("one_handed_slash_horizontal_left", "one_handed_swipe_horizontal_right", fromLeft);
-            case V -> archetype == Archetype.SWORD ? raw("gesturalcombat:sword_guard") : null;
+            case V -> switch (archetype) {
+                case SWORD -> custom(paired ? "sword_pair_guard" : "sword_guard");
+                case AXE -> custom("axe_pair_guard");
+                case SPEAR -> custom("trident_pair_guard");
+                default -> null;
+            };
             case CARET -> switch (archetype) {
                 case SWORD -> raw("gesturalcombat:sword_skirmish");
                 case AXE -> raw("gesturalcombat:axe_wide");

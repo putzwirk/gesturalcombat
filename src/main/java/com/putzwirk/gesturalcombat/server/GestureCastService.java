@@ -144,7 +144,10 @@ public final class GestureCastService {
             if (applied != null) {
                 WeaponSpecialEffect.execute(player, level, stack, cast, applied);
             } else if (!thrown) {
-                cast.effect().execute(player, level, stack, cast);
+                if (!(cast.shape() == GestureShape.V
+                        && com.putzwirk.gesturalcombat.technique.PairedGuard.begin(player, level, stack, cast))) {
+                    cast.effect().execute(player, level, stack, cast);
+                }
             }
             if (sound) {
                 EffectSupport.swingSound(level, player, cast);

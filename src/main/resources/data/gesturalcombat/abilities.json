@@ -108,10 +108,12 @@
         "max_targets": 6,
         "line_of_sight": true
       },
-      "damage_multiplier": 1.0,
+      "damage_multiplier": 1.38,
       "knockback": 0.05,
       "cooldown_ticks": 44,
-      "windup_ticks": 2
+      "windup_ticks": 2,
+      "hits": 2,
+      "hit_interval": 4
     },
     "axe_cleave": {
       "gesture": "LINE_V_DOWN",
@@ -1465,10 +1467,12 @@
         "max_targets": 6,
         "line_of_sight": false
       },
-      "damage_multiplier": 0.45,
+      "damage_multiplier": 0.58,
       "knockback": 0.05,
       "cooldown_ticks": 28,
-      "windup_ticks": 1
+      "windup_ticks": 1,
+      "hits": 2,
+      "hit_interval": 4
     },
     "saidebt_poke": {
       "gesture": "LINE_H",
@@ -1501,10 +1505,12 @@
         "max_targets": 6,
         "line_of_sight": false
       },
-      "damage_multiplier": 0.45,
+      "damage_multiplier": 0.58,
       "knockback": 0.05,
       "cooldown_ticks": 26,
-      "windup_ticks": 1
+      "windup_ticks": 1,
+      "hits": 2,
+      "hit_interval": 4
     },
     "twinblade_step": {
       "gesture": "CARET",
@@ -1651,6 +1657,18 @@
       "windup_ticks": 0,
       "hits": 2,
       "hit_interval": 7
+    },
+    "axe_brace": {
+      "gesture": "V",
+      "cooldown_ticks": 160,
+      "damage_multiplier": 0.0,
+      "knockback": 0.0
+    },
+    "trident_ward": {
+      "gesture": "V",
+      "cooldown_ticks": 180,
+      "damage_multiplier": 0.0,
+      "knockback": 0.0
     }
   }
 }

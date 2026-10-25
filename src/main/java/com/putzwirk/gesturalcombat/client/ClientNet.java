@@ -99,7 +99,10 @@ public final class ClientNet {
             swings = 1;
         }
         int interval = AbilityConfigs.hitInterval(technique);
-        String[] sequence = AnimationCatalog.sequenceFor(archetype, technique.shape(), stack, swipe, swings);
+        boolean pairedGuard = technique.shape() == com.putzwirk.gesturalcombat.core.GestureShape.V
+                && caster != null
+                && com.putzwirk.gesturalcombat.weapon.DualWield.paired(caster.getMainHandItem(), caster.getOffhandItem());
+        String[] sequence = AnimationCatalog.sequenceFor(archetype, technique.shape(), stack, swipe, swings, pairedGuard);
         if (sequence == null) {
             return;
         }
@@ -151,6 +154,16 @@ public final class ClientNet {
         }
         Entity entity = mc.level.getEntity(casterId);
         return entity instanceof Player player ? player : null;
+    }
+
+    public static void salto(int casterId, int ticks) {
+        Player caster = casterOf(Minecraft.getInstance(), casterId);
+        if (caster == null) {
+            return;
+        }
+        String hand = BetterCombatBridge.handName(caster.getMainHandItem());
+        AnimationScheduler.playSequence(casterId, new String[]{"gesturalcombat:salto_back"}, hand,
+                new float[]{Math.max(6, ticks)}, new float[]{0.35f}, 0, new int[]{0});
     }
 
     public static void animation(int playerId, String animationId, String handName, boolean stop) {
