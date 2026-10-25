@@ -25,7 +25,7 @@ public class SaltoRenderMixin {
         }
         float hips = SaltoRotation.hips();
         poseStack.translate(0.0f, hips, 0.0f);
-        poseStack.mulPose(Axis.XP.rotationDegrees(-angle));
+        poseStack.mulPose(Axis.XP.rotationDegrees(angle));
         poseStack.translate(0.0f, -hips, 0.0f);
     }
 }
