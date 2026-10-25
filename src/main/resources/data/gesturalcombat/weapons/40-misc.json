@@ -1,0 +1,20 @@
+{
+  "weapons": [
+    {
+      "items": [
+        "dimdoors:rift_blade"
+      ],
+      "archetype": "sword",
+      "family": null,
+      "reach_multiplier": 1.0
+    },
+    {
+      "items": [
+        "create:cardboard_sword"
+      ],
+      "archetype": "sword",
+      "family": null,
+      "reach_multiplier": 1.0
+    }
+  ]
+}

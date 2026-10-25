@@ -2,13 +2,14 @@ package com.putzwirk.gesturalcombat.core;
 
 import com.putzwirk.gesturalcombat.compat.BetterCombatBridge;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.AxeItem;
-import net.minecraft.world.item.BowItem;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ProjectileWeaponItem;
 import net.minecraft.world.item.ShieldItem;
-import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.TridentItem;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -47,36 +48,91 @@ public enum Archetype {
         return "archetype.gesturalcombat." + id + ".desc";
     }
 
+    public record Hit(Archetype archetype, String source) {
+    }
+
     @Nullable
     public static Archetype of(ItemStack stack) {
+        Hit hit = resolve(stack);
+        return hit == null ? null : hit.archetype();
+    }
+
+    @Nullable
+    public static Hit resolve(ItemStack stack) {
         if (stack.isEmpty()) {
             return null;
         }
         Archetype configured = com.putzwirk.gesturalcombat.weapon.WeaponProfiles.archetype(stack);
         if (configured != null) {
-            return configured;
+            return new Hit(configured, "profile");
         }
         if (isShield(stack)) {
-            return SHIELD;
+            return new Hit(SHIELD, "shield");
         }
         Item item = stack.getItem();
-        if (item instanceof BowItem) {
-            return BOW;
+        if (item instanceof ProjectileWeaponItem) {
+            return new Hit(BOW, "projectile");
         }
         if (item instanceof TridentItem) {
-            return SPEAR;
+            return new Hit(SPEAR, "trident");
         }
         Archetype combat = fromBetterCombat(stack);
         if (combat != null) {
-            return combat;
+            return new Hit(combat, "bettercombat");
         }
-        if (item instanceof SwordItem || stack.is(ItemTags.SWORDS)) {
-            return SWORD;
+        if (stack.is(ItemTags.SWORDS)) {
+            return new Hit(SWORD, "tags");
         }
-        if (item instanceof AxeItem || stack.is(ItemTags.AXES)) {
-            return AXE;
+        if (stack.is(ItemTags.AXES)) {
+            return new Hit(AXE, "tags");
         }
-        return fromName(stack);
+        Archetype named = fromName(stack);
+        return named == null ? null : new Hit(named, "name");
+    }
+
+    private static final String[] SWORD_TOKENS = {
+            "sword", "longsword", "blade", "katana", "saber", "sabre", "rapier", "cutlass", "dagger",
+            "scimitar", "claymore", "machete", "falchion", "sickle"
+    };
+    private static final String[] AXE_TOKENS = {
+            "axe", "greataxe", "hatchet", "cleaver", "scythe", "poleaxe"
+    };
+    private static final String[] SPEAR_TOKENS = {
+            "spear", "lance", "pike", "halberd", "glaive", "trident", "naginata", "partisan",
+            "harpoon", "javelin", "staff", "quarterstaff", "battlestaff", "polearm"
+    };
+    private static final String[] BOW_TOKENS = {
+            "bow", "longbow", "shortbow", "crossbow"
+    };
+
+    public static boolean hasToken(String value, String token) {
+        if (value == null || token == null || token.isEmpty()) {
+            return false;
+        }
+        int at = value.indexOf(token);
+        while (at >= 0) {
+            boolean start = at == 0 || value.charAt(at - 1) == '_' || value.charAt(at - 1) == '/';
+            int end = at + token.length();
+            boolean stop = end == value.length() || value.charAt(end) == '_' || value.charAt(end) == '/';
+            if (start && stop) {
+                return true;
+            }
+            at = value.indexOf(token, at + 1);
+        }
+        return false;
+    }
+
+    private static boolean anyToken(String path, String[] tokens) {
+        for (String token : tokens) {
+            if (hasToken(path, token)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static boolean dealsDamage(ItemStack stack) {
+        return !stack.getAttributeModifiers(EquipmentSlot.MAINHAND).get(Attributes.ATTACK_DAMAGE).isEmpty();
     }
 
     @Nullable
@@ -103,8 +159,11 @@ public enum Archetype {
         if (stack.getItem() instanceof ShieldItem) {
             return true;
         }
+        if (stack.getItem() instanceof BlockItem) {
+            return false;
+        }
         ResourceLocation key = ForgeRegistries.ITEMS.getKey(stack.getItem());
-        return key != null && key.getPath().toLowerCase(Locale.ROOT).contains("shield");
+        return key != null && hasToken(key.getPath().toLowerCase(Locale.ROOT), "shield");
     }
 
     @Nullable
@@ -113,31 +172,23 @@ public enum Archetype {
         if (key == null) {
             return null;
         }
-        String path = key.getPath().toLowerCase(Locale.ROOT);
-        if (path.contains("bow")) {
-            return BOW;
+        if (stack.getItem() instanceof BlockItem || !dealsDamage(stack)) {
+            return null;
         }
-        if (contains(path, "sword", "blade", "katana", "saber", "sabre", "rapier", "cutlass", "dagger",
-                "scimitar", "claymore", "machete", "falchion", "longsword", "sickle")) {
+        String path = key.getPath().toLowerCase(Locale.ROOT);
+        if (anyToken(path, SWORD_TOKENS)) {
             return SWORD;
         }
-        if (contains(path, "axe", "hatchet", "cleaver", "scythe", "poleaxe", "greataxe")) {
+        if (anyToken(path, AXE_TOKENS)) {
             return AXE;
         }
-        if (contains(path, "spear", "lance", "pike", "halberd", "glaive", "trident", "naginata", "partisan",
-                "harpoon", "javelin", "staff", "quarterstaff", "battlestaff", "polearm")) {
+        if (anyToken(path, SPEAR_TOKENS)) {
             return SPEAR;
         }
-        return null;
-    }
-
-    private static boolean contains(String value, String... needles) {
-        for (String needle : needles) {
-            if (value.contains(needle)) {
-                return true;
-            }
+        if (anyToken(path, BOW_TOKENS)) {
+            return BOW;
         }
-        return false;
+        return null;
     }
 
     @Nullable

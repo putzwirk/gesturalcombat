@@ -90,6 +90,17 @@
         "born_in_chaos_v1:trident_hayfork"
       ],
       "archetype": "spear"
+    },
+    {
+      "items": [
+        "born_in_chaos_v1:bonescaller_staff",
+        "born_in_chaos_v1:staff_of_magic_arrows",
+        "born_in_chaos_v1:staffof_blindness",
+        "born_in_chaos_v1:pumpkinstaffa"
+      ],
+      "archetype": "spear",
+      "family": null,
+      "reach_multiplier": 1.15
     }
   ]
 }

@@ -133,7 +133,7 @@ public final class WeaponProfiles {
         }
         String path = id.getPath().toLowerCase(java.util.Locale.ROOT);
         for (String[] token : FAMILY_TOKENS) {
-            if (path.contains(token[0])) {
+            if (com.putzwirk.gesturalcombat.core.Archetype.hasToken(path, token[0])) {
                 return token[1];
             }
         }

@@ -9,6 +9,7 @@ data/gesturalcombat/weapons/00-categories.json      # shared animation pools per
 data/gesturalcombat/weapons/10-vanilla.json         # vanilla / tag-based profiles
 data/gesturalcombat/weapons/20-simplyswords.json    # Simply Swords profiles
 data/gesturalcombat/weapons/30-born-in-chaos.json   # Born in Chaos profiles
+data/gesturalcombat/weapons/40-misc.json            # one-off profiles (Dim Doors, Create)
 ```
 
 Override any of them from a datapack with the same path and the mod reads yours
@@ -20,9 +21,10 @@ connected client, so multiplayer stays in sync.
 
 You do **not** need to recompile anything to rebalance a technique.
 
-Two config flags help while you work: `debugHitboxes` draws the resolved hitbox
-in world, `debugCasts` logs every cast with its id, family and shape plus how
-many targets each arc actually caught.
+Three config flags help while you work: `debugHitboxes` draws the resolved
+hitbox in world, `debugCasts` logs every cast with its id, family and shape plus
+how many targets each arc actually caught, and `debugWeapons` runs the weapon
+self-check described at the bottom of this file.
 
 ---
 
@@ -383,12 +385,18 @@ itself, on both sides, every time the configs load. `/gesturalcombat audit`
 (permission level 2) runs it on demand and re-syncs clients so they re-check too.
 
 The server walks the item registry, resolves each weapon's strip with the same
-`Techniques.available` call the HUD and the cast gate use, and logs one line per
-weapon:
+`Techniques.available` call the HUD and the cast gate use, and logs a line for
+every weapon that has a profile, a problem, or an archetype guessed from its
+name. Everything else rolls up into one summary line:
 
 ```
-weapon check: [startup] born_in_chaos_v1:nightmare_scythe arch=axe family=scythe reach=1.03x profile=yes slots=5 [line_h=scythe_cut line_v_up=scythe_rise line_v_down=scythe_drop circle=scythe_whirl zigzag=scythe_z] gaps=0
+weapon check: [startup] born_in_chaos_v1:nightmare_scythe arch=axe via=profile family=scythe reach=1.03x slots=5 [line_h=scythe_cut line_v_up=scythe_rise line_v_down=scythe_drop circle=scythe_whirl zigzag=scythe_z] gaps=0
+weapon check: [startup] <n> weapons: <p> profiled, <b> on bare kits {axe=..., bow=..., shield=..., sword=...}, <k> matched by name, <g> gaps
 ```
+
+`via=` says how the archetype was decided: `profile`, `shield`, `projectile`,
+`trident`, `bettercombat`, `tags` or `name`. A `name` hit is a heuristic and is
+always logged so it can be reviewed or replaced with a profile.
 
 Anything wrong is a separate `weapon check gap:` line, tagged with what kind of
 problem it is:
@@ -403,6 +411,18 @@ problem it is:
 | `duplicate` | two gestures resolve to the same technique |
 | `no-profile` | no profile under `weapons/`; the bare archetype kit is used (informational) |
 | `allowed-off` | hidden on purpose by the profile's `gestures` allow-list (informational) |
+
+### What counts as a weapon
+
+The order is: an explicit profile, then shield, then `ProjectileWeaponItem`
+(bows and crossbows), then trident, then Better Combat's category, then the
+`minecraft:swords` / `minecraft:axes` item tags, and only then the item name.
+The name check requires whole underscore-separated tokens (`waxed` is not an
+axe, `bowl` is not a bow, `steadfast` is not a staff), refuses blocks outright,
+and requires the item to actually carry an `attack_damage` modifier. Pickaxes
+therefore stay tools, and a decorative bracket bow or a trinket that happens to
+have "pickaxe" in its id never gets a gesture strip. Anything a mod adds that
+this chain cannot see should get a profile rather than a cleverer name.
 
 The client receives the server's slot list inside the ability sync and rebuilds
 the same table from its own copy, then compares: a weapon that resolves

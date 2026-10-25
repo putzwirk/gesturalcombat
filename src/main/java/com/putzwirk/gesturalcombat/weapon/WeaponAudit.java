@@ -50,15 +50,12 @@ public final class WeaponAudit {
 
     public record Gap(String kind, String detail) {
         public boolean reported() {
-            return switch (kind) {
-                case "no-profile", "allowed-off" -> false;
-                default -> true;
-            };
+            return !"allowed-off".equals(kind);
         }
     }
 
-    public record Report(String item, Archetype archetype, String family, double reach, boolean profile,
-                         List<Slot> slots, List<Gap> gaps) {
+    public record Report(String item, Archetype archetype, String source, String family, double reach,
+                         boolean profile, List<Slot> slots, List<Gap> gaps) {
     }
 
     private WeaponAudit() {
@@ -69,10 +66,11 @@ public final class WeaponAudit {
         List<Report> reports = new ArrayList<>();
         for (Item item : ForgeRegistries.ITEMS.getValues()) {
             ItemStack stack = new ItemStack(item);
-            Archetype archetype = Archetype.of(stack);
-            if (archetype == null) {
+            Archetype.Hit hit = Archetype.resolve(stack);
+            if (hit == null) {
                 continue;
             }
+            Archetype archetype = hit.archetype();
             String id = idOf(item);
             String family = WeaponProfiles.family(stack);
             WeaponProfile profile = WeaponProfiles.profile(stack);
@@ -111,10 +109,8 @@ public final class WeaponAudit {
                     gaps.add(new Gap("unresolved", declared.id() + " (" + shape + ") is defined but does not resolve"));
                 }
             }
-            if (profile == null) {
-                gaps.add(new Gap("no-profile", "no profile under weapons/, falling back to the " + archetype.id() + " kit"));
-            }
-            reports.add(new Report(id, archetype, family, WeaponProfiles.reachMultiplier(stack), profile != null, slots, gaps));
+            reports.add(new Report(id, archetype, hit.source(), family, WeaponProfiles.reachMultiplier(stack),
+                    profile != null, slots, gaps));
         }
         reports.sort((a, b) -> a.item().compareTo(b.item()));
         return reports;
@@ -140,7 +136,10 @@ public final class WeaponAudit {
 
     public static void log(String origin) {
         List<Report> reports = scan();
-        int reported = 0;
+        int profiled = 0;
+        int gapsReported = 0;
+        int guessed = 0;
+        Map<String, Integer> bare = new java.util.TreeMap<>();
         for (Report report : reports) {
             int gaps = 0;
             for (Gap gap : report.gaps()) {
@@ -148,10 +147,23 @@ public final class WeaponAudit {
                     gaps++;
                 }
             }
-            reported += gaps;
-            Gesturalcombat.LOGGER.info("{} [{}] {} arch={} family={} reach={}x profile={} slots={} [{}] gaps={}",
-                    TAG, origin, report.item(), report.archetype().id(), report.family() == null ? "-" : report.family(),
-                    report.reach(), report.profile() ? "yes" : "no", report.slots().size(), slotText(report), gaps);
+            gapsReported += gaps;
+            if (report.profile()) {
+                profiled++;
+            } else {
+                bare.merge(report.archetype().id(), 1, Integer::sum);
+            }
+            boolean byName = "name".equals(report.source());
+            if (byName) {
+                guessed++;
+            }
+            if (!report.profile() && gaps == 0 && !byName) {
+                continue;
+            }
+            Gesturalcombat.LOGGER.info("{} [{}] {} arch={} via={} family={} reach={}x slots={} [{}] gaps={}",
+                    TAG, origin, report.item(), report.archetype().id(), report.source(),
+                    report.family() == null ? "-" : report.family(), report.reach(),
+                    report.slots().size(), slotText(report), gaps);
             for (Gap gap : report.gaps()) {
                 if (gap.reported()) {
                     Gesturalcombat.LOGGER.warn("{} [{}] {} [{}] {}", GAP, origin, report.item(), gap.kind(), gap.detail());
@@ -160,7 +172,9 @@ public final class WeaponAudit {
                 }
             }
         }
-        Gesturalcombat.LOGGER.info("{} [{}] {} weapons scanned, {} gaps reported", TAG, origin, reports.size(), reported);
+        Gesturalcombat.LOGGER.info("{} [{}] {} weapons: {} profiled, {} on bare kits {}, {} matched by name, {} gaps",
+                TAG, origin, reports.size(), profiled, reports.size() - profiled,
+                bare.isEmpty() ? "" : bare.toString(), guessed, gapsReported);
     }
 
     public static void compare(String serverSummary, String origin) {

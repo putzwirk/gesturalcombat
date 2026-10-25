@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Set;
 
 public final class WeaponAuditClient {
+    private static String LAST_SUMMARY;
+
     private WeaponAuditClient() {
     }
 
@@ -21,6 +23,10 @@ public final class WeaponAuditClient {
         if (!remote && !Config.INSTANCE.debugWeapons.get()) {
             return;
         }
+        if (remote && serverSummary.equals(LAST_SUMMARY)) {
+            return;
+        }
+        LAST_SUMMARY = remote ? serverSummary : null;
         int reported = 0;
         List<WeaponAudit.Report> reports = WeaponAudit.scan();
         for (WeaponAudit.Report report : reports) {
@@ -39,6 +45,9 @@ public final class WeaponAuditClient {
                 }
             }
             reported += gaps.size();
+            if (gaps.isEmpty()) {
+                continue;
+            }
             Gesturalcombat.LOGGER.info("{} [client] {} slots={} [{}] icons=[{}] gaps={}",
                     WeaponAudit.TAG, report.item(), report.slots().size(),
                     slotText(report), String.join(" ", icons), gaps.size());
@@ -46,7 +55,7 @@ public final class WeaponAuditClient {
                 Gesturalcombat.LOGGER.warn("{} [client] {} [icon] {}", WeaponAudit.GAP, report.item(), gap);
             }
         }
-        Gesturalcombat.LOGGER.info("{} [client] {} weapons scanned, {} icon gaps", WeaponAudit.TAG, reports.size(), reported);
+        Gesturalcombat.LOGGER.info("{} [client] {} weapons, {} icon gaps", WeaponAudit.TAG, reports.size(), reported);
         if (remote) {
             WeaponAudit.compare(serverSummary, reports, "client");
         }
