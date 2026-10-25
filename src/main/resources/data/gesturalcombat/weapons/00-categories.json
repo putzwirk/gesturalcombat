@@ -1,0 +1,159 @@
+{
+  "categories": {
+    "halberd": [
+      "simplyswords:halberd_slash_vertical_right",
+      "simplyswords:halberd_stab_right",
+      "bettercombat:two_handed_slash_vertical_right",
+      "bettercombat:two_handed_stab_right",
+      "bettercombat:two_handed_slash_vertical_left",
+      "simplyswords:dragable_slash_upward"
+    ],
+    "claymore": [
+      "simplyswords:dragable_slash_upward",
+      "bettercombat:two_handed_slash_horizontal_right",
+      "bettercombat:two_handed_slash_horizontal_left",
+      "bettercombat:two_handed_spin",
+      "bettercombat:two_handed_stab_left",
+      "bettercombat:two_handed_slam"
+    ],
+    "sickle": [
+      "bettercombat:one_handed_slash_horizontal_right",
+      "bettercombat:dual_handed_slash_cross",
+      "bettercombat:dual_handed_slash_uncross",
+      "bettercombat:one_handed_slash_horizontal_left",
+      "bettercombat:one_handed_slam"
+    ],
+    "rapier": [
+      "bettercombat:one_handed_stab"
+    ],
+    "chakram": [
+      "simplyswords:one_handed_chakram_throw_left",
+      "simplyswords:chakram_spin",
+      "simplyswords:chakram_spin_long_grounded"
+    ],
+    "scythe": [
+      "bettercombat:two_handed_slash_horizontal_left",
+      "bettercombat:two_handed_slash_horizontal_right",
+      "bettercombat:two_handed_spin",
+      "bettercombat:one_handed_slash_horizontal_right",
+      "bettercombat:one_handed_slash_horizontal_left",
+      "simplyswords:dragable_slash_upward"
+    ],
+    "glaive": [
+      "simplyswords:halberd_stab_right",
+      "bettercombat:two_handed_slash_vertical_right",
+      "bettercombat:two_handed_slash_vertical_left",
+      "bettercombat:two_handed_slash_horizontal_right",
+      "simplyswords:dragable_slash_upward"
+    ],
+    "greataxe": [
+      "bettercombat:two_handed_slash_horizontal_left",
+      "bettercombat:two_handed_slash_horizontal_right",
+      "bettercombat:two_handed_spin"
+    ],
+    "greathammer": [
+      "bettercombat:two_handed_slash_horizontal_left",
+      "bettercombat:two_handed_slash_horizontal_right",
+      "bettercombat:two_handed_slam"
+    ],
+    "katana": [
+      "bettercombat:two_handed_slash_horizontal_right",
+      "bettercombat:two_handed_slash_vertical_left",
+      "bettercombat:two_handed_slash_vertical_right",
+      "bettercombat:two_handed_slash_horizontal_left",
+      "bettercombat:two_handed_stab_right"
+    ],
+    "sword": [
+      "bettercombat:one_handed_slash_horizontal_right",
+      "bettercombat:one_handed_slash_horizontal_left",
+      "bettercombat:one_handed_stab",
+      "bettercombat:two_handed_spin"
+    ],
+    "soul_knife": [
+      "bettercombat:one_handed_stab"
+    ],
+    "trident": [
+      "bettercombat:one_handed_stab"
+    ],
+    "battlestaff": [
+      "simplyswords:chakram_spin",
+      "bettercombat:two_handed_slash_horizontal_right",
+      "bettercombat:two_handed_slash_horizontal_left",
+      "bettercombat:two_handed_spin",
+      "bettercombat:two_handed_stab_left",
+      "bettercombat:two_handed_stab_right",
+      "bettercombat:two_handed_slam",
+      "simplyswords:dragable_slash_upward"
+    ],
+    "warglaive": [
+      "simplyswords:warglaive_slash_horizontal_right",
+      "simplyswords:warglaive_slash_horizontal_left",
+      "simplyswords:warglaive_spin",
+      "bettercombat:dual_handed_slash_cross",
+      "bettercombat:dual_handed_slash_uncross"
+    ],
+    "mace": [
+      "bettercombat:one_handed_slash_horizontal_right",
+      "bettercombat:one_handed_slash_horizontal_left",
+      "bettercombat:one_handed_slam"
+    ],
+    "heavy_axe": [
+      "bettercombat:two_handed_slash_horizontal_right",
+      "bettercombat:two_handed_slash_horizontal_left",
+      "bettercombat:two_handed_spin"
+    ],
+    "anchor": [
+      "bettercombat:two_handed_slam_heavy"
+    ],
+    "axe": [
+      "bettercombat:one_handed_slash_horizontal_left",
+      "bettercombat:one_handed_slash_horizontal_right"
+    ],
+    "claw": [
+      "bettercombat:one_handed_punch",
+      "bettercombat:one_handed_swipe_horizontal_right"
+    ],
+    "coral_blade": [
+      "bettercombat:one_handed_slash_horizontal_left",
+      "bettercombat:one_handed_slash_horizontal_right",
+      "bettercombat:one_handed_uppercut_right"
+    ],
+    "dagger": [
+      "bettercombat:dual_handed_stab",
+      "bettercombat:one_handed_slash_horizontal_left",
+      "bettercombat:one_handed_slash_horizontal_right"
+    ],
+    "double_axe": [
+      "bettercombat:two_handed_slash_horizontal_right",
+      "bettercombat:two_handed_spin"
+    ],
+    "fist": [
+      "bettercombat:one_handed_punch"
+    ],
+    "hammer": [
+      "bettercombat:two_handed_slam"
+    ],
+    "lance": [
+      "bettercombat:one_handed_stab",
+      "bettercombat:one_handed_stab_mounted"
+    ],
+    "pickaxe": [
+      "bettercombat:one_handed_slam"
+    ],
+    "spear": [
+      "bettercombat:two_handed_stab_right"
+    ],
+    "staff": [
+      "bettercombat:two_handed_slash_horizontal_left",
+      "bettercombat:two_handed_slash_horizontal_right",
+      "bettercombat:two_handed_slam"
+    ],
+    "twin_blade": [
+      "bettercombat:one_handed_slash_switch_blade_left",
+      "bettercombat:one_handed_slash_switch_blade_right"
+    ],
+    "wand": [
+      "bettercombat:one_handed_stab"
+    ]
+  }
+}

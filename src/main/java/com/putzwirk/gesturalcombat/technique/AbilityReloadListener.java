@@ -1,5 +1,7 @@
 package com.putzwirk.gesturalcombat.technique;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.putzwirk.gesturalcombat.Gesturalcombat;
@@ -10,18 +12,33 @@ import net.minecraft.server.packs.resources.SimplePreparableReloadListener;
 import net.minecraft.util.profiling.ProfilerFiller;
 
 import java.io.Reader;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public final class AbilityReloadListener extends SimplePreparableReloadListener<AbilityReloadListener.Payload> {
     private static final ResourceLocation ABILITIES = new ResourceLocation(Gesturalcombat.MODID, "abilities.json");
-    private static final ResourceLocation WEAPONS = new ResourceLocation(Gesturalcombat.MODID, "weapons.json");
+    private static final String WEAPONS_DIR = "weapons";
 
     public record Payload(JsonObject abilities, JsonObject weapons) {
     }
 
     @Override
     protected Payload prepare(ResourceManager manager, ProfilerFiller profiler) {
-        return new Payload(read(manager, ABILITIES), read(manager, WEAPONS));
+        List<JsonObject> weaponDocs = new ArrayList<>();
+        Map<ResourceLocation, Resource> found = manager.listResources(WEAPONS_DIR,
+                id -> id.getNamespace().equals(Gesturalcombat.MODID) && id.getPath().endsWith(".json"));
+        found.keySet().stream()
+                .sorted(Comparator.comparing(ResourceLocation::getPath))
+                .forEach(id -> {
+                    JsonObject doc = read(manager, id);
+                    if (doc != null) {
+                        weaponDocs.add(doc);
+                    }
+                });
+        return new Payload(read(manager, ABILITIES), AbilityConfigs.mergeWeapons(weaponDocs));
     }
 
     @Override

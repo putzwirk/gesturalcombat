@@ -4,7 +4,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 INVENTORY = ROOT / "simplyswords_inventory.json"
-OUT = ROOT / "src/main/resources/data/gesturalcombat/weapons.json"
+OUT_DIR = ROOT / "src/main/resources/data/gesturalcombat/weapons"
+CATEGORIES_OUT = OUT_DIR / "00-categories.json"
+SIMPLY_OUT = OUT_DIR / "20-simplyswords.json"
 
 BASE_REACH = {"sword": 2.5, "axe": 2.9, "spear": 3.5}
 MIN_FACTOR = 0.70
@@ -245,7 +247,9 @@ def build():
             }]
         weapons.append(profile)
     categories = build_categories(inventory)
-    OUT.write_text(json.dumps({"categories": categories, "weapons": weapons}, indent=2) + "\n")
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    CATEGORIES_OUT.write_text(json.dumps({"categories": categories}, indent=2) + "\n")
+    SIMPLY_OUT.write_text(json.dumps({"weapons": weapons}, indent=2) + "\n")
     specials = sum(len(w.get("specials", [])) for w in weapons)
     animated = sum(1 for w in weapons if "animations" in w)
     print(f"{len(weapons)} weapons, {specials} specials, {animated} with animations, {len(categories)} categories")

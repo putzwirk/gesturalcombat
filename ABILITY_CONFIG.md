@@ -4,16 +4,19 @@ This mod's combat numbers are data, not code. Two JSON files hold them, both
 shipped inside the jar at these paths:
 
 ```
-data/gesturalcombat/abilities.json     # one config per technique (the mod's moves)
-data/gesturalcombat/weapons.json       # one profile per weapon item / tag / glob
+data/gesturalcombat/abilities.json                  # one config per technique
+data/gesturalcombat/weapons/00-categories.json      # shared animation pools per category
+data/gesturalcombat/weapons/10-vanilla.json         # vanilla / tag-based profiles
+data/gesturalcombat/weapons/20-simplyswords.json    # Simply Swords profiles
+data/gesturalcombat/weapons/30-born-in-chaos.json   # Born in Chaos profiles
 ```
 
-Override either file from a datapack with the same path and the mod reads yours
-instead. That works for a world datapack (`<world>/datapacks/<pack>/data/...`,
-`pack_format` 15) and for a mod that ships the same file. Edit, then run
-`/reload`: the server re-reads both files and pushes the result to every
-connected client (the client never reads its own copy of the numbers, so
-multiplayer stays in sync).
+Override any of them from a datapack with the same path and the mod reads yours
+instead, or drop a new file into `weapons/` (see "Adding a mod" below). That
+works for a world datapack (`<world>/datapacks/<pack>/data/...`,
+`pack_format` 15) and for a mod that ships the same files. Edit, then run
+`/reload`: the server re-reads everything and pushes the result to every
+connected client, so multiplayer stays in sync.
 
 You do **not** need to recompile anything to rebalance a technique.
 
@@ -156,10 +159,34 @@ vertically, follows your pitch):
 
 ---
 
-## weapons.json
+## weapons/
+
+Every profile lives in its own file under `data/gesturalcombat/weapons/`, one
+file per source of weapons. The folder is merged on load:
+
+- files are read in **filename order** (`00-`, `10-`, `20-`, `30-` …), so the
+  numeric prefix is the load order — use it to keep specific profiles ahead of
+  broad ones;
+- every `weapons` array is concatenated in that order, and profile matching is
+  still **first match wins**, so a specific item beats a tag or glob that loads
+  after it;
+- every `categories` object is merged (later files append to a category's
+  animation list).
+
+Adding a mod is one file. Drop
+`data/gesturalcombat/weapons/40-somemod.json` into a datapack:
+
+```json
+{
+  "weapons": [
+    {"items": ["somemod:cleaver"], "archetype": "axe", "family": "greataxe"}
+  ]
+}
+```
+
+and `/reload`. Nothing else is needed — no code, no registration.
 
 Profiles let any modded weapon use the mod properly without touching code.
-Profiles are tested in file order and the **first match wins**.
 
 ```json
 {
@@ -324,8 +351,8 @@ is a relative knob, not a flat damage number.
 - **Ticks, not seconds.** 20 ticks = 1 second.
 - **Hits split damage.** More hits on the same multiplier means the same total
   damage in smaller pieces.
-- **First match wins** in `weapons.json`, so put specific profiles above globs
-  and tags.
+- **First match wins** across the `weapons/` files in filename order, so give a
+  specific profile a lower prefix than a glob or tag that could swallow it.
 - **Families own their kits.** A family technique can be re-tuned or moved to
   another symbol, but a family that defines its own move for a symbol
   (`sickle` + `CARET`) shadows the archetype move for that symbol.
@@ -354,7 +381,7 @@ implementation:
 5. Give it a HUD icon alias in `client/hud/AbilityIcons.java` (falls back to the
    archetype icon).
 6. Run `python3 tools/balance_sim.py` and check `--dual` too. It reads
-   `Techniques.java` plus `abilities.json` and reports damage per second, stun
+   `Techniques.java`, `abilities.json` and every file in `weapons/`, and reports damage per second, stun
    share and the longest window the target has to act, per family. Numbers
    outside the weight-class bands are almost always a cooldown/damage mismatch
    rather than a hitbox problem.

@@ -66,14 +66,17 @@ public enum Archetype {
         if (item instanceof TridentItem) {
             return SPEAR;
         }
+        Archetype combat = fromBetterCombat(stack);
+        if (combat != null) {
+            return combat;
+        }
         if (item instanceof SwordItem || stack.is(ItemTags.SWORDS)) {
             return SWORD;
         }
         if (item instanceof AxeItem || stack.is(ItemTags.AXES)) {
             return AXE;
         }
-        Archetype combat = fromBetterCombat(stack);
-        return combat != null ? combat : fromName(stack);
+        return fromName(stack);
     }
 
     @Nullable

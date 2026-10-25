@@ -14,7 +14,7 @@ public final class WeaponRules {
 
     private static final Set<String> HEAVY = Set.of("claymore", "glaive", "halberd", "greataxe", "greathammer",
             "heavy_axe", "mace");
-    private static final Set<String> LIGHT = Set.of("rapier", "sickle", "soul_knife", "katana");
+    private static final Set<String> LIGHT = Set.of("rapier", "sickle", "soul_knife", "katana", "dagger", "cutlass");
     private static final Set<String> AREA = Set.of("battlestaff", "twinblade", "warglaive", "scythe");
     private static final Set<GestureShape> HEAVY_LOCKED = java.util.EnumSet.of(GestureShape.CIRCLE,
             GestureShape.CARET, GestureShape.V);
@@ -27,6 +27,8 @@ public final class WeaponRules {
             Map.entry("sickle", new Tuning(1.18, 1.15, 2, 0.95)),
             Map.entry("rapier", new Tuning(1.22, 1.15, 2, 0.97)),
             Map.entry("katana", new Tuning(1.01, 1.15, 2, 0.97)),
+            Map.entry("dagger", new Tuning(1.30, 1.12, 2, 0.95)),
+            Map.entry("cutlass", new Tuning(1.12, 1.16, 2, 1.0)),
             Map.entry("sword", new Tuning(0.79, 1.15, 3, 1.0)),
             Map.entry("chakram", new Tuning(1.20, 1.20, 3, 1.0)),
             Map.entry("trident", new Tuning(1.10, 1.25, 3, 1.0)),

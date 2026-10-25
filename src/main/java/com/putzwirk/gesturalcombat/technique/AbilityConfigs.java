@@ -1,5 +1,6 @@
 package com.putzwirk.gesturalcombat.technique;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.putzwirk.gesturalcombat.technique.hitbox.Hitbox;
@@ -47,11 +48,59 @@ public final class AbilityConfigs {
             return;
         }
         JsonObject bundledAbilities = readBundled("/data/gesturalcombat/abilities.json");
-        JsonObject bundledWeapons = readBundled("/data/gesturalcombat/weapons.json");
+        List<JsonObject> weaponDocs = new ArrayList<>();
+        for (String name : BUNDLED_WEAPONS) {
+            JsonObject doc = readBundled("/data/gesturalcombat/weapons/" + name);
+            if (doc != null) {
+                weaponDocs.add(doc);
+            }
+        }
+        JsonObject bundledWeapons = mergeWeapons(weaponDocs);
         if (bundledAbilities == null || bundledWeapons == null) {
             return;
         }
         load(bundledAbilities, bundledWeapons);
+    }
+
+    private static final String[] BUNDLED_WEAPONS = {
+            "00-categories.json", "10-vanilla.json", "20-simplyswords.json", "30-born-in-chaos.json"
+    };
+
+    public static JsonObject mergeWeapons(List<JsonObject> docs) {
+        if (docs.isEmpty()) {
+            return null;
+        }
+        JsonArray weapons = new JsonArray();
+        JsonObject categories = new JsonObject();
+        for (JsonObject doc : docs) {
+            if (doc.has("weapons") && doc.get("weapons").isJsonArray()) {
+                for (com.google.gson.JsonElement entry : doc.getAsJsonArray("weapons")) {
+                    weapons.add(entry);
+                }
+            }
+            if (doc.has("categories") && doc.get("categories").isJsonObject()) {
+                for (Map.Entry<String, com.google.gson.JsonElement> entry : doc.getAsJsonObject("categories").entrySet()) {
+                    com.google.gson.JsonElement existing = categories.get(entry.getKey());
+                    if (existing != null && existing.isJsonArray() && entry.getValue().isJsonArray()) {
+                        JsonArray merged = existing.getAsJsonArray();
+                        for (com.google.gson.JsonElement value : entry.getValue().getAsJsonArray()) {
+                            merged.add(value);
+                        }
+                        continue;
+                    }
+                    categories.add(entry.getKey(), entry.getValue());
+                }
+            }
+        }
+        if (weapons.isEmpty() && categories.size() == 0) {
+            return null;
+        }
+        JsonObject root = new JsonObject();
+        root.add("weapons", weapons);
+        if (categories.size() > 0) {
+            root.add("categories", categories);
+        }
+        return root;
     }
 
     private static JsonObject readBundled(String path) {

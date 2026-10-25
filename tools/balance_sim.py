@@ -22,6 +22,7 @@ PAIRED_UPLIFT = 1.20
 
 BASE_DAMAGE = {
     "soul_knife": 4.0,
+    "dagger": 4.0,
     "sickle": 5.0,
     "rapier": 5.0,
     "katana": 5.5,
@@ -293,8 +294,18 @@ def tuning_for(family):
     return RULES["tuning"].get(family, RULES["default"])
 
 
+def weapon_docs():
+    folder = RES / "weapons"
+    docs = []
+    for path in sorted(folder.glob("*.json")):
+        docs.append(json.loads(read(path)))
+    return docs
+
+
 def weapon_profiles():
-    data = json.loads(read(RES / "weapons.json"))["weapons"]
+    data = []
+    for doc in weapon_docs():
+        data.extend(doc.get("weapons", []))
     profiles = {}
     for entry in data:
         family = entry.get("family")
@@ -482,6 +493,7 @@ def simulate(kit, cast_ticks=4, dual=False, echo_uptime=0.33, dual_rules=None):
     seconds = HORIZON / 20.0
     return {
         "family": kit["family"] or kit["archetype"].lower(),
+        "fallback": kit["family"] is None,
         "weight": weight,
         "archetype": kit["archetype"].lower(),
         "slots": len(slots),
@@ -542,7 +554,7 @@ def render_dual(rows):
         verdict = "PASS" if row["dual_dps"] <= ceiling and row["gap"] >= 0.30 else "FAIL"
         uplift = row["dual_dps"] / row["dps"] if row["dps"] else 0.0
         lines.append(
-            f"{row['family']:<18}{row['weight']:<8}{row['dps']:>8.2f}{row['dual_dps']:>8.2f}"
+            f"{row['family'] + ('*' if row.get('fallback') else ''):<18}{row['weight']:<8}{row['dps']:>8.2f}{row['dual_dps']:>8.2f}"
             f"{uplift:>7.0%}{row['stun']:>7.1f}%{row['gap']:>6.2f}s{ceiling:>9.2f}  {verdict}"
         )
     return "\n".join(lines)

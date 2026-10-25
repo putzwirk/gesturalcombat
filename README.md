@@ -77,7 +77,11 @@ want to see what the server thinks you just did.
 
 The weapon family comes from Better Combat's attributes when a weapon has them,
 so SimplySwords and other Better Combat weapons work without any setup. Without
-attributes it falls back to vanilla item classes, then to the registry name.
+attributes it falls back to the registry name.
+
+Each supported mod has its own file under `data/gesturalcombat/weapons/`
+(vanilla, Simply Swords, Born in Chaos), so adding another one is a single JSON
+file rather than an edit to one giant table. See `ABILITY_CONFIG.md`.
 
 ## Dev notes
 
