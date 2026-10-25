@@ -15,6 +15,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
@@ -44,10 +45,16 @@ public class ThrownChakramEntity extends Entity {
     private int sawHits;
     private int hopIndex;
     private int stuckUntil;
+    private int pauseUntil;
+    private double smoothedX;
+    private double smoothedY;
+    private double smoothedZ;
+    private boolean smoothing;
     private final List<UUID> hops = new ArrayList<>();
 
     public ThrownChakramEntity(EntityType<? extends ThrownChakramEntity> type, Level level) {
         super(type, level);
+        setNoGravity(true);
     }
 
     public static void launch(ServerLevel level, ServerPlayer player, ItemStack stack, Technique technique,
@@ -90,8 +97,11 @@ public class ThrownChakramEntity extends Entity {
                                    double damage, boolean offhand) {
         ThrownChakramEntity thrown = base(level, player, stack, technique, damage, offhand);
         thrown.saw = true;
-        thrown.outboundTicks = 24;
-        thrown.lifetime = 76;
+        thrown.outboundTicks = 30;
+        thrown.lifetime = 96;
+        thrown.setPos(thrown.getX() + player.getLookAngle().x * 0.35,
+                thrown.getY() + player.getLookAngle().y * 0.35,
+                thrown.getZ() + player.getLookAngle().z * 0.35);
         thrown.setDeltaMovement(player.getLookAngle().normalize().scale(1.0));
         level.addFreshEntity(thrown);
         OutLock.lock(player, offhand);
@@ -112,6 +122,7 @@ public class ThrownChakramEntity extends Entity {
         return thrown;
     }
 
+    private static final int SAW_PAUSE = 6;
     private static final double HOP_RADIUS = 8.0;
     private static final double PLAYER_RADIUS = 18.0;
     private static final double AIM_RANGE = 18.0;
@@ -208,6 +219,7 @@ public class ThrownChakramEntity extends Entity {
     public void tick() {
         super.tick();
         if (level().isClientSide) {
+            applyPacketSmoothing();
             return;
         }
         age++;
@@ -216,37 +228,78 @@ public class ThrownChakramEntity extends Entity {
             return;
         }
         ServerPlayer owner = owner();
-        if (chain && !returning && owner != null) {
-            if (age < stuckUntil) {
-                setDeltaMovement(0.0, 0.0, 0.0);
-            } else if (!advanceHop(owner)) {
+        boolean paused = saw && !returning && age < pauseUntil;
+        if (!paused) {
+            if (chain && !returning && owner != null) {
+                if (age < stuckUntil) {
+                    setDeltaMovement(0.0, 0.0, 0.0);
+                } else if (!advanceHop(owner)) {
+                    returning = true;
+                }
+            }
+            if (!chain && !returning && age >= outboundTicks && age >= pauseUntil) {
                 returning = true;
             }
-        }
-        if (!chain && age >= outboundTicks) {
-            returning = true;
-        }
-        if (returning) {
-            if (owner == null || !owner.isAlive()) {
-                discard();
-                return;
+            if (returning) {
+                if (owner == null || !owner.isAlive()) {
+                    discard();
+                    return;
+                }
+                Vec3 toOwner = owner.getEyePosition().subtract(position());
+                if (toOwner.length() < 1.1) {
+                    OutLock.unlock(owner);
+                    discard();
+                    return;
+                }
+                Vec3 desired = toOwner.normalize().scale(0.8);
+                setDeltaMovement(getDeltaMovement().scale(0.55).add(desired.scale(0.55)));
+            } else {
+                setDeltaMovement(getDeltaMovement().scale(0.985));
             }
-            Vec3 toOwner = owner.getEyePosition().subtract(position());
-            if (toOwner.length() < 1.1) {
-                OutLock.unlock(owner);
-                discard();
-                return;
-            }
-            Vec3 desired = toOwner.normalize().scale(0.8);
-            setDeltaMovement(getDeltaMovement().scale(0.55).add(desired.scale(0.55)));
-        } else {
-            setDeltaMovement(getDeltaMovement().scale(0.985));
+            move(MoverType.SELF, getDeltaMovement());
         }
-        Vec3 motion = getDeltaMovement();
-        setPos(getX() + motion.x, getY() + motion.y, getZ() + motion.z);
         if (!chain) {
             sweep(owner);
         }
+    }
+
+    @Override
+    public void lerpTo(double x, double y, double z, float yRot, float xRot, int steps, boolean teleport) {
+        if (teleport) {
+            setPos(x, y, z);
+            setRot(yRot, xRot);
+            smoothing = false;
+            return;
+        }
+        smoothedX = getX();
+        smoothedY = getY();
+        smoothedZ = getZ();
+        smoothing = true;
+        setPos(x, y, z);
+        setRot(yRot, xRot);
+    }
+
+    private void applyPacketSmoothing() {
+        if (!smoothing) {
+            return;
+        }
+        smoothing = false;
+        xOld = smoothedX;
+        yOld = smoothedY;
+        zOld = smoothedZ;
+        xo = smoothedX;
+        yo = smoothedY;
+        zo = smoothedZ;
+    }
+
+    private Vec3 heading() {
+        Vec3 motion = getDeltaMovement();
+        Vec3 flat = new Vec3(motion.x, 0.0, motion.z);
+        if (flat.lengthSqr() > 1.0e-6) {
+            return flat.normalize();
+        }
+        Vec3 look = Vec3.directionFromRotation(0.0f, getYRot());
+        return new Vec3(look.x, 0.0, look.z).normalize();
     }
 
     private static Vec3 flatLook(ServerPlayer player) {
@@ -311,19 +364,12 @@ public class ThrownChakramEntity extends Entity {
                     break;
                 }
                 sawHits++;
-                hitCooldowns.put(target.getUUID(), age + 4);
+                hitCooldowns.put(target.getUUID(), age + SAW_PAUSE + 4);
+                pauseUntil = age + SAW_PAUSE;
                 EffectSupport.hit(owner, target, (float) (damage * 0.3), technique, 0.0, 0.0);
-                HitStun.pin(target, 5);
-                Vec3 direction = getDeltaMovement();
-                if (direction.lengthSqr() > 1.0e-5) {
-                    Vec3 push = direction.normalize().scale(0.5);
-                    GestureScheduler.schedule(level(), 5, () -> {
-                        if (target.isAlive() && !target.isRemoved()) {
-                            target.push(push.x, 0.12, push.z);
-                            target.hurtMarked = true;
-                        }
-                    });
-                }
+                Vec3 push = heading().scale(0.62);
+                target.push(push.x, 0.15, push.z);
+                target.hurtMarked = true;
                 continue;
             }
             hitCooldowns.put(target.getUUID(), age + 8);
@@ -341,6 +387,7 @@ public class ThrownChakramEntity extends Entity {
 
     @Override
     protected void readAdditionalSaveData(CompoundTag tag) {
+        setNoGravity(true);
         if (tag.contains("Item")) {
             setItem(ItemStack.of(tag.getCompound("Item")));
         }
