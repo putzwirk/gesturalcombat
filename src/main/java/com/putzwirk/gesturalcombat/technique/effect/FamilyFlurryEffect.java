@@ -57,14 +57,21 @@ public final class FamilyFlurryEffect implements TechniqueEffect {
     }
 
     private void pulse(ServerPlayer player, Level level, ItemStack stack, Technique technique, float per, int count, int index) {
-        if (!player.isAlive() || player.isRemoved() || player.level() != level) {
+        if (!player.isAlive() || player.isRemoved()) {
             return;
         }
         Hitbox hitbox = EffectSupport.hitboxOf(player, technique, stack, EffectSupport.defaultHitbox(technique, range, arcDegrees));
         boolean finisher = index >= count - 1;
         double force = finisher ? AbilityConfigs.knockback(technique, stack, knockback) : 0.0;
         double up = finisher ? AbilityConfigs.lift(technique, stack, lift) : 0.0;
-        for (LivingEntity target : hitbox.query(player, level)) {
+        java.util.List<LivingEntity> found = hitbox.query(player, level);
+        if (com.putzwirk.gesturalcombat.Config.INSTANCE.debugCasts.get()) {
+            com.putzwirk.gesturalcombat.Gesturalcombat.LOGGER.info(
+                    "gesturalcombat flurry {} hit={} targets={} range={} angle={} hits={} interval={}",
+                    technique.id(), index, found.size(), String.format("%.2f", hitbox.range()),
+                    String.format("%.0f", hitbox.angle()), count, intervalTicks);
+        }
+        for (LivingEntity target : found) {
             double damage = rule.adjust(player, target, per, index);
             EffectSupport.hit(player, target, (float) Math.max(0.0, damage), technique, force, up);
         }

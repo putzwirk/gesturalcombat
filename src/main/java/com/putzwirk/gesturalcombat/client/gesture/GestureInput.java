@@ -487,6 +487,13 @@ public final class GestureInput {
                 mc.player.stopUsingItem();
             }
         }
+        if (com.putzwirk.gesturalcombat.Config.INSTANCE.debugCasts.get()) {
+            com.putzwirk.gesturalcombat.Gesturalcombat.LOGGER.info(
+                    "gesturalcombat client cast: {} shape={} hand={} item={}",
+                    technique.id(), shape, hand == InteractionHand.OFF_HAND ? "off" : "main",
+                    net.minecraftforge.registries.ForgeRegistries.ITEMS.getKey(
+                            net.minecraft.client.Minecraft.getInstance().player.getItemInHand(hand).getItem()));
+        }
         ModNetwork.sendToServer(new CastTechniquePacket(technique.id(), shape, confidence, swipe, hand == InteractionHand.OFF_HAND));
         ClientState.lastTechnique = technique.id();
         ClientState.castTicks = CAST_TICKS;

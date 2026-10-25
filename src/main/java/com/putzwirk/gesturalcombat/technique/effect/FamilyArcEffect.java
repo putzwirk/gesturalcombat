@@ -34,7 +34,14 @@ public final class FamilyArcEffect implements TechniqueEffect {
                 * AbilityConfigs.damageMultiplier(technique, stack, damageMultiplier);
         double force = AbilityConfigs.knockback(technique, stack, knockback);
         double up = AbilityConfigs.lift(technique, stack, lift);
-        for (LivingEntity target : hitbox.query(player, level)) {
+        java.util.List<LivingEntity> found = hitbox.query(player, level);
+        if (com.putzwirk.gesturalcombat.Config.INSTANCE.debugCasts.get()) {
+            com.putzwirk.gesturalcombat.Gesturalcombat.LOGGER.info(
+                    "gesturalcombat arc {} targets={} range={} angle={}",
+                    technique.id(), found.size(), String.format("%.2f", hitbox.range()),
+                    String.format("%.0f", hitbox.angle()));
+        }
+        for (LivingEntity target : found) {
             double damage = rule.adjust(player, target, base, 0);
             EffectSupport.hit(player, target, (float) Math.max(0.0, damage), technique, force, up);
         }

@@ -139,7 +139,7 @@ public final class GestureCastService {
                 && cast.archetype() != Archetype.SHIELD
                 && cast.archetype() != Archetype.BOW;
         Runnable resolve = () -> {
-            if (!player.isAlive() || player.isRemoved() || player.level() != level) {
+            if (!player.isAlive() || player.isRemoved()) {
                 return;
             }
             if (applied != null) {
