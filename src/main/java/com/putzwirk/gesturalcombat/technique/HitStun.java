@@ -58,7 +58,7 @@ public final class HitStun {
             IMMUNE.put(id, now + IMMUNITY_TICKS);
             return;
         }
-        boolean showStars = stars || until - now > STAR_MIN_TICKS;
+        boolean showStars = stars || until - chainStart > STAR_MIN_TICKS;
         ANCHORS.put(id, new Anchor(target.level().dimension(), target.getX(), target.getZ(), until, hadNoAi, showStars, chainStart));
         Vec3 motion = target.getDeltaMovement();
         target.setDeltaMovement(0.0, motion.y, 0.0);
