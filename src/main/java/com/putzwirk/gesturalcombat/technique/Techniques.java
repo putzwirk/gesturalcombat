@@ -17,6 +17,7 @@ import com.putzwirk.gesturalcombat.technique.effect.FamilyArcEffect;
 import com.putzwirk.gesturalcombat.technique.effect.FamilyFlurryEffect;
 import com.putzwirk.gesturalcombat.technique.effect.GuardEffect;
 import com.putzwirk.gesturalcombat.technique.effect.LinePierceEffect;
+import com.putzwirk.gesturalcombat.technique.effect.SlamPierceEffect;
 import com.putzwirk.gesturalcombat.technique.effect.MaceSlamEffect;
 import com.putzwirk.gesturalcombat.technique.effect.MomentumDumpEffect;
 import com.putzwirk.gesturalcombat.technique.effect.MomentumSweepEffect;
@@ -212,7 +213,7 @@ public final class Techniques {
                 return damage;
             }), "claymore"));
     public static final Technique CLAYMORE_BREAK = add(new Technique("claymore_break", Archetype.SWORD, GestureShape.LINE_V_DOWN, 7, 52, null, 16,
-            new FamilyArcEffect(3.2, 120, 3.38, 0.55, 0.0, (player, target, damage, index) -> {
+            new SlamPierceEffect(3.2, 120, 6.0, 0.9, 0.56, 0.44, 0.55, (player, target, damage, index) -> {
                 double bonus = States.sunder(target) >= 2 ? 1.5 : 1.0;
                 States.addSunder(target, 1);
                 return damage * bonus;

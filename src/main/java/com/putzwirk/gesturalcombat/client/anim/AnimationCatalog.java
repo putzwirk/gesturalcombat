@@ -132,6 +132,17 @@ public final class AnimationCatalog {
         if (value.equals("sword") && shape == GestureShape.CARET) {
             return raw("bettercombat:one_handed_stab");
         }
+        if (value.equals("claymore") && shape == GestureShape.LINE_V_DOWN) {
+            List<String> pool = pool(stack);
+            boolean twoHanded = twoHanded(stack);
+            List<String> slam = preferredHand(ofKind(pool, Kind.SLAM), twoHanded);
+            List<String> stab = preferredHand(ofKind(pool, Kind.STAB), twoHanded);
+            String fall = slam.isEmpty()
+                    ? "gesturalcombat:sword_execute" + (twoHanded ? "_two_handed" : "")
+                    : slam.get(0);
+            String pierce = stab.isEmpty() ? "bettercombat:two_handed_stab_left" : stab.get(0);
+            return new String[]{fall, pierce};
+        }
         if (value.equals("sickle") && shape == GestureShape.ZIGZAG) {
             List<String> crosses = new ArrayList<>();
             for (String id : pool(stack)) {

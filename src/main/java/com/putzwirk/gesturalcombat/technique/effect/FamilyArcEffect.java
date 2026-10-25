@@ -59,7 +59,7 @@ public final class FamilyArcEffect implements TechniqueEffect {
                     technique.id(), index, found.size(), String.format("%.2f", hitbox.range()),
                     String.format("%.0f", hitbox.angle()));
         }
-        if (technique.shape() == com.putzwirk.gesturalcombat.core.GestureShape.LINE_V_DOWN
+        if (index == 0 && technique.shape() == com.putzwirk.gesturalcombat.core.GestureShape.LINE_V_DOWN
                 && com.putzwirk.gesturalcombat.weapon.WeaponRules.heavy(stack)) {
             EffectSupport.groundWave(level, player, technique, stack, hitbox.range() * 0.85);
         }
