@@ -37,8 +37,8 @@ public final class WeaponRules {
             Map.entry("glaive", new Tuning(0.94, 1.25, 8, 1.0)),
             Map.entry("halberd", new Tuning(0.92, 1.25, 8, 1.0)),
             Map.entry("greataxe", new Tuning(0.81, 1.25, 8, 1.0)),
-            Map.entry("greathammer", new Tuning(0.67, 1.30, 8, 1.0)),
-            Map.entry("heavy_axe", new Tuning(0.83, 1.30, 8, 1.0)),
+            Map.entry("greathammer", new Tuning(0.67, 1.30, 7, 1.0)),
+            Map.entry("heavy_axe", new Tuning(0.83, 1.30, 7, 1.0)),
             Map.entry("mace", new Tuning(0.62, 1.28, 8, 1.0)),
             Map.entry("axe", new Tuning(0.69, 1.25, 3, 1.0)),
             Map.entry("spear", new Tuning(1.02, 1.25, 3, 1.0))
