@@ -433,14 +433,13 @@ public final class HudDraw {
                 arrow(graphics, ex, ey, endAngle + Mth.HALF_PI, head, thickness, color);
             }
             case ZIGZAG -> {
-                float left = cx - half * 0.9f;
-                float right = cx + half * 0.9f;
+                float left = cx - half * 0.62f;
+                float right = cx + half * 0.62f;
                 float high = cy - half * 0.72f;
                 float low = cy + half * 0.72f;
-                float step = (right - left) / 3.0f;
-                thickLine(graphics, left, low, left + step, high, thickness, color);
-                thickLine(graphics, left + step, high, left + step * 2.0f, low, thickness, color);
-                thickLine(graphics, left + step * 2.0f, low, right, high, thickness, color);
+                thickLine(graphics, left, high, right, high, thickness, color);
+                thickLine(graphics, right, high, left, low, thickness, color);
+                thickLine(graphics, left, low, right, low, thickness, color);
             }
             case V -> {
                 float left = cx - half * 0.82f;

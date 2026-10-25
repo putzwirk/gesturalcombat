@@ -27,7 +27,7 @@ fully maxed, while a main-hand bow is drawn with RMB and gestured with LMB.
 | ↑ | upward stroke | Rising Cut | Rend | Lunge | Pulverize |
 | ↓ | downward stroke | Executioner's Drop | Cleave | Skyfall | Shatter |
 | ○ | circle | Whirlwind | Cyclone | Tempest | Quake |
-| ⚡ | zigzag | Flurry | Earthsplitter | Impale | Rockslide |
+| Z | zigzag | Flurry | Earthsplitter | Impale | Rockslide |
 
 All gestures are available from the start. XP is earned per cast and per kill;
 level-ups are announced in chat.
