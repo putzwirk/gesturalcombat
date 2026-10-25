@@ -1,7 +1,7 @@
 {
   "name": "sword_pair_guard",
   "author": "gesturalcombat",
-  "description": "Two blades crossed high into an X guard",
+  "description": "Two blades crossed into an X guard",
   "emote": {
     "isLoop": "false",
     "returnTick": 0,
@@ -71,81 +71,57 @@
         }
       },
       {
-        "tick": 0,
-        "easing": "EASEINOUTQUAD",
-        "head": {
-          "x": 0.0,
-          "y": 0.0,
-          "z": 0.0,
-          "pitch": 0.0,
-          "yaw": 0.0,
-          "roll": 0.0
-        }
-      },
-      {
         "tick": 4,
         "easing": "EASEOUTQUAD",
         "rightArm": {
-          "x": -5.4,
-          "y": 3.42,
-          "z": -1.42,
-          "pitch": -2.2,
-          "yaw": -0.6,
-          "roll": 1.5
+          "x": -4.1,
+          "y": 2.78,
+          "z": 1.05,
+          "pitch": -1.24,
+          "yaw": -0.85,
+          "roll": -0.28
         }
       },
       {
         "tick": 4,
         "easing": "EASEOUTQUAD",
         "leftArm": {
-          "x": 5.4,
-          "y": 3.42,
-          "z": -1.42,
-          "pitch": -2.2,
-          "yaw": 0.6,
-          "roll": -1.5
+          "x": 4.1,
+          "y": 2.78,
+          "z": 1.05,
+          "pitch": -1.24,
+          "yaw": 0.85,
+          "roll": 0.28
         }
       },
       {
         "tick": 4,
         "easing": "EASEOUTQUAD",
         "rightItem": {
-          "x": -0.46,
-          "y": -2.2,
-          "z": -1.5,
-          "pitch": -1.0,
-          "yaw": 0.02,
-          "roll": -1.45
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0,
+          "pitch": 0.42,
+          "yaw": 0.16,
+          "roll": -0.72
         }
       },
       {
         "tick": 4,
         "easing": "EASEOUTQUAD",
         "leftItem": {
-          "x": 0.46,
-          "y": -2.2,
-          "z": -1.5,
-          "pitch": -1.0,
-          "yaw": -0.02,
-          "roll": 1.45
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0,
+          "pitch": 0.42,
+          "yaw": -0.16,
+          "roll": 0.72
         }
       },
       {
         "tick": 4,
         "easing": "EASEOUTQUAD",
         "torso": {
-          "x": 0.0,
-          "y": 0.0,
-          "z": -0.1,
-          "pitch": -0.26,
-          "yaw": 0.0,
-          "roll": 0.0
-        }
-      },
-      {
-        "tick": 4,
-        "easing": "EASEOUTQUAD",
-        "head": {
           "x": 0.0,
           "y": 0.0,
           "z": 0.0,
@@ -155,69 +131,57 @@
         }
       },
       {
-        "tick": 14,
+        "tick": 16,
         "easing": "EASEINOUTQUAD",
         "rightArm": {
-          "x": -5.4,
-          "y": 3.42,
-          "z": -1.42,
-          "pitch": -2.34,
-          "yaw": -0.6,
-          "roll": 1.5
+          "x": -4.1,
+          "y": 2.78,
+          "z": 1.05,
+          "pitch": -1.24,
+          "yaw": -0.85,
+          "roll": -0.28
         }
       },
       {
-        "tick": 14,
+        "tick": 16,
         "easing": "EASEINOUTQUAD",
         "leftArm": {
-          "x": 5.4,
-          "y": 3.42,
-          "z": -1.42,
-          "pitch": -2.34,
-          "yaw": 0.6,
-          "roll": -1.5
+          "x": 4.1,
+          "y": 2.78,
+          "z": 1.05,
+          "pitch": -1.24,
+          "yaw": 0.85,
+          "roll": 0.28
         }
       },
       {
-        "tick": 14,
+        "tick": 16,
         "easing": "EASEINOUTQUAD",
         "rightItem": {
-          "x": -0.46,
-          "y": -2.2,
-          "z": -1.5,
-          "pitch": -1.0,
-          "yaw": 0.02,
-          "roll": -1.45
-        }
-      },
-      {
-        "tick": 14,
-        "easing": "EASEINOUTQUAD",
-        "leftItem": {
-          "x": 0.46,
-          "y": -2.2,
-          "z": -1.5,
-          "pitch": -1.0,
-          "yaw": -0.02,
-          "roll": 1.45
-        }
-      },
-      {
-        "tick": 14,
-        "easing": "EASEINOUTQUAD",
-        "torso": {
           "x": 0.0,
           "y": 0.0,
-          "z": -0.1,
-          "pitch": -0.302,
-          "yaw": 0.0,
-          "roll": 0.0
+          "z": 0.0,
+          "pitch": 0.42,
+          "yaw": 0.16,
+          "roll": -0.72
         }
       },
       {
-        "tick": 14,
+        "tick": 16,
         "easing": "EASEINOUTQUAD",
-        "head": {
+        "leftItem": {
+          "x": 0.0,
+          "y": 0.0,
+          "z": 0.0,
+          "pitch": 0.42,
+          "yaw": -0.16,
+          "roll": 0.72
+        }
+      },
+      {
+        "tick": 16,
+        "easing": "EASEINOUTQUAD",
+        "torso": {
           "x": 0.0,
           "y": 0.0,
           "z": 0.0,
@@ -278,18 +242,6 @@
         "tick": 20,
         "easing": "EASEINOUTQUAD",
         "torso": {
-          "x": 0.0,
-          "y": 0.0,
-          "z": 0.0,
-          "pitch": 0.0,
-          "yaw": 0.0,
-          "roll": 0.0
-        }
-      },
-      {
-        "tick": 20,
-        "easing": "EASEINOUTQUAD",
-        "head": {
           "x": 0.0,
           "y": 0.0,
           "z": 0.0,
