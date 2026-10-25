@@ -221,22 +221,22 @@ public final class Techniques {
     public static final Technique DEBT_STAB = add(new Technique("saidebt_stab", Archetype.SWORD, GestureShape.LINE_V_UP, 1, 13, null, 5,
             new FamilyArcEffect(2.6, 45, 0.95, 0.0, 0.0, (player, target, damage, index) -> {
                 States.addDebt(player, 1);
-                return damage;
+                return Assassin.strike(player, target, damage, false);
             }), "soul_knife"));
     public static final Technique DEBT_SPIKE = add(new Technique("saidebt_spike", Archetype.SWORD, GestureShape.LINE_V_DOWN, 7, 40, null, 16,
             new FamilyArcEffect(2.6, 40, 1.9, 0.0, 0.0, (player, target, damage, index) -> {
                 int debt = States.spendDebt(player);
-                return damage + 1.2 * Math.floor(debt / 3.0);
+                return Assassin.strike(player, target, damage + 1.2 * Math.floor(debt / 3.0), true);
             }), "soul_knife"));
     public static final Technique DEBT_TURN = add(new Technique("saidebt_turn", Archetype.SWORD, GestureShape.CIRCLE, 4, 22, null, 12,
             new FamilyFlurryEffect(2.4, 120, 1.2, 2, 3, 0.0, 0.0, (player, target, damage, index) -> {
                 States.addDebt(player, 1);
-                return damage;
+                return Assassin.strike(player, target, damage, false);
             }), "soul_knife"));
     public static final Technique DEBT_FLURRY = add(new Technique("saidebt_flurry", Archetype.SWORD, GestureShape.ZIGZAG, 4, 19, null, 10,
             new FamilyFlurryEffect(2.4, 45, 1.4, 4, 2, 0.0, 0.0, (player, target, damage, index) -> {
                 States.addDebt(player, 1);
-                return damage;
+                return Assassin.strike(player, target, damage, false);
             }), "soul_knife"));
 
     public static final Technique TWINBLADE_CUT = add(new Technique("twinblade_cut", Archetype.SWORD, GestureShape.LINE_H, 1, 14, null, 6,
