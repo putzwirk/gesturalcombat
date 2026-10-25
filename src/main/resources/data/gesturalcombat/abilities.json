@@ -701,6 +701,18 @@
     "mace_drop": {
       "gesture": "LINE_V_DOWN",
       "cooldown_ticks": 45
+    },
+    "trident_thrust": {
+      "gesture": "LINE_H",
+      "cooldown_ticks": 9
+    },
+    "trident_rise": {
+      "gesture": "LINE_V_UP",
+      "cooldown_ticks": 13
+    },
+    "trident_drop": {
+      "gesture": "LINE_V_DOWN",
+      "cooldown_ticks": 36
     }
   }
 }

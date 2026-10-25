@@ -75,6 +75,23 @@ public final class Techniques {
     public static final Technique GLAIVE_Z = add(new Technique("glaive_z", Archetype.SPEAR, GestureShape.ZIGZAG, 7, 36, null, 14,
             new GlaiveSweepEffect(4.2, 220, 1.6), "glaive"));
 
+    public static final Technique TRIDENT_THRUST = add(new Technique("trident_thrust", Archetype.SPEAR, GestureShape.LINE_H, 1, 9, null, 6,
+            new FamilyArcEffect(3.9, 50, 1.0, 0.15, 0.0, (player, target, damage, index) -> {
+                States.addBleed(target, player, 1);
+                return damage;
+            }), "trident"));
+    public static final Technique TRIDENT_RISE = add(new Technique("trident_rise", Archetype.SPEAR, GestureShape.LINE_V_UP, 1, 13, null, 8,
+            new FamilyArcEffect(4.0, 60, 1.2, 0.0, 0.45, (player, target, damage, index) -> {
+                States.addBleed(target, player, 1);
+                return damage;
+            }), "trident"));
+    public static final Technique TRIDENT_DROP = add(new Technique("trident_drop", Archetype.SPEAR, GestureShape.LINE_V_DOWN, 7, 36, null, 15,
+            new FamilyArcEffect(3.6, 70, 1.9, 0.0, 0.0, (player, target, damage, index) -> {
+                int bleed = States.bleed(target);
+                States.addBleed(target, player, 2);
+                HitStun.pin(target, 8);
+                return damage * (bleed >= 2 ? 1.4 : 1.0);
+            }), "trident"));
     public static final Technique TRIDENT_Z = add(new Technique("trident_z", Archetype.SPEAR, GestureShape.ZIGZAG, 4, 20, null, 10,
             new FamilyFlurryEffect(4.0, 45, 1.5, 3, 3, 0.2, 0.0, (player, target, damage, index) -> {
                 States.addBleed(target, player, 1);

@@ -25,19 +25,19 @@ public final class AbilityIcons {
         alias(Archetype.SWORD, GestureShape.V, "sword_guard");
         alias(Archetype.SWORD, GestureShape.CARET, "sword_skirmish");
 
-        alias(Archetype.AXE, GestureShape.LINE_H, "axe_cleave");
+        alias(Archetype.AXE, GestureShape.LINE_H, "axe_wide");
         alias(Archetype.AXE, GestureShape.LINE_V_UP, "axe_rend");
-        alias(Archetype.AXE, GestureShape.LINE_V_DOWN, "axe_quake");
+        alias(Archetype.AXE, GestureShape.LINE_V_DOWN, "axe_cleave");
         alias(Archetype.AXE, GestureShape.CIRCLE, "axe_cyclone");
-        alias(Archetype.AXE, GestureShape.ZIGZAG, "axe_wide");
+        alias(Archetype.AXE, GestureShape.ZIGZAG, "axe_quake");
         alias(Archetype.AXE, GestureShape.V, "axe_rend");
-        alias(Archetype.AXE, GestureShape.CARET, "axe_cleave");
+        alias(Archetype.AXE, GestureShape.CARET, "axe_wide");
 
         alias(Archetype.SPEAR, GestureShape.LINE_H, "spear_sweep");
-        alias(Archetype.SPEAR, GestureShape.LINE_V_UP, "spear_skyfall");
-        alias(Archetype.SPEAR, GestureShape.LINE_V_DOWN, "spear_impale");
+        alias(Archetype.SPEAR, GestureShape.LINE_V_UP, "spear_thrust");
+        alias(Archetype.SPEAR, GestureShape.LINE_V_DOWN, "spear_skyfall");
         alias(Archetype.SPEAR, GestureShape.CIRCLE, "spear_tempest");
-        alias(Archetype.SPEAR, GestureShape.ZIGZAG, "spear_thrust");
+        alias(Archetype.SPEAR, GestureShape.ZIGZAG, "spear_impale");
         alias(Archetype.SPEAR, GestureShape.V, "spear_thrust");
         alias(Archetype.SPEAR, GestureShape.CARET, "spear_tempest");
     }
