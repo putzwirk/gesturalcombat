@@ -36,7 +36,8 @@ public final class TerrainFracture {
                     continue;
                 }
                 BlockPos target = ground.above();
-                if (!level.getBlockState(target).canBeReplaced()) {
+                boolean refresh = level.getBlockState(target).is(ModTerrain.FRACTURE.get());
+                if (!refresh && !level.getBlockState(target).canBeReplaced()) {
                     continue;
                 }
                 BlockState state = level.getBlockState(ground);
@@ -70,6 +71,9 @@ public final class TerrainFracture {
         for (int y = top; y >= bottom; y--) {
             BlockPos pos = new BlockPos(from.getX(), y, from.getZ());
             BlockState state = level.getBlockState(pos);
+            if (state.is(ModTerrain.FRACTURE.get())) {
+                continue;
+            }
             if (state.isAir() || !state.getFluidState().isEmpty()) {
                 continue;
             }

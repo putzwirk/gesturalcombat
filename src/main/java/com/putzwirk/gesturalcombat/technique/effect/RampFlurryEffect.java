@@ -76,7 +76,7 @@ public final class RampFlurryEffect implements TechniqueEffect {
         boolean finisher = index >= count - 1;
         double force = finisher ? AbilityConfigs.knockback(technique, stack, knockback) : 0.0;
         double up = finisher ? AbilityConfigs.lift(technique, stack, lift) : 0.0;
-        if (index == 0 && technique.shape() == com.putzwirk.gesturalcombat.core.GestureShape.LINE_V_DOWN
+        if (technique.shape() == com.putzwirk.gesturalcombat.core.GestureShape.LINE_V_DOWN
                 && com.putzwirk.gesturalcombat.weapon.WeaponRules.heavy(stack)) {
             EffectSupport.groundWave(level, player, technique, stack, hitbox.range() * 0.85);
         }
