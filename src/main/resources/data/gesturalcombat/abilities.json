@@ -482,11 +482,6 @@
       "gesture": "LINE_H",
       "cooldown_ticks": 12
     },
-    "rapier_cut": {
-      "gesture": "LINE_H",
-      "cooldown_ticks": 11,
-      "damage_multiplier": 0.8
-    },
     "rapier_lunge": {
       "gesture": "LINE_V_UP",
       "cooldown_ticks": 16,
@@ -536,11 +531,6 @@
       "gesture": "LINE_V_DOWN",
       "cooldown_ticks": 45,
       "damage_multiplier": 1.8
-    },
-    "saidebt_cut": {
-      "gesture": "LINE_H",
-      "cooldown_ticks": 13,
-      "damage_multiplier": 1.0
     },
     "saidebt_flurry": {
       "gesture": "ZIGZAG",
@@ -756,6 +746,16 @@
       "gesture": "LINE_H",
       "cooldown_ticks": 14,
       "damage_multiplier": 1.0
+    },
+    "saidebt_stab": {
+      "gesture": "LINE_V_UP",
+      "cooldown_ticks": 13,
+      "damage_multiplier": 1.0
+    },
+    "rapier_thrust": {
+      "gesture": "LINE_H",
+      "cooldown_ticks": 11,
+      "damage_multiplier": 0.8
     }
   }
 }

@@ -97,12 +97,24 @@ public final class AnimationCatalog {
         return requireThrow ? null : first;
     }
 
+    private static final java.util.Set<String> THRUST_FAMILIES = java.util.Set.of(
+            "soul_knife", "rapier", "spear", "trident");
+
+    private static boolean thrustFamily(ItemStack stack) {
+        String family = WeaponProfiles.family(stack);
+        return family != null && THRUST_FAMILIES.contains(family.toLowerCase(Locale.ROOT));
+    }
+
     @Nullable
     private static String[] weaponSequence(GestureShape shape, ItemStack stack, int swipe) {
-        if (stack == null || stack.isEmpty() || shape == GestureShape.LINE_V_UP) {
+        if (stack == null || stack.isEmpty()) {
             return null;
         }
-        Kind[] order = preference(shape);
+        boolean thrust = thrustFamily(stack);
+        if (shape == GestureShape.LINE_V_UP && !thrust) {
+            return null;
+        }
+        Kind[] order = preference(shape, thrust);
         if (order == null) {
             return null;
         }
@@ -126,7 +138,17 @@ public final class AnimationCatalog {
     }
 
     @Nullable
-    private static Kind[] preference(GestureShape shape) {
+    private static Kind[] preference(GestureShape shape, boolean thrust) {
+        if (thrust) {
+            return switch (shape) {
+                case CIRCLE -> new Kind[]{Kind.SPIN};
+                case LINE_H -> new Kind[]{Kind.STAB, Kind.HORIZONTAL};
+                case ZIGZAG -> new Kind[]{Kind.STAB, Kind.HORIZONTAL, Kind.SPIN};
+                case LINE_V_UP -> new Kind[]{Kind.STAB, Kind.RISING};
+                case LINE_V_DOWN -> new Kind[]{Kind.STAB, Kind.SLAM};
+                default -> null;
+            };
+        }
         return switch (shape) {
             case CIRCLE -> new Kind[]{Kind.SPIN};
             case LINE_H -> new Kind[]{Kind.HORIZONTAL, Kind.STAB};

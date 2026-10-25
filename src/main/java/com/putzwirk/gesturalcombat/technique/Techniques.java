@@ -139,8 +139,8 @@ public final class Techniques {
     public static final Technique SWORD_LINK = add(new Technique("sword_link", Archetype.SWORD, GestureShape.LINE_H, 1, 12, null, 6,
             new CrossSlashEffect(3.1, 1.35, 0.9), "sword"));
 
-    public static final Technique RAPIER_CUT = add(new Technique("rapier_cut", Archetype.SWORD, GestureShape.LINE_H, 1, 10, null, 6,
-            new FamilyArcEffect(3.5, 55, 0.5, 0.0, 0.0, (player, target, damage, index) -> {
+    public static final Technique RAPIER_CUT = add(new Technique("rapier_thrust", Archetype.SWORD, GestureShape.LINE_H, 1, 10, null, 6,
+            new FamilyArcEffect(4.2, 24, 0.5, 0.0, 0.0, (player, target, damage, index) -> {
                 int seam = States.seam(target);
                 if (seam >= 3) {
                     States.consumeSeam(target);
@@ -150,17 +150,17 @@ public final class Techniques {
                 return damage;
             }), "rapier"));
     public static final Technique RAPIER_LUNGE = add(new Technique("rapier_lunge", Archetype.SWORD, GestureShape.LINE_V_UP, 1, 14, null, 8,
-            new FamilyArcEffect(3.8, 30, 1.1, 0.0, 0.2, (player, target, damage, index) -> {
+            new FamilyArcEffect(4.4, 20, 1.1, 0.0, 0.2, (player, target, damage, index) -> {
                 States.addSeam(target, 1);
                 return damage;
             }), "rapier"));
     public static final Technique RAPIER_FLURRY = add(new Technique("rapier_flurry", Archetype.SWORD, GestureShape.ZIGZAG, 4, 30, null, 12,
-            new FamilyFlurryEffect(3.5, 45, 1.4, 5, 2, 0.2, 0.0, (player, target, damage, index) -> {
+            new FamilyFlurryEffect(4.1, 18, 1.4, 5, 2, 0.2, 0.0, (player, target, damage, index) -> {
                 States.addSeam(target, 1);
                 return damage;
             }), "rapier"));
     public static final Technique RAPIER_DROP = add(new Technique("rapier_drop", Archetype.SWORD, GestureShape.LINE_V_DOWN, 7, 40, null, 15,
-            new FamilyArcEffect(3.0, 40, 1.2, 0.2, 0.0, (player, target, damage, index) -> {
+            new FamilyArcEffect(3.6, 22, 1.2, 0.2, 0.0, (player, target, damage, index) -> {
                 if (States.seam(target) >= 2) {
                     States.consumeSeam(target);
                     return damage * 1.4;
@@ -212,7 +212,7 @@ public final class Techniques {
                 return damage + States.consumeBleed(target);
             }), "sickle"));
 
-    public static final Technique DEBT_CUT = add(new Technique("saidebt_cut", Archetype.SWORD, GestureShape.LINE_H, 1, 8, null, 5,
+    public static final Technique DEBT_CUT = add(new Technique("saidebt_stab", Archetype.SWORD, GestureShape.LINE_V_UP, 1, 8, null, 5,
             new FamilyArcEffect(2.3, 110, 0.5, 0.0, 0.0, (player, target, damage, index) -> {
                 States.addDebt(player, 1);
                 return damage;
