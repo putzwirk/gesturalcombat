@@ -35,10 +35,6 @@ public final class ClientNet {
                 abilities == null ? -1 : abilities.length(), weapons == null ? -1 : weapons.length());
     }
 
-    public static void mastery(CompoundTag data) {
-        ClientState.applyMastery(data);
-    }
-
     public static void castEffect(int casterId, String techniqueId, int cooldownTicks, int swipe, boolean offhand, String cooldownKey) {
         Technique technique = Techniques.get(techniqueId);
         if (technique == null) {

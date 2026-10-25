@@ -10,7 +10,6 @@ public final class Config {
     public final ForgeConfigSpec.BooleanValue gesturesEnabled;
     public final ForgeConfigSpec.DoubleValue damageMultiplier;
     public final ForgeConfigSpec.DoubleValue cooldownMultiplier;
-    public final ForgeConfigSpec.DoubleValue xpMultiplier;
     public final ForgeConfigSpec.BooleanValue debugHitboxes;
     public final ForgeConfigSpec.BooleanValue weaponTrails;
     public final ForgeConfigSpec.BooleanValue debugCasts;
@@ -26,7 +25,6 @@ public final class Config {
         gesturesEnabled = builder.define("enabled", true);
         damageMultiplier = builder.defineInRange("damageMultiplier", 1.0, 0.1, 10.0);
         cooldownMultiplier = builder.defineInRange("cooldownMultiplier", 1.0, 0.1, 10.0);
-        xpMultiplier = builder.defineInRange("xpMultiplier", 1.0, 0.0, 20.0);
         debugHitboxes = builder.define("debugHitboxes", false);
         weaponTrails = builder.define("weaponTrails", true);
         debugCasts = builder.define("debugCasts", false);

@@ -5,8 +5,6 @@ import com.putzwirk.gesturalcombat.Gesturalcombat;
 import com.putzwirk.gesturalcombat.core.Archetype;
 import com.putzwirk.gesturalcombat.core.HandGate;
 import com.putzwirk.gesturalcombat.core.GestureShape;
-import com.putzwirk.gesturalcombat.mastery.MasteryCapability;
-import com.putzwirk.gesturalcombat.mastery.MasteryService;
 import com.putzwirk.gesturalcombat.network.CastEffectPacket;
 import com.putzwirk.gesturalcombat.network.ModNetwork;
 import com.putzwirk.gesturalcombat.technique.AbilityConfigs;
@@ -92,9 +90,6 @@ public final class GestureCastService {
             return;
         }
         technique = resolved;
-        if (!MasteryCapability.get(player).isTechniqueAvailable(technique)) {
-            return;
-        }
         CastContext.swipe(player, swipe);
         WeaponSpecial special = WeaponProfiles.special(stack, shape);
         String cooldownKey = com.putzwirk.gesturalcombat.weapon.CooldownKeys.of(stack, shape, technique);
@@ -180,7 +175,6 @@ public final class GestureCastService {
             com.putzwirk.gesturalcombat.technique.GestureScheduler.schedule(level, echoDelay,
                     () -> com.putzwirk.gesturalcombat.server.TwinEcho.strike(player, level, offhand, cast, swipe));
         }
-        MasteryService.award(player, cast.archetype(), cast.xp());
         EquipmentSlot slot = offhand ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND;
         stack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(slot));
         player.causeFoodExhaustion(0.3f);

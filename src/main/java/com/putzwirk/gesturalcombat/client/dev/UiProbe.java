@@ -40,8 +40,6 @@ public final class UiProbe {
                     warmup++;
                     return;
                 }
-                ClientState.MASTERY.progress(Archetype.SWORD).setLevel(6);
-                ClientState.MASTERY.progress(Archetype.SWORD).setXp(70);
                 stage = 1;
                 wait = 2;
             }

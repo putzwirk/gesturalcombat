@@ -9,7 +9,7 @@ import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.network.simple.SimpleChannel;
 
 public final class ModNetwork {
-    private static final String VERSION = "10";
+    private static final String VERSION = "11";
     public static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
             new ResourceLocation(Gesturalcombat.MODID, "main"), () -> VERSION, VERSION::equals, VERSION::equals);
 
@@ -19,9 +19,7 @@ public final class ModNetwork {
     }
 
     public static void register() {
-        CHANNEL.registerMessage(nextId++, MasterySyncPacket.class, MasterySyncPacket::encode, MasterySyncPacket::decode, MasterySyncPacket::handle);
         CHANNEL.registerMessage(nextId++, CastTechniquePacket.class, CastTechniquePacket::encode, CastTechniquePacket::decode, CastTechniquePacket::handle);
-        CHANNEL.registerMessage(nextId++, UnlockNodePacket.class, UnlockNodePacket::encode, UnlockNodePacket::decode, UnlockNodePacket::handle);
         CHANNEL.registerMessage(nextId++, GestureAnimPacket.class, GestureAnimPacket::encode, GestureAnimPacket::decode, GestureAnimPacket::handle);
         CHANNEL.registerMessage(nextId++, CastEffectPacket.class, CastEffectPacket::encode, CastEffectPacket::decode, CastEffectPacket::handle);
         CHANNEL.registerMessage(nextId++, AbilitySyncPacket.class, AbilitySyncPacket::encode, AbilitySyncPacket::decode, AbilitySyncPacket::handle);

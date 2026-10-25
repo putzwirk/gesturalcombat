@@ -264,7 +264,7 @@ public final class GestureInput {
         if (remaining <= 0) {
             PendingCast cast = pending;
             clearPending();
-            if (ClientState.MASTERY.isTechniqueAvailable(technique) && ClientState.isReady(cast.cooldownKey())) {
+            if (ClientState.isReady(cast.cooldownKey())) {
                 fire(technique, cast.shape(), cast.confidence(), cast.swipe(), cast.hand());
             }
         }
@@ -450,7 +450,7 @@ public final class GestureInput {
             return false;
         }
         Technique technique = Techniques.forGesture(archetype, result.shape(), held);
-        if (technique == null || !ClientState.MASTERY.isTechniqueAvailable(technique)) {
+        if (technique == null) {
             ClientState.rejectTicks = REJECT_TICKS;
             return false;
         }

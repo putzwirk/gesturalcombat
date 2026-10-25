@@ -2,9 +2,6 @@ package com.putzwirk.gesturalcombat.technique;
 
 import com.putzwirk.gesturalcombat.Config;
 import com.putzwirk.gesturalcombat.core.Archetype;
-import com.putzwirk.gesturalcombat.mastery.MasteryCapability;
-import com.putzwirk.gesturalcombat.mastery.PlayerMastery;
-import com.putzwirk.gesturalcombat.skill.Passive;
 import com.putzwirk.gesturalcombat.technique.hitbox.Hitbox;
 import com.putzwirk.gesturalcombat.weapon.WeaponProfiles;
 import net.minecraft.core.particles.ParticleOptions;
@@ -57,11 +54,10 @@ public final class EffectSupport {
 
     public static float damageOf(ServerPlayer player, Technique technique, ItemStack stack) {
         float base = (float) player.getAttributeValue(Attributes.ATTACK_DAMAGE);
-        float passive = 1.0f + MasteryCapability.get(player).passive(technique.archetype(), Passive.DAMAGE);
         double weapon = WeaponProfiles.damageMultiplier(stack);
         double weight = com.putzwirk.gesturalcombat.weapon.WeaponRules.damageFactor(stack);
         double config = Config.INSTANCE.damageMultiplier.get();
-        return (float) (base * passive * weapon * weight * config);
+        return (float) (base * weapon * weight * config);
     }
 
     public static double reachOf(ServerPlayer player, Technique technique, double baseRange) {
@@ -82,13 +78,11 @@ public final class EffectSupport {
     }
 
     public static double reachFactor(ServerPlayer player, Technique technique, ItemStack stack) {
-        float passive = MasteryCapability.get(player).passive(technique.archetype(), Passive.RANGE);
-        return (1.0f + passive) * WeaponProfiles.reachMultiplier(stack);
+        return WeaponProfiles.reachMultiplier(stack);
     }
 
     public static Hitbox scaleHitbox(ServerPlayer player, Technique technique, ItemStack stack, Hitbox box) {
-        float passive = MasteryCapability.get(player).passive(technique.archetype(), Passive.RANGE);
-        double factor = 1.0 + passive;
+        double factor = 1.0;
         double absolute = weaponReach(stack);
         double family = com.putzwirk.gesturalcombat.weapon.WeaponRules.reachFactor(stack);
         double range = absolute > 0.0
@@ -122,8 +116,7 @@ public final class EffectSupport {
     }
 
     public static int specialCooldown(ServerPlayer player, Technique technique, ItemStack stack, int baseTicks) {
-        PlayerMastery mastery = MasteryCapability.get(player);
-        float reduction = Math.min(0.6f, mastery.passive(technique.archetype(), Passive.COOLDOWN));
+        float reduction = 0.0f;
         double config = Config.INSTANCE.cooldownMultiplier.get();
         double attackSpeedFactor = attackSpeedFactor(player, technique);
         double weapon = WeaponProfiles.cooldownMultiplier(stack);

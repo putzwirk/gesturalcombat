@@ -2,7 +2,6 @@ package com.putzwirk.gesturalcombat.client;
 
 import com.putzwirk.gesturalcombat.core.Archetype;
 import com.putzwirk.gesturalcombat.core.GestureShape;
-import com.putzwirk.gesturalcombat.mastery.PlayerMastery;
 import com.putzwirk.gesturalcombat.technique.Technique;
 import com.putzwirk.gesturalcombat.technique.Techniques;
 import net.minecraft.client.Minecraft;
@@ -20,7 +19,6 @@ public final class ClientState {
     public static boolean hiddenMain;
     public static boolean hiddenOff;
 
-    public static final PlayerMastery MASTERY = new PlayerMastery();
     public static final List<TrailPoint> TRAIL = new ArrayList<>();
     public static final Map<String, Integer> COOLDOWN_END = new HashMap<>();
     private static final Map<String, Integer> COOLDOWN_TOTAL = new HashMap<>();
@@ -51,13 +49,7 @@ public final class ClientState {
     public record TrailPoint(float x, float y, int tick, int trailId, Archetype archetype) {
     }
 
-    public static void applyMastery(CompoundTag tag) {
-        MASTERY.load(tag);
-        synced = true;
-    }
-
     public static void reset() {
-        MASTERY.load(new CompoundTag());
         synced = false;
         TRAIL.clear();
         COOLDOWN_END.clear();
