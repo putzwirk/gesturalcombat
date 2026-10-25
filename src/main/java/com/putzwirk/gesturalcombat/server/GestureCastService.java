@@ -153,23 +153,19 @@ public final class GestureCastService {
         int windup = AbilityConfigs.windupTicks(cast);
         int interval = AbilityConfigs.hitInterval(cast);
         int lead = windup > 0 ? windup : Math.max(2, interval);
-        com.putzwirk.gesturalcombat.technique.GestureScheduler.schedule(level, lead, resolve);
-        if (sound) {
-            int swings = Math.max(1, AbilityConfigs.hits(cast));
-            String swingFamily = WeaponProfiles.family(stack);
-            if ("greathammer".equalsIgnoreCase(swingFamily)
-                    && cast.shape() != GestureShape.LINE_H
-                    && cast.shape() != GestureShape.ZIGZAG) {
-                swings = 1;
-            }
-            int[] ramps = AbilityConfigs.hitDelays(cast, stack);
-            for (int i = 1; i < swings; i++) {
-                int delay = lead + (i < ramps.length ? ramps[i] : i * Math.max(1, interval));
-                com.putzwirk.gesturalcombat.technique.GestureScheduler.schedule(level, delay, () -> {
-                    if (player.isAlive() && !player.isRemoved()) {
-                        EffectSupport.swingSound(level, player, cast);
+        boolean diving = special == null && !thrown
+                && cast.shape() == GestureShape.LINE_V_DOWN
+                && com.putzwirk.gesturalcombat.weapon.WeaponRules.heavy(stack)
+                && AerialSlam.begin(player, () -> {
+                    resolve.run();
+                    if (sound) {
+                        swingSounds(level, player, cast, stack, 0, interval);
                     }
                 });
+        if (!diving) {
+            com.putzwirk.gesturalcombat.technique.GestureScheduler.schedule(level, lead, resolve);
+            if (sound) {
+                swingSounds(level, player, cast, stack, lead, interval);
             }
         }
         if (twin) {
@@ -181,6 +177,26 @@ public final class GestureCastService {
         stack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(slot));
         player.causeFoodExhaustion(0.3f);
         player.resetAttackStrengthTicker();
+    }
+
+    private static void swingSounds(Level level, ServerPlayer player, Technique cast, ItemStack stack,
+                                    int base, int interval) {
+        int swings = Math.max(1, AbilityConfigs.hits(cast));
+        String swingFamily = WeaponProfiles.family(stack);
+        if ("greathammer".equalsIgnoreCase(swingFamily)
+                && cast.shape() != GestureShape.LINE_H
+                && cast.shape() != GestureShape.ZIGZAG) {
+            swings = 1;
+        }
+        int[] ramps = AbilityConfigs.hitDelays(cast, stack);
+        for (int i = 1; i < swings; i++) {
+            int delay = base + (i < ramps.length ? ramps[i] : i * Math.max(1, interval));
+            com.putzwirk.gesturalcombat.technique.GestureScheduler.schedule(level, delay, () -> {
+                if (player.isAlive() && !player.isRemoved()) {
+                    EffectSupport.swingSound(level, player, cast);
+                }
+            });
+        }
     }
 
     private static void pruneCooldowns(ServerPlayer player) {
