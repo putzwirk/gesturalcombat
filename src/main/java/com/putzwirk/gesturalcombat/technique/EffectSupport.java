@@ -334,6 +334,7 @@ public final class EffectSupport {
         if (!(level instanceof net.minecraft.server.level.ServerLevel server)) {
             return;
         }
+        com.putzwirk.gesturalcombat.server.TerrainFracture.spread(server, at, reach, 0.55);
         int rings = 7;
         for (int step = 0; step < rings; step++) {
             int wave = step;

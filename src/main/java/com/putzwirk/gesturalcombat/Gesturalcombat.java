@@ -22,6 +22,7 @@ public class Gesturalcombat {
         modBus.addListener(this::commonSetup);
         ModEntities.ENTITIES.register(modBus);
         ModParticles.TYPES.register(modBus);
+        com.putzwirk.gesturalcombat.world.ModTerrain.register(modBus);
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }
 

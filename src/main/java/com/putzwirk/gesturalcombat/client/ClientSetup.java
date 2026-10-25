@@ -43,5 +43,7 @@ public final class ClientSetup {
         event.registerEntityRenderer(ModEntities.THROWN_SHIELD.get(), ThrownShieldRenderer::new);
         event.registerEntityRenderer(ModEntities.THROWN_CHAKRAM.get(),
                 com.putzwirk.gesturalcombat.client.render.ThrownChakramRenderer::new);
+        event.registerBlockEntityRenderer(com.putzwirk.gesturalcombat.world.ModTerrain.FRACTURE_ENTITY.get(),
+                com.putzwirk.gesturalcombat.client.render.FractureBlockRenderer::new);
     }
 }
