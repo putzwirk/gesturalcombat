@@ -164,6 +164,7 @@ public final class ClientNet {
             return;
         }
         String hand = BetterCombatBridge.handName(caster.getMainHandItem());
+        com.putzwirk.gesturalcombat.client.fx.SaltoRotation.begin(casterId, ticks);
         AnimationScheduler.playSequence(casterId, new String[]{"gesturalcombat:salto_back"}, hand,
                 new float[]{Math.max(6, ticks)}, new float[]{0.35f}, 0, new int[]{0});
     }

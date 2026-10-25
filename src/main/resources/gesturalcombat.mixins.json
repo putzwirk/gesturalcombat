@@ -17,7 +17,8 @@
     "client.BetterCombatUpswingLateMixin",
     "client.MultiPlayerGameModeReleaseMixin",
     "client.ItemInHandRendererCaptureMixin",
-    "client.ItemRendererCaptureMixin"
+    "client.ItemRendererCaptureMixin",
+    "client.SaltoRenderMixin"
   ],
   "injectors": {
     "defaultRequire": 1
