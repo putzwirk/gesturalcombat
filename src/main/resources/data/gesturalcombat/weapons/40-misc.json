@@ -15,6 +15,14 @@
       "archetype": "sword",
       "family": null,
       "reach_multiplier": 1.0
+    },
+    {
+      "items": [
+        "morebarriers:one_shot_sword"
+      ],
+      "archetype": "sword",
+      "family": null,
+      "reach_multiplier": 1.0
     }
   ]
 }

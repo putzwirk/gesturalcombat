@@ -38,11 +38,23 @@ public final class WeaponAudit {
     public static final String TAG = "weapon check:";
     public static final String GAP = "weapon check gap:";
 
-    private static final int HIT_WINDOW = 80;
+    private static final int HIT_WINDOW = 90;
+    private static final int MAX_PENDING = 6;
     private static final double PROXIMITY = 8.0;
-    private static final Map<UUID, Pending> PENDING = new HashMap<>();
+    private static final Map<UUID, java.util.ArrayDeque<Pending>> PENDING = new HashMap<>();
+    private static long CASTS;
 
-    private record Pending(String technique, String item, int hits) {
+    private static final class Pending {
+        private final long token;
+        private final String technique;
+        private final String item;
+        private int hits;
+
+        private Pending(long token, String technique, String item) {
+            this.token = token;
+            this.technique = technique;
+            this.item = item;
+        }
     }
 
     public record Slot(GestureShape shape, String technique) {
@@ -227,30 +239,57 @@ public final class WeaponAudit {
         if (!targetNearby(player, level)) {
             return;
         }
-        UUID id = player.getUUID();
-        PENDING.put(id, new Pending(technique.id(), idOf(stack.getItem()), 0));
-        GestureScheduler.schedule(level, HIT_WINDOW, () -> finish(player, id));
+        java.util.ArrayDeque<Pending> queue = PENDING.computeIfAbsent(player.getUUID(),
+                key -> new java.util.ArrayDeque<>());
+        long token = ++CASTS;
+        queue.addLast(new Pending(token, technique.id(), idOf(stack.getItem())));
+        while (queue.size() > MAX_PENDING) {
+            queue.removeFirst();
+        }
+        GestureScheduler.schedule(level, HIT_WINDOW, () -> finish(player, token));
     }
 
     public static void noteHit(ServerPlayer player, Technique technique) {
-        Pending pending = PENDING.get(player.getUUID());
-        if (pending == null || !pending.technique().equals(technique.id())) {
+        java.util.ArrayDeque<Pending> queue = PENDING.get(player.getUUID());
+        if (queue == null) {
             return;
         }
-        PENDING.put(player.getUUID(), new Pending(pending.technique(), pending.item(), pending.hits() + 1));
+        var iterator = queue.descendingIterator();
+        while (iterator.hasNext()) {
+            Pending pending = iterator.next();
+            if (pending.technique.equals(technique.id())) {
+                pending.hits++;
+                return;
+            }
+        }
     }
 
-    private static void finish(ServerPlayer player, UUID id) {
-        Pending pending = PENDING.remove(id);
-        if (pending == null) {
+    private static void finish(ServerPlayer player, long token) {
+        java.util.ArrayDeque<Pending> queue = PENDING.get(player.getUUID());
+        if (queue == null) {
             return;
         }
-        if (pending.hits() > 0) {
-            Gesturalcombat.LOGGER.info("{} hit {} {} landed on {} target(s)", TAG, pending.item(), pending.technique(), pending.hits());
+        Pending target = null;
+        for (Pending pending : queue) {
+            if (pending.token == token) {
+                target = pending;
+                break;
+            }
+        }
+        if (target == null) {
+            return;
+        }
+        queue.remove(target);
+        if (queue.isEmpty()) {
+            PENDING.remove(player.getUUID());
+        }
+        if (target.hits > 0) {
+            Gesturalcombat.LOGGER.info("{} hit {} {} landed on {} target(s)",
+                    TAG, target.item, target.technique, target.hits);
             return;
         }
         Gesturalcombat.LOGGER.warn("{} {} {} cast with a target within {} blocks but hit nothing in {} ticks",
-                GAP, pending.item(), pending.technique(), (int) PROXIMITY, HIT_WINDOW);
+                GAP, target.item, target.technique, (int) PROXIMITY, HIT_WINDOW);
     }
 
     private static boolean expectsHit(Technique technique, ItemStack stack) {
