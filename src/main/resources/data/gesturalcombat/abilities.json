@@ -1260,7 +1260,7 @@
       "gesture": "LINE_H",
       "cooldown_ticks": 11,
       "damage_multiplier": 1.77,
-      "hits": 1,
+      "hits": 2,
       "windup_ticks": 2,
       "knockback": 0.5,
       "hitbox": {
@@ -1273,7 +1273,8 @@
         "forward_offset": 0.0,
         "max_targets": 6,
         "line_of_sight": false
-      }
+      },
+      "hit_interval": 4
     },
     "mace_rise": {
       "gesture": "LINE_V_UP",

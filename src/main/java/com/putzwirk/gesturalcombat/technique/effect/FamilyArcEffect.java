@@ -2,6 +2,7 @@ package com.putzwirk.gesturalcombat.technique.effect;
 
 import com.putzwirk.gesturalcombat.technique.AbilityConfigs;
 import com.putzwirk.gesturalcombat.technique.EffectSupport;
+import com.putzwirk.gesturalcombat.technique.GestureScheduler;
 import com.putzwirk.gesturalcombat.technique.Technique;
 import com.putzwirk.gesturalcombat.technique.TechniqueEffect;
 import com.putzwirk.gesturalcombat.technique.hitbox.Hitbox;
@@ -30,19 +31,36 @@ public final class FamilyArcEffect implements TechniqueEffect {
     @Override
     public void execute(ServerPlayer player, Level level, ItemStack stack, Technique technique) {
         Hitbox hitbox = EffectSupport.hitboxOf(player, technique, stack, EffectSupport.defaultHitbox(technique, range, arcDegrees));
-        double base = EffectSupport.damageOf(player, technique, stack)
+        double total = EffectSupport.damageOf(player, technique, stack)
                 * AbilityConfigs.damageMultiplier(technique, stack, damageMultiplier);
-        double force = AbilityConfigs.knockback(technique, stack, knockback);
-        double up = AbilityConfigs.lift(technique, stack, lift);
+        int count = Math.max(1, AbilityConfigs.hits(technique, stack, 1));
+        int interval = Math.max(1, AbilityConfigs.hitInterval(technique, stack, 0));
+        float per = (float) (total / count);
+        strike(player, level, stack, technique, hitbox, per, count, 0);
+        for (int i = 1; i < count; i++) {
+            int index = i;
+            GestureScheduler.schedule(level, i * interval,
+                    () -> strike(player, level, stack, technique, hitbox, per, count, index));
+        }
+    }
+
+    private void strike(ServerPlayer player, Level level, ItemStack stack, Technique technique, Hitbox hitbox,
+                        float per, int count, int index) {
+        if (!player.isAlive() || player.isRemoved()) {
+            return;
+        }
+        boolean finisher = index >= count - 1;
+        double force = finisher ? AbilityConfigs.knockback(technique, stack, knockback) : 0.0;
+        double up = finisher ? AbilityConfigs.lift(technique, stack, lift) : 0.0;
         java.util.List<LivingEntity> found = hitbox.query(player, level);
         if (com.putzwirk.gesturalcombat.Config.INSTANCE.debugCasts.get()) {
             com.putzwirk.gesturalcombat.Gesturalcombat.LOGGER.info(
-                    "gesturalcombat arc {} targets={} range={} angle={}",
-                    technique.id(), found.size(), String.format("%.2f", hitbox.range()),
+                    "gesturalcombat arc {} hit={} targets={} range={} angle={}",
+                    technique.id(), index, found.size(), String.format("%.2f", hitbox.range()),
                     String.format("%.0f", hitbox.angle()));
         }
         for (LivingEntity target : found) {
-            double damage = rule.adjust(player, target, base, 0);
+            double damage = rule.adjust(player, target, per, index);
             EffectSupport.hit(player, target, (float) Math.max(0.0, damage), technique, force, up);
         }
     }
