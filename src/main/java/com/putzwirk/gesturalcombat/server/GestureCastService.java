@@ -42,6 +42,7 @@ public final class GestureCastService {
             return;
         }
         if (!player.isAlive() || player.isSpectator()) {
+            reject(player, techniqueId, "not alive");
             return;
         }
         Level level = player.level();
@@ -50,22 +51,28 @@ public final class GestureCastService {
         }
         Technique technique = Techniques.get(techniqueId);
         if (technique == null) {
+            reject(player, techniqueId, "unknown technique");
             return;
         }
-        if (confidence < 0.4f) {
+        if (confidence < 0.35f) {
+            reject(player, techniqueId, "confidence " + confidence);
             return;
         }
         if (shape == null || shape == GestureShape.UNKNOWN || technique.shape() != shape) {
+            reject(player, techniqueId, "shape mismatch " + shape + " vs " + technique.shape());
             return;
         }
         InteractionHand hand = offhand ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND;
         if (offhand && HandGate.blocksOffhand(player.getMainHandItem())) {
+            reject(player, techniqueId, "offhand busy");
             return;
         }
         if (OutLock.isLocked(player, offhand)) {
+            reject(player, techniqueId, "out lock");
             return;
         }
         if (com.putzwirk.gesturalcombat.weapon.WeaponRules.blocked(player.getItemInHand(offhand ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND), shape)) {
+            reject(player, techniqueId, "blocked by weapon rules");
             return;
         }
         if (GuardState.isGuarding(player)) {
@@ -76,6 +83,7 @@ public final class GestureCastService {
         }
         Archetype active = Archetype.forHand(player, hand);
         if (active == null || active != technique.archetype()) {
+            reject(player, techniqueId, "archetype " + active + " vs " + technique.archetype());
             return;
         }
         if (active == Archetype.SHIELD && ShieldLock.isLocked(player)) {
@@ -87,6 +95,7 @@ public final class GestureCastService {
         }
         Technique resolved = Techniques.forGesture(active, shape, stack);
         if (resolved == null || resolved.archetype() != active) {
+            reject(player, techniqueId, "not mapped for " + active);
             return;
         }
         technique = resolved;
@@ -98,6 +107,7 @@ public final class GestureCastService {
         Map<String, Long> playerCooldowns = COOLDOWNS.computeIfAbsent(player.getUUID(), id -> new HashMap<>());
         Long end = playerCooldowns.get(cooldownKey);
         if (end != null && now < end) {
+            reject(player, techniqueId, "cooldown " + (end - now));
             return;
         }
         int cooldown = special == null
@@ -199,6 +209,12 @@ public final class GestureCastService {
                     EffectSupport.swingSound(level, player, cast);
                 }
             });
+        }
+    }
+
+    private static void reject(ServerPlayer player, String techniqueId, String reason) {
+        if (Config.INSTANCE.debugCasts.get()) {
+            Gesturalcombat.LOGGER.info("gesturalcombat reject: {} ({}) reason={}", techniqueId, player.getName().getString(), reason);
         }
     }
 

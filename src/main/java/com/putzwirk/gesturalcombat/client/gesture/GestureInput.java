@@ -35,7 +35,7 @@ import java.util.Map;
 public final class GestureInput {
     private static final float ENGAGE_LENGTH = 0.032f;
     private static final float MIN_STROKE_LENGTH = 0.035f;
-    private static final float MIN_CONFIDENCE = 0.40f;
+    private static final float MIN_CONFIDENCE = 0.35f;
     private static final int MIN_SAMPLES = 4;
     private static final float MIN_SAMPLE_LENGTH = 1.0e-4f;
     private static final float SAMPLE_SPACING = 1.5f;
@@ -434,6 +434,7 @@ public final class GestureInput {
         strokeAge = 0;
         strokeArchetype = null;
         if (result.shape() == GestureShape.UNKNOWN || result.confidence() < MIN_CONFIDENCE) {
+            ClientState.rejectTicks = REJECT_TICKS;
             return false;
         }
         if (archetype == Archetype.SHIELD && ClientState.shieldLockTicks > 0) {
