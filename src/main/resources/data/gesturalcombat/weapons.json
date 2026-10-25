@@ -5,7 +5,8 @@
       "simplyswords:halberd_stab_right",
       "bettercombat:two_handed_slash_vertical_right",
       "bettercombat:two_handed_stab_right",
-      "bettercombat:two_handed_slash_vertical_left"
+      "bettercombat:two_handed_slash_vertical_left",
+      "simplyswords:dragable_slash_upward"
     ],
     "claymore": [
       "simplyswords:dragable_slash_upward",
@@ -23,7 +24,6 @@
       "bettercombat:one_handed_slam"
     ],
     "rapier": [
-      "bettercombat:one_handed_slash_horizontal_left",
       "bettercombat:one_handed_stab"
     ],
     "chakram": [
@@ -36,13 +36,15 @@
       "bettercombat:two_handed_slash_horizontal_right",
       "bettercombat:two_handed_spin",
       "bettercombat:one_handed_slash_horizontal_right",
-      "bettercombat:one_handed_slash_horizontal_left"
+      "bettercombat:one_handed_slash_horizontal_left",
+      "simplyswords:dragable_slash_upward"
     ],
     "glaive": [
       "simplyswords:halberd_stab_right",
       "bettercombat:two_handed_slash_vertical_right",
       "bettercombat:two_handed_slash_vertical_left",
-      "bettercombat:two_handed_slash_horizontal_right"
+      "bettercombat:two_handed_slash_horizontal_right",
+      "simplyswords:dragable_slash_upward"
     ],
     "greataxe": [
       "bettercombat:two_handed_slash_horizontal_left",
@@ -80,7 +82,8 @@
       "bettercombat:two_handed_spin",
       "bettercombat:two_handed_stab_left",
       "bettercombat:two_handed_stab_right",
-      "bettercombat:two_handed_slam"
+      "bettercombat:two_handed_slam",
+      "simplyswords:dragable_slash_upward"
     ],
     "warglaive": [
       "simplyswords:warglaive_slash_horizontal_right",

@@ -23,13 +23,13 @@ public final class WeaponRules {
     private static final Tuning DEFAULT = new Tuning(0.66, 1.25, 4, 1.0);
 
     private static final Map<String, Tuning> TUNING = Map.ofEntries(
-            Map.entry("soul_knife", new Tuning(1.90, 1.20, 2, 0.95)),
+            Map.entry("soul_knife", new Tuning(1.73, 1.20, 2, 0.95)),
             Map.entry("sickle", new Tuning(1.18, 1.15, 2, 0.95)),
-            Map.entry("rapier", new Tuning(1.20, 1.15, 2, 0.97)),
+            Map.entry("rapier", new Tuning(1.22, 1.15, 2, 0.97)),
             Map.entry("katana", new Tuning(1.04, 1.15, 2, 0.97)),
             Map.entry("sword", new Tuning(0.79, 1.15, 3, 1.0)),
             Map.entry("chakram", new Tuning(1.18, 1.20, 3, 1.0)),
-            Map.entry("trident", new Tuning(1.32, 1.35, 3, 1.0)),
+            Map.entry("trident", new Tuning(1.20, 1.35, 3, 1.0)),
             Map.entry("battlestaff", new Tuning(0.99, 1.25, 2, 1.0)),
             Map.entry("warglaive", new Tuning(1.27, 1.30, 2, 1.0)),
             Map.entry("scythe", new Tuning(0.87, 1.25, 4, 1.0)),

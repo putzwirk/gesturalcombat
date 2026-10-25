@@ -16,16 +16,23 @@ public final class LinePierceEffect implements TechniqueEffect {
     private final double halfWidth;
     private final double damageMultiplier;
     private final double dashPower;
+    private final FamilyRule rule;
 
     public LinePierceEffect(double length, double halfWidth, float damageMultiplier, double dashPower) {
-        this(length, halfWidth, (double) damageMultiplier, dashPower);
+        this(length, halfWidth, (double) damageMultiplier, dashPower, null);
     }
 
     public LinePierceEffect(double length, double halfWidth, double damageMultiplier, double dashPower) {
+        this(length, halfWidth, damageMultiplier, dashPower, null);
+    }
+
+    public LinePierceEffect(double length, double halfWidth, double damageMultiplier, double dashPower,
+                            @javax.annotation.Nullable FamilyRule rule) {
         this.length = length;
         this.halfWidth = halfWidth;
         this.damageMultiplier = damageMultiplier;
         this.dashPower = dashPower;
+        this.rule = rule;
     }
 
     @Override
@@ -37,7 +44,8 @@ public final class LinePierceEffect implements TechniqueEffect {
         double force = AbilityConfigs.knockback(technique, stack, 0.15);
         double lift = AbilityConfigs.lift(technique, stack, 0.0);
         for (LivingEntity target : hitbox.query(player, level)) {
-            EffectSupport.hit(player, target, damage, technique, force, lift);
+            float dealt = rule == null ? damage : (float) Math.max(0.0, rule.adjust(player, target, damage, 0));
+            EffectSupport.hit(player, target, dealt, technique, force, lift);
         }
         Vec3 look = player.getLookAngle();
         Vec3 dash = new Vec3(look.x, 0.0, look.z);

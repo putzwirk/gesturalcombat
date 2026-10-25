@@ -54,6 +54,15 @@ public final class AnimationCatalog {
             String thrown = throwAnimation(stack, requireThrow);
             return thrown == null ? null : new String[]{thrown};
         }
+        String[] familyMove = familySequence(family, shape, stack, swipe);
+        if (familyMove != null) {
+            int count = Math.max(1, swings);
+            String[] out = new String[count];
+            for (int i = 0; i < count; i++) {
+                out[i] = familyMove[i % familyMove.length];
+            }
+            return out;
+        }
         String[] pair = weaponSequence(shape, stack, swipe);
         if (pair == null) {
             pair = pairFor(archetype, shape, twoHanded(stack), swipe);
@@ -106,15 +115,48 @@ public final class AnimationCatalog {
     }
 
     @Nullable
+    private static String[] familySequence(@Nullable String family, GestureShape shape, ItemStack stack, int swipe) {
+        if (family == null) {
+            return null;
+        }
+        String value = family.toLowerCase(Locale.ROOT);
+        if (value.equals("katana") && shape == GestureShape.CIRCLE) {
+            return horizontalPair("two_handed_slash_horizontal_left", "two_handed_slash_horizontal_right", swipe >= 0);
+        }
+        if (value.equals("sword") && shape == GestureShape.ZIGZAG) {
+            String left = "bettercombat:one_handed_slash_horizontal_left";
+            String right = "bettercombat:one_handed_slash_horizontal_right";
+            return swipe >= 0 ? new String[]{left, right, "bettercombat:one_handed_stab"}
+                    : new String[]{right, left, "bettercombat:one_handed_stab"};
+        }
+        if (value.equals("sword") && shape == GestureShape.CARET) {
+            return raw("bettercombat:one_handed_stab");
+        }
+        if (value.equals("sickle") && shape == GestureShape.ZIGZAG) {
+            List<String> crosses = new ArrayList<>();
+            for (String id : pool(stack)) {
+                if (id.toLowerCase(Locale.ROOT).contains("cross")) {
+                    crosses.add(id);
+                }
+            }
+            if (!crosses.isEmpty()) {
+                return crosses.toArray(new String[0]);
+            }
+        }
+        return null;
+    }
+
+    @Nullable
     private static String[] weaponSequence(GestureShape shape, ItemStack stack, int swipe) {
         if (stack == null || stack.isEmpty()) {
             return null;
         }
-        boolean thrust = thrustFamily(stack);
+        String family = WeaponProfiles.family(stack);
+        boolean thrust = family != null && THRUST_FAMILIES.contains(family.toLowerCase(Locale.ROOT));
         if (shape == GestureShape.LINE_V_UP && !thrust) {
             return null;
         }
-        Kind[] order = preference(shape, thrust);
+        Kind[] order = preference(shape, family, thrust);
         if (order == null) {
             return null;
         }
@@ -138,7 +180,10 @@ public final class AnimationCatalog {
     }
 
     @Nullable
-    private static Kind[] preference(GestureShape shape, boolean thrust) {
+    private static Kind[] preference(GestureShape shape, @Nullable String family, boolean thrust) {
+        String value = family == null ? "" : family.toLowerCase(Locale.ROOT);
+        boolean spinZigzag = value.equals("glaive") || value.equals("halberd")
+                || value.equals("battlestaff") || value.equals("scythe");
         if (thrust) {
             return switch (shape) {
                 case CIRCLE -> new Kind[]{Kind.SPIN};
@@ -152,7 +197,7 @@ public final class AnimationCatalog {
         return switch (shape) {
             case CIRCLE -> new Kind[]{Kind.SPIN};
             case LINE_H -> new Kind[]{Kind.HORIZONTAL, Kind.STAB};
-            case ZIGZAG -> new Kind[]{Kind.HORIZONTAL, Kind.SPIN};
+            case ZIGZAG -> spinZigzag ? new Kind[]{Kind.SPIN, Kind.HORIZONTAL} : new Kind[]{Kind.HORIZONTAL, Kind.SPIN};
             case LINE_V_UP -> new Kind[]{Kind.RISING, Kind.STAB, Kind.VERTICAL};
             case LINE_V_DOWN -> new Kind[]{Kind.SLAM, Kind.VERTICAL};
             default -> null;
