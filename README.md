@@ -1,74 +1,86 @@
 # Gestural Combat
 
-Draw mouse gestures while holding attack to unleash weapon techniques.
-Forge 1.20.1. Requires Better Combat and Player Animator.
+Forge 1.20.1. Hold attack, draw a shape with the mouse, and the weapon does a
+technique instead of a normal swing. Needs Better Combat and Player Animator.
 
-> [!IMPORTANT]
-> **Disclaimer: this mod was made with AI.** The code, the ability data, the
-> animations and this documentation were written by an AI coding agent working
-> from my direction, iterating in a running game. I reviewed and playtested the
-> result, but it has not been audited line by line the way a hand-written mod
-> would be. Treat it as a personal project rather than production code: read
-> the source before pointing it at a server you care about, and expect rough
-> edges that a human author would have sanded off.
+Heads up: this mod was made with AI. I directed an AI agent through it, played
+everything in game and tuned the numbers myself, but nobody has read the code
+line by line the way a hand-written mod gets read. It works and it's fun, and
+it may still have rough edges I haven't hit yet.
 
-## Gestures (hold the weapon's mouse button and move the mouse)
+## Playing
 
-Main-hand weapon gestures use LMB, off-hand weapon gestures use RMB. Hold a
-sword in each hand and LMB-drag for main-hand techniques, RMB-drag for
-off-hand techniques. Sword plus shield: LMB for sword, RMB for shield.
-A bow casts its circle gesture from whichever hand holds it; an off-hand bow
-draws automatically while RMB is held and the gesture tracks once the draw is
-fully maxed, while a main-hand bow is drawn with RMB and gestured with LMB.
+LMB draws main-hand gestures, RMB draws off-hand ones. Clicking normally still
+swings, so Better Combat combos keep working - the gesture only starts once the
+mouse has moved far enough that it can't be a plain click, and then no click
+attack fires.
 
-| Symbol | Shape | Sword | Axe | Spear | Tool |
-| --- | --- | --- | --- | --- | --- |
-| — | horizontal line | Horizontal Slash | Wide Cleave | Spear Sweep | Trench (mines) |
-| ↑ | upward stroke | Rising Cut | Rend | Lunge | Pulverize |
-| ↓ | downward stroke | Executioner's Drop | Cleave | Skyfall | Shatter |
-| ○ | circle | Whirlwind | Cyclone | Tempest | Quake |
-| Z | zigzag | Flurry | Earthsplitter | Impale | Rockslide |
+The shapes are the ones you'd expect: a straight line, a stroke up, a stroke
+down, a circle, a Z, a V and a ^. Circles and Zs are the multi-hit moves, V is a
+guard and ^ is a step. Everything is unlocked from the first cast - there is no
+leveling or skill tree, though the code still carries the fields for one.
 
-All gestures are available from the start. XP is earned per cast and per kill;
-level-ups are announced in chat.
+Swords get a cut, rising cut, executioner's drop, whirlwind, flurry, a guard on
+V and a skirmish step on ^. Axes get wide cleave, rend, cleave, cyclone, quake,
+a brace on V and a step on ^. Spears and tridents get sweep, lunge, skyfall,
+tempest and impale, and tridents take a ward on V. Anything that isn't a weapon
+or a shield - a pickaxe, a shovel, a bare hand - gets nothing, and clicking
+works as normal.
 
-## Controls
+The strip along the bottom of the screen is the held weapon's kit: cooldown
+wipes, a pulse when something fires, a shake when the slot is locked, and no
+text at all.
 
-- A quick click (no drag) still performs a normal attack, so Better Combat
-  combos remain usable with every weapon.
-- Once the mouse moves far enough to start a stroke, attacks are suppressed
-  for the duration of the drag and the technique is cast on release, so a
-  gesture never doubles as a click attack. Block mining with tools is
-  unaffected as long as the click does not turn into a drag.
-- Multi-hit techniques (Flurry, Impale, Rockslide, Whirlwind, Cyclone,
-  Tempest) play one Better Combat swing per hit, alternating left/right
-  variants, timed to the damage pulses.
-- The bottom strip shows the five gestures for the held weapon, tinted by
-  weapon family, with cooldown wipe, cast pulse and lock shake. No text.
+## How it feels
+
+Heavy weapons commit. Claymore, greataxe, greathammer, heavy axe, mace, glaive
+and halberd all have a longer recovery after every move, and their circle, V and
+^ slots are locked - you get the big committed swings and nothing else. Light
+and one-handed weapons are faster to recover and step further, quick weapons
+like daggers and rapiers further still.
+
+Downward attacks with a heavy weapon crater the ground. The blocks under the
+impact lift, tilt and hang in the air for a moment before dropping back, dirt
+and stone spray out in a ring, and anything standing close gets shoved. The
+terrain itself is never modified, so a crash can't leave holes in your world.
+
+If you're in the air when you cast it - two blocks of clearance or more - you
+dive instead of swinging where you stand, slam on landing, and lose only a
+fraction of the usual fall damage. Off a cliff that's the difference between a
+crater and a death screen.
+
+## Two weapons
+
+Hold the same family in both hands and the pair starts working together:
+cooldowns drop slightly, and casting the same gesture from the other hand within
+half a second gets you a free echoed swing. Two-handed weapons never pair.
+
+The V guard becomes a two-weapon brace as well. Swords cross both blades and
+ignore everything that hits you for a second. Tridents level both and answer a
+blocked hit with a short lunge and an impale. Axes brace wide, bank a stack for
+every hit they eat, then dump it as a spin.
+
+Beyond that: chakrams throw and recall (the Z saw parks on each hit, knocks the
+target back and catches up again), shields bash things away without stunning
+them, and bows fire their own way.
+
+## Config
+
+`config/gesturalcombat-common.toml` has the damage and cooldown multipliers,
+`weaponTrails` for the swing ribbon, and `debugHitboxes` / `debugCasts` if you
+want to see what the server thinks you just did.
 
 ## Modded weapons
 
-Weapon family is resolved from Better Combat's weapon attributes when present
-(SimplySwords and other BC-supported weapons work automatically), falling back
-to vanilla item classes (sword/axe/trident/pickaxe/shovel/hoe) and finally to
-registry-name matching for modded weapons that ship no Better Combat attributes.
+The weapon family comes from Better Combat's attributes when a weapon has them,
+so SimplySwords and other Better Combat weapons work without any setup. Without
+attributes it falls back to vanilla item classes, then to the registry name.
 
-## Particles and trails
+## Dev notes
 
-Swing particles are disabled (no vanilla sweep, no slash arcs). Landed hits and
-stuns show star bursts, slams and shield impacts show a shockwave ring, and
-every weapon swing leaves a pixelated ribbon swept directly from the rendered
-blade each frame. The trail can be disabled with `weaponTrails` in the common
-config.
-
-## Dev environment notes
-
-Better Combat 1.9.0 and Player Animator 1.0.2-rc1 are SRG-compiled Forge jars.
-ModDevGradle's official-mapped dev runtime cannot load them as-is: their
-prebuilt refmaps lack field entries, so `@Shadow` fields fail to resolve.
-`run/mods` therefore contains dev-only copies produced by a tiny-remapper
-SRG->official pass (using the project's `intermediateToNamed.srg`, a refmap
-field-entries patch, and an ASM rename of the remaining SRG shadow fields to
-official names). Production (real instances) uses the
-unmodified jars, where SRG names resolve natively. Do not ship the dev copies.
-Deploying only copies this mod's own jar into an instance's `mods` folder.
+Better Combat 1.9.0 and Player Animator 1.0.2-rc1 are SRG-compiled Forge jars
+that ModDevGradle's official-mapped dev runtime can't load as-is, because their
+prebuilt refmaps lack field entries and `@Shadow` fields fail to resolve.
+`run/mods` holds dev-only copies produced by a tiny-remapper SRG->official pass;
+real instances use the untouched jars, where SRG resolves natively. Don't ship
+the dev copies - deploying only ever copies this mod's own jar.

@@ -1,248 +1,360 @@
 # Ability & weapon configuration
 
-Everything about a gesture ability — its trigger symbol, hitbox shape, damage,
-knockback, cooldown, hit count — lives in JSON, not code. Two files drive it:
+This mod's combat numbers are data, not code. Two JSON files hold them, both
+shipped inside the jar at these paths:
 
-| File | Purpose |
-| --- | --- |
-| `data/gesturalcombat/abilities.json` | per-technique overrides (symbol, hitbox, damage, cooldown) |
-| `data/gesturalcombat/weapons.json` | per-item / per-tag weapon profiles (archetype + stat multipliers) |
+```
+data/gesturalcombat/abilities.json     # one config per technique (the mod's moves)
+data/gesturalcombat/weapons.json       # one profile per weapon item / tag / glob
+```
 
-Both ship inside the jar with the tuned defaults. A datapack (or `kubejs`
-style resource pack, or the world's `datapacks/` folder) with the same paths
-replaces them. Run `/reload` after editing — the server re-reads both files and
-pushes the result to every connected client.
+Override either file from a datapack with the same path and the mod reads yours
+instead. That works for a world datapack (`<world>/datapacks/<pack>/data/...`,
+`pack_format` 15) and for a mod that ships the same file. Edit, then run
+`/reload`: the server re-reads both files and pushes the result to every
+connected client (the client never reads its own copy of the numbers, so
+multiplayer stays in sync).
 
-Turn on `debugHitboxes` in the common config to draw the resolved hitbox in
-world with end-rod particles while testing.
+You do **not** need to recompile anything to rebalance a technique.
+
+Two config flags help while you work: `debugHitboxes` draws the resolved hitbox
+in world, `debugCasts` logs every cast with its id, family and shape plus how
+many targets each arc actually caught.
+
+---
 
 ## abilities.json
+
+### Shape of the file
 
 ```json
 {
   "techniques": {
     "sword_slash": {
       "gesture": "LINE_H",
-      "archetype": "sword",
-      "hitbox": {
-        "shape": "ARC",
-        "range": 2.8,
-        "angle": 110,
-        "width": 1.0,
-        "height": 1.6,
-        "vertical_offset": 0.0,
-        "forward_offset": 0.0,
-        "max_targets": 16,
-        "line_of_sight": false
-      },
       "damage_multiplier": 1.0,
       "knockback": 0.25,
-      "lift": 0.0,
-      "cooldown_ticks": 10,
-      "hits": 1,
-      "hit_interval": 0,
-      "windup_ticks": 0
+      "cooldown_ticks": 10
+    },
+    "axe_cleave": {
+      "hitbox": {
+        "shape": "ARC",
+        "range": 3.0,
+        "angle": 140,
+        "height": 1.8,
+        "max_targets": 12
+      }
     }
   }
 }
 ```
 
-Every field is optional. Omitting a key keeps the code default, so a file with
-`{"techniques": {"sword_slash": {"damage_multiplier": 1.3}}}` only changes that
-one number.
+Each key is a **technique id** (see `/reload` log line or the ids in
+`Techniques.java`; `debugCasts` prints them as you play). Every field is
+optional — anything you leave out keeps the value the code was written with, so
+a one-line file that only bumps `damage_multiplier` is a valid override.
 
-- `gesture` — the symbol that casts it: `LINE_H`, `LINE_V_UP`, `LINE_V_DOWN`,
-  `CIRCLE`, `ZIGZAG`, `V`, `CARET`. An array assigns several symbols:
-  `"gesture": ["CIRCLE", "V"]`. A symbol can only map to one technique per
-  archetype; the last assignment in the file wins.
-- `archetype` — moves the technique to another weapon family (`sword`, `axe`,
-  `spear`, `shield`, `bow`).
-- `damage_multiplier` — multiplies the player's attack damage (after mastery and
-  weapon-profile multipliers).
-- `cooldown_ticks` — base cooldown before config/mastery/attack-speed scaling.
+Unknown technique ids are ignored rather than rejected, so a typo costs you
+nothing but a silent no-op. Check the log: `Loaded ability configs: N techniques
+configured, M weapon profiles` tells you the files parsed at all, and
+`debugCasts` tells you which id fired.
+
+### Technique fields
+
+| Key | Type | Unit | What it does |
+| --- | --- | --- | --- |
+| `gesture` | string or array | — | Symbol that casts the move: `LINE_H`, `LINE_V_UP`, `LINE_V_DOWN`, `CIRCLE`, `ZIGZAG`, `V`, `CARET`. |
+| `archetype` | string | — | Moves the technique to another class: `sword`, `axe`, `spear`, `shield`, `bow`. |
+| `hitbox` | object | — | Replaces the default hit region; see below. |
+| `damage_multiplier` | number | × | Multiplies the player's attack damage for this move. |
+| `knockback` | number | blocks/tick | Push strength. **Below 0.3 this stops being a shove and becomes a stun** (see the note at the bottom). |
+| `lift` | number | blocks/tick | Upward push. Any `lift` above 0 also forces a real shove instead of a stun. |
+| `self_knockback` | number | blocks/tick | Push applied to the caster (lunge/retreat moves). |
+| `cooldown_ticks` | int | ticks (20 = 1 s) | Base cooldown before all multipliers. |
+| `hits` | int | count | Number of damage pulses. `1` = a single hit. |
+| `hit_interval` | int | ticks | Gap between pulses for multi-hit moves. |
+| `hit_interval_end` | int | ticks | Gap for the *last* pulse; pulses ramp linearly from `hit_interval` to this. Use it for accelerating combos. |
+| `windup_ticks` | int | ticks | Delay before the first hit resolves. Also offsets the animation in the client. |
+
+`gesture` is only about dispatch. The *first* entry in an array becomes the
+technique's own symbol; extra entries additionally bind that symbol to the same
+technique for family-less (archetype-level) moves. A technique that belongs to a
+weapon family (`claymore`, `sickle`, `sai`, …) keeps its family identity — you
+can move its symbol, but you can't hand it to a different family this way.
+
+### Multi-hit timing
+
+With `hits: 3`, `hit_interval: 5`, `hit_interval_end: 2`, `windup_ticks: 4`,
+the pulses land at tick 4, 9 and 14 from the cast, and the client plays a swing
+for each. Damage is divided evenly (`total / hits`) unless the effect itself
+handles ramping, so raising `hits` on its own does not raise total damage — it
+splits the same damage into more, smaller hits with more stun and more animation.
+To make a move actually stronger, raise `damage_multiplier`.
+
+The same delay array drives the whoosh sounds and the number of Better Combat
+swings, which is why `hits` and the animation always match.
 
 ### Hitbox shapes
 
-| Shape | Geometry | Reads it well for |
+| `shape` | Geometry | Good for |
 | --- | --- | --- |
-| `ARC` | horizontal fan in front of the player: `range` deep, `angle` wide, `height` as a vertical window centred on the eye | slashes, sweeps, cleaves |
-| `VERTICAL_ARC` | vertical fan in the plane you are facing: `angle` is the vertical sweep around your crosshair pitch, `width` is the lateral thickness | rising cuts, overhead chops, slams |
-| `BOX` | swept box along the look vector: `range` deep, `width` wide, `height` tall | thrusts, stabs, pierces |
-| `SPHERE` | radius around the player's torso | spins, whirlwinds, ground slams |
+| `ARC` | Horizontal fan in front of the player: `range` deep, `angle` wide, `height` tall as a window around eye level | slashes, sweeps, cleaves |
+| `VERTICAL_ARC` | Vertical fan in the facing plane: `angle` is the up/down sweep, `width` the sideways thickness | overhead chops, rising cuts, slams |
+| `BOX` | Box swept along the look vector: `range` deep, `width` wide, `height` tall | thrusts, stabs, pierces |
+| `SPHERE` | Sphere around the player's torso | spins, whirlwinds, ground slams |
 
-`ARC` and `VERTICAL_ARC` both follow your **yaw** (camera facing); `VERTICAL_ARC` additionally follows your **pitch**, so looking down sweeps the ground and looking up sweeps overhead. `BOX` follows the full look vector (yaw + pitch).
+`ARC` and `VERTICAL_ARC` follow your yaw only; `VERTICAL_ARC` also follows pitch,
+so looking down sweeps the floor and looking up sweeps overhead. `BOX` follows
+the full look direction.
 
-Common knobs:
+| Key | Default | Notes |
+| --- | --- | --- |
+| `range` | shape-dependent | Reach in blocks, still multiplied by the weapon's reach. |
+| `angle` | 110–360 | Total fan width in degrees; ignored by `BOX` and `SPHERE`. |
+| `width` | 1.0 | Sideways thickness. Keep thin (~0.8–1.1) for vertical arcs and boxes. |
+| `height` | 1.4–3.0 | Vertical size. For `ARC` this is the window around eye height, so an arc cannot hit through a floor. |
+| `vertical_offset` | 0.0 | Shift the whole region up/down from eye height. |
+| `forward_offset` | 0.0 | Start the region this far in front, for stabs that shouldn't hit something pressed against your chest. |
+| `max_targets` | 6–16 | Hard cap per pulse, nearest first. |
+| `line_of_sight` | shape default | Reject targets behind blocks. Moves that build a `BOX` for a thrust set it on; arcs leave it off. |
 
-- `range` — reach in blocks (still multiplied by mastery range passives and the
-  weapon profile's `reach_multiplier`).
-- `angle` — total fan width in degrees (`360` = full circle) for `ARC`, total
-  vertical sweep for `VERTICAL_ARC`. Ignored by `BOX` and `SPHERE`.
-- `width` — lateral thickness. Only meaningful for `VERTICAL_ARC` (keep it
-  narrow, ~0.8-1.1: the blade is thin sideways) and `BOX`.
-- `height` — vertical size. For `ARC` it is the vertical window around eye
-  height (mobs above/below are ignored, so an arc can't hit through a floor);
-  for `VERTICAL_ARC` it is a minimum vertical reach, so a tall slash still
-  catches mobs at your feet or above your head.
-- `vertical_offset` — shift the region up/down from eye height.
-- `forward_offset` — start the region this many blocks in front (stabs that
-  should not hit an enemy pressed against your chest).
-- `max_targets` — hard cap on entities hit per activation, nearest first.
-- `line_of_sight` — reject targets behind blocks (on by default for `BOX`).
-
-The query is box-aware: it tests the entity's full bounding box (all edges) and
-not just its centre, then sorts by distance and truncates at `max_targets`.
+The query tests the target's whole bounding box, not its centre point, then
+sorts by distance and truncates at `max_targets`.
 
 ### Recipes
 
-**Wider axe cleave, more damage, same animation:**
+**Make the axe cleave wider and stronger, same animation:**
 
 ```json
 {"techniques": {"axe_cleave": {"hitbox": {"shape": "ARC", "angle": 140, "range": 3.0}, "damage_multiplier": 1.35}}}
 ```
 
-**Sword execute becomes a true overhead vertical cleave** (thin sideways,
-wide vertically):
+**Turn the sword finisher into a true overhead cleave** (thin sideways, tall
+vertically, follows your pitch):
 
 ```json
 {"techniques": {"sword_execute": {"hitbox": {"shape": "VERTICAL_ARC", "range": 2.8, "angle": 120, "width": 0.9, "height": 2.8}}}}
 ```
 
-**Spear thrust that cannot hit through walls, and leaves a gap in front:**
+**A spear thrust that respects walls and leaves a gap at your chest:**
 
 ```json
 {"techniques": {"spear_thrust": {"hitbox": {"shape": "BOX", "range": 4.8, "width": 1.6, "height": 1.2, "forward_offset": 0.2, "line_of_sight": true}}}}
 ```
 
-**Swap symbols — whirl on `V`, guard on `CIRCLE`:**
+**Swap two symbols:**
 
 ```json
 {"techniques": {"sword_whirl": {"gesture": "V"}, "sword_guard": {"gesture": "CIRCLE"}}}
 ```
 
+**A slower, heavier finisher with an extra pulse:**
+
+```json
+{"techniques": {"katana_execute": {"damage_multiplier": 2.1, "hits": 3, "hit_interval": 4, "hit_interval_end": 8, "cooldown_ticks": 70}}}
+```
+
+---
+
 ## weapons.json
 
-Profiles make *any* modded weapon usable without touching code. A profile is
-matched by item id, by glob, or by item tag, in file order — first match wins.
+Profiles let any modded weapon use the mod properly without touching code.
+Profiles are tested in file order and the **first match wins**.
 
 ```json
 {
+  "categories": {
+    "chakram": [
+      "simplyswords:one_handed_chakram_throw_left",
+      "simplyswords:chakram_spin"
+    ]
+  },
   "weapons": [
     {
       "items": ["simplyswords:watcher_claymore"],
       "archetype": "sword",
+      "family": "claymore",
       "damage_multiplier": 1.15,
       "reach_multiplier": 1.1,
-      "reach": 4.2,
       "cooldown_multiplier": 0.9,
       "animations": [
         "bettercombat:two_handed_slash_horizontal_left",
-        "bettercombat:two_handed_slash_horizontal_right",
         "bettercombat:two_handed_slam"
       ],
       "techniques": {
-        "sword_slash": {"damage_multiplier": 1.2},
-        "sword_whirl": {"hitbox": {"shape": "SPHERE", "range": 3.5}}
-      }
+        "claymore_sweep": {"damage_multiplier": 1.2}
+      },
+      "specials": [
+        {
+          "gesture": "CIRCLE",
+          "cooldown_ticks": 160,
+          "damage_multiplier": 1.4,
+          "knockback": 0.7,
+          "hitbox": {"shape": "SPHERE", "range": 4.0, "max_targets": 10}
+        }
+      ]
     },
     {
-      "items": ["simplyswords:*greatsword*", "#minecraft:axes"],
-      "archetype": "axe",
-      "reach_multiplier": 1.05
+      "items": ["*:*greatsword*", "#minecraft:axes"],
+      "archetype": "axe"
     }
   ]
 }
 ```
 
-- `items` — exact ids (`mod:item`), globs (`mod:*scythe*`, `*:rapier`), or tags
-  (`#mod:tag`).
-- `archetype` — weapon family override, checked before Better Combat's category
-  and before name heuristics.
-- `damage_multiplier` / `reach_multiplier` / `cooldown_multiplier` — apply to
-  every ability cast with that item.
-- `reach` — optional **absolute** reach in blocks. When set it replaces
-  `reach_multiplier` for every ability hitbox, so `4.2` means every technique
-  with this weapon reaches exactly 4.2 blocks (before the mastery range
-  passive). When omitted, the weapon's Better Combat `attack_range` is used
-  directly, so modded weapons get their own reach without any config.
-- `animations` — Better Combat animation ids played by gesture casts with this
-  weapon. Each id is classified by name (`spin`/`whirl`, `slam`, `rising`,
-  `stab`/`throw`, `vertical`, `slash`/`swipe`/`cross`) and matched to the
-  gesture, preferring the weapon's own handedness. Missing ids are skipped.
-  See `categories` below for the shared table.
+### Matching
 
-`weapons.json` also has a top-level `categories` object mapping a Better Combat
-category to an animation pool. It is used for any weapon that declares that
-category — from this mod or any other — but only when the pool contains
-animations more specific than the generic `bettercombat:` set:
+`items` entries can be:
 
-```json
-"categories": {
-  "chakram": [
-    "simplyswords:one_handed_chakram_throw_left",
-    "simplyswords:chakram_spin",
-    "simplyswords:chakram_spin_long_grounded"
-  ]
-}
+- an exact id: `simplyswords:iron_sai`
+- a glob: `*:*scythe*`, `simplyswords:*claymore*`, `*:rapier`
+- a tag: `#minecraft:axes`
+
+A profile only applies to whatever matched; nothing is inferred from a partial
+match beyond the glob.
+
+### Profile fields
+
+| Key | Default | What it does |
+| --- | --- | --- |
+| `archetype` | inferred | Forces the weapon class (`sword`/`axe`/`spear`/`shield`/`bow`). Checked before Better Combat and before name heuristics. |
+| `family` | inferred | Forces the mod's weapon family, which selects the kit (`claymore`, `sickle`, `katana`, …). Set this if the item's id doesn't contain a recognisable word. |
+| `damage_multiplier` | 1.0 | Scales every cast's damage with this item. |
+| `reach_multiplier` | 1.0 | Scales every cast's hitbox range. |
+| `cooldown_multiplier` | 1.0 | Scales every cast's cooldown. |
+| `reach` | unset | **Absolute** reach in blocks. When set it replaces `reach_multiplier` for every ability. Leave it out to inherit the weapon's Better Combat `attack_range`. |
+| `animations` | empty | Better Combat animation ids this weapon should use; see below. |
+| `techniques` | empty | Per-technique overrides with exactly the same schema as `abilities.json`, layered on top of the global values. |
+| `specials` | empty | Signature moves for this weapon only; see below. |
+
+### Animations
+
+There are three sources, checked in this order:
+
+1. the profile's own `animations` list,
+2. the shared pool for the weapon's Better Combat category (top-level
+   `categories`),
+3. the built-in archetype animation.
+
+Ids are classified by name — `spin`/`whirl`, `slam`/`smash`/`overhead`,
+`rising`/`upper`, `stab`/`thrust`/`throw`, `vertical`, `slash`/`swipe`/`cross` —
+then matched to the gesture: `CIRCLE` wants a spin, `LINE_H` and `ZIGZAG` want
+horizontal slashes (a stab or throw is used if the pool has no slash), `LINE_V_UP`
+wants a rising cut or stab, `LINE_V_DOWN` wants a slam or vertical slash. When a
+gesture has no matching kind in the pool, the archetype default plays instead.
+Ids that don't resolve in the animation registry are skipped silently, so a
+typo'd animation id just means you get the default swing.
+
+Multi-hit techniques repeat the ordered pool, so a three-entry pool gives you
+three different swings per three-hit move.
+
+### Specials
+
+A special replaces the normal technique for one gesture on one weapon. It has
+its own cooldown key (so it doesn't share the archetype's cooldown) and does not
+need a `Techniques.java` entry.
+
+| Key | Default | Notes |
+| --- | --- | --- |
+| `gesture` | required | Symbol that triggers it. |
+| `cooldown_ticks` | 120 | Minimum 20; still scaled by config and attack speed. |
+| `damage_multiplier` | 1.0 | Stacks on top of the normal ability damage. |
+| `knockback` | 0.4 | Push on hit. |
+| `lift` | 0.0 | Upward push. |
+| `heal` | 0.0 | Flat health restored to the caster on cast. |
+| `sound` | none | Sound event id played on cast, e.g. `minecraft:item.firecharge.use`. Unknown ids are ignored. |
+| `particles` | none | One of `flame`, `soul`, `soul_fire_flame`, `crit`, `explosion`, `electric_spark`, `snowflake`, `enchanted_hit`, `witch`, `end_rod`. |
+| `hitbox` | `SPHERE` 3.2 / 360° / max 10 | Same keys as technique hitboxes. |
+| `target_effects` | empty | `[{"id": "minecraft:fire", "duration": 100, "amplifier": 0}]`, applied to everything hit. |
+| `self_effects` | empty | Same shape, applied to the caster. |
+
+Special hits always pin targets briefly (stun ticks, or the technique's hit
+interval minus two, whichever is longer), so a signature move reads as a heavy
+blow even when its `knockback` is small.
+
+---
+
+## How the numbers actually combine
+
+Damage for one pulse:
+
+```
+attack_damage (player attribute)
+  × profile.damage_multiplier
+  × family weight factor      (0.67-1.36, per family, see WeaponRules.TUNING)
+  × global damageMultiplier   (config)
+  × technique damage_multiplier (abilities.json, or the effect's own default)
+  ÷ hits
 ```
 
-Resolution order per gesture: the weapon's `animations`, then its category
-pool, then the archetype default. Kinds map to gestures as follows —
-`CIRCLE` → spin, `LINE_H`/`ZIGZAG` → horizontal slash (or stab/throw when the
-pool has no slash), `LINE_V_UP` → rising or stab/throw, `LINE_V_DOWN` → slam or
-vertical slash. A gesture with no matching kind falls back to the built-in
-archetype animation.
-- `techniques` — per-technique overrides in exactly the same schema as
-  `abilities.json`, merged on top of the global technique config.
-- `specials` — gesture-bound signature moves for that specific weapon:
+Reach for one pulse:
 
-```json
-"specials": [
-  {
-    "gesture": "CIRCLE",
-    "cooldown_ticks": 160,
-    "damage_multiplier": 1.4,
-    "knockback": 0.7,
-    "lift": 0.2,
-    "hitbox": {"shape": "SPHERE", "range": 4.0, "max_targets": 10},
-    "target_effects": [{"id": "minecraft:fire", "duration": 100, "amplifier": 0}],
-    "self_effects": [{"id": "minecraft:strength", "duration": 100, "amplifier": 0}],
-    "heal": 0.0,
-    "sound": "minecraft:item.firecharge.use",
-    "particles": "flame"
-  }
-]
+```
+profile.reach (absolute, if set, × family reach factor)
+  else hitbox.range × profile.reach_multiplier × family reach factor
 ```
 
-Casting the matching gesture with that weapon runs the special instead of the
-archetype technique, with its own per-weapon cooldown key. `damage_multiplier`
-stacks on top of the normal ability damage (attack damage × mastery × weapon
-profile × global config), `hitbox` is scaled by the weapon's reach and the
-mastery range passive, and `cooldown_ticks` is scaled by the mastery cooldown
-passive, the global config and the attack-speed factor. The resulting cooldown
-is shown on that weapon's HUD icon. See `data/gesturalcombat/weapons.json` for the full Simply
-Swords mapping.
+Cooldown:
 
-## How Better Combat's own compat works (and why Simply Swords works here for free)
+```
+base cooldown_ticks
+  × global cooldownMultiplier (config)
+  × attack-speed factor  (= reference_speed / your weapon speed, clamped to 1.0 max, i.e. fast weapons never get slower)
+  × profile.cooldown_multiplier
+  × family cooldown factor
+  × 0.92 if both hands hold the same non-heavy family
+```
 
-Better Combat keys weapon data by **item id**: `data/<modid>/weapon_attributes/<item_path>.json`
-is the profile for `<modid>:<item_path>`. Each file is resolved through a
-`parent` chain (`data/bettercombat/weapon_attributes/sword.json` etc.), where
-parent values are overridden by the child, then the merged
-`WeaponAttributes(attack_range, category, attacks[], …)` is registered in
-`WeaponRegistry.registrations` and synced to clients as gzip-compressed JSON.
+Family weight and cooldown factors live in `weapon/WeaponRules.java` (`TUNING`),
+not in JSON. That table is what makes a claymore hit harder and recover slower
+than a sword while both use the same ability numbers.
 
-Each attack entry carries its own `hitbox`
-(`HORIZONTAL_PLANE` / `VERTICAL_PLANE` / `FORWARD_BOX`), `angle`,
-`damage_multiplier`, `upswing`, `animation`, and swing sound — that is how BC
-lets any weapon look and behave correctly. Items without a profile get
-`WeaponAttributesFallback`, which infers from vanilla attribute modifiers
-(attack damage / attack speed), and stacks can carry per-stack attributes in
-NBT (`ItemStackNBTWeaponAttributes`).
+Because damage is computed from the player's attack attribute, a technique is
+automatically strong with a strong weapon and weak unarmed. `damage_multiplier`
+is a relative knob, not a flat damage number.
 
-Simply Swords ships one `weapon_attributes` file per weapon (plus
-`BetterCombatCompat` on the mod side), so BC already knows its claymores are
-`claymore`, its glaives are `glaive`, and so on. This mod reads that resolved
-`category` through `compat/BetterCombatBridge`, maps the family onto its own
-archetype, and only needs a `weapons.json` entry when you want to change
-Gestural Combat's numbers for a specific item.
+---
+
+## Gotchas worth knowing
+
+- **`knockback` under 0.3 is a stun, not a shove.** With no `lift`, small
+  knockback values pin the target for the weapon's stun ticks instead of pushing
+  it. If a move unexpectedly freezes mobs, check that number. Giving it any
+  `lift` forces a real shove.
+- **Ticks, not seconds.** 20 ticks = 1 second.
+- **Hits split damage.** More hits on the same multiplier means the same total
+  damage in smaller pieces.
+- **First match wins** in `weapons.json`, so put specific profiles above globs
+  and tags.
+- **Families own their kits.** A family technique can be re-tuned or moved to
+  another symbol, but a family that defines its own move for a symbol
+  (`sickle` + `CARET`) shadows the archetype move for that symbol.
+- **The server owns the numbers in multiplayer.** It parses the files and syncs
+  the result; clients only fall back to their own bundled copy before the first
+  sync, for HUD previews. If a player sees old numbers, the server needs to
+  `/reload` (or they need to reconnect).
+- **Datapacks need `pack_format` 15** for 1.20.1 or the pack won't load at all.
+
+---
+
+## Contributing: adding a technique
+
+Data covers re-tuning existing moves. A *new* move needs a `TechniqueEffect`
+implementation:
+
+1. Write an effect in `technique/effect/` (or reuse one) — it receives the
+   player, level, held stack and technique, resolves its own hitbox and damage.
+2. Register it in `Techniques.java`:
+   `add(new Technique(id, archetype, shape, level, cooldown, nodeId, xp, effect, family))`.
+   `level`, `nodeId` and `xp` are unused leftovers from the removed progression
+   system; pass `1`, `null`, `0`.
+3. Add an `abilities.json` entry so it becomes tunable without a recompile.
+4. Map an animation in `client/anim/AnimationCatalog.java` if the default
+   archetype swing isn't right.
+5. Give it a HUD icon alias in `client/hud/AbilityIcons.java` (falls back to the
+   archetype icon).
+6. Run `python3 tools/balance_sim.py` and check `--dual` too. It reads
+   `Techniques.java` plus `abilities.json` and reports damage per second, stun
+   share and the longest window the target has to act, per family. Numbers
+   outside the weight-class bands are almost always a cooldown/damage mismatch
+   rather than a hitbox problem.
