@@ -310,7 +310,25 @@ public final class WeaponAudit {
         return key == null ? "unknown" : key.toString().toLowerCase(Locale.ROOT);
     }
 
+    private static String pendingOrigin;
+
+    public static void requestAudit(String origin) {
+        pendingOrigin = origin;
+    }
+
+    public static void onServerTick(net.minecraftforge.event.TickEvent.ServerTickEvent event) {
+        if (event.phase != net.minecraftforge.event.TickEvent.Phase.END || pendingOrigin == null) {
+            return;
+        }
+        String origin = pendingOrigin;
+        pendingOrigin = null;
+        if (Config.INSTANCE.debugWeapons.get()) {
+            log(origin);
+        }
+    }
+
     public static void onServerStarted(ServerStartedEvent event) {
+        pendingOrigin = null;
         if (!Config.INSTANCE.debugWeapons.get()) {
             return;
         }

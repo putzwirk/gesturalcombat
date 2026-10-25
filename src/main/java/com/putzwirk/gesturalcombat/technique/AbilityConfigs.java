@@ -57,24 +57,79 @@ public final class AbilityConfigs {
         if (loaded()) {
             return;
         }
-        JsonObject bundledAbilities = readBundled("/data/gesturalcombat/abilities.json");
-        List<JsonObject> weaponDocs = new ArrayList<>();
-        for (String name : BUNDLED_WEAPONS) {
-            JsonObject doc = readBundled("/data/gesturalcombat/weapons/" + name);
-            if (doc != null) {
-                weaponDocs.add(doc);
-            }
-        }
-        JsonObject bundledWeapons = mergeWeapons(weaponDocs);
+        JsonObject bundledAbilities = bundledAbilities();
+        JsonObject bundledWeapons = mergeWeapons(bundledWeaponDocs());
         if (bundledAbilities == null || bundledWeapons == null) {
             return;
         }
         load(bundledAbilities, bundledWeapons);
     }
 
-    private static final String[] BUNDLED_WEAPONS = {
-            "00-categories.json", "10-vanilla.json", "20-simplyswords.json", "30-born-in-chaos.json"
+    private static final String WEAPONS_DIR = "data/gesturalcombat/weapons";
+    private static final String[] FALLBACK_WEAPONS = {
+            "00-categories.json", "10-vanilla.json", "20-simplyswords.json", "30-born-in-chaos.json",
+            "40-misc.json"
     };
+
+    @Nullable
+    public static JsonObject bundledAbilities() {
+        JsonObject doc = readPath(modFile("data/gesturalcombat/abilities.json"));
+        return doc != null ? doc : readBundled("/data/gesturalcombat/abilities.json");
+    }
+
+    public static List<JsonObject> bundledWeaponDocs() {
+        List<JsonObject> docs = new ArrayList<>();
+        java.nio.file.Path dir = modFile(WEAPONS_DIR);
+        if (dir != null) {
+            try (java.util.stream.Stream<java.nio.file.Path> stream = java.nio.file.Files.list(dir)) {
+                for (java.nio.file.Path file : stream
+                        .filter(path -> path.getFileName().toString().endsWith(".json"))
+                        .sorted()
+                        .toList()) {
+                    JsonObject doc = readPath(file);
+                    if (doc != null) {
+                        docs.add(doc);
+                    }
+                }
+            } catch (java.io.IOException | RuntimeException ignored) {
+            }
+        }
+        if (docs.isEmpty()) {
+            for (String name : FALLBACK_WEAPONS) {
+                JsonObject doc = readBundled("/" + WEAPONS_DIR + "/" + name);
+                if (doc != null) {
+                    docs.add(doc);
+                }
+            }
+        }
+        return docs;
+    }
+
+    @Nullable
+    private static java.nio.file.Path modFile(String path) {
+        try {
+            net.minecraftforge.fml.ModContainer container = net.minecraftforge.fml.ModList.get()
+                    .getModContainerById(com.putzwirk.gesturalcombat.Gesturalcombat.MODID).orElse(null);
+            if (container == null) {
+                return null;
+            }
+            return container.getModInfo().getOwningFile().getFile().findResource(path.split("/"));
+        } catch (RuntimeException e) {
+            return null;
+        }
+    }
+
+    @Nullable
+    private static JsonObject readPath(@Nullable java.nio.file.Path path) {
+        if (path == null) {
+            return null;
+        }
+        try (java.io.Reader reader = java.nio.file.Files.newBufferedReader(path, java.nio.charset.StandardCharsets.UTF_8)) {
+            return JsonParser.parseReader(reader).getAsJsonObject();
+        } catch (RuntimeException | java.io.IOException e) {
+            return null;
+        }
+    }
 
     public static JsonObject mergeWeapons(List<JsonObject> docs) {
         if (docs.isEmpty()) {

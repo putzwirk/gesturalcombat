@@ -28,6 +28,8 @@ public class Gesturalcombat {
                 com.putzwirk.gesturalcombat.weapon.WeaponAudit::onRegisterCommands);
         net.minecraftforge.common.MinecraftForge.EVENT_BUS.addListener(
                 com.putzwirk.gesturalcombat.weapon.WeaponAudit::onServerStarted);
+        net.minecraftforge.common.MinecraftForge.EVENT_BUS.addListener(
+                com.putzwirk.gesturalcombat.weapon.WeaponAudit::onServerTick);
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {

@@ -38,7 +38,12 @@ public final class AbilityReloadListener extends SimplePreparableReloadListener<
                         weaponDocs.add(doc);
                     }
                 });
-        return new Payload(read(manager, ABILITIES), AbilityConfigs.mergeWeapons(weaponDocs));
+        JsonObject abilities = read(manager, ABILITIES);
+        if (abilities == null) {
+            abilities = AbilityConfigs.bundledAbilities();
+        }
+        List<JsonObject> docs = weaponDocs.isEmpty() ? AbilityConfigs.bundledWeaponDocs() : weaponDocs;
+        return new Payload(abilities, AbilityConfigs.mergeWeapons(docs));
     }
 
     @Override
@@ -50,7 +55,7 @@ public final class AbilityReloadListener extends SimplePreparableReloadListener<
         Gesturalcombat.LOGGER.info("Loaded ability configs: {} techniques configured, {} weapon profiles",
                 AbilityConfigs.count(), com.putzwirk.gesturalcombat.weapon.WeaponProfiles.count());
         if (com.putzwirk.gesturalcombat.Config.INSTANCE.debugWeapons.get()) {
-            com.putzwirk.gesturalcombat.weapon.WeaponAudit.log("reload");
+            com.putzwirk.gesturalcombat.weapon.WeaponAudit.requestAudit("reload");
         }
         AbilitySync.broadcast();
     }
