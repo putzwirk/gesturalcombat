@@ -1544,24 +1544,6 @@
       "cooldown_ticks": 30,
       "windup_ticks": 1
     },
-    "scythe_step": {
-      "gesture": "CARET",
-      "hitbox": {
-        "shape": "ARC",
-        "range": 3.0,
-        "angle": 220.0,
-        "width": 1.0,
-        "height": 3.6,
-        "vertical_offset": 0.2,
-        "forward_offset": 0.0,
-        "max_targets": 6,
-        "line_of_sight": false
-      },
-      "damage_multiplier": 0.5,
-      "knockback": 0.05,
-      "cooldown_ticks": 32,
-      "windup_ticks": 1
-    },
     "spear_step": {
       "gesture": "CARET",
       "hitbox": {

@@ -18,6 +18,9 @@ public final class WeaponRules {
     private static final Set<String> AREA = Set.of("battlestaff", "twinblade", "warglaive", "scythe");
     private static final Set<GestureShape> HEAVY_LOCKED = java.util.EnumSet.of(GestureShape.CIRCLE,
             GestureShape.CARET, GestureShape.V);
+    private static final Set<String> BULKY = Set.of("scythe");
+    private static final Set<GestureShape> BULKY_LOCKED = java.util.EnumSet.of(GestureShape.CARET,
+            GestureShape.V);
     private static final int HEAVY_TAIL = 9;
 
     private static final Tuning DEFAULT = new Tuning(0.66, 1.25, 4, 1.0);
@@ -34,7 +37,7 @@ public final class WeaponRules {
             Map.entry("trident", new Tuning(1.10, 1.25, 3, 1.0)),
             Map.entry("battlestaff", new Tuning(0.99, 1.25, 2, 1.0)),
             Map.entry("warglaive", new Tuning(1.17, 1.22, 2, 1.0)),
-            Map.entry("scythe", new Tuning(0.87, 1.25, 4, 1.0)),
+            Map.entry("scythe", new Tuning(0.93, 1.25, 4, 1.0)),
             Map.entry("claymore", new Tuning(0.86, 1.30, 8, 1.0)),
             Map.entry("glaive", new Tuning(0.94, 1.25, 8, 1.0)),
             Map.entry("halberd", new Tuning(0.92, 1.25, 8, 1.0)),
@@ -127,9 +130,13 @@ public final class WeaponRules {
         if (family == null || shape == null) {
             return false;
         }
-        if ("chakram".equalsIgnoreCase(family) && shape == GestureShape.LINE_V_DOWN) {
+        String key = family.toLowerCase(java.util.Locale.ROOT);
+        if ("chakram".equals(key) && shape == GestureShape.LINE_V_DOWN) {
             return true;
         }
-        return HEAVY.contains(family.toLowerCase(java.util.Locale.ROOT)) && HEAVY_LOCKED.contains(shape);
+        if (BULKY.contains(key) && BULKY_LOCKED.contains(shape)) {
+            return true;
+        }
+        return HEAVY.contains(key) && HEAVY_LOCKED.contains(shape);
     }
 }

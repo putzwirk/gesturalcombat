@@ -55,22 +55,13 @@
       ],
       "archetype": "axe",
       "family": "scythe",
-      "reach_multiplier": 1.03,
-      "gestures": [
-        "LINE_H",
-        "LINE_V_UP",
-        "LINE_V_DOWN",
-        "CIRCLE",
-        "ZIGZAG"
-      ]
+      "reach_multiplier": 1.03
     },
     {
       "items": [
         "born_in_chaos_v1:great_reaper_axe",
         "born_in_chaos_v1:wood_splitter_axe",
-        "born_in_chaos_v1:sweet_axe",
-        "born_in_chaos_v1:nut_hammer",
-        "born_in_chaos_v1:stop_hammer"
+        "born_in_chaos_v1:sweet_axe"
       ],
       "archetype": "axe",
       "family": "axe",
@@ -79,7 +70,9 @@
     {
       "items": [
         "born_in_chaos_v1:shell_mace",
-        "born_in_chaos_v1:skullbreaker_hammer"
+        "born_in_chaos_v1:skullbreaker_hammer",
+        "born_in_chaos_v1:nut_hammer",
+        "born_in_chaos_v1:stop_hammer"
       ],
       "archetype": "axe",
       "family": "mace",

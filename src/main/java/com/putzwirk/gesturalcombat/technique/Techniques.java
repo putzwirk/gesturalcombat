@@ -419,16 +419,6 @@ public final class Techniques {
                 States.recordHarvest(player, target);
                 return damage * (execute ? 2.0 : 1.0);
             }), "scythe"));
-    public static final Technique SCYTHE_STEP = add(new Technique("scythe_step", Archetype.AXE, GestureShape.CARET, 1, 32, null, 10,
-            new DashStrikeEffect(3.0, 220, 0.95, 4.4, 0.0, 3, (player, target, damage, index) -> {
-                boolean bonus = States.harvestBonus(player);
-                States.recordHarvest(player, target);
-                if (bonus) {
-                    player.heal(0.25f);
-                    return damage * 1.15;
-                }
-                return damage;
-            }), "scythe"));
     public static final Technique PYRE_SWEEP = add(new Technique("pyre_sweep", Archetype.AXE, GestureShape.LINE_H, 1, 20, null, 8,
             new FamilyArcEffect(4.1, 180, 2.43, 0.30, 0.0, (player, target, damage, index) -> {
                 if (target.getHealth() <= damage) {

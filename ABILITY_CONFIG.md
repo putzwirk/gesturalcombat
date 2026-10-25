@@ -365,6 +365,11 @@ is a relative knob, not a flat damage number.
 - **Families own their kits.** A family technique can be re-tuned or moved to
   another symbol, but a family that defines its own move for a symbol
   (`sickle` + `CARET`) shadows the archetype move for that symbol.
+- **Bulky weapons do not get `V` or `^`.** A scythe cannot brace or dash-step,
+  and heavy families (`mace`, `greataxe`, `greathammer`, `heavy_axe`,
+  `halberd`, `glaive`, `claymore`) additionally give up `CIRCLE`. This is a
+  family rule in `WeaponRules`, not a per-item allow-list, so it holds for
+  every scythe and hammer in the pack including modded ones.
 - **The server owns the numbers in multiplayer, and it overwrites the client.**
   The server parses the files, then pushes the parsed result (gzipped) to every
   player on join, on respawn, on dimension change and after every `/reload`; the
@@ -438,7 +443,7 @@ living entity within 8 blocks is watched for 80 ticks, and one that lands zero
 hits is reported:
 
 ```
-weapon check gap: born_in_chaos_v1:nightmare_scythe scythe_step cast with a target within 8 blocks but hit nothing in 80 ticks
+weapon check gap: simplyswords:iron_claymore claymore_break cast with a target within 8 blocks but hit nothing in 90 ticks
 ```
 
 That is the empirical half: static checks catch moves that cannot work, the
