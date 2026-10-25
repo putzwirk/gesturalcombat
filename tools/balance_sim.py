@@ -263,6 +263,8 @@ def parse_weapon_rules():
 
 def parse_dual_wield():
     text = read(JAVA / "weapon" / "DualWield.java")
+    two_handed = re.search(r"TWO_HANDED_FAMILIES\s*=\s*Set\.of\(([^)]*)\)", text)
+    two_handed_families = set(re.findall(r'"([^"]+)"', two_handed.group(1))) if two_handed else set()
     scale = re.search(r"COOLDOWN_SCALE\s*=\s*([0-9.]+)", text)
     echo = re.search(r"ECHO_DAMAGE\s*=\s*([0-9.]+)", text)
     link = re.search(r"LINK_TICKS\s*=\s*(\d+)", text)
@@ -270,6 +272,7 @@ def parse_dual_wield():
         "cooldown_scale": float(scale.group(1)) if scale else 0.9,
         "echo_damage": float(echo.group(1)) if echo else 0.3,
         "link_ticks": int(link.group(1)) if link else 10,
+        "two_handed": two_handed_families,
     }
 
 
@@ -534,10 +537,12 @@ def render_dual(rows):
     return "\n".join(lines)
 
 
-def dual_eligible(kit):
+def dual_eligible(kit, dual_rules):
     if kit["weight"] == "heavy":
         return False
-    return kit["archetype"] not in ("SHIELD", "BOW")
+    if kit["archetype"] in ("SHIELD", "BOW"):
+        return False
+    return (kit["family"] or "").lower() not in dual_rules["two_handed"]
 
 
 def main():
@@ -560,7 +565,7 @@ def main():
     if args.dual:
         dual_rows = []
         for kit in kits.values():
-            if not kit["slots"] or not dual_eligible(kit):
+            if not kit["slots"] or not dual_eligible(kit, dual_rules):
                 continue
             single = simulate(kit, args.cast_ticks)
             paired = simulate(kit, args.cast_ticks, dual=True, echo_uptime=args.echo_uptime,
@@ -572,6 +577,7 @@ def main():
               f"echo {dual_rules['echo_damage']:.2f}x on {args.echo_uptime:.0%} of casts "
               f"(link window {dual_rules['link_ticks']}t)")
         print(f"ceiling = class band top x{PAIRED_UPLIFT:.2f}, gap must stay >= 0.30s")
+        print("skipped (two handed): " + ", ".join(sorted(dual_rules["two_handed"])))
         print(render_dual(dual_rows))
         return
 
