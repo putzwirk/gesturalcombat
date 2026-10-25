@@ -343,10 +343,7 @@ public final class GestureHud {
         int slot = 0;
         java.util.Set<String> drawnIcons = new java.util.HashSet<>();
         for (GestureShape shape : STRIP) {
-            if (com.putzwirk.gesturalcombat.weapon.WeaponRules.blocked(stack, shape)) {
-                continue;
-            }
-            Technique technique = Techniques.forGesture(held, shape, stack);
+            Technique technique = Techniques.available(held, shape, stack);
             if (technique == null) {
                 continue;
             }

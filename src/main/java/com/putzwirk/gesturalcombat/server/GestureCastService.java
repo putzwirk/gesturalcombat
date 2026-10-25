@@ -93,9 +93,9 @@ public final class GestureCastService {
         if (stack.isEmpty()) {
             return;
         }
-        Technique resolved = Techniques.forGesture(active, shape, stack);
-        if (resolved == null || resolved.archetype() != active) {
-            reject(player, techniqueId, "not mapped for " + active);
+        Technique resolved = Techniques.available(active, shape, stack);
+        if (resolved == null) {
+            reject(player, techniqueId, "not available for " + active + " with this weapon");
             return;
         }
         technique = resolved;

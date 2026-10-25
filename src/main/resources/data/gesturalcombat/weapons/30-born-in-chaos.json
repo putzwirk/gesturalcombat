@@ -55,7 +55,14 @@
       ],
       "archetype": "axe",
       "family": "scythe",
-      "reach_multiplier": 1.03
+      "reach_multiplier": 1.03,
+      "gestures": [
+        "LINE_H",
+        "LINE_V_UP",
+        "LINE_V_DOWN",
+        "CIRCLE",
+        "ZIGZAG"
+      ]
     },
     {
       "items": [

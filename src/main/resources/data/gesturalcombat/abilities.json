@@ -466,24 +466,6 @@
       "hit_interval": 0,
       "windup_ticks": 4
     },
-    "greataxe_dump": {
-      "gesture": "CARET",
-      "hitbox": {
-        "shape": "ARC",
-        "range": 4.0,
-        "angle": 200.0,
-        "width": 1.0,
-        "height": 3.6,
-        "vertical_offset": 0.2,
-        "forward_offset": 0.0,
-        "max_targets": 16,
-        "line_of_sight": false
-      },
-      "damage_multiplier": 0.9,
-      "knockback": 0.6,
-      "lift": 0.0,
-      "cooldown_ticks": 30
-    },
     "sword_link": {
       "gesture": "LINE_H",
       "cooldown_ticks": 14,
@@ -994,10 +976,6 @@
         "max_targets": 6,
         "line_of_sight": false
       }
-    },
-    "pyre_stoke": {
-      "gesture": "CARET",
-      "cooldown_ticks": 40
     },
     "claymore_z": {
       "gesture": "ZIGZAG",

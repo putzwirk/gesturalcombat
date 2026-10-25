@@ -118,6 +118,10 @@ public final class WeaponRules {
         return Math.max(8, AbilityConfigs.windupTicks(technique) + (hits - 1) * interval + HEAVY_TAIL);
     }
 
+    public static java.util.Set<GestureShape> heavyLocked() {
+        return HEAVY_LOCKED;
+    }
+
     public static boolean blocked(ItemStack stack, GestureShape shape) {
         String family = WeaponProfiles.family(stack);
         if (family == null || shape == null) {

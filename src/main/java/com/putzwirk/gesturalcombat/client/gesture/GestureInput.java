@@ -446,11 +446,7 @@ public final class GestureInput {
             return false;
         }
         ItemStack held = mc.player == null ? ItemStack.EMPTY : mc.player.getItemInHand(hand);
-        if (com.putzwirk.gesturalcombat.weapon.WeaponRules.blocked(held, result.shape())) {
-            ClientState.rejectTicks = REJECT_TICKS;
-            return false;
-        }
-        Technique technique = Techniques.forGesture(archetype, result.shape(), held);
+        Technique technique = Techniques.available(archetype, result.shape(), held);
         if (technique == null) {
             ClientState.rejectTicks = REJECT_TICKS;
             return false;

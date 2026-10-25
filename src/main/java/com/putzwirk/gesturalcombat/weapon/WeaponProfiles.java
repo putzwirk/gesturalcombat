@@ -173,6 +173,11 @@ public final class WeaponProfiles {
         return profile == null ? 0.0 : profile.reach();
     }
 
+    public static boolean allows(ItemStack stack, com.putzwirk.gesturalcombat.core.GestureShape shape) {
+        WeaponProfile profile = profile(stack);
+        return profile == null || profile.allows(shape);
+    }
+
     public static List<String> animations(ItemStack stack) {
         WeaponProfile profile = profile(stack);
         return profile == null ? java.util.Collections.emptyList() : profile.animations();

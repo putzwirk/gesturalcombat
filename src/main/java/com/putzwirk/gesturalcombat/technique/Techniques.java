@@ -12,7 +12,6 @@ import com.putzwirk.gesturalcombat.technique.effect.GroundSlamEffect;
 import com.putzwirk.gesturalcombat.technique.effect.CrossSlashEffect;
 import com.putzwirk.gesturalcombat.technique.effect.DashStrikeEffect;
 import com.putzwirk.gesturalcombat.technique.effect.DeathblowEffect;
-import com.putzwirk.gesturalcombat.technique.effect.DomainStokeEffect;
 import com.putzwirk.gesturalcombat.technique.effect.EdgePairedEffect;
 import com.putzwirk.gesturalcombat.technique.effect.FamilyArcEffect;
 import com.putzwirk.gesturalcombat.technique.effect.FamilyFlurryEffect;
@@ -20,7 +19,6 @@ import com.putzwirk.gesturalcombat.technique.effect.GuardEffect;
 import com.putzwirk.gesturalcombat.technique.effect.LinePierceEffect;
 import com.putzwirk.gesturalcombat.technique.effect.SlamPierceEffect;
 import com.putzwirk.gesturalcombat.technique.effect.MaceSlamEffect;
-import com.putzwirk.gesturalcombat.technique.effect.MomentumDumpEffect;
 import com.putzwirk.gesturalcombat.technique.effect.MomentumSweepEffect;
 import com.putzwirk.gesturalcombat.technique.effect.PostureEffect;
 import com.putzwirk.gesturalcombat.technique.effect.PostureFlurryEffect;
@@ -155,7 +153,6 @@ public final class Techniques {
                 States.addDomain(player, 0);
                 return damage;
             }), "greataxe"));
-    public static final Technique GREATAXE_DUMP = add(new Technique("greataxe_dump", Archetype.AXE, GestureShape.CARET, 4, 30, null, 12, new MomentumDumpEffect(4.0), "greataxe"));
 
     public static final Technique SWORD_LINK = add(new Technique("sword_link", Archetype.SWORD, GestureShape.LINE_H, 1, 12, null, 6,
             new CrossSlashEffect(3.1, 1.35, 0.85), "sword"));
@@ -460,8 +457,6 @@ public final class Techniques {
                 }
                 return damage;
             }), "heavy_axe"));
-    public static final Technique PYRE_STOKE = add(new Technique("pyre_stoke", Archetype.AXE, GestureShape.CARET, 7, 40, null, 12,
-            new DomainStokeEffect(), "heavy_axe"));
 
     public static final Technique AXE_CLEAVE = add(new Technique("axe_cleave", Archetype.AXE, GestureShape.LINE_V_DOWN, 1, 12, null, 6, new ArcSweepEffect(2.9, 95, 1.15, 0.0, 0.35)));
     public static final Technique AXE_WIDE = add(new Technique("axe_wide", Archetype.AXE, GestureShape.LINE_H, 1, 20, "axe_t1", 9, new ArcSweepEffect(3.5, 175, 0.9, 0.0, 0.6)));
@@ -561,6 +556,30 @@ public final class Techniques {
             BY_FAMILY.computeIfAbsent(technique.family(), k -> new EnumMap<>(GestureShape.class))
                     .put(technique.shape(), technique);
         }
+        audit();
+    }
+
+    private static void audit() {
+        Map<String, Archetype> familyArchetype = new java.util.LinkedHashMap<>();
+        java.util.List<String> problems = new java.util.ArrayList<>();
+        for (Technique technique : BY_ID.values()) {
+            String family = technique.family();
+            Archetype archetype = technique.archetype();
+            if (family == null || archetype == null || technique.shape() == null) {
+                continue;
+            }
+            Archetype known = familyArchetype.putIfAbsent(family, archetype);
+            if (known != null && known != archetype) {
+                problems.add(family + " mixes archetypes " + known + "/" + archetype);
+            }
+            if (com.putzwirk.gesturalcombat.weapon.WeaponRules.heavy(family)
+                    && com.putzwirk.gesturalcombat.weapon.WeaponRules.heavyLocked().contains(technique.shape())) {
+                problems.add(technique.id() + " can never fire: " + family + " is heavy and locks " + technique.shape());
+            }
+        }
+        for (String problem : problems) {
+            com.putzwirk.gesturalcombat.Gesturalcombat.LOGGER.warn("ability audit: {}", problem);
+        }
     }
 
     @Nullable
@@ -571,6 +590,24 @@ public final class Techniques {
     @Nullable
     public static Technique forGesture(Archetype archetype, GestureShape shape) {
         return forGesture(archetype, shape, null);
+    }
+
+    @Nullable
+    public static Technique available(Archetype archetype, GestureShape shape, @Nullable ItemStack stack) {
+        if (archetype == null || shape == null || stack == null || stack.isEmpty()) {
+            return null;
+        }
+        if (com.putzwirk.gesturalcombat.weapon.WeaponRules.blocked(stack, shape)) {
+            return null;
+        }
+        if (!com.putzwirk.gesturalcombat.weapon.WeaponProfiles.allows(stack, shape)) {
+            return null;
+        }
+        Technique technique = forGesture(archetype, shape, stack);
+        if (technique == null || technique.archetype() != archetype || technique.shape() != shape) {
+            return null;
+        }
+        return technique;
     }
 
     @Nullable
@@ -594,7 +631,8 @@ public final class Techniques {
             }
         }
         Map<GestureShape, Technique> map = BY_ARCHETYPE.get(archetype);
-        return map == null ? null : map.get(shape);
+        Technique fallback = map == null ? null : map.get(shape);
+        return fallback != null && fallback.archetype() == archetype ? fallback : null;
     }
 
     @Nullable

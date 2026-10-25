@@ -32,6 +32,7 @@ public final class WeaponProfile {
     private double cooldownMultiplier = 1.0;
     private double reach = 0.0;
     private final List<String> animations = new ArrayList<>();
+    private final java.util.EnumSet<GestureShape> gestures = java.util.EnumSet.noneOf(GestureShape.class);
     private final Map<String, AbilityConfig> techniques = new HashMap<>();
     private final List<WeaponSpecial> specials = new ArrayList<>();
 
@@ -64,6 +65,17 @@ public final class WeaponProfile {
                 }
             }
         }
+        if (json.has("gestures") && json.get("gestures").isJsonArray()) {
+            gestures.clear();
+            for (JsonElement element : json.getAsJsonArray("gestures")) {
+                if (element.isJsonPrimitive()) {
+                    try {
+                        gestures.add(GestureShape.valueOf(element.getAsString().trim().toUpperCase(Locale.ROOT)));
+                    } catch (IllegalArgumentException ignored) {
+                    }
+                }
+            }
+        }
         if (json.has("specials") && json.get("specials").isJsonArray()) {
             for (JsonElement element : json.getAsJsonArray("specials")) {
                 if (!element.isJsonObject()) {
@@ -88,6 +100,10 @@ public final class WeaponProfile {
     @Nullable
     public String family() {
         return family;
+    }
+
+    public boolean allows(GestureShape shape) {
+        return gestures.isEmpty() || gestures.contains(shape);
     }
 
     private void addSelector(String raw) {

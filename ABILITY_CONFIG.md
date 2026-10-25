@@ -250,6 +250,7 @@ match beyond the glob.
 | `reach_multiplier` | 1.0 | Scales every cast's hitbox range. |
 | `cooldown_multiplier` | 1.0 | Scales every cast's cooldown. |
 | `reach` | unset | **Absolute** reach in blocks. When set it replaces `reach_multiplier` for every ability. Leave it out to inherit the weapon's Better Combat `attack_range`. |
+| `gestures` | all | Allow-list of gesture shapes this weapon may cast, e.g. `["LINE_H", "LINE_V_UP", "LINE_V_DOWN", "CIRCLE", "ZIGZAG"]`. Anything left out is not offered in the HUD and is rejected by the server, which is how a single item opts out of one kit slot without touching the shared family. |
 | `animations` | empty | Better Combat animation ids this weapon should use; see below. |
 | `techniques` | empty | Per-technique overrides with exactly the same schema as `abilities.json`, layered on top of the global values. |
 | `specials` | empty | Signature moves for this weapon only; see below. |
@@ -353,6 +354,12 @@ is a relative knob, not a flat damage number.
   damage in smaller pieces.
 - **First match wins** across the `weapons/` files in filename order, so give a
   specific profile a lower prefix than a glob or tag that could swallow it.
+- **HUD and cast use the same resolver.** A slot is only drawn when
+  `Techniques.available` returns a technique for that weapon, shape and
+  archetype — the same call the server validates the cast with — so a slot you
+  can see is a slot that will fire. On load the mod also logs an audit of
+  techniques that can never fire (a heavy family locking a shape it still
+  defines, or a family mixing archetypes).
 - **Families own their kits.** A family technique can be re-tuned or moved to
   another symbol, but a family that defines its own move for a symbol
   (`sickle` + `CARET`) shadows the archetype move for that symbol.
