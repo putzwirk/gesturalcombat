@@ -49,6 +49,9 @@ dive instead of swinging where you stand, slam on landing, and lose only a
 fraction of the usual fall damage. Off a cliff that's the difference between a
 crater and a death screen.
 
+Anything stunned for more than a quarter second gets dizzy stars spinning over
+its head, so you can tell a real stagger from a flinch without reading numbers.
+
 ## Two weapons
 
 Hold the same family in both hands and the pair starts working together:

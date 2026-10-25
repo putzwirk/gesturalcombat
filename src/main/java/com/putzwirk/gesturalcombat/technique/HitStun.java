@@ -24,6 +24,7 @@ public final class HitStun {
     private static final Map<UUID, Long> IMMUNE = new HashMap<>();
     private static final int IMMUNITY_TICKS = 6;
     private static final int MAX_CHAIN_TICKS = 16;
+    private static final int STAR_MIN_TICKS = 5;
 
     private HitStun() {
     }
@@ -57,7 +58,8 @@ public final class HitStun {
             IMMUNE.put(id, now + IMMUNITY_TICKS);
             return;
         }
-        ANCHORS.put(id, new Anchor(target.level().dimension(), target.getX(), target.getZ(), until, hadNoAi, stars, chainStart));
+        boolean showStars = stars || until - now > STAR_MIN_TICKS;
+        ANCHORS.put(id, new Anchor(target.level().dimension(), target.getX(), target.getZ(), until, hadNoAi, showStars, chainStart));
         Vec3 motion = target.getDeltaMovement();
         target.setDeltaMovement(0.0, motion.y, 0.0);
         target.hurtMarked = true;

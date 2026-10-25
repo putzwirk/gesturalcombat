@@ -53,9 +53,18 @@ public final class Fx {
         send(player, FxType.WAVE, at.add(0.0, 0.02, 0.0), scale * 0.68f, tint, 10);
     }
 
+    private static final int STUN_TINT = 0xFFE9A0;
+
     public static void stun(LivingEntity entity) {
-        Vec3 at = new Vec3(entity.getX(), entity.getY() + entity.getBbHeight() + 0.25, entity.getZ());
-        ModNetwork.sendToTracking(entity, packet(FxType.BURST, at, 0.55f, 0xFFF0B0, 8));
+        double base = entity.getY() + entity.getBbHeight() + 0.22;
+        double phase = (entity.level().getGameTime() % 20) / 20.0 * Math.PI * 2.0;
+        for (int i = 0; i < 3; i++) {
+            double angle = phase + i * (Math.PI * 2.0 / 3.0);
+            double x = entity.getX() + Math.cos(angle) * 0.40;
+            double z = entity.getZ() + Math.sin(angle) * 0.40;
+            ModNetwork.sendToTracking(entity, new FxPacket(FxType.STARS, x, base, z,
+                    0.0f, 0.012f, 0.0f, (float) angle, 0.22f + 0.06f * i, 0.5f, STUN_TINT, 11));
+        }
     }
 
     public static void shieldBurst(ServerPlayer player, Vec3 at, double radius) {
