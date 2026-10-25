@@ -131,22 +131,37 @@ public final class GestureCastService {
                 launched = true;
             }
         }
-        if (special != null) {
-            WeaponSpecialEffect.execute(player, level, stack, technique, special);
-        } else if (!launched) {
-            technique.effect().execute(player, level, stack, technique);
+        final Technique cast = technique;
+        final WeaponSpecial applied = special;
+        final boolean thrown = launched;
+        final boolean sound = cast.shape() != GestureShape.V
+                && cast.shape() != GestureShape.CARET
+                && cast.archetype() != Archetype.SHIELD
+                && cast.archetype() != Archetype.BOW;
+        Runnable resolve = () -> {
+            if (!player.isAlive() || player.isRemoved() || player.level() != level) {
+                return;
+            }
+            if (applied != null) {
+                WeaponSpecialEffect.execute(player, level, stack, cast, applied);
+            } else if (!thrown) {
+                cast.effect().execute(player, level, stack, cast);
+            }
+            if (sound) {
+                EffectSupport.swingSound(level, player, cast);
+            }
+        };
+        int windup = AbilityConfigs.windupTicks(cast);
+        if (windup > 0) {
+            com.putzwirk.gesturalcombat.technique.GestureScheduler.schedule(level, windup, resolve);
+        } else {
+            resolve.run();
         }
-        MasteryService.award(player, technique.archetype(), technique.xp());
+        MasteryService.award(player, cast.archetype(), cast.xp());
         EquipmentSlot slot = offhand ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND;
         stack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(slot));
         player.causeFoodExhaustion(0.3f);
         player.resetAttackStrengthTicker();
-        if (technique.shape() != GestureShape.V
-                && technique.shape() != GestureShape.CARET
-                && technique.archetype() != Archetype.SHIELD
-                && technique.archetype() != Archetype.BOW) {
-            EffectSupport.swingSound(level, player, technique);
-        }
     }
 
     private static void pruneCooldowns(ServerPlayer player) {

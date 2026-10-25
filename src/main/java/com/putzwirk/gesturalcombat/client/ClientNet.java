@@ -99,7 +99,18 @@ public final class ClientNet {
         }
         String handName = offhand ? "OFF_HAND" : BetterCombatBridge.handName(stack);
         int windup = AbilityConfigs.windupTicks(technique);
-        AnimationScheduler.playSequence(casterId, sequence, handName, lengths, upswings, windup, interval);
+        if (windup > 0) {
+            for (int i = 0; i < sequence.length; i++) {
+                if (interval > 0) {
+                    lengths[i] = Math.max(lengths[i], windup + interval + 2);
+                    upswings[i] = 0.45f;
+                } else {
+                    lengths[i] = lengths[i] + windup;
+                    upswings[i] = Math.min(0.60f, Math.max(0.28f, (windup + 0.5f) / lengths[i]));
+                }
+            }
+        }
+        AnimationScheduler.playSequence(casterId, sequence, handName, lengths, upswings, 0, interval);
         if (archetype == Archetype.SWORD || archetype == Archetype.AXE || archetype == Archetype.SPEAR) {
             int life = windup + (swings - 1) * interval + (int) Math.ceil(lengths[0]) + 6;
             com.putzwirk.gesturalcombat.client.fx.TrailManager.start(casterId, life, windup, 0xFFFFFF, offhand);
