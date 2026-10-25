@@ -16,7 +16,7 @@
       "damage_multiplier": 1.0,
       "knockback": 0.25,
       "lift": 0.0,
-      "cooldown_ticks": 10
+      "cooldown_ticks": 12
     },
     "sword_rising": {
       "gesture": "LINE_V_UP",
@@ -34,7 +34,7 @@
       "damage_multiplier": 1.25,
       "knockback": 0.0,
       "lift": 0.55,
-      "cooldown_ticks": 16
+      "cooldown_ticks": 18
     },
     "sword_whirl": {
       "gesture": "CIRCLE",
@@ -52,7 +52,7 @@
       "damage_multiplier": 0.85,
       "hits": 2,
       "hit_interval": 8,
-      "cooldown_ticks": 30
+      "cooldown_ticks": 34
     },
     "sword_flurry": {
       "gesture": "ZIGZAG",
@@ -70,7 +70,7 @@
       "damage_multiplier": 1.4,
       "hits": 4,
       "hit_interval": 4,
-      "cooldown_ticks": 40
+      "cooldown_ticks": 44
     },
     "sword_execute": {
       "gesture": "LINE_V_DOWN",
@@ -88,7 +88,7 @@
       "damage_multiplier": 2.1,
       "knockback": 0.0,
       "lift": 0.5,
-      "cooldown_ticks": 50
+      "cooldown_ticks": 55
     },
     "sword_guard": {
       "gesture": "V",
@@ -109,7 +109,7 @@
       },
       "damage_multiplier": 1.05,
       "knockback": 0.05,
-      "cooldown_ticks": 60
+      "cooldown_ticks": 66
     },
     "axe_cleave": {
       "gesture": "LINE_V_DOWN",
@@ -127,7 +127,7 @@
       "damage_multiplier": 1.15,
       "knockback": 0.35,
       "lift": 0.0,
-      "cooldown_ticks": 12
+      "cooldown_ticks": 16
     },
     "axe_wide": {
       "gesture": "LINE_H",
@@ -145,7 +145,7 @@
       "damage_multiplier": 0.9,
       "knockback": 0.6,
       "lift": 0.0,
-      "cooldown_ticks": 20
+      "cooldown_ticks": 18
     },
     "axe_rend": {
       "gesture": "LINE_V_UP",
@@ -215,23 +215,7 @@
       },
       "damage_multiplier": 1.0,
       "knockback": 0.15,
-      "cooldown_ticks": 9
-    },
-    "spear_sweep": {
-      "gesture": "LINE_H",
-      "hitbox": {
-        "shape": "ARC",
-        "range": 3.7,
-        "angle": 130,
-        "width": 1.0,
-        "height": 3.6,
-        "vertical_offset": 0.2,
-        "forward_offset": 0.0,
-        "max_targets": 16,
-        "line_of_sight": false
-      },
-      "damage_multiplier": 0.85,
-      "cooldown_ticks": 15
+      "cooldown_ticks": 13
     },
     "spear_impale": {
       "gesture": "ZIGZAG",
@@ -246,10 +230,10 @@
         "max_targets": 16,
         "line_of_sight": false
       },
-      "damage_multiplier": 0.65,
+      "damage_multiplier": 0.75,
       "hits": 3,
       "hit_interval": 5,
-      "cooldown_ticks": 28
+      "cooldown_ticks": 30
     },
     "spear_tempest": {
       "gesture": "CIRCLE",
@@ -264,10 +248,10 @@
         "max_targets": 16,
         "line_of_sight": false
       },
-      "damage_multiplier": 0.9,
+      "damage_multiplier": 0.95,
       "hits": 3,
       "hit_interval": 7,
-      "cooldown_ticks": 42
+      "cooldown_ticks": 44
     },
     "spear_skyfall": {
       "gesture": "LINE_V_DOWN",
@@ -282,7 +266,7 @@
         "max_targets": 16,
         "line_of_sight": false
       },
-      "damage_multiplier": 1.7,
+      "damage_multiplier": 1.5,
       "knockback": 0.0,
       "lift": 0.8,
       "cooldown_ticks": 50
@@ -359,10 +343,10 @@
         "max_targets": 16,
         "line_of_sight": false
       },
-      "damage_multiplier": 0.9,
+      "damage_multiplier": 1.0,
       "knockback": 0.15,
       "lift": 0.0,
-      "cooldown_ticks": 12
+      "cooldown_ticks": 14
     },
     "katana_rising": {
       "gesture": "LINE_V_UP",
@@ -377,10 +361,10 @@
         "max_targets": 16,
         "line_of_sight": false
       },
-      "damage_multiplier": 1.15,
+      "damage_multiplier": 1.2,
       "knockback": 0.0,
       "lift": 0.4,
-      "cooldown_ticks": 16
+      "cooldown_ticks": 18
     },
     "katana_whirl": {
       "gesture": "CIRCLE",
@@ -395,12 +379,12 @@
         "max_targets": 16,
         "line_of_sight": false
       },
-      "damage_multiplier": 0.8,
+      "damage_multiplier": 0.9,
       "knockback": 0.25,
       "lift": 0.0,
       "hits": 2,
       "hit_interval": 8,
-      "cooldown_ticks": 30
+      "cooldown_ticks": 32
     },
     "katana_flurry": {
       "gesture": "ZIGZAG",
@@ -415,12 +399,12 @@
         "max_targets": 16,
         "line_of_sight": false
       },
-      "damage_multiplier": 1.8,
+      "damage_multiplier": 2.0,
       "knockback": 0.3,
       "lift": 0.0,
       "hits": 4,
       "hit_interval": 4,
-      "cooldown_ticks": 30
+      "cooldown_ticks": 44
     },
     "katana_execute": {
       "gesture": "LINE_V_DOWN",
@@ -435,10 +419,10 @@
         "max_targets": 16,
         "line_of_sight": false
       },
-      "damage_multiplier": 2.4,
+      "damage_multiplier": 2.6,
       "knockback": 0.0,
       "lift": 0.35,
-      "cooldown_ticks": 50
+      "cooldown_ticks": 55
     },
     "glaive_sweep": {
       "gesture": "LINE_H",
@@ -453,10 +437,10 @@
         "max_targets": 16,
         "line_of_sight": false
       },
-      "damage_multiplier": 0.75,
+      "damage_multiplier": 0.9,
       "knockback": 0.0,
       "lift": 0.0,
-      "cooldown_ticks": 14
+      "cooldown_ticks": 18
     },
     "greataxe_sweep": {
       "gesture": "LINE_H",
@@ -471,10 +455,10 @@
         "max_targets": 16,
         "line_of_sight": false
       },
-      "damage_multiplier": 0.9,
+      "damage_multiplier": 1.0,
       "knockback": 0.35,
       "lift": 0.0,
-      "cooldown_ticks": 16
+      "cooldown_ticks": 20
     },
     "greataxe_dump": {
       "gesture": "CARET",
@@ -500,135 +484,169 @@
     },
     "rapier_cut": {
       "gesture": "LINE_H",
-      "cooldown_ticks": 10
+      "cooldown_ticks": 11,
+      "damage_multiplier": 0.8
     },
     "rapier_lunge": {
       "gesture": "LINE_V_UP",
-      "cooldown_ticks": 14
+      "cooldown_ticks": 16,
+      "damage_multiplier": 1.2
     },
     "rapier_flurry": {
       "gesture": "ZIGZAG",
-      "cooldown_ticks": 24
+      "cooldown_ticks": 28,
+      "damage_multiplier": 1.7
     },
     "rapier_drop": {
       "gesture": "LINE_V_DOWN",
-      "cooldown_ticks": 40
+      "cooldown_ticks": 44,
+      "damage_multiplier": 1.6
     },
     "claymore_sweep": {
       "gesture": "LINE_H",
-      "cooldown_ticks": 14
+      "cooldown_ticks": 18,
+      "damage_multiplier": 1.0
     },
     "claymore_rise": {
       "gesture": "LINE_V_UP",
-      "cooldown_ticks": 18
+      "cooldown_ticks": 22,
+      "damage_multiplier": 1.3
     },
     "claymore_break": {
       "gesture": "LINE_V_DOWN",
-      "cooldown_ticks": 45
+      "cooldown_ticks": 52,
+      "damage_multiplier": 2.3
     },
     "sickle_cut": {
       "gesture": "LINE_H",
-      "cooldown_ticks": 9
+      "cooldown_ticks": 11,
+      "damage_multiplier": 1.0
     },
     "sickle_harvest": {
       "gesture": "LINE_V_UP",
-      "cooldown_ticks": 14
+      "cooldown_ticks": 16,
+      "damage_multiplier": 1.1
     },
     "sickle_flurry": {
       "gesture": "ZIGZAG",
-      "cooldown_ticks": 18
+      "cooldown_ticks": 34,
+      "damage_multiplier": 1.5
     },
     "sickle_eviscerate": {
       "gesture": "LINE_V_DOWN",
-      "cooldown_ticks": 40
+      "cooldown_ticks": 45,
+      "damage_multiplier": 1.8
     },
     "saidebt_cut": {
       "gesture": "LINE_H",
-      "cooldown_ticks": 8
+      "cooldown_ticks": 13,
+      "damage_multiplier": 1.0
     },
     "saidebt_flurry": {
       "gesture": "ZIGZAG",
-      "cooldown_ticks": 14
+      "cooldown_ticks": 20,
+      "damage_multiplier": 1.5,
+      "hits": 4
     },
     "saidebt_spike": {
       "gesture": "LINE_V_DOWN",
-      "cooldown_ticks": 50
+      "cooldown_ticks": 55,
+      "damage_multiplier": 2.2
     },
     "twinblade_cut": {
       "gesture": "LINE_H",
-      "cooldown_ticks": 10
+      "cooldown_ticks": 14,
+      "damage_multiplier": 0.9
     },
     "twinblade_rise": {
       "gesture": "LINE_V_UP",
-      "cooldown_ticks": 14
+      "cooldown_ticks": 18,
+      "damage_multiplier": 1.2
     },
     "twinblade_flurry": {
       "gesture": "ZIGZAG",
-      "cooldown_ticks": 28
+      "cooldown_ticks": 30,
+      "damage_multiplier": 1.5
     },
     "twinblade_slam": {
       "gesture": "LINE_V_DOWN",
-      "cooldown_ticks": 40
+      "cooldown_ticks": 40,
+      "damage_multiplier": 1.3
     },
     "warglaive_cut": {
       "gesture": "LINE_H",
-      "cooldown_ticks": 12
+      "cooldown_ticks": 14,
+      "damage_multiplier": 0.7
     },
     "warglaive_rise": {
       "gesture": "LINE_V_UP",
-      "cooldown_ticks": 14
+      "cooldown_ticks": 24,
+      "damage_multiplier": 1.3
     },
     "warglaive_flurry": {
       "gesture": "ZIGZAG",
-      "cooldown_ticks": 26
+      "cooldown_ticks": 32,
+      "damage_multiplier": 1.5
     },
     "warglaive_slam": {
       "gesture": "LINE_V_DOWN",
-      "cooldown_ticks": 40
+      "cooldown_ticks": 44,
+      "damage_multiplier": 0.8
     },
     "halberd_cut": {
       "gesture": "LINE_H",
-      "cooldown_ticks": 18
+      "cooldown_ticks": 22,
+      "damage_multiplier": 0.95
     },
     "halberd_rise": {
       "gesture": "LINE_V_UP",
-      "cooldown_ticks": 20
+      "cooldown_ticks": 24,
+      "damage_multiplier": 1.25
     },
     "halberd_drop": {
       "gesture": "LINE_V_DOWN",
-      "cooldown_ticks": 50
+      "cooldown_ticks": 55,
+      "damage_multiplier": 2.2
     },
     "halberd_flurry": {
       "gesture": "ZIGZAG",
-      "cooldown_ticks": 46
+      "cooldown_ticks": 50,
+      "damage_multiplier": 2.1
     },
     "greathammer_cut": {
       "gesture": "LINE_H",
-      "cooldown_ticks": 18
+      "cooldown_ticks": 22,
+      "damage_multiplier": 1.05
     },
     "greathammer_drop": {
       "gesture": "LINE_V_DOWN",
-      "cooldown_ticks": 55
+      "cooldown_ticks": 60,
+      "damage_multiplier": 2.3
     },
     "scythe_cut": {
       "gesture": "LINE_H",
-      "cooldown_ticks": 14
+      "cooldown_ticks": 16,
+      "damage_multiplier": 1.1
     },
     "scythe_whirl": {
       "gesture": "CIRCLE",
-      "cooldown_ticks": 35
+      "cooldown_ticks": 40,
+      "damage_multiplier": 1.2
     },
     "scythe_drop": {
       "gesture": "LINE_V_DOWN",
-      "cooldown_ticks": 45
+      "cooldown_ticks": 50,
+      "damage_multiplier": 2.2
     },
     "pyre_sweep": {
       "gesture": "LINE_H",
-      "cooldown_ticks": 16
+      "cooldown_ticks": 20,
+      "damage_multiplier": 1.1
     },
     "pyre_drop": {
       "gesture": "LINE_V_DOWN",
-      "cooldown_ticks": 50
+      "cooldown_ticks": 54,
+      "damage_multiplier": 1.7
     },
     "pyre_stoke": {
       "gesture": "CARET",
@@ -636,83 +654,108 @@
     },
     "claymore_z": {
       "gesture": "ZIGZAG",
-      "cooldown_ticks": 42
+      "cooldown_ticks": 48,
+      "damage_multiplier": 1.9
     },
     "glaive_z": {
       "gesture": "ZIGZAG",
-      "cooldown_ticks": 36
+      "cooldown_ticks": 42,
+      "damage_multiplier": 1.8
     },
     "greataxe_z": {
       "gesture": "ZIGZAG",
-      "cooldown_ticks": 42
+      "cooldown_ticks": 46,
+      "damage_multiplier": 1.8
     },
     "greathammer_z": {
       "gesture": "ZIGZAG",
-      "cooldown_ticks": 52
+      "cooldown_ticks": 56,
+      "damage_multiplier": 2.5
     },
     "scythe_z": {
       "gesture": "ZIGZAG",
-      "cooldown_ticks": 36
+      "cooldown_ticks": 40,
+      "damage_multiplier": 1.8
     },
     "pyre_z": {
       "gesture": "ZIGZAG",
-      "cooldown_ticks": 42
+      "cooldown_ticks": 46,
+      "damage_multiplier": 1.9
     },
     "trident_z": {
       "gesture": "ZIGZAG",
-      "cooldown_ticks": 20
+      "cooldown_ticks": 32,
+      "damage_multiplier": 1.1
     },
     "mace_z": {
       "gesture": "ZIGZAG",
-      "cooldown_ticks": 32
+      "cooldown_ticks": 36,
+      "damage_multiplier": 1.8
     },
     "glaive_rise": {
       "gesture": "LINE_V_UP",
-      "cooldown_ticks": 18
+      "cooldown_ticks": 22,
+      "damage_multiplier": 1.2
     },
     "glaive_drop": {
       "gesture": "LINE_V_DOWN",
-      "cooldown_ticks": 45
+      "cooldown_ticks": 50,
+      "damage_multiplier": 2.0
     },
     "greataxe_rise": {
       "gesture": "LINE_V_UP",
-      "cooldown_ticks": 20
+      "cooldown_ticks": 24,
+      "damage_multiplier": 1.3
     },
     "greataxe_drop": {
       "gesture": "LINE_V_DOWN",
-      "cooldown_ticks": 48
+      "cooldown_ticks": 52,
+      "damage_multiplier": 2.1
     },
     "greathammer_rise": {
       "gesture": "LINE_V_UP",
-      "cooldown_ticks": 21
+      "cooldown_ticks": 25,
+      "damage_multiplier": 1.5
     },
     "pyre_rise": {
       "gesture": "LINE_V_UP",
-      "cooldown_ticks": 19
+      "cooldown_ticks": 23,
+      "damage_multiplier": 1.3
     },
     "mace_cut": {
       "gesture": "LINE_H",
-      "cooldown_ticks": 16
+      "cooldown_ticks": 20,
+      "damage_multiplier": 1.3
     },
     "mace_rise": {
       "gesture": "LINE_V_UP",
-      "cooldown_ticks": 20
+      "cooldown_ticks": 24,
+      "damage_multiplier": 1.5
     },
     "mace_drop": {
       "gesture": "LINE_V_DOWN",
-      "cooldown_ticks": 45
+      "cooldown_ticks": 50,
+      "damage_multiplier": 2.0
     },
     "trident_thrust": {
       "gesture": "LINE_H",
-      "cooldown_ticks": 9
+      "cooldown_ticks": 16,
+      "damage_multiplier": 0.8
     },
     "trident_rise": {
       "gesture": "LINE_V_UP",
-      "cooldown_ticks": 13
+      "cooldown_ticks": 22,
+      "damage_multiplier": 0.9
     },
     "trident_drop": {
       "gesture": "LINE_V_DOWN",
-      "cooldown_ticks": 36
+      "cooldown_ticks": 46,
+      "damage_multiplier": 1.4
+    },
+    "spear_lunge": {
+      "gesture": "LINE_H",
+      "cooldown_ticks": 14,
+      "damage_multiplier": 1.0
     }
   }
 }

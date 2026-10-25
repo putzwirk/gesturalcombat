@@ -21,6 +21,9 @@ import java.util.UUID;
 @Mod.EventBusSubscriber(modid = Gesturalcombat.MODID)
 public final class HitStun {
     private static final Map<UUID, Anchor> ANCHORS = new HashMap<>();
+    private static final Map<UUID, Long> IMMUNE = new HashMap<>();
+    private static final int IMMUNITY_TICKS = 6;
+    private static final int MAX_CHAIN_TICKS = 16;
 
     private HitStun() {
     }
@@ -34,18 +37,27 @@ public final class HitStun {
             return;
         }
         UUID id = target.getUUID();
+        long now = target.level().getGameTime();
+        if (IMMUNE.getOrDefault(id, 0L) > now) {
+            return;
+        }
         Anchor existing = ANCHORS.get(id);
         if (ANCHORS.size() > 512) {
-            long now = target.level().getGameTime();
             ANCHORS.entrySet().removeIf(entry -> entry.getValue().until < now);
+            IMMUNE.entrySet().removeIf(entry -> entry.getValue() < now);
         }
         boolean hadNoAi = existing != null ? existing.hadNoAi : target instanceof Mob mob && mob.isNoAi();
-        long now = target.level().getGameTime();
+        long chainStart = existing != null && existing.until > now ? existing.start : now;
         long until = now + Math.max(4, ticks);
         if (existing != null && existing.until > until) {
             until = existing.until;
         }
-        ANCHORS.put(id, new Anchor(target.level().dimension(), target.getX(), target.getZ(), until, hadNoAi, stars));
+        until = Math.min(until, chainStart + MAX_CHAIN_TICKS);
+        if (until <= now) {
+            IMMUNE.put(id, now + IMMUNITY_TICKS);
+            return;
+        }
+        ANCHORS.put(id, new Anchor(target.level().dimension(), target.getX(), target.getZ(), until, hadNoAi, stars, chainStart));
         Vec3 motion = target.getDeltaMovement();
         target.setDeltaMovement(0.0, motion.y, 0.0);
         target.hurtMarked = true;
@@ -77,6 +89,7 @@ public final class HitStun {
                 || !entity.level().dimension().equals(anchor.dimension)
                 || entity.level().getGameTime() > anchor.until) {
             ANCHORS.remove(entity.getUUID());
+            IMMUNE.put(entity.getUUID(), entity.level().getGameTime() + IMMUNITY_TICKS);
             restore(entity, anchor);
             return;
         }
@@ -106,6 +119,7 @@ public final class HitStun {
         }
     }
 
-    private record Anchor(ResourceKey<Level> dimension, double x, double z, long until, boolean hadNoAi, boolean stars) {
+    private record Anchor(ResourceKey<Level> dimension, double x, double z, long until, boolean hadNoAi, boolean stars,
+                          long start) {
     }
 }

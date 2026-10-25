@@ -219,6 +219,26 @@ public final class EffectSupport {
         return out;
     }
 
+    private static final java.util.Map<String, Long> LAST_DELEGATED = new java.util.HashMap<>();
+    private static final int DELEGATED_COOLDOWN = 8;
+
+    private static boolean delegate(ServerPlayer player, LivingEntity target, ItemStack weapon, float damage) {
+        String key = player.getUUID() + "|" + target.getUUID();
+        long now = target.level().getGameTime();
+        Long last = LAST_DELEGATED.get(key);
+        if (last != null && now - last < DELEGATED_COOLDOWN) {
+            return false;
+        }
+        if (LAST_DELEGATED.size() > 512) {
+            LAST_DELEGATED.entrySet().removeIf(entry -> now - entry.getValue() > 200);
+        }
+        if (!com.putzwirk.gesturalcombat.compat.SimplySwordsBridge.applyHit(weapon, target, player, damage)) {
+            return false;
+        }
+        LAST_DELEGATED.put(key, now);
+        return true;
+    }
+
     public static void hit(ServerPlayer player, LivingEntity target, float damage, Technique technique, double knockback, double lift) {
         hit(player, target, damage, technique, knockback, lift, false);
     }
@@ -226,8 +246,7 @@ public final class EffectSupport {
     public static void hit(ServerPlayer player, LivingEntity target, float damage, Technique technique, double knockback, double lift, boolean pin) {
         target.invulnerableTime = 0;
         ItemStack weapon = onHitWeapon(player, technique);
-        boolean delegated = !weapon.isEmpty()
-                && com.putzwirk.gesturalcombat.compat.SimplySwordsBridge.applyHit(weapon, target, player, damage);
+        boolean delegated = !weapon.isEmpty() && delegate(player, target, weapon, damage);
         boolean landed = delegated;
         if (delegated) {
             target.invulnerableTime = Math.min(target.invulnerableTime, 2);

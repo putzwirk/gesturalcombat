@@ -19,7 +19,7 @@ public final class SkillTree {
     static {
         tree(Archetype.SWORD, "sword", Techniques.SWORD_RISING, Techniques.SWORD_WHIRL, Techniques.SWORD_FLURRY, Techniques.SWORD_EXECUTE);
         tree(Archetype.AXE, "axe", Techniques.AXE_WIDE, Techniques.AXE_REND, Techniques.AXE_CYCLONE, Techniques.AXE_QUAKE);
-        tree(Archetype.SPEAR, "spear", Techniques.SPEAR_SWEEP, Techniques.SPEAR_IMPALE, Techniques.SPEAR_TEMPEST, Techniques.SPEAR_SKYFALL);
+        tree(Archetype.SPEAR, "spear", Techniques.SPEAR_LUNGE, Techniques.SPEAR_IMPALE, Techniques.SPEAR_TEMPEST, Techniques.SPEAR_SKYFALL);
     }
 
     private SkillTree() {

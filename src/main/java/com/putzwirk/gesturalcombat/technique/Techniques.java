@@ -396,7 +396,7 @@ public final class Techniques {
     public static final Technique AXE_QUAKE = add(new Technique("axe_quake", Archetype.AXE, GestureShape.ZIGZAG, 10, 55, "axe_t4", 20, new GroundSlamEffect(4.2, 1.3, 0.5)));
 
     public static final Technique SPEAR_THRUST = add(new Technique("spear_thrust", Archetype.SPEAR, GestureShape.LINE_V_UP, 1, 9, null, 6, new LinePierceEffect(4.4, 1.1, 1.0, 0.3)));
-    public static final Technique SPEAR_SWEEP = add(new Technique("spear_sweep", Archetype.SPEAR, GestureShape.LINE_H, 1, 15, "spear_t1", 8, new ArcSweepEffect(3.7, 130, 0.85, 0.0, 0.3)));
+    public static final Technique SPEAR_LUNGE = add(new Technique("spear_lunge", Archetype.SPEAR, GestureShape.LINE_H, 1, 15, "spear_t1", 8, new LinePierceEffect(5.2, 0.85, 1.0, 0.55)));
     public static final Technique SPEAR_IMPALE = add(new Technique("spear_impale", Archetype.SPEAR, GestureShape.ZIGZAG, 4, 28, "spear_t2", 13, new FlurryEffect(3.8, 45, 0.65, 3, 5)));
     public static final Technique SPEAR_TEMPEST = add(new Technique("spear_tempest", Archetype.SPEAR, GestureShape.CIRCLE, 7, 42, "spear_t3", 16, new SpinEffect(3.9, 0.9, 3, 7)));
     public static final Technique SPEAR_SKYFALL = add(new Technique("spear_skyfall", Archetype.SPEAR, GestureShape.LINE_V_DOWN, 10, 50, "spear_t4", 20, new ArcSweepEffect(3.1, 90, 1.7, 0.8, 0.0)));

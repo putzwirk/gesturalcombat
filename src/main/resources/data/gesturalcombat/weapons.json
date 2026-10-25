@@ -303,7 +303,7 @@
       "archetype": "sword",
       "family": "rapier",
       "damage_multiplier": 1.0,
-      "reach_multiplier": 1.3,
+      "reach_multiplier": 1.05,
       "cooldown_multiplier": 1.0,
       "animations": [
         "bettercombat:one_handed_slash_horizontal_left",
@@ -648,7 +648,7 @@
       "archetype": "sword",
       "family": "rapier",
       "damage_multiplier": 1.0,
-      "reach_multiplier": 1.4,
+      "reach_multiplier": 1.05,
       "cooldown_multiplier": 1.0
     },
     {
@@ -1187,7 +1187,7 @@
       "archetype": "sword",
       "family": "rapier",
       "damage_multiplier": 1.0,
-      "reach_multiplier": 1.4,
+      "reach_multiplier": 1.05,
       "cooldown_multiplier": 1.0
     },
     {
@@ -1610,7 +1610,7 @@
       "archetype": "sword",
       "family": "rapier",
       "damage_multiplier": 1.0,
-      "reach_multiplier": 1.4,
+      "reach_multiplier": 1.05,
       "cooldown_multiplier": 1.0
     },
     {
@@ -2074,7 +2074,7 @@
       "archetype": "sword",
       "family": "rapier",
       "damage_multiplier": 1.0,
-      "reach_multiplier": 1.4,
+      "reach_multiplier": 1.05,
       "cooldown_multiplier": 1.0
     },
     {
@@ -2395,7 +2395,7 @@
       "archetype": "sword",
       "family": "rapier",
       "damage_multiplier": 1.0,
-      "reach_multiplier": 1.4,
+      "reach_multiplier": 1.05,
       "cooldown_multiplier": 1.0
     },
     {
@@ -2468,7 +2468,7 @@
       "archetype": "sword",
       "family": "rapier",
       "damage_multiplier": 1.0,
-      "reach_multiplier": 1.4,
+      "reach_multiplier": 1.05,
       "cooldown_multiplier": 1.0,
       "animations": [
         "bettercombat:one_handed_slash_horizontal_left",
