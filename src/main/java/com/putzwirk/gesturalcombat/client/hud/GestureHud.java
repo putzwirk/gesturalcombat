@@ -341,6 +341,7 @@ public final class GestureHud {
                 ? ClientState.shownShape : null;
 
         int slot = 0;
+        java.util.Set<String> drawnIcons = new java.util.HashSet<>();
         for (GestureShape shape : STRIP) {
             if (com.putzwirk.gesturalcombat.weapon.WeaponRules.blocked(stack, shape)) {
                 continue;
@@ -404,7 +405,8 @@ public final class GestureHud {
             }
             HudDraw.roundedRect(graphics, cx - half, y - half, PLATE_SIZE, PLATE_SIZE, 6.0f, plate);
 
-            boolean textured = AbilityIcons.present(technique);
+            String icon = AbilityIcons.iconFor(technique);
+            boolean textured = icon != null && drawnIcons.add(icon);
             int tint;
             if (!available) {
                 tint = textured ? LOCKED_ICON : LOCKED;
