@@ -25,4 +25,5 @@ libs
 src/generated/resources
 
 # files from Forge MDK
-forge*changelog.txt
+forge*changelog.txt__pycache__/
+*.pyc
