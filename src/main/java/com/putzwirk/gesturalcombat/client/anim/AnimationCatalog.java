@@ -156,7 +156,8 @@ public final class AnimationCatalog {
         if (shape == GestureShape.LINE_V_UP && !thrust) {
             return null;
         }
-        Kind[] order = preference(shape, family, thrust);
+        Kind[] order = preference(shape, family, thrust,
+                com.putzwirk.gesturalcombat.weapon.WeaponRules.heavy(stack));
         if (order == null) {
             return null;
         }
@@ -180,10 +181,20 @@ public final class AnimationCatalog {
     }
 
     @Nullable
-    private static Kind[] preference(GestureShape shape, @Nullable String family, boolean thrust) {
+    private static Kind[] preference(GestureShape shape, @Nullable String family, boolean thrust, boolean heavy) {
         String value = family == null ? "" : family.toLowerCase(Locale.ROOT);
         boolean spinZigzag = value.equals("glaive") || value.equals("halberd")
                 || value.equals("battlestaff") || value.equals("scythe");
+        if (heavy && !spinZigzag) {
+            return switch (shape) {
+                case CIRCLE -> new Kind[]{Kind.SPIN};
+                case LINE_H -> new Kind[]{Kind.HORIZONTAL};
+                case ZIGZAG -> new Kind[]{Kind.HORIZONTAL, Kind.SLAM};
+                case LINE_V_UP -> new Kind[]{Kind.VERTICAL, Kind.RISING, Kind.STAB};
+                case LINE_V_DOWN -> new Kind[]{Kind.SLAM, Kind.VERTICAL};
+                default -> null;
+            };
+        }
         if (thrust) {
             return switch (shape) {
                 case CIRCLE -> new Kind[]{Kind.SPIN};

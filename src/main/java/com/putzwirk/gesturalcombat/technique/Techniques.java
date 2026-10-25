@@ -100,41 +100,42 @@ public final class Techniques {
                 return damage;
             }), "trident"));
 
-    public static final Technique MACE_CUT = add(new Technique("mace_cut", Archetype.AXE, GestureShape.LINE_H, 1, 16, null, 8,
-            new FamilyArcEffect(3.0, 160, 1.3, 0.5, 0.0, (player, target, damage, index) -> {
+    public static final Technique MACE_CUT = add(new Technique("mace_cut", Archetype.AXE, GestureShape.LINE_H, 1, 11, null, 8,
+            new FamilyArcEffect(3.2, 160, 1.77, 0.50, 0.0, (player, target, damage, index) -> {
                 States.stagger(target, 20);
                 return damage;
             }), "mace"));
-    public static final Technique MACE_RISE = add(new Technique("mace_rise", Archetype.AXE, GestureShape.LINE_V_UP, 1, 20, null, 10,
-            new FamilyArcEffect(3.0, 120, 1.5, 0.0, 0.4, (player, target, damage, index) -> {
+    public static final Technique MACE_RISE = add(new Technique("mace_rise", Archetype.AXE, GestureShape.LINE_V_UP, 1, 12, null, 10,
+            new FamilyArcEffect(3.0, 120, 1.92, 0.20, 0.40, (player, target, damage, index) -> {
                 States.stagger(target, 20);
                 return damage;
             }), "mace"));
-    public static final Technique MACE_DROP = add(new Technique("mace_drop", Archetype.AXE, GestureShape.LINE_V_DOWN, 7, 45, null, 16,
-            new FamilyArcEffect(2.9, 90, 2.0, 0.8, 0.0, (player, target, damage, index) -> {
-                double bonus = States.staggered(target) ? 1.35 : 1.0;
+    public static final Technique MACE_DROP = add(new Technique("mace_drop", Archetype.AXE, GestureShape.LINE_V_DOWN, 7, 50, null, 16,
+            new MaceSlamEffect(2.9, 90, 2.32), "mace"));
+    public static final Technique MACE_Z = add(new Technique("mace_z", Archetype.AXE, GestureShape.ZIGZAG, 4, 36, null, 12,
+            new FamilyArcEffect(3.2, 210, 1.92, 0.60, 0.0, (player, target, damage, index) -> {
                 States.stagger(target, 20);
-                HitStun.pin(target, 8);
-                return damage * bonus;
+                return damage;
             }), "mace"));
-    public static final Technique MACE_Z = add(new Technique("mace_z", Archetype.AXE, GestureShape.ZIGZAG, 4, 32, null, 12,
-            new MaceSlamEffect(2.8, 120, 1.8), "mace"));
-
-    public static final Technique GREATAXE_SWEEP = add(new Technique("greataxe_sweep", Archetype.AXE, GestureShape.LINE_H, 1, 16, null, 8, new MomentumSweepEffect(4.0, 200, 0.9), "greataxe"));
-    public static final Technique GREATAXE_RISE = add(new Technique("greataxe_rise", Archetype.AXE, GestureShape.LINE_V_UP, 1, 20, null, 10,
-            new FamilyArcEffect(3.6, 150, 1.3, 0.0, 0.55, (player, target, damage, index) -> {
+    public static final Technique GREATAXE_SWEEP = add(new Technique("greataxe_sweep", Archetype.AXE, GestureShape.LINE_H, 1, 20, null, 8,
+            new FamilyArcEffect(4.0, 200, 1.62, 0.35, 0.0, (player, target, damage, index) -> {
                 States.addDomain(player, 0);
-                return damage * (1.0 + 0.05 * com.putzwirk.gesturalcombat.technique.MomentumState.get(player));
+                return damage;
             }), "greataxe"));
-    public static final Technique GREATAXE_DROP = add(new Technique("greataxe_drop", Archetype.AXE, GestureShape.LINE_V_DOWN, 7, 48, null, 17,
-            new FamilyArcEffect(3.2, 100, 2.1, 1.0, 0.0, (player, target, damage, index) -> {
+    public static final Technique GREATAXE_RISE = add(new Technique("greataxe_rise", Archetype.AXE, GestureShape.LINE_V_UP, 1, 24, null, 10,
+            new FamilyArcEffect(3.6, 150, 2.13, 0.15, 0.55, (player, target, damage, index) -> {
+                States.addDomain(player, 0);
+                return damage;
+            }), "greataxe"));
+    public static final Technique GREATAXE_DROP = add(new Technique("greataxe_drop", Archetype.AXE, GestureShape.LINE_V_DOWN, 7, 52, null, 17,
+            new FamilyArcEffect(3.2, 100, 3.50, 1.0, 0.0, (player, target, damage, index) -> {
                 States.addDomain(player, 1);
-                return damage * (1.0 + 0.06 * com.putzwirk.gesturalcombat.technique.MomentumState.get(player));
+                return damage;
             }), "greataxe"));
-    public static final Technique GREATAXE_Z = add(new Technique("greataxe_z", Archetype.AXE, GestureShape.ZIGZAG, 7, 42, null, 16,
-            new FamilyArcEffect(4.0, 300, 1.7, 0.8, 0.0, (player, target, damage, index) -> {
+    public static final Technique GREATAXE_Z = add(new Technique("greataxe_z", Archetype.AXE, GestureShape.ZIGZAG, 7, 46, null, 16,
+            new FamilyArcEffect(4.0, 300, 2.99, 0.80, 0.0, (player, target, damage, index) -> {
                 States.addDomain(player, 0);
-                return damage * (1.0 + 0.06 * com.putzwirk.gesturalcombat.technique.MomentumState.get(player));
+                return damage;
             }), "greataxe"));
     public static final Technique GREATAXE_DUMP = add(new Technique("greataxe_dump", Archetype.AXE, GestureShape.CARET, 4, 30, null, 12, new MomentumDumpEffect(4.0), "greataxe"));
 
@@ -176,30 +177,27 @@ public final class Techniques {
                 return damage;
             }), "rapier"));
 
-    public static final Technique CLAYMORE_SWEEP = add(new Technique("claymore_sweep", Archetype.SWORD, GestureShape.LINE_H, 1, 14, null, 7,
-            new FamilyArcEffect(4.0, 160, 1.0, 0.2, 0.0, (player, target, damage, index) -> {
-                int sunder = States.sunder(target);
-                States.addSunder(target, 1);
-                return damage * (1.0 + 0.15 * sunder);
-            }), "claymore"));
-    public static final Technique CLAYMORE_RISE = add(new Technique("claymore_rise", Archetype.SWORD, GestureShape.LINE_V_UP, 1, 18, null, 9,
-            new FamilyArcEffect(2.8, 130, 1.3, 0.0, 0.5, (player, target, damage, index) -> {
+    public static final Technique CLAYMORE_SWEEP = add(new Technique("claymore_sweep", Archetype.SWORD, GestureShape.LINE_H, 1, 18, null, 7,
+            new FamilyArcEffect(4.2, 190, 1.56, 0.30, 0.0, (player, target, damage, index) -> {
                 States.addSunder(target, 1);
                 return damage;
             }), "claymore"));
-    public static final Technique CLAYMORE_Z = add(new Technique("claymore_z", Archetype.SWORD, GestureShape.ZIGZAG, 7, 42, null, 16,
-            new FamilyArcEffect(3.6, 200, 1.9, 0.8, 0.0, (player, target, damage, index) -> {
-                int sunder = States.sunder(target);
+    public static final Technique CLAYMORE_RISE = add(new Technique("claymore_rise", Archetype.SWORD, GestureShape.LINE_V_UP, 1, 22, null, 9,
+            new FamilyArcEffect(3.4, 140, 2.12, 0.15, 0.55, (player, target, damage, index) -> {
                 States.addSunder(target, 1);
-                return damage * (1.0 + 0.15 * sunder);
+                return damage;
             }), "claymore"));
-    public static final Technique CLAYMORE_BREAK = add(new Technique("claymore_break", Archetype.SWORD, GestureShape.LINE_V_DOWN, 7, 45, null, 16,
-            new FamilyArcEffect(3.0, 90, 2.3, 0.6, 0.0, (player, target, damage, index) -> {
+    public static final Technique CLAYMORE_Z = add(new Technique("claymore_z", Archetype.SWORD, GestureShape.ZIGZAG, 7, 48, null, 16,
+            new FamilyArcEffect(4.2, 210, 2.98, 0.55, 0.0, (player, target, damage, index) -> {
+                States.addSunder(target, 1);
+                return damage;
+            }), "claymore"));
+    public static final Technique CLAYMORE_BREAK = add(new Technique("claymore_break", Archetype.SWORD, GestureShape.LINE_V_DOWN, 7, 52, null, 16,
+            new FamilyArcEffect(3.2, 120, 3.38, 0.55, 0.0, (player, target, damage, index) -> {
                 double bonus = States.sunder(target) >= 2 ? 1.5 : 1.0;
                 States.addSunder(target, 1);
                 return damage * bonus;
             }), "claymore"));
-
     public static final Technique SICKLE_CUT = add(new Technique("sickle_cut", Archetype.SWORD, GestureShape.LINE_H, 1, 9, null, 6,
             new FamilyArcEffect(2.8, 120, 0.9, 0.15, 0.0, (player, target, damage, index) -> {
                 States.addBleed(target, player, 1);
@@ -306,33 +304,31 @@ public final class Techniques {
                 HitStun.pin(target, 10);
                 return damage;
             }), "halberd"));
-    public static final Technique GREATHAMMER_CUT = add(new Technique("greathammer_cut", Archetype.AXE, GestureShape.LINE_H, 1, 18, null, 8,
-            new FamilyArcEffect(4.0, 160, 1.0, 0.5, 0.0, (player, target, damage, index) -> {
+    public static final Technique GREATHAMMER_CUT = add(new Technique("greathammer_cut", Archetype.AXE, GestureShape.LINE_H, 1, 22, null, 8,
+            new FamilyArcEffect(4.0, 160, 2.78, 0.50, 0.0, (player, target, damage, index) -> {
                 States.stagger(target, 25);
-                HitStun.pin(target, 6);
+                HitStun.pin(target, 9);
                 return damage;
             }), "greathammer"));
-    public static final Technique GREATHAMMER_RISE = add(new Technique("greathammer_rise", Archetype.AXE, GestureShape.LINE_V_UP, 1, 21, null, 10,
-            new FamilyArcEffect(3.4, 140, 1.5, 0.0, 0.45, (player, target, damage, index) -> {
+    public static final Technique GREATHAMMER_RISE = add(new Technique("greathammer_rise", Archetype.AXE, GestureShape.LINE_V_UP, 1, 25, null, 10,
+            new FamilyArcEffect(3.4, 150, 3.07, 0.20, 0.45, (player, target, damage, index) -> {
                 States.stagger(target, 25);
-                HitStun.pin(target, 6);
+                HitStun.pin(target, 9);
                 return damage;
             }), "greathammer"));
-    public static final Technique GREATHAMMER_DROP = add(new Technique("greathammer_drop", Archetype.AXE, GestureShape.LINE_V_DOWN, 7, 55, null, 17,
-            new FamilyArcEffect(3.0, 90, 2.3, 1.2, 0.0, (player, target, damage, index) -> {
-                double bonus = States.staggered(target) ? 1.4 : 1.0;
+    public static final Technique GREATHAMMER_DROP = add(new Technique("greathammer_drop", Archetype.AXE, GestureShape.LINE_V_DOWN, 7, 60, null, 17,
+            new FamilyArcEffect(3.0, 110, 4.24, 1.20, 0.0, (player, target, damage, index) -> {
+                double bonus = States.staggered(target) ? 1.25 : 1.0;
                 States.stagger(target, 25);
-                HitStun.pin(target, 8);
+                HitStun.pin(target, 9);
                 return damage * bonus;
             }), "greathammer"));
-
-    public static final Technique GREATHAMMER_Z = add(new Technique("greathammer_z", Archetype.AXE, GestureShape.ZIGZAG, 7, 52, null, 18,
-            new FamilyArcEffect(3.2, 180, 2.5, 1.1, 0.0, (player, target, damage, index) -> {
+    public static final Technique GREATHAMMER_Z = add(new Technique("greathammer_z", Archetype.AXE, GestureShape.ZIGZAG, 7, 56, null, 18,
+            new FamilyArcEffect(3.2, 180, 3.27, 1.10, 0.0, (player, target, damage, index) -> {
                 States.stagger(target, 40);
-                HitStun.pin(target, 12);
+                HitStun.pin(target, 9);
                 return damage;
             }), "greathammer"));
-
     public static final Technique SCYTHE_CUT = add(new Technique("scythe_cut", Archetype.AXE, GestureShape.LINE_H, 1, 18, null, 7,
             new FamilyArcEffect(3.0, 220, 0.90, 0.0, 0.0, (player, target, damage, index) -> {
                 boolean bonus = States.harvestBonus(player);
@@ -375,29 +371,29 @@ public final class Techniques {
                 States.recordHarvest(player, target);
                 return damage * (execute ? 2.0 : 1.0);
             }), "scythe"));
-    public static final Technique PYRE_SWEEP = add(new Technique("pyre_sweep", Archetype.AXE, GestureShape.LINE_H, 1, 16, null, 8,
-            new FamilyArcEffect(4.1, 150, 0.9, 0.3, 0.0, (player, target, damage, index) -> {
+    public static final Technique PYRE_SWEEP = add(new Technique("pyre_sweep", Archetype.AXE, GestureShape.LINE_H, 1, 20, null, 8,
+            new FamilyArcEffect(4.1, 180, 2.43, 0.30, 0.0, (player, target, damage, index) -> {
                 if (target.getHealth() <= damage) {
                     States.addDomain(player, 1);
                 }
                 return damage;
             }), "heavy_axe"));
-    public static final Technique PYRE_RISE = add(new Technique("pyre_rise", Archetype.AXE, GestureShape.LINE_V_UP, 1, 19, null, 9,
-            new FamilyArcEffect(3.4, 140, 1.3, 0.0, 0.5, (player, target, damage, index) -> {
+    public static final Technique PYRE_RISE = add(new Technique("pyre_rise", Archetype.AXE, GestureShape.LINE_V_UP, 1, 23, null, 9,
+            new FamilyArcEffect(3.4, 140, 2.23, 0.15, 0.50, (player, target, damage, index) -> {
                 if (target.getHealth() <= damage) {
                     States.addDomain(player, 1);
                 }
                 return damage;
             }), "heavy_axe"));
-    public static final Technique PYRE_DROP = add(new Technique("pyre_drop", Archetype.AXE, GestureShape.LINE_V_DOWN, 7, 50, null, 16,
-            new FamilyArcEffect(3.4, 90, 1.4, 1.0, 0.0, (player, target, damage, index) -> {
+    public static final Technique PYRE_DROP = add(new Technique("pyre_drop", Archetype.AXE, GestureShape.LINE_V_DOWN, 7, 54, null, 16,
+            new FamilyArcEffect(3.0, 95, 3.24, 1.0, 0.0, (player, target, damage, index) -> {
                 if (target.getHealth() <= damage) {
                     States.addDomain(player, 2);
                 }
                 return damage;
             }), "heavy_axe"));
-    public static final Technique PYRE_Z = add(new Technique("pyre_z", Archetype.AXE, GestureShape.ZIGZAG, 7, 42, null, 16,
-            new FamilyArcEffect(4.1, 260, 1.7, 0.6, 0.0, (player, target, damage, index) -> {
+    public static final Technique PYRE_Z = add(new Technique("pyre_z", Archetype.AXE, GestureShape.ZIGZAG, 7, 46, null, 16,
+            new FamilyArcEffect(4.1, 260, 3.14, 0.60, 0.0, (player, target, damage, index) -> {
                 if (target.getHealth() <= damage) {
                     States.addDomain(player, 2);
                 }
