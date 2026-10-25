@@ -16,7 +16,14 @@ import net.minecraft.world.phys.Vec3;
 
 public final class DashStrikeEffect implements TechniqueEffect {
     private static final int MOVE_TICKS = 9;
-    private static final double STEP = 0.34;
+    private static final int LIGHT_MOVE_TICKS = 6;
+    private static final double STEP = 0.42;
+    private static final double LIGHT_STEP = 0.62;
+    private static final double LIGHT_REACH = 1.30;
+    private static final double REACH = 1.15;
+    private static final double LIGHT_MAX_TRAVEL = 6.0;
+    private static final double MAX_TRAVEL = 6.5;
+    private static final double FAST_ATTACK_SPEED = 2.0;
     private static final double CONTACT = 1.6;
     private static final int HIT_SPACING = 4;
 
@@ -63,11 +70,14 @@ public final class DashStrikeEffect implements TechniqueEffect {
         float damage = (float) (EffectSupport.damageOf(player, technique, stack)
                 * AbilityConfigs.damageMultiplier(technique, stack, damageMultiplier));
         int windup = AbilityConfigs.windupTicks(technique, stack);
+        boolean light = lightweight(player, stack);
+        double travel = Math.min(light ? LIGHT_MAX_TRAVEL : MAX_TRAVEL, dash * (light ? LIGHT_REACH : REACH));
         LivingEntity focus = player.onGround() ? EffectSupport.targetInFront(player, hitbox.range() + 2.5, 70.0) : null;
         Vec3 destination = focus == null
-                ? DashMovement.forwardPoint(player, dash)
-                : DashMovement.stopPoint(player, focus, CONTACT, dash);
-        int ticks = DashMovement.run(player, level, destination, MOVE_TICKS, windup + 1, STEP);
+                ? DashMovement.forwardPoint(player, travel)
+                : DashMovement.stopPoint(player, focus, CONTACT, travel);
+        int ticks = DashMovement.run(player, level, destination, light ? LIGHT_MOVE_TICKS : MOVE_TICKS,
+                windup + 1, light ? LIGHT_STEP : STEP);
         int land = windup + ticks;
         float per = damage / hits;
         for (int i = 0; i < hits; i++) {
@@ -95,6 +105,14 @@ public final class DashStrikeEffect implements TechniqueEffect {
                 DashMovement.retreat(player, level, back, 1.6, 5);
             }
         });
+    }
+
+    private static boolean lightweight(ServerPlayer player, ItemStack stack) {
+        if (com.putzwirk.gesturalcombat.weapon.WeaponRules.light(stack)) {
+            return true;
+        }
+        return player.getAttributeValue(net.minecraft.world.entity.ai.attributes.Attributes.ATTACK_SPEED)
+                >= FAST_ATTACK_SPEED;
     }
 
     private void strike(ServerPlayer player, Level level, ItemStack stack, Technique technique, Hitbox hitbox,
