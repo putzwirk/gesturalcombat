@@ -220,7 +220,7 @@ stacks on top of the normal ability damage (attack damage × mastery × weapon
 profile × global config), `hitbox` is scaled by the weapon's reach and the
 mastery range passive, and `cooldown_ticks` is scaled by the mastery cooldown
 passive, the global config and the attack-speed factor. The resulting cooldown
-is shown on that weapon's HUD icon. See `SIMPLY_SWORDS.md` for the full Simply
+is shown on that weapon's HUD icon. See `data/gesturalcombat/weapons.json` for the full Simply
 Swords mapping.
 
 ## How Better Combat's own compat works (and why Simply Swords works here for free)

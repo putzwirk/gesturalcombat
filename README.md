@@ -49,9 +49,8 @@ registry-name matching for modded weapons that ship no Better Combat attributes.
 Swing particles are disabled (no vanilla sweep, no slash arcs). Landed hits and
 stuns show star bursts, slams and shield impacts show a shockwave ring, and
 every weapon swing leaves a pixelated ribbon swept directly from the rendered
-blade each frame. See
-`PARTICLES_AND_TRAILS.md`; the trail can be disabled with `weaponTrails` in the
-common config.
+blade each frame. The trail can be disabled with `weaponTrails` in the common
+config.
 
 ## Dev environment notes
 

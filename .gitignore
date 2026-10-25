@@ -28,3 +28,9 @@ src/generated/resources
 forge*changelog.txt
 __pycache__/
 *.pyc
+
+# local working notes, not published
+PARTICLES_AND_TRAILS.md
+WEAPON_KITS.md
+SIMPLY_SWORDS.md
+simplyswords_summary.md
