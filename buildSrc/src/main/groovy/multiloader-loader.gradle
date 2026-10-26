@@ -14,7 +14,7 @@ configurations {
 dependencies {
     compileOnly(project(':common')) {
         capabilities {
-            requireCapability "$group:$mod_id"
+            requireCapability "${project.group}:${mod_id}"
         }
     }
     commonJava project(path: ':common', configuration: 'commonJava')
@@ -41,4 +41,36 @@ tasks.named('sourcesJar', Jar) {
     from(configurations.commonJava)
     dependsOn(configurations.commonResources)
     from(configurations.commonResources)
+}
+
+
+
+def collectedJar = tasks.register('collectJar', Copy) {
+
+    into(rootProject.layout.projectDirectory.dir('jars'))
+
+}
+
+
+
+afterEvaluate {
+
+    def packedJar = tasks.findByName('remapJar') != null ? tasks.named('remapJar') : tasks.named('jar')
+
+    collectedJar.configure {
+
+        dependsOn(packedJar)
+
+        from(packedJar.flatMap { it.archiveFile })
+
+    }
+
+}
+
+
+
+tasks.named('build') {
+
+    finalizedBy('collectJar')
+
 }

@@ -37,8 +37,12 @@ public final class GestureCastService {
     private GestureCastService() {
     }
 
+    public static void forget(UUID id) {
+        COOLDOWNS.remove(id);
+    }
+
     public static void cast(ServerPlayer player, String techniqueId, GestureShape shape, float confidence, int swipe, boolean offhand) {
-        if (!Config.INSTANCE.gesturesEnabled.get()) {
+        if (!Config.INSTANCE.gesturesEnabled.get() || DisabledPlayers.isDisabled(player)) {
             return;
         }
         if (!player.isAlive() || player.isSpectator()) {

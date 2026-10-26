@@ -26,6 +26,9 @@ public final class CameraEffects {
     }
 
     public static void pulse(@Nullable Archetype source, float scale) {
+        if (com.putzwirk.gesturalcombat.client.ClientState.modDisabled()) {
+            return;
+        }
         archetype = source;
         weightScale = Math.max(0.4f, Math.min(1.8f, scale));
         remaining = DURATION;

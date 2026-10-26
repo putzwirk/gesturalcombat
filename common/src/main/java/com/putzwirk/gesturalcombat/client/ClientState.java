@@ -18,6 +18,7 @@ import java.util.Map;
 public final class ClientState {
     public static boolean hiddenMain;
     public static boolean hiddenOff;
+    private static final java.util.Set<String> DISABLED_PLAYERS = new java.util.HashSet<>();
 
     public static final List<TrailPoint> TRAIL = new ArrayList<>();
     public static final Map<String, Integer> COOLDOWN_END = new HashMap<>();
@@ -44,6 +45,34 @@ public final class ClientState {
     public static int busyTotal;
 
     private ClientState() {
+    }
+
+    public static boolean modDisabled() {
+        net.minecraft.client.player.LocalPlayer player = Minecraft.getInstance().player;
+        return player != null && DISABLED_PLAYERS.contains(player.getUUID().toString());
+    }
+
+    public static void setDisabledPlayers(List<String> ids) {
+        boolean was = modDisabled();
+        DISABLED_PLAYERS.clear();
+        DISABLED_PLAYERS.addAll(ids);
+        if (!was && modDisabled()) {
+            clearGestureState();
+        }
+    }
+
+    private static void clearGestureState() {
+        TRAIL.clear();
+        COOLDOWN_END.clear();
+        stroking = false;
+        strokeTicks = 0;
+        shownShape = GestureShape.UNKNOWN;
+        shownConfidence = 0.0f;
+        rejectTicks = 0;
+        pendingTechnique = "";
+        pendingTicks = 0;
+        busyUntil = 0;
+        busyTotal = 0;
     }
 
     public record TrailPoint(float x, float y, int tick, int trailId, Archetype archetype) {

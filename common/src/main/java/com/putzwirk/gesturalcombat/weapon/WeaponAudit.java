@@ -367,10 +367,34 @@ public final class WeaponAudit {
 
     public static void onServerStarted() {
         pendingOrigin = null;
+        com.putzwirk.gesturalcombat.server.DisabledPlayers.load();
         if (!Config.INSTANCE.debugWeapons.get()) {
             return;
         }
         log("startup");
+    }
+
+    private static int toggle(com.mojang.brigadier.context.CommandContext<CommandSourceStack> context, boolean enable)
+            throws com.mojang.brigadier.exceptions.CommandSyntaxException {
+        java.util.Collection<com.mojang.authlib.GameProfile> profiles =
+                net.minecraft.commands.arguments.GameProfileArgument.getGameProfiles(context, "player");
+        int changed = 0;
+        java.util.List<String> names = new java.util.ArrayList<>();
+        for (com.mojang.authlib.GameProfile profile : profiles) {
+            boolean applied = enable
+                    ? com.putzwirk.gesturalcombat.server.DisabledPlayers.enable(profile.getId())
+                    : com.putzwirk.gesturalcombat.server.DisabledPlayers.disable(profile.getId(), profile.getName());
+            if (applied) {
+                changed++;
+            }
+            names.add(profile.getName());
+        }
+        String verb = enable ? "enabled for " : "disabled for ";
+        String text = changed == 0
+                ? "gesturalcombat: already " + (enable ? "enabled" : "disabled") + " " + String.join(", ", names)
+                : "gesturalcombat: " + verb + String.join(", ", names);
+        context.getSource().sendSuccess(() -> Component.literal(text), false);
+        return changed;
     }
 
     public static void onRegisterCommands(CommandDispatcher<CommandSourceStack> dispatcher) {
@@ -382,6 +406,24 @@ public final class WeaponAudit {
                             com.putzwirk.gesturalcombat.technique.AbilitySync.broadcastAudit();
                             context.getSource().sendSuccess(
                                     () -> Component.literal("gesturalcombat: audited every weapon, see the log"), false);
+                            return 1;
+                        }))
+                .then(Commands.literal("disable")
+                        .requires(source -> source.hasPermission(2))
+                        .then(Commands.argument("player", net.minecraft.commands.arguments.GameProfileArgument.gameProfile())
+                                .executes(context -> toggle(context, false))))
+                .then(Commands.literal("enable")
+                        .requires(source -> source.hasPermission(2))
+                        .then(Commands.argument("player", net.minecraft.commands.arguments.GameProfileArgument.gameProfile())
+                                .executes(context -> toggle(context, true))))
+                .then(Commands.literal("disabled")
+                        .requires(source -> source.hasPermission(2))
+                        .executes(context -> {
+                            java.util.List<String> names =
+                                    com.putzwirk.gesturalcombat.server.DisabledPlayers.names();
+                            String text = names.isEmpty() ? "gesturalcombat: nobody is disabled"
+                                    : "gesturalcombat: disabled for " + String.join(", ", names);
+                            context.getSource().sendSuccess(() -> Component.literal(text), false);
                             return 1;
                         })));
     }
