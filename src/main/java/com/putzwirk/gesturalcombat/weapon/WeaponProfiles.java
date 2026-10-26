@@ -146,6 +146,9 @@ public final class WeaponProfiles {
         if (profile != null && profile.family() != null) {
             return profile.family();
         }
+        if (stack.getItem() instanceof net.minecraft.world.item.CrossbowItem) {
+            return "crossbow";
+        }
         String combat = com.putzwirk.gesturalcombat.compat.BetterCombatBridge.category(stack);
         if (combat != null && !combat.isBlank()) {
             return combat.toLowerCase(java.util.Locale.ROOT);
