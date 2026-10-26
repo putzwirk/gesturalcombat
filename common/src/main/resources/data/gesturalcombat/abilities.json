@@ -1514,24 +1514,6 @@
       "cooldown_ticks": 28,
       "windup_ticks": 1
     },
-    "axe_step": {
-      "gesture": "CARET",
-      "hitbox": {
-        "shape": "ARC",
-        "range": 3.2,
-        "angle": 150.0,
-        "width": 1.0,
-        "height": 3.6,
-        "vertical_offset": 0.2,
-        "forward_offset": 0.0,
-        "max_targets": 6,
-        "line_of_sight": false
-      },
-      "damage_multiplier": 0.5,
-      "knockback": 0.05,
-      "cooldown_ticks": 28,
-      "windup_ticks": 1
-    },
     "rapier_fleche": {
       "gesture": "CARET",
       "hitbox": {
@@ -1569,12 +1551,6 @@
       "windup_ticks": 0,
       "hits": 2,
       "hit_interval": 7
-    },
-    "axe_brace": {
-      "gesture": "V",
-      "cooldown_ticks": 160,
-      "damage_multiplier": 0.0,
-      "knockback": 0.0
     },
     "trident_ward": {
       "gesture": "V",

@@ -30,8 +30,6 @@ public final class AbilityIcons {
         alias(Archetype.AXE, GestureShape.LINE_V_DOWN, "axe_cleave");
         alias(Archetype.AXE, GestureShape.CIRCLE, "axe_cyclone");
         alias(Archetype.AXE, GestureShape.ZIGZAG, "axe_quake");
-        alias(Archetype.AXE, GestureShape.V, "axe_brace");
-        alias(Archetype.AXE, GestureShape.CARET, "axe_step");
 
         alias(Archetype.SPEAR, GestureShape.LINE_H, "spear_sweep");
         alias(Archetype.SPEAR, GestureShape.LINE_V_UP, "spear_thrust");

@@ -445,11 +445,6 @@ public final class Techniques {
     public static final Technique AXE_REND = add(new Technique("axe_rend", Archetype.AXE, GestureShape.LINE_V_UP, 4, 25, "axe_t2", 12, new BleedEffect(2.7, 105, 1.0, 2, 60)));
     public static final Technique AXE_CYCLONE = add(new Technique("axe_cyclone", Archetype.AXE, GestureShape.CIRCLE, 7, 35, "axe_t3", 15, new SpinEffect(3.5, 1.0, 2, 10)));
     public static final Technique AXE_QUAKE = add(new Technique("axe_quake", Archetype.AXE, GestureShape.ZIGZAG, 10, 55, "axe_t4", 20, new GroundSlamEffect(4.2, 1.3, 0.5)));
-    public static final Technique AXE_STEP = add(new Technique("axe_step", Archetype.AXE, GestureShape.CARET, 1, 28, null, 9,
-            new DashStrikeEffect(3.2, 150, 1.05, 3.6, 0.0, 3, (player, target, damage, index) -> damage)));
-    public static final Technique AXE_BRACE = add(new Technique("axe_brace", Archetype.AXE, GestureShape.V, 1, 160, null, 10,
-            new BraceEffect(10)));
-
     public static final Technique SPEAR_THRUST = add(new Technique("spear_thrust", Archetype.SPEAR, GestureShape.LINE_V_UP, 1, 13, null, 6, new LinePierceEffect(4.4, 0.7, 1.0, 0.3)));
     public static final Technique SPEAR_LUNGE = add(new Technique("spear_lunge", Archetype.SPEAR, GestureShape.LINE_H, 1, 14, "spear_t1", 8, new LinePierceEffect(5.2, 0.85, 1.0, 0.55)));
     public static final Technique SPEAR_IMPALE = add(new Technique("spear_impale", Archetype.SPEAR, GestureShape.ZIGZAG, 4, 30, "spear_t2", 13,
