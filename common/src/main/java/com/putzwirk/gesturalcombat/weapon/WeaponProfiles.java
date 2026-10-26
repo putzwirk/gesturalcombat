@@ -161,6 +161,12 @@ public final class WeaponProfiles {
         return profile == null ? 1.0 : profile.damageMultiplier();
     }
 
+    @Nullable
+    public static Boolean twoHanded(ItemStack stack) {
+        WeaponProfile profile = profile(stack);
+        return profile == null ? null : profile.twoHanded();
+    }
+
     public static double reachMultiplier(ItemStack stack) {
         WeaponProfile profile = profile(stack);
         return profile == null ? 1.0 : profile.reachMultiplier();

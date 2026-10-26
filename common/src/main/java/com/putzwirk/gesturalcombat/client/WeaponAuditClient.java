@@ -50,6 +50,7 @@ public final class WeaponAuditClient {
             }
         }
         Gesturalcombat.LOGGER.info("{} [client] {} weapons, {} icon gaps", WeaponAudit.TAG, reports.size(), reported);
+        com.putzwirk.gesturalcombat.weapon.Parity.log();
         if (remote) {
             WeaponAudit.compare(serverSummary, reports, "client");
         }

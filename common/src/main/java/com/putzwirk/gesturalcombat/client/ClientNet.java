@@ -35,6 +35,7 @@ public final class ClientNet {
                 com.putzwirk.gesturalcombat.weapon.WeaponProfiles.count(),
                 BetterCombatBridge.animationCount("gesturalcombat"),
                 abilities == null ? -1 : abilities.length(), weapons == null ? -1 : weapons.length());
+        com.putzwirk.gesturalcombat.weapon.Parity.reportDrift();
         com.putzwirk.gesturalcombat.client.WeaponAuditClient.run(audit);
     }
 
@@ -94,13 +95,8 @@ public final class ClientNet {
         InteractionHand hand = offhand ? InteractionHand.OFF_HAND : InteractionHand.MAIN_HAND;
         ItemStack stack = caster != null ? caster.getItemInHand(hand) : ItemStack.EMPTY;
         Archetype archetype = technique.archetype();
-        int swings = Math.max(1, AbilityConfigs.hits(technique));
         String family = com.putzwirk.gesturalcombat.weapon.WeaponProfiles.family(stack);
-        if ("greathammer".equalsIgnoreCase(family) && technique.shape() != null
-                && technique.shape() != com.putzwirk.gesturalcombat.core.GestureShape.LINE_H
-                && technique.shape() != com.putzwirk.gesturalcombat.core.GestureShape.ZIGZAG) {
-            swings = 1;
-        }
+        int swings = AnimationCatalog.swingCount(technique, family);
         int interval = AbilityConfigs.hitInterval(technique);
         boolean pairedGuard = technique.shape() == com.putzwirk.gesturalcombat.core.GestureShape.V
                 && caster != null

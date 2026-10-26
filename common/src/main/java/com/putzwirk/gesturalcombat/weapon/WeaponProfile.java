@@ -31,6 +31,8 @@ public final class WeaponProfile {
     private double reachMultiplier = 1.0;
     private double cooldownMultiplier = 1.0;
     private double reach = 0.0;
+    @Nullable
+    private Boolean twoHanded;
     private final List<String> animations = new ArrayList<>();
     private final java.util.EnumSet<GestureShape> gestures = java.util.EnumSet.noneOf(GestureShape.class);
     private final Map<String, AbilityConfig> techniques = new HashMap<>();
@@ -58,6 +60,9 @@ public final class WeaponProfile {
         reachMultiplier = read(json, "reach_multiplier", reachMultiplier);
         cooldownMultiplier = read(json, "cooldown_multiplier", cooldownMultiplier);
         reach = Math.max(0.0, read(json, "reach", reach));
+        if (json.has("two_handed") && json.get("two_handed").isJsonPrimitive()) {
+            twoHanded = json.get("two_handed").getAsBoolean();
+        }
         if (json.has("animations") && json.get("animations").isJsonArray()) {
             for (JsonElement element : json.getAsJsonArray("animations")) {
                 if (element.isJsonPrimitive()) {
@@ -198,6 +203,11 @@ public final class WeaponProfile {
 
     public double reach() {
         return reach;
+    }
+
+    @Nullable
+    public Boolean twoHanded() {
+        return twoHanded;
     }
 
     public List<String> animations() {

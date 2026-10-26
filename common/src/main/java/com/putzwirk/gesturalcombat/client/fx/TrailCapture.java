@@ -34,6 +34,7 @@ public final class TrailCapture {
     private static Player owner;
     private static ItemStack stack = ItemStack.EMPTY;
     private static ItemDisplayContext context;
+    private static boolean viewSpace;
     private static boolean active;
 
     private TrailCapture() {
@@ -54,6 +55,7 @@ public final class TrailCapture {
         owner = player;
         stack = itemStack;
         context = displayContext;
+        viewSpace = displayContext.firstPerson();
         active = true;
     }
 
@@ -62,6 +64,7 @@ public final class TrailCapture {
         owner = null;
         stack = ItemStack.EMPTY;
         context = null;
+        viewSpace = false;
     }
 
     public static void sample(ItemStack itemStack, ItemDisplayContext displayContext, boolean leftHand,
@@ -82,8 +85,8 @@ public final class TrailCapture {
         Camera camera = Minecraft.getInstance().gameRenderer.getMainCamera();
         Vec3 first = transform(matrix, axis[0]);
         Vec3 second = transform(matrix, axis[1]);
-        first = toWorld(camera, first);
-        second = toWorld(camera, second);
+        first = toWorld(camera, first, viewSpace);
+        second = toWorld(camera, second, viewSpace);
         Vec3 eye = owner.getEyePosition();
         Vec3 tip;
         Vec3 base;
@@ -106,7 +109,10 @@ public final class TrailCapture {
         TrailManager.sample(owner.getId(), base.lerp(tip, EDGE_START), tip);
     }
 
-    private static Vec3 toWorld(Camera camera, Vec3 view) {
+    private static Vec3 toWorld(Camera camera, Vec3 point, boolean viewSpace) {
+        if (!viewSpace) {
+            return point.add(camera.getPosition());
+        }
         Vector3f look = camera.getLookVector();
         Vector3f up = camera.getUpVector();
         Vector3f left = camera.getLeftVector();
@@ -114,9 +120,9 @@ public final class TrailCapture {
         Vec3 upAxis = new Vec3(up.x(), up.y(), up.z());
         Vec3 back = new Vec3(-look.x(), -look.y(), -look.z());
         return camera.getPosition()
-                .add(right.scale(view.x))
-                .add(upAxis.scale(view.y))
-                .add(back.scale(view.z));
+                .add(right.scale(point.x))
+                .add(upAxis.scale(point.y))
+                .add(back.scale(point.z));
     }
 
     private static Vec3 transform(Matrix4f matrix, Vec3 point) {
