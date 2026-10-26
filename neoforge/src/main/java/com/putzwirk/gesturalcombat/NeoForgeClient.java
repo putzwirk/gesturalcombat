@@ -58,10 +58,14 @@ public final class NeoForgeClient {
 
     @SubscribeEvent
     public static void renderLevel(RenderLevelStageEvent event) {
-        if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_TRANSLUCENT_BLOCKS) {
+        if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_PARTICLES) {
             return;
         }
-        TrailEvents.onRenderLevel(event.getPoseStack(), event.getCamera(), event.getPartialTick().getGameTimeDeltaPartialTick(false));
-        HitboxDebugEvents.onRenderLevel(event.getPoseStack(), event.getCamera());
+        com.mojang.blaze3d.vertex.PoseStack poseStack = event.getPoseStack();
+        if (poseStack == null) {
+            poseStack = new com.mojang.blaze3d.vertex.PoseStack();
+        }
+        TrailEvents.onRenderLevel(poseStack, event.getCamera(), event.getPartialTick().getGameTimeDeltaPartialTick(false));
+        HitboxDebugEvents.onRenderLevel(poseStack, event.getCamera());
     }
 }

@@ -23,6 +23,14 @@ public final class TrailRenderer {
             return;
         }
         long now = System.currentTimeMillis();
+        if (com.putzwirk.gesturalcombat.Config.INSTANCE.debugCasts.get()) {
+            int samples = 0;
+            for (TrailManager.Trail trail : TrailManager.trails()) {
+                samples += trail.samples.size();
+            }
+            com.putzwirk.gesturalcombat.Gesturalcombat.LOGGER.info("gesturalcombat trails: {} ribbons, {} samples",
+                    TrailManager.trails().size(), samples);
+        }
         MultiBufferSource.BufferSource buffers = mc.renderBuffers().bufferSource();
         VertexConsumer consumer = buffers.getBuffer(TrailRenderTypes.TRAIL);
         PoseStack.Pose pose = poseStack.last();
