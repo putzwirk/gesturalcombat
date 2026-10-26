@@ -60,6 +60,14 @@ public final class EffectSupport {
         return (float) (base * weapon * weight * config);
     }
 
+    public static float projectileDamage(ServerPlayer player, Technique technique, float base) {
+        ItemStack stack = player.getMainHandItem();
+        double weapon = WeaponProfiles.damageMultiplier(stack);
+        double ability = AbilityConfigs.damageMultiplier(technique, stack, 1.0);
+        double config = Config.INSTANCE.damageMultiplier.get();
+        return (float) (base * weapon * ability * config);
+    }
+
     public static double reachOf(ServerPlayer player, Technique technique, double baseRange) {
         return reachOf(player, technique, player.getMainHandItem(), baseRange);
     }

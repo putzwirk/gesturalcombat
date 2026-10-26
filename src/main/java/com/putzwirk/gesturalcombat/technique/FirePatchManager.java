@@ -82,7 +82,6 @@ public final class FirePatchManager {
         private final long until;
         private final double radius;
         private final Set<BlockPos> blocks = new HashSet<>();
-        private int removalCursor;
 
         private Patch(ServerLevel level, BlockPos center, long until, double radius) {
             this.level = level;
@@ -143,14 +142,14 @@ public final class FirePatchManager {
         }
 
         private boolean removeStep() {
-            List<BlockPos> ordered = new ArrayList<>(blocks);
             int removed = 0;
-            while (removalCursor < ordered.size() && removed < REMOVE_PER_TICK) {
-                BlockPos pos = ordered.get(removalCursor++);
+            Iterator<BlockPos> iterator = blocks.iterator();
+            while (iterator.hasNext() && removed < REMOVE_PER_TICK) {
+                BlockPos pos = iterator.next();
                 if (level.getBlockState(pos).is(Blocks.FIRE)) {
                     level.setBlock(pos, Blocks.AIR.defaultBlockState(), 2);
                 }
-                blocks.remove(pos);
+                iterator.remove();
                 removed++;
             }
             return blocks.isEmpty();

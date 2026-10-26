@@ -12,14 +12,20 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 public final class BowFireEffect implements TechniqueEffect {
+    private static final float BASE_DAMAGE = 5.0f;
+    private static final float SPEED = 3.0f;
+    private static final float DIVERGENCE = 0.4f;
+    private static final int ARROW_FIRE_SECONDS = 20;
+
     @Override
     public void execute(ServerPlayer player, Level level, ItemStack stack, Technique technique) {
         Vec3 look = player.getLookAngle();
         Arrow arrow = new Arrow(level, player);
         arrow.setPos(player.getX(), player.getEyeY() - 0.1, player.getZ());
-        arrow.shoot(look.x, look.y, look.z, 3.0f, 0.4f);
-        arrow.setBaseDamage(EffectSupport.damageOf(player, technique) * 0.3f);
+        arrow.shoot(look.x, look.y, look.z, SPEED, DIVERGENCE);
+        arrow.setBaseDamage(EffectSupport.projectileDamage(player, technique, BASE_DAMAGE));
         arrow.setCritArrow(true);
+        arrow.setSecondsOnFire(ARROW_FIRE_SECONDS);
         arrow.getPersistentData().putBoolean(FirePatchManager.TAG, true);
         level.addFreshEntity(arrow);
         player.stopUsingItem();
