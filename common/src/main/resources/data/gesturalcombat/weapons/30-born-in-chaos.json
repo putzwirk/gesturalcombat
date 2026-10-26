@@ -139,16 +139,19 @@
       ],
       "archetype": "axe",
       "gestures": [
-        "line_h",
         "line_v_up",
         "line_v_down",
-        "circle",
-        "zigzag",
-        "v"
+        "zigzag"
       ],
       "family": "mace",
       "reach_multiplier": 0.91,
-      "two_handed": false
+      "two_handed": false,
+      "animations": [
+        "bettercombat:one_handed_uppercut_right",
+        "bettercombat:one_handed_slam",
+        "bettercombat:one_handed_slash_horizontal_left",
+        "bettercombat:one_handed_slash_horizontal_right"
+      ]
     },
     {
       "items": [

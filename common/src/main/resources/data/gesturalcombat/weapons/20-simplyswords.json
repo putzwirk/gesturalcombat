@@ -896,7 +896,12 @@
           "particles": "snowflake"
         }
       ],
-      "two_handed": false
+      "two_handed": false,
+      "gestures": [
+        "line_v_up",
+        "line_v_down",
+        "zigzag"
+      ]
     },
     {
       "items": [
