@@ -84,6 +84,15 @@ a slot whose move never resolves, a slot with no icon of its own, a weapon with
 two slots drawn from the same icon, or a cast that was swung with a mob in range
 and hit nothing.
 
+## Disabling a player
+
+`/gesturalcombat disable <player>` turns the mod off for that player on the
+server. Their client stops drawing the HUD, stops reading gestures, and stops
+holding back vanilla clicks, and the server refuses their casts, so they play
+with plain Better Combat attacks. `/gesturalcombat enable <player>` puts them
+back and `/gesturalcombat disabled` lists who is off. The list lives in
+`config/gesturalcombat-disabled.json` and survives restarts.
+
 ## Modded weapons
 
 Each supported mod has its own file under `data/gesturalcombat/weapons/`

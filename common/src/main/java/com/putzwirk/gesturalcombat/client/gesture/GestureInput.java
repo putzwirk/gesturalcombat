@@ -78,6 +78,12 @@ public final class GestureInput {
     public static void tick(Minecraft mc) {
         ClientState.pruneTrail(TRAIL_MAX_AGE);
         tickPending(mc);
+        if (ClientState.modDisabled()) {
+            resetStroke();
+            attackWasDown = false;
+            useWasDown = false;
+            return;
+        }
         if (mc.player == null || mc.level == null) {
             resetStroke();
             attackWasDown = false;
@@ -154,7 +160,7 @@ public final class GestureInput {
     }
 
     public static boolean isDraggingGesture() {
-        return engaged;
+        return engaged && !ClientState.modDisabled();
     }
 
     public static Archetype strokeArchetype() {
@@ -200,6 +206,10 @@ public final class GestureInput {
 
     public static void onRawMouseMove(double x, double y) {
         Minecraft mc = Minecraft.getInstance();
+        if (ClientState.modDisabled()) {
+            rawReady = false;
+            return;
+        }
         if (mc.screen != null || !mc.mouseHandler.isMouseGrabbed()) {
             rawReady = false;
             return;
@@ -278,7 +288,7 @@ public final class GestureInput {
 
     public static boolean suppressVanillaAttack() {
         Minecraft mc = Minecraft.getInstance();
-        if (mc.screen != null || mc.player == null) {
+        if (mc.screen != null || mc.player == null || ClientState.modDisabled()) {
             return false;
         }
         if (!Config.INSTANCE.gesturesEnabled.get()) {
@@ -313,7 +323,7 @@ public final class GestureInput {
 
     public static boolean suppressVanillaUse() {
         Minecraft mc = Minecraft.getInstance();
-        if (mc.screen != null || mc.player == null) {
+        if (mc.screen != null || mc.player == null || ClientState.modDisabled()) {
             return false;
         }
         if (!Config.INSTANCE.gesturesEnabled.get()) {

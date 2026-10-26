@@ -42,6 +42,7 @@ public final class ModNetwork {
         register(OutLockPacket.class, OutLockPacket::decode);
         register(SaltoPacket.class, SaltoPacket::decode);
         register(ConfigRequestPacket.class, ConfigRequestPacket::decode);
+        register(DisabledPacket.class, DisabledPacket::decode);
     }
 
     public static FriendlyByteBuf write(ModPacket packet) {

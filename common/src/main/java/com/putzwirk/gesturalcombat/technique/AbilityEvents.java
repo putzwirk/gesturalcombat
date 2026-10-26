@@ -9,15 +9,18 @@ public final class AbilityEvents {
 
     public static void onLogin(ServerPlayer player) {
         AbilitySync.send(player);
+        com.putzwirk.gesturalcombat.server.DisabledPlayers.syncTo(player);
         OutLock.unlock(player);
     }
 
     public static void onRespawn(ServerPlayer player) {
         AbilitySync.send(player);
+        com.putzwirk.gesturalcombat.server.DisabledPlayers.syncTo(player);
     }
 
     public static void onChangedDimension(ServerPlayer player) {
         AbilitySync.send(player);
+        com.putzwirk.gesturalcombat.server.DisabledPlayers.syncTo(player);
     }
 
     public static AbilityReloadListener reloadListener() {

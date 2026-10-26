@@ -56,7 +56,8 @@ public final class GestureHud {
 
     public static void render(GuiGraphics graphics, float partialTick, int screenWidth, int screenHeight) {
         Minecraft mc = Minecraft.getInstance();
-        if (mc.player == null || mc.options == null || mc.options.hideGui || mc.screen != null) {
+        if (mc.player == null || mc.options == null || mc.options.hideGui || mc.screen != null
+                || ClientState.modDisabled()) {
             return;
         }
         if (screenWidth <= 0 || screenHeight <= 0) {
