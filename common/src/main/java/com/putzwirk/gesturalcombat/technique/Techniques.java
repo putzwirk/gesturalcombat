@@ -18,7 +18,7 @@ import com.putzwirk.gesturalcombat.technique.effect.FamilyFlurryEffect;
 import com.putzwirk.gesturalcombat.technique.effect.GuardEffect;
 import com.putzwirk.gesturalcombat.technique.effect.LinePierceEffect;
 import com.putzwirk.gesturalcombat.technique.effect.SlamPierceEffect;
-import com.putzwirk.gesturalcombat.technique.effect.MaceSlamEffect;
+import com.putzwirk.gesturalcombat.technique.effect.MaceLeapEffect;
 import com.putzwirk.gesturalcombat.technique.effect.MomentumSweepEffect;
 import com.putzwirk.gesturalcombat.technique.effect.PostureEffect;
 import com.putzwirk.gesturalcombat.technique.effect.PostureFlurryEffect;
@@ -111,21 +111,24 @@ public final class Techniques {
     public static final Technique TRIDENT_WARD = add(new Technique("trident_ward", Archetype.SPEAR, GestureShape.V, 1, 180, null, 10,
             new BraceEffect(10), "trident"));
 
-    public static final Technique MACE_CUT = add(new Technique("mace_cut", Archetype.AXE, GestureShape.LINE_H, 1, 11, null, 8,
-            new FamilyArcEffect(3.2, 160, 1.77, 0.50, 0.0, (player, target, damage, index) -> {
+    public static final Technique MACE_RISE = add(new Technique("mace_rise", Archetype.AXE, GestureShape.LINE_V_UP, 1, 20, null, 10,
+            new MaceLeapEffect(3.0, 120, 1.92, 0.95, (player, target, damage, index) -> {
                 States.stagger(target, 20);
                 return damage;
             }), "mace"));
-    public static final Technique MACE_RISE = add(new Technique("mace_rise", Archetype.AXE, GestureShape.LINE_V_UP, 1, 12, null, 10,
-            new FamilyArcEffect(3.0, 120, 1.92, 0.20, 0.40, (player, target, damage, index) -> {
-                States.stagger(target, 20);
-                return damage;
+    public static final Technique MACE_DROP = add(new Technique("mace_drop", Archetype.AXE, GestureShape.LINE_V_DOWN, 7, 60, null, 17,
+            new FamilyArcEffect(3.0, 110, 4.24, 1.20, 0.0, (player, target, damage, index) -> {
+                double rise = Math.max(0.0, player.getDeltaMovement().y);
+                double fall = Math.max(0.0, player.fallDistance);
+                double bonus = 1.0 + Math.min(1.0, rise * 0.9) + Math.min(1.0, fall * 0.08);
+                States.stagger(target, 25);
+                HitStun.pin(target, 9);
+                return damage * bonus;
             }), "mace"));
-    public static final Technique MACE_DROP = add(new Technique("mace_drop", Archetype.AXE, GestureShape.LINE_V_DOWN, 7, 50, null, 16,
-            new MaceSlamEffect(2.9, 90, 2.70), "mace"));
-    public static final Technique MACE_Z = add(new Technique("mace_z", Archetype.AXE, GestureShape.ZIGZAG, 4, 36, null, 12,
-            new FamilyArcEffect(3.2, 210, 2.20, 0.60, 0.0, (player, target, damage, index) -> {
-                States.stagger(target, 20);
+    public static final Technique MACE_Z = add(new Technique("mace_z", Archetype.AXE, GestureShape.ZIGZAG, 7, 74, null, 20,
+            new RampFlurryEffect(3.2, 170, 3.60, 5, 9, 4, 0.60, 0.0, (player, target, damage, index) -> {
+                States.stagger(target, 40);
+                HitStun.pin(target, index >= 3 ? 10 : 7);
                 return damage;
             }), "mace"));
     public static final Technique GREATAXE_SWEEP = add(new Technique("greataxe_sweep", Archetype.AXE, GestureShape.LINE_H, 1, 20, null, 8,
