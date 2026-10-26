@@ -18,6 +18,7 @@ build
 .gradle
 
 # other
+jars
 run
 run-data
 logs
