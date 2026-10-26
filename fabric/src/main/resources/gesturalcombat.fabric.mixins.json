@@ -1,0 +1,14 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.putzwirk.gesturalcombat.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "gesturalcombat.refmap.json",
+  "client": [
+    "client.FabricCameraMixin",
+    "client.FabricFovMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
