@@ -314,13 +314,19 @@ public final class HudDraw {
         if (!glowActive) {
             return;
         }
-        if (glowVertices > 0) {
-            BufferUploader.drawWithShader(glowBuffer.end());
-        }
+        int vertices = glowVertices;
+        BufferBuilder buffer = glowBuffer;
         glowBuffer = null;
         glowTexture = null;
         glowActive = false;
         glowVertices = 0;
+        if (buffer == null) {
+            return;
+        }
+        BufferBuilder.RenderedBuffer built = buffer.end();
+        if (vertices > 0) {
+            BufferUploader.drawWithShader(built);
+        }
     }
 
     public static void flushGlow() {
