@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public final class AbilityReloadListener extends SimplePreparableReloadListener<AbilityReloadListener.Payload> {
-    private static final ResourceLocation ABILITIES = new ResourceLocation(Gesturalcombat.MODID, "abilities.json");
+    private static final ResourceLocation ABILITIES = ResourceLocation.fromNamespaceAndPath(Gesturalcombat.MODID, "abilities.json");
     private static final String WEAPONS_DIR = "weapons";
 
     public record Payload(JsonObject abilities, JsonObject weapons) {

@@ -132,7 +132,17 @@ public enum Archetype {
     }
 
     public static boolean dealsDamage(ItemStack stack) {
-        return !stack.getAttributeModifiers(EquipmentSlot.MAINHAND).get(Attributes.ATTACK_DAMAGE).isEmpty();
+        net.minecraft.world.item.component.ItemAttributeModifiers modifiers =
+                stack.get(net.minecraft.core.component.DataComponents.ATTRIBUTE_MODIFIERS);
+        if (modifiers == null) {
+            return false;
+        }
+        for (net.minecraft.world.item.component.ItemAttributeModifiers.Entry entry : modifiers.modifiers()) {
+            if (entry.attribute().value() == Attributes.ATTACK_DAMAGE.value()) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Nullable

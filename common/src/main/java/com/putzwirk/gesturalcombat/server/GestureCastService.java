@@ -188,7 +188,7 @@ public final class GestureCastService {
         }
         com.putzwirk.gesturalcombat.weapon.WeaponAudit.beginCast(player, cast, stack);
         EquipmentSlot slot = offhand ? EquipmentSlot.OFFHAND : EquipmentSlot.MAINHAND;
-        stack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(slot));
+        stack.hurtAndBreak(1, player, slot);
         player.causeFoodExhaustion(0.3f);
         player.resetAttackStrengthTicker();
     }

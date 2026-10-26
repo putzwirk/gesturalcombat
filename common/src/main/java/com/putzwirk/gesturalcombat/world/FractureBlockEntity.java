@@ -68,8 +68,8 @@ public class FractureBlockEntity extends BlockEntity {
     }
 
     @Override
-    protected void saveAdditional(CompoundTag tag) {
-        super.saveAdditional(tag);
+    protected void saveAdditional(CompoundTag tag, net.minecraft.core.HolderLookup.Provider registries) {
+        super.saveAdditional(tag, registries);
         tag.put("Original", net.minecraft.nbt.NbtUtils.writeBlockState(original));
         tag.putFloat("Lift", lift);
         tag.putFloat("Yaw", yaw);
@@ -80,8 +80,8 @@ public class FractureBlockEntity extends BlockEntity {
     }
 
     @Override
-    public void load(CompoundTag tag) {
-        super.load(tag);
+    protected void loadAdditional(CompoundTag tag, net.minecraft.core.HolderLookup.Provider registries) {
+        super.loadAdditional(tag, registries);
         if (tag.contains("Original")) {
             original = net.minecraft.nbt.NbtUtils.readBlockState(
                     net.minecraft.core.registries.BuiltInRegistries.BLOCK.asLookup(), tag.getCompound("Original"));
@@ -95,8 +95,8 @@ public class FractureBlockEntity extends BlockEntity {
     }
 
     @Override
-    public CompoundTag getUpdateTag() {
-        return saveWithoutMetadata();
+    public CompoundTag getUpdateTag(net.minecraft.core.HolderLookup.Provider registries) {
+        return saveWithoutMetadata(registries);
     }
 
     @Override

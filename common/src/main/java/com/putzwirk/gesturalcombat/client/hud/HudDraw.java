@@ -17,8 +17,8 @@ import net.minecraft.util.Mth;
 import org.joml.Matrix4f;
 
 public final class HudDraw {
-    public static final ResourceLocation GLOW = new ResourceLocation("gesturalcombat", "textures/gui/glow.png");
-    public static final ResourceLocation SPARK = new ResourceLocation("gesturalcombat", "textures/gui/spark.png");
+    public static final ResourceLocation GLOW = ResourceLocation.fromNamespaceAndPath("gesturalcombat", "textures/gui/glow.png");
+    public static final ResourceLocation SPARK = ResourceLocation.fromNamespaceAndPath("gesturalcombat", "textures/gui/spark.png");
 
     private static final float[] POLY = new float[80];
 
@@ -72,9 +72,9 @@ public final class HudDraw {
     }
 
     private static void vertex(VertexConsumer consumer, Matrix4f matrix, float x, float y, int color) {
-        consumer.vertex(matrix, x, y, 0.0f)
-                .color(red(color) / 255.0f, green(color) / 255.0f, blue(color) / 255.0f, alpha(color) / 255.0f)
-                .endVertex();
+        consumer.addVertex(matrix, x, y, 0.0f)
+                .setColor(red(color) / 255.0f, green(color) / 255.0f, blue(color) / 255.0f, alpha(color) / 255.0f)
+                ;
     }
 
     public static void rect(GuiGraphics graphics, float x, float y, float width, float height, int color) {
@@ -300,10 +300,9 @@ public final class HudDraw {
         graphics.flush();
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
-        RenderSystem.setShader(GameRenderer::getPositionColorTexShader);
+        RenderSystem.setShader(GameRenderer::getPositionTexColorShader);
         RenderSystem.setShaderTexture(0, texture);
-        glowBuffer = Tesselator.getInstance().getBuilder();
-        glowBuffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR_TEX);
+        glowBuffer = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
         glowTexture = texture;
         glowActive = true;
     }
@@ -312,7 +311,7 @@ public final class HudDraw {
         if (!glowActive) {
             return;
         }
-        BufferUploader.drawWithShader(glowBuffer.end());
+        BufferUploader.drawWithShader(glowBuffer.buildOrThrow());
         glowBuffer = null;
         glowTexture = null;
         glowActive = false;
@@ -332,10 +331,10 @@ public final class HudDraw {
         }
         Matrix4f matrix = graphics.pose().last().pose();
         BufferBuilder buffer = glowBuffer;
-        buffer.vertex(matrix, x1, y1, 0.0f).color(red(c1) / 255.0f, green(c1) / 255.0f, blue(c1) / 255.0f, alpha(c1) / 255.0f).uv(0.0f, 0.0f).endVertex();
-        buffer.vertex(matrix, x2, y2, 0.0f).color(red(c2) / 255.0f, green(c2) / 255.0f, blue(c2) / 255.0f, alpha(c2) / 255.0f).uv(0.0f, 1.0f).endVertex();
-        buffer.vertex(matrix, x3, y3, 0.0f).color(red(c3) / 255.0f, green(c3) / 255.0f, blue(c3) / 255.0f, alpha(c3) / 255.0f).uv(1.0f, 1.0f).endVertex();
-        buffer.vertex(matrix, x4, y4, 0.0f).color(red(c4) / 255.0f, green(c4) / 255.0f, blue(c4) / 255.0f, alpha(c4) / 255.0f).uv(1.0f, 0.0f).endVertex();
+        buffer.addVertex(matrix, x1, y1, 0.0f).setColor(red(c1) / 255.0f, green(c1) / 255.0f, blue(c1) / 255.0f, alpha(c1) / 255.0f).setUv(0.0f, 0.0f);
+        buffer.addVertex(matrix, x2, y2, 0.0f).setColor(red(c2) / 255.0f, green(c2) / 255.0f, blue(c2) / 255.0f, alpha(c2) / 255.0f).setUv(0.0f, 1.0f);
+        buffer.addVertex(matrix, x3, y3, 0.0f).setColor(red(c3) / 255.0f, green(c3) / 255.0f, blue(c3) / 255.0f, alpha(c3) / 255.0f).setUv(1.0f, 1.0f);
+        buffer.addVertex(matrix, x4, y4, 0.0f).setColor(red(c4) / 255.0f, green(c4) / 255.0f, blue(c4) / 255.0f, alpha(c4) / 255.0f).setUv(1.0f, 0.0f);
         if (!batched) {
             endGlow();
         }

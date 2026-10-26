@@ -1,5 +1,6 @@
 package com.putzwirk.gesturalcombat;
 
+import com.putzwirk.gesturalcombat.network.Envelope;
 import com.putzwirk.gesturalcombat.network.ModNetwork;
 import com.putzwirk.gesturalcombat.network.ModPacket;
 import com.putzwirk.gesturalcombat.network.PacketContext;
@@ -7,6 +8,7 @@ import com.putzwirk.gesturalcombat.platform.INetworkTransport;
 import com.putzwirk.gesturalcombat.platform.ServerRef;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.FriendlyByteBuf;
@@ -17,50 +19,46 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
 public final class FabricNetwork implements INetworkTransport {
+    public static void registerPayloads() {
+        PayloadTypeRegistry.playC2S().register(Envelope.TYPE, Envelope.CODEC);
+        PayloadTypeRegistry.playS2C().register(Envelope.TYPE, Envelope.CODEC);
+    }
+
     public static void registerServer() {
-        ServerPlayNetworking.registerGlobalReceiver(ModNetwork.CHANNEL, (server, player, handler, buf, sender) -> {
-            byte[] data = copy(buf);
-            server.execute(() -> dispatch(data, PacketContext.server(player)));
+        ServerPlayNetworking.registerGlobalReceiver(Envelope.TYPE, (payload, context) -> {
+            ServerPlayer player = context.player();
+            context.server().execute(() -> dispatch(payload, PacketContext.server(player)));
         });
     }
 
     public static void registerClient() {
-        ClientPlayNetworking.registerGlobalReceiver(ModNetwork.CHANNEL, (client, handler, buf, sender) -> {
-            byte[] data = copy(buf);
-            client.execute(() -> dispatch(data, PacketContext.client()));
-        });
+        ClientPlayNetworking.registerGlobalReceiver(Envelope.TYPE, (payload, context) ->
+                context.client().execute(() -> dispatch(payload, PacketContext.client())));
     }
 
-    private static byte[] copy(FriendlyByteBuf buf) {
-        byte[] data = new byte[buf.readableBytes()];
-        buf.readBytes(data);
-        return data;
-    }
-
-    private static void dispatch(byte[] data, PacketContext context) {
-        FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.wrappedBuffer(data));
+    private static void dispatch(Envelope envelope, PacketContext context) {
+        FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.wrappedBuffer(envelope.data()));
         int id = buf.readVarInt();
         ModNetwork.dispatch(id, buf, context);
     }
 
     @Override
     public void sendToServer(ModPacket packet) {
-        ClientPlayNetworking.send(ModNetwork.CHANNEL, ModNetwork.write(packet));
+        ClientPlayNetworking.send(Envelope.of(packet));
     }
 
     @Override
     public void sendToPlayer(ServerPlayer player, ModPacket packet) {
-        ServerPlayNetworking.send(player, ModNetwork.CHANNEL, ModNetwork.write(packet));
+        ServerPlayNetworking.send(player, Envelope.of(packet));
     }
 
     @Override
     public void sendToTracking(Entity entity, ModPacket packet) {
-        FriendlyByteBuf buf = ModNetwork.write(packet);
         for (ServerPlayer player : PlayerLookup.tracking(entity)) {
-            ServerPlayNetworking.send(player, ModNetwork.CHANNEL, copyOf(buf));
+            ServerPlayNetworking.send(player, Envelope.of(packet));
         }
         if (entity instanceof ServerPlayer self) {
-            ServerPlayNetworking.send(self, ModNetwork.CHANNEL, copyOf(buf));
+            ServerPlayNetworking.send(self, Envelope.of(packet));
         }
     }
 
@@ -70,7 +68,7 @@ public final class FabricNetwork implements INetworkTransport {
             return;
         }
         for (ServerPlayer player : ServerRef.get().getPlayerList().getPlayers()) {
-            ServerPlayNetworking.send(player, ModNetwork.CHANNEL, ModNetwork.write(packet));
+            ServerPlayNetworking.send(player, Envelope.of(packet));
         }
     }
 
@@ -79,15 +77,8 @@ public final class FabricNetwork implements INetworkTransport {
         if (!(level instanceof ServerLevel serverLevel)) {
             return;
         }
-        FriendlyByteBuf buf = ModNetwork.write(packet);
         for (ServerPlayer player : PlayerLookup.around(serverLevel, new Vec3(x, y, z), radius)) {
-            ServerPlayNetworking.send(player, ModNetwork.CHANNEL, copyOf(buf));
+            ServerPlayNetworking.send(player, Envelope.of(packet));
         }
-    }
-
-    private static FriendlyByteBuf copyOf(FriendlyByteBuf buf) {
-        FriendlyByteBuf copy = new FriendlyByteBuf(Unpooled.buffer());
-        copy.writeBytes(buf, buf.readerIndex(), buf.readableBytes());
-        return copy;
     }
 }

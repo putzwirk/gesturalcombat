@@ -20,12 +20,12 @@ public final class BowFireEffect implements TechniqueEffect {
     @Override
     public void execute(ServerPlayer player, Level level, ItemStack stack, Technique technique) {
         Vec3 look = player.getLookAngle();
-        Arrow arrow = new Arrow(level, player);
+        Arrow arrow = new Arrow(level, player, new ItemStack(net.minecraft.world.item.Items.ARROW), null);
         arrow.setPos(player.getX(), player.getEyeY() - 0.1, player.getZ());
         arrow.shoot(look.x, look.y, look.z, SPEED, DIVERGENCE);
         arrow.setBaseDamage(EffectSupport.projectileDamage(player, technique, BASE_DAMAGE));
         arrow.setCritArrow(true);
-        arrow.setSecondsOnFire(ARROW_FIRE_SECONDS);
+        arrow.igniteForSeconds(ARROW_FIRE_SECONDS);
         arrow.addTag(FirePatchManager.TAG);
         level.addFreshEntity(arrow);
         player.stopUsingItem();

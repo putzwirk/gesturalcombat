@@ -62,10 +62,10 @@ public class GroundWaveParticle extends TextureSheetParticle implements FxPartic
         float u1 = this.getU1();
         float v0 = this.getV0();
         float v1 = this.getV1();
-        buffer.vertex(px - size, py, pz - size).uv(u1, v1).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(light).endVertex();
-        buffer.vertex(px - size, py, pz + size).uv(u1, v0).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(light).endVertex();
-        buffer.vertex(px + size, py, pz + size).uv(u0, v0).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(light).endVertex();
-        buffer.vertex(px + size, py, pz - size).uv(u0, v1).color(this.rCol, this.gCol, this.bCol, this.alpha).uv2(light).endVertex();
+        buffer.addVertex(px - size, py, pz - size).setUv(u1, v1).setColor(this.rCol, this.gCol, this.bCol, this.alpha).setLight(light);
+        buffer.addVertex(px - size, py, pz + size).setUv(u1, v0).setColor(this.rCol, this.gCol, this.bCol, this.alpha).setLight(light);
+        buffer.addVertex(px + size, py, pz + size).setUv(u0, v0).setColor(this.rCol, this.gCol, this.bCol, this.alpha).setLight(light);
+        buffer.addVertex(px + size, py, pz - size).setUv(u0, v1).setColor(this.rCol, this.gCol, this.bCol, this.alpha).setLight(light);
     }
 
     @Override

@@ -27,16 +27,16 @@ public final class WeaponSpecialEffect {
         for (LivingEntity target : hitbox.query(player, level)) {
             EffectSupport.hit(player, target, damage, technique, special.knockback(), special.lift(), true);
             for (WeaponSpecial.EffectSpec spec : special.targetEffects()) {
-                MobEffect effect = BuiltInRegistries.MOB_EFFECT.get(new ResourceLocation(spec.id()));
+                MobEffect effect = BuiltInRegistries.MOB_EFFECT.get(ResourceLocation.parse(spec.id()));
                 if (effect != null) {
-                    target.addEffect(new MobEffectInstance(effect, spec.duration(), spec.amplifier()));
+                    target.addEffect(new MobEffectInstance(BuiltInRegistries.MOB_EFFECT.wrapAsHolder(effect), spec.duration(), spec.amplifier()));
                 }
             }
         }
         for (WeaponSpecial.EffectSpec spec : special.selfEffects()) {
-            MobEffect effect = BuiltInRegistries.MOB_EFFECT.get(new ResourceLocation(spec.id()));
+            MobEffect effect = BuiltInRegistries.MOB_EFFECT.get(ResourceLocation.parse(spec.id()));
             if (effect != null) {
-                player.addEffect(new MobEffectInstance(effect, spec.duration(), spec.amplifier()));
+                player.addEffect(new MobEffectInstance(BuiltInRegistries.MOB_EFFECT.wrapAsHolder(effect), spec.duration(), spec.amplifier()));
             }
         }
         if (special.heal() > 0.0) {
@@ -48,9 +48,9 @@ public final class WeaponSpecialEffect {
             EffectSupport.particles(level, accent, player.getX(), player.getY() + 1.0, player.getZ(),
                     12, hitbox.range() * 0.3, 0.5, hitbox.range() * 0.3, 0.02);
         }
-        SoundEvent sound = special.sound().isBlank() ? null : BuiltInRegistries.SOUND_EVENT.get(new ResourceLocation(special.sound()));
+        SoundEvent sound = special.sound().isBlank() ? null : BuiltInRegistries.SOUND_EVENT.get(ResourceLocation.parse(special.sound()));
         if (sound != null) {
-            EffectSupport.sound(level, player, sound, 1.0f, 1.0f);
+            EffectSupport.sound(level, player, BuiltInRegistries.SOUND_EVENT.wrapAsHolder(sound), 1.0f, 1.0f);
         }
     }
 

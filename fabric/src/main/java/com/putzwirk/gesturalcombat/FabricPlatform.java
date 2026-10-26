@@ -6,9 +6,9 @@ import com.putzwirk.gesturalcombat.world.FractureBlockEntity;
 import com.putzwirk.gesturalcombat.world.ModTerrain;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.core.Registry;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.Block;
@@ -60,6 +60,6 @@ public final class FabricPlatform implements IPlatform {
     }
 
     private static ResourceLocation id(String name) {
-        return new ResourceLocation(Gesturalcombat.MODID, name);
+        return ResourceLocation.fromNamespaceAndPath(Gesturalcombat.MODID, name);
     }
 }

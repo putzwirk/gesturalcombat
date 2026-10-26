@@ -43,7 +43,7 @@ public final class CameraEffects {
             return null;
         }
         float strength = strength(archetype) * weightScale;
-        float age = DURATION - remaining + Minecraft.getInstance().getFrameTime();
+        float age = DURATION - remaining + partialTick();
         float roll = MAX_ROLL_DEGREES * envelope * strength;
         float yaw = YAW_KICK_DEGREES * envelope * strength;
         float pitch = PITCH_KICK_DEGREES * envelope * strength;
@@ -63,11 +63,15 @@ public final class CameraEffects {
         return current * (1.0f + FOV_PULSE * envelope);
     }
 
+    private static float partialTick() {
+        return Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(false);
+    }
+
     private static float envelope() {
         if (remaining <= 0) {
             return 0.0f;
         }
-        float t = Mth.clamp((DURATION - remaining + Minecraft.getInstance().getFrameTime()) / DURATION, 0.0f, 1.0f);
+        float t = Mth.clamp((DURATION - remaining + partialTick()) / DURATION, 0.0f, 1.0f);
         return Mth.sin((float) Math.PI * t);
     }
 

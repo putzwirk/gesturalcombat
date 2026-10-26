@@ -6,25 +6,22 @@ import com.putzwirk.gesturalcombat.client.anim.CameraEffects;
 import com.putzwirk.gesturalcombat.client.dev.UiProbe;
 import com.putzwirk.gesturalcombat.client.fx.TrailEvents;
 import com.putzwirk.gesturalcombat.client.render.HitboxDebugEvents;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
-import net.minecraftforge.client.event.ComputeFovModifierEvent;
-import net.minecraftforge.client.event.RenderLevelStageEvent;
-import net.minecraftforge.client.event.ViewportEvent;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
+import net.neoforged.neoforge.client.event.ComputeFovModifierEvent;
+import net.neoforged.neoforge.client.event.RenderLevelStageEvent;
+import net.neoforged.neoforge.client.event.ViewportEvent;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
 
-@Mod.EventBusSubscriber(modid = Gesturalcombat.MODID, value = Dist.CLIENT)
-public final class ForgeClient {
-    private ForgeClient() {
+@EventBusSubscriber(modid = Gesturalcombat.MODID, value = Dist.CLIENT)
+public final class NeoForgeClient {
+    private NeoForgeClient() {
     }
 
     @SubscribeEvent
-    public static void clientTick(TickEvent.ClientTickEvent event) {
-        if (event.phase != TickEvent.Phase.END) {
-            return;
-        }
+    public static void clientTick(ClientTickEvent.Post event) {
         ClientTickHandler.tick();
         CameraEffects.tick();
         UiProbe.tick();
@@ -64,7 +61,7 @@ public final class ForgeClient {
         if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_TRANSLUCENT_BLOCKS) {
             return;
         }
-        TrailEvents.onRenderLevel(event.getPoseStack(), event.getCamera(), event.getPartialTick());
+        TrailEvents.onRenderLevel(event.getPoseStack(), event.getCamera(), event.getPartialTick().getGameTimeDeltaPartialTick(false));
         HitboxDebugEvents.onRenderLevel(event.getPoseStack(), event.getCamera());
     }
 }

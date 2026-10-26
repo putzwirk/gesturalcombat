@@ -18,12 +18,19 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import javax.annotation.Nullable;
 
 public class FractureBlock extends BaseEntityBlock {
+    public static final com.mojang.serialization.MapCodec<FractureBlock> CODEC = simpleCodec(properties -> new FractureBlock());
+
     public FractureBlock() {
         super(BlockBehaviour.Properties.of()
                 .strength(-1.0F, 3600000.0F)
                 .noCollission()
                 .noOcclusion()
                 .noLootTable());
+    }
+
+    @Override
+    protected com.mojang.serialization.MapCodec<? extends BaseEntityBlock> codec() {
+        return CODEC;
     }
 
     @Override

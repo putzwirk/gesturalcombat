@@ -203,10 +203,10 @@ public final class HitboxDebug {
 
     private static void vertex(VertexConsumer consumer, PoseStack.Pose pose, Vec3 at,
                                float r, float g, float b, float a) {
-        consumer.vertex(pose.pose(), (float) at.x, (float) at.y, (float) at.z)
-                .color(r, g, b, a)
-                .normal(pose.normal(), 0.0f, 1.0f, 0.0f)
-                .endVertex();
+        consumer.addVertex(pose.pose(), (float) at.x, (float) at.y, (float) at.z)
+                .setColor(r, g, b, a)
+                .setNormal(pose, 0.0f, 1.0f, 0.0f)
+                ;
     }
 
     @Nullable

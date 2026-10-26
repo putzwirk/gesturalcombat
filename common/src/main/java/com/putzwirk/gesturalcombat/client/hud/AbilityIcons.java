@@ -54,7 +54,7 @@ public final class AbilityIcons {
 
     public static ResourceLocation location(String iconId) {
         return LOCATIONS.computeIfAbsent(iconId,
-                id -> new ResourceLocation("gesturalcombat", "textures/gui/abilities/" + id + ".png"));
+                id -> ResourceLocation.fromNamespaceAndPath("gesturalcombat", "textures/gui/abilities/" + id + ".png"));
     }
 
     private static boolean present(String iconId) {

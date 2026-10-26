@@ -15,32 +15,33 @@ import com.putzwirk.gesturalcombat.technique.effect.BleedEffect;
 import com.putzwirk.gesturalcombat.weapon.WeaponAudit;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.event.AddReloadListenerEvent;
-import net.minecraftforge.event.RegisterCommandsEvent;
-import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.entity.living.LivingAttackEvent;
-import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.server.ServerStartedEvent;
-import net.minecraftforge.event.server.ServerStoppedEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.common.MinecraftForge;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.ModContainer;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.AddReloadListenerEvent;
+import net.neoforged.neoforge.event.RegisterCommandsEvent;
+import net.neoforged.neoforge.event.entity.living.LivingEntityUseItemEvent;
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.neoforge.event.server.ServerStartedEvent;
+import net.neoforged.neoforge.event.server.ServerStoppedEvent;
+import net.neoforged.neoforge.event.tick.PlayerTickEvent;
+import net.neoforged.neoforge.event.tick.ServerTickEvent;
 
 @Mod(Gesturalcombat.MODID)
-public final class GesturalcombatForge {
-    private final ForgePlatform platform = new ForgePlatform();
-
-    public GesturalcombatForge() {
-        Platform.install(platform, new ForgeNetwork());
+public final class GesturalcombatNeoForge {
+    public GesturalcombatNeoForge(IEventBus modBus, ModContainer container) {
+        NeoForgePlatform platform = new NeoForgePlatform();
+        Platform.install(platform, new NeoForgeNetwork());
         Gesturalcombat.init();
-        platform.attach(FMLJavaModLoadingContext.get().getModEventBus());
-        ForgeNetwork.register();
-        MinecraftForge.EVENT_BUS.register(new ForgeGameEvents());
+        platform.attach(modBus);
+        modBus.addListener(NeoForgeNetwork::register);
+        NeoForge.EVENT_BUS.register(new GameEvents());
     }
 
-    private static final class ForgeGameEvents {
+    private static final class GameEvents {
         @SubscribeEvent
         public void serverStarted(ServerStartedEvent event) {
             ServerRef.set(event.getServer());
@@ -55,10 +56,7 @@ public final class GesturalcombatForge {
         }
 
         @SubscribeEvent
-        public void serverTick(TickEvent.ServerTickEvent event) {
-            if (event.phase != TickEvent.Phase.END) {
-                return;
-            }
+        public void serverTick(ServerTickEvent.Post event) {
             BleedEffect.tick(event.getServer());
             GestureScheduler.tick(event.getServer());
             FirePatchManager.tick();
@@ -69,14 +67,14 @@ public final class GesturalcombatForge {
         }
 
         @SubscribeEvent
-        public void playerTick(TickEvent.PlayerTickEvent event) {
-            if (event.phase == TickEvent.Phase.END && event.player instanceof ServerPlayer player) {
+        public void playerTick(PlayerTickEvent.Post event) {
+            if (event.getEntity() instanceof ServerPlayer player) {
                 AerialSlam.tick(player);
             }
         }
 
         @SubscribeEvent
-        public void livingAttack(LivingAttackEvent event) {
+        public void incomingDamage(LivingIncomingDamageEvent event) {
             if (!(event.getEntity() instanceof ServerPlayer player)) {
                 return;
             }

@@ -1,6 +1,6 @@
 # Gestural Combat
 
-Forge and Fabric 1.20.1. Hold attack, draw a shape with the mouse, and the weapon does a
+Fabric and NeoForge 1.21.1. Hold attack, draw a shape with the mouse, and the weapon does a
 technique instead of a normal swing. Needs Better Combat and Player Animator.
 
 Heads up: this mod was made with AI. I directed an AI agent through it, played
@@ -97,10 +97,10 @@ file rather than an edit to one giant table. See `ABILITY_CONFIG.md`.
 ## Dev notes
 
 The project is a multiloader build: `common/` holds every technique, weapon rule
-and client effect, while `fabric/` and `forge/` only wire loader APIs (registry,
+and client effect, while `fabric/` and `neoforge/` only wire loader APIs (registry,
 networking, events, config directory) into it. Compile both with `./gradlew build`;
-the jars land in `fabric/build/libs` and `forge/build/libs` as
-`gesturalcombat-<loader>-1.20.1-<version>.jar`.
+the jars land in `fabric/build/libs` and `neoforge/build/libs` as
+`gesturalcombat-<loader>-1.21.1-<version>.jar`.
 
 Better Combat 1.9.0 and Player Animator 1.0.2-rc1 are SRG-compiled Forge jars
 that ModDevGradle's official-mapped dev runtime can't load as-is, because their

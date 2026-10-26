@@ -409,6 +409,11 @@ public final class EffectSupport {
         level.playSound(null, player.getX(), player.getY(), player.getZ(), sound, SoundSource.PLAYERS, volume, pitch);
     }
 
+    public static void sound(Level level, ServerPlayer player, net.minecraft.core.Holder<SoundEvent> sound,
+                             float volume, float pitch) {
+        sound(level, player, sound.value(), volume, pitch);
+    }
+
     public static void swingSound(Level level, ServerPlayer player, Technique technique) {
         net.minecraft.world.item.ItemStack stack = player.getMainHandItem();
         boolean heavy = com.putzwirk.gesturalcombat.weapon.WeaponRules.heavy(stack);

@@ -40,7 +40,8 @@ public final class TwinEcho {
         Fx.ring(player, technique, stack, player.position().add(0.0, 0.35, 0.0), echo.range() * 0.7);
         ModNetwork.sendToTracking(player,
                 new TwinCastPacket(player.getId(), technique.id(), swipe, other == InteractionHand.OFF_HAND));
-        stack.hurtAndBreak(1, player, broken -> broken.broadcastBreakEvent(other));
+        stack.hurtAndBreak(1, player, other == net.minecraft.world.InteractionHand.MAIN_HAND
+                ? net.minecraft.world.entity.EquipmentSlot.MAINHAND : net.minecraft.world.entity.EquipmentSlot.OFFHAND);
     }
 
     private static Hitbox hitbox(Technique technique, ItemStack stack) {

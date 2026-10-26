@@ -6,7 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public final class TrailRenderTypes {
     public static final ResourceLocation TEXTURE =
-            new ResourceLocation(Gesturalcombat.MODID, "textures/particle/trail.png");
+            ResourceLocation.fromNamespaceAndPath(Gesturalcombat.MODID, "textures/particle/trail.png");
 
     public static final RenderType TRAIL = RenderType.entityTranslucentEmissive(TEXTURE);
 

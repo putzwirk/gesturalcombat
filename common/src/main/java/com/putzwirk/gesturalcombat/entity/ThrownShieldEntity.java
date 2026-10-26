@@ -30,8 +30,8 @@ public class ThrownShieldEntity extends Entity {
     }
 
     @Override
-    protected void defineSynchedData() {
-        entityData.define(DATA_ITEM, ItemStack.EMPTY);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        builder.define(DATA_ITEM, ItemStack.EMPTY);
     }
 
     public ItemStack getItem() {
@@ -58,20 +58,20 @@ public class ThrownShieldEntity extends Entity {
     @Override
     protected void readAdditionalSaveData(CompoundTag tag) {
         if (tag.contains("Item")) {
-            setItem(ItemStack.of(tag.getCompound("Item")));
+            setItem(ItemStack.parseOptional(level().registryAccess(), tag.getCompound("Item")));
         }
         life = tag.getInt("Life");
     }
 
     @Override
     protected void addAdditionalSaveData(CompoundTag tag) {
-        tag.put("Item", getItem().save(new CompoundTag()));
+        tag.put("Item", getItem().save(level().registryAccess()));
         tag.putInt("Life", life);
     }
 
     @Override
-    public Packet<ClientGamePacketListener> getAddEntityPacket() {
-        return new ClientboundAddEntityPacket(this);
+    public Packet<ClientGamePacketListener> getAddEntityPacket(net.minecraft.server.level.ServerEntity serverEntity) {
+        return new ClientboundAddEntityPacket(this, serverEntity);
     }
 
     @Override

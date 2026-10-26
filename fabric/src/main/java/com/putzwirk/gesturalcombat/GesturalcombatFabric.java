@@ -32,8 +32,8 @@ import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
@@ -43,6 +43,7 @@ public final class GesturalcombatFabric implements ModInitializer {
     public void onInitialize() {
         Platform.install(new FabricPlatform(), new FabricNetwork());
         Gesturalcombat.init();
+        FabricNetwork.registerPayloads();
         FabricNetwork.registerServer();
         registerEvents();
     }
@@ -65,9 +66,10 @@ public final class GesturalcombatFabric implements ModInitializer {
             MomentumState.tick(server);
             States.tick(server);
             WeaponAudit.onServerTick();
+            for (ServerPlayer player : server.getPlayerList().getPlayers()) {
+                AerialSlam.tick(player);
+            }
         });
-        ServerTickEvents.END_SERVER_TICK.register(server ->
-                server.getPlayerList().getPlayers().forEach(AerialSlam::tick));
         ServerLivingEntityEvents.ALLOW_DAMAGE.register((entity, source, amount) -> {
             if (entity instanceof ServerPlayer player) {
                 return ShieldEvents.allowDamage(player, source) && PairedGuard.allowDamage(player, source);
@@ -88,7 +90,8 @@ public final class GesturalcombatFabric implements ModInitializer {
         ServerEntityWorldChangeEvents.AFTER_PLAYER_CHANGE_WORLD.register(
                 (player, origin, destination) -> AbilityEvents.onChangedDimension(player));
         ResourceManagerHelper.get(PackType.SERVER_DATA).registerReloadListener(
-                wrap(new ResourceLocation(Gesturalcombat.MODID, "abilities"), AbilityEvents.reloadListener()));
+                wrap(ResourceLocation.fromNamespaceAndPath(Gesturalcombat.MODID, "abilities"),
+                        AbilityEvents.reloadListener()));
     }
 
     private static InteractionResultHolder<ItemStack> allowUse(Player player, InteractionHand hand) {

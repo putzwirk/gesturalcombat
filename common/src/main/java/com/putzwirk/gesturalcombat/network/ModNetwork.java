@@ -15,7 +15,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 public final class ModNetwork {
-    public static final ResourceLocation CHANNEL = new ResourceLocation(Gesturalcombat.MODID, "main");
+    public static final ResourceLocation CHANNEL = ResourceLocation.fromNamespaceAndPath(Gesturalcombat.MODID, "main");
 
     private static final List<Function<FriendlyByteBuf, ? extends ModPacket>> DECODERS = new ArrayList<>();
     private static final Map<Class<?>, Integer> IDS = new HashMap<>();

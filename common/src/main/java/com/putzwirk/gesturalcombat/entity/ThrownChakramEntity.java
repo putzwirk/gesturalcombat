@@ -216,9 +216,9 @@ public class ThrownChakramEntity extends Entity {
     }
 
     @Override
-    protected void defineSynchedData() {
-        entityData.define(DATA_ITEM, ItemStack.EMPTY);
-        entityData.define(DATA_SAW, false);
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        builder.define(DATA_ITEM, ItemStack.EMPTY);
+        builder.define(DATA_SAW, false);
     }
 
     public boolean isSaw() {
@@ -278,13 +278,7 @@ public class ThrownChakramEntity extends Entity {
     }
 
     @Override
-    public void lerpTo(double x, double y, double z, float yRot, float xRot, int steps, boolean teleport) {
-        if (teleport) {
-            setPos(x, y, z);
-            setRot(yRot, xRot);
-            smoothing = false;
-            return;
-        }
+    public void lerpTo(double x, double y, double z, float yRot, float xRot, int steps) {
         smoothedX = getX();
         smoothedY = getY();
         smoothedZ = getZ();
@@ -407,7 +401,7 @@ public class ThrownChakramEntity extends Entity {
     protected void readAdditionalSaveData(CompoundTag tag) {
         setNoGravity(true);
         if (tag.contains("Item")) {
-            setItem(ItemStack.of(tag.getCompound("Item")));
+            setItem(ItemStack.parseOptional(level().registryAccess(), tag.getCompound("Item")));
         }
         if (tag.hasUUID("Owner")) {
             ownerId = tag.getUUID("Owner");
@@ -425,7 +419,7 @@ public class ThrownChakramEntity extends Entity {
 
     @Override
     protected void addAdditionalSaveData(CompoundTag tag) {
-        tag.put("Item", getItem().save(new CompoundTag()));
+        tag.put("Item", getItem().save(level().registryAccess()));
         if (ownerId != null) {
             tag.putUUID("Owner", ownerId);
         }

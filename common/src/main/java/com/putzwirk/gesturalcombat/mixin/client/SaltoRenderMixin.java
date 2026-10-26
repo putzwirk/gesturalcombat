@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class SaltoRenderMixin {
     @Inject(method = "setupRotations", at = @At("RETURN"))
     private void gesturalcombat$flipBody(LivingEntity entity, PoseStack poseStack, float ageInTicks, float rotationYaw,
-                                         float partialTicks, CallbackInfo ci) {
+                                         float partialTicks, float scale, CallbackInfo ci) {
         if (!(entity instanceof Player)) {
             return;
         }

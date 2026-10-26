@@ -31,7 +31,7 @@ public final class FireArrowEvents {
             if (owner instanceof LivingEntity shooter) {
                 target.hurt(level.damageSources().arrow(arrow, shooter), (float) arrow.getBaseDamage());
             }
-            target.setSecondsOnFire(IGNITE_SECONDS);
+            target.igniteForSeconds(IGNITE_SECONDS);
         } else if (result != null) {
             at = result.getLocation();
         }

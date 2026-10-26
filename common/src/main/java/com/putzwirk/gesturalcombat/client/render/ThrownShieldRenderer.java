@@ -35,6 +35,6 @@ public class ThrownShieldRenderer extends EntityRenderer<ThrownShieldEntity> {
 
     @Override
     public ResourceLocation getTextureLocation(ThrownShieldEntity entity) {
-        return new ResourceLocation("minecraft", "textures/misc/white.png");
+        return ResourceLocation.fromNamespaceAndPath("minecraft", "textures/misc/white.png");
     }
 }

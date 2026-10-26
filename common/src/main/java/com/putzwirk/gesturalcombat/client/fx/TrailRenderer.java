@@ -100,12 +100,12 @@ public final class TrailRenderer {
     private static void vertex(VertexConsumer consumer, PoseStack.Pose pose, Vec3 origin, Vec3 at,
                                float r, float g, float b, float a, float u, float v) {
         Vec3 local = at.subtract(origin);
-        consumer.vertex(pose.pose(), (float) local.x, (float) local.y, (float) local.z)
-                .color(r, g, b, a)
-                .uv(u, v)
-                .overlayCoords(net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY)
-                .uv2(0xF000F0)
-                .normal(0.0f, 1.0f, 0.0f)
-                .endVertex();
+        consumer.addVertex(pose.pose(), (float) local.x, (float) local.y, (float) local.z)
+                .setColor(r, g, b, a)
+                .setUv(u, v)
+                .setOverlay(net.minecraft.client.renderer.texture.OverlayTexture.NO_OVERLAY)
+                .setLight(0xF000F0)
+                .setNormal(0.0f, 1.0f, 0.0f)
+                ;
     }
 }

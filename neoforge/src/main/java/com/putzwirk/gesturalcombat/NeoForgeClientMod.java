@@ -10,17 +10,18 @@ import com.putzwirk.gesturalcombat.entity.ModEntities;
 import com.putzwirk.gesturalcombat.particle.FxType;
 import com.putzwirk.gesturalcombat.particle.ModParticles;
 import com.putzwirk.gesturalcombat.world.ModTerrain;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.EntityRenderersEvent;
-import net.minecraftforge.client.event.RegisterClientReloadListenersEvent;
-import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
-import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.minecraft.resources.ResourceLocation;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RegisterClientReloadListenersEvent;
+import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
+import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 
-@Mod.EventBusSubscriber(modid = Gesturalcombat.MODID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
-public final class ForgeClientMod {
-    private ForgeClientMod() {
+@EventBusSubscriber(modid = Gesturalcombat.MODID, value = Dist.CLIENT, bus = EventBusSubscriber.Bus.MOD)
+public final class NeoForgeClientMod {
+    private NeoForgeClientMod() {
     }
 
     @SubscribeEvent
@@ -43,8 +44,11 @@ public final class ForgeClientMod {
     }
 
     @SubscribeEvent
-    public static void registerOverlays(RegisterGuiOverlaysEvent event) {
-        event.registerAboveAll("gesture_hud",
-                (gui, graphics, partialTick, width, height) -> GestureHud.render(graphics, partialTick, width, height));
+    public static void registerGuiLayers(RegisterGuiLayersEvent event) {
+        event.registerAboveAll(ResourceLocation.fromNamespaceAndPath(Gesturalcombat.MODID, "gesture_hud"),
+                (graphics, deltaTracker) -> GestureHud.render(graphics,
+                        deltaTracker.getGameTimeDeltaPartialTick(false),
+                        net.minecraft.client.Minecraft.getInstance().getWindow().getGuiScaledWidth(),
+                        net.minecraft.client.Minecraft.getInstance().getWindow().getGuiScaledHeight()));
     }
 }

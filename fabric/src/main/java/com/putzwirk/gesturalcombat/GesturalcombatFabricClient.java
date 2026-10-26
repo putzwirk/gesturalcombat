@@ -41,13 +41,14 @@ public final class GesturalcombatFabricClient implements ClientModInitializer {
         ClientPlayConnectionEvents.JOIN.register((handler, sender, client) -> ClientAbilityDefaults.onLoggingIn());
         ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> ClientTickHandler.logout());
         WorldRenderEvents.AFTER_TRANSLUCENT.register(context -> {
-            TrailEvents.onRenderLevel(context.matrixStack(), context.camera(), context.tickDelta());
+            float partialTick = context.tickCounter().getGameTimeDeltaPartialTick(false);
+            TrailEvents.onRenderLevel(context.matrixStack(), context.camera(), partialTick);
             HitboxDebugEvents.onRenderLevel(context.matrixStack(), context.camera());
         });
-        HudRenderCallback.EVENT.register((graphics, delta) -> {
+        HudRenderCallback.EVENT.register((graphics, tickCounter) -> {
             Minecraft minecraft = Minecraft.getInstance();
-            GestureHud.render(graphics, delta, minecraft.getWindow().getGuiScaledWidth(),
-                    minecraft.getWindow().getGuiScaledHeight());
+            GestureHud.render(graphics, tickCounter.getGameTimeDeltaPartialTick(false),
+                    minecraft.getWindow().getGuiScaledWidth(), minecraft.getWindow().getGuiScaledHeight());
         });
         EntityRendererRegistry.register(ModEntities.THROWN_SHIELD.get(), ThrownShieldRenderer::new);
         EntityRendererRegistry.register(ModEntities.THROWN_CHAKRAM.get(), ThrownChakramRenderer::new);
@@ -57,7 +58,7 @@ public final class GesturalcombatFabricClient implements ClientModInitializer {
                     sprites -> ParticleSetup.provider(type, sprites));
         }
         ResourceManagerHelper.get(PackType.CLIENT_RESOURCES).registerReloadListener(
-                GesturalcombatFabric.wrap(new ResourceLocation(Gesturalcombat.MODID, "icons"),
+                GesturalcombatFabric.wrap(ResourceLocation.fromNamespaceAndPath(Gesturalcombat.MODID, "icons"),
                         ClientSetup.iconReloadListener()));
     }
 }
