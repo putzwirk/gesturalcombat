@@ -57,6 +57,23 @@ class WeaponDataTest {
     }
 
     @Test
+    void everyProfilePinsTwoHandedness() throws IOException {
+        List<JsonObject> profiles = new ArrayList<>();
+        for (String file : FILES) {
+            JsonObject doc = read("/data/gesturalcombat/weapons/" + file);
+            assertNotNull(doc, "missing " + file);
+            profiles.addAll(profilesOf(doc));
+        }
+        assertFalse(profiles.isEmpty(), "no weapon profiles loaded");
+        for (JsonObject profile : profiles) {
+            if (profilesOf(profile).isEmpty() && profile.has("items") && !profile.getAsJsonArray("items").isEmpty()) {
+                assertTrue(profile.has("two_handed"),
+                        "profile without pinned two_handed: " + profile.getAsJsonArray("items"));
+            }
+        }
+    }
+
+    @Test
     void bornInChaosDropsCaretEverywhere() throws IOException {
         JsonObject doc = read("/data/gesturalcombat/weapons/30-born-in-chaos.json");
         assertNotNull(doc);

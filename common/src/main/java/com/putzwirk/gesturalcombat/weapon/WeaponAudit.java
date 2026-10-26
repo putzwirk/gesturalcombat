@@ -65,7 +65,7 @@ public final class WeaponAudit {
     }
 
     public record Report(String item, Archetype archetype, String source, String family, double reach,
-                         boolean profile, List<Slot> slots, List<Gap> gaps) {
+                         boolean profile, ItemStack stack, List<Slot> slots, List<Gap> gaps) {
     }
 
     private WeaponAudit() {
@@ -120,7 +120,7 @@ public final class WeaponAudit {
                 }
             }
             reports.add(new Report(id, archetype, hit.source(), family, WeaponProfiles.reachMultiplier(stack),
-                    profile != null, slots, gaps));
+                    profile != null, stack, slots, gaps));
         }
         reports.sort((a, b) -> a.item().compareTo(b.item()));
         return reports;
@@ -185,6 +185,7 @@ public final class WeaponAudit {
         Gesturalcombat.LOGGER.info("{} [{}] {} weapons: {} profiled, {} on bare kits {}, {} matched by name, {} gaps",
                 TAG, origin, reports.size(), profiled, reports.size() - profiled,
                 bare.isEmpty() ? "" : bare.toString(), guessed, gapsReported);
+        Parity.log();
     }
 
     public static void compare(String serverSummary, String origin) {

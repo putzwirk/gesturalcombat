@@ -6,7 +6,8 @@
       ],
       "archetype": "sword",
       "family": null,
-      "reach_multiplier": 1.0
+      "reach_multiplier": 1.0,
+      "two_handed": false
     },
     {
       "items": [
@@ -14,7 +15,8 @@
       ],
       "archetype": "sword",
       "family": null,
-      "reach_multiplier": 1.0
+      "reach_multiplier": 1.0,
+      "two_handed": false
     },
     {
       "items": [
@@ -22,7 +24,8 @@
       ],
       "archetype": "sword",
       "family": null,
-      "reach_multiplier": 1.0
+      "reach_multiplier": 1.0,
+      "two_handed": false
     }
   ]
 }

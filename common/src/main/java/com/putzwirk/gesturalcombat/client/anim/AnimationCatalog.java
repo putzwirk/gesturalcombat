@@ -17,7 +17,8 @@ public final class AnimationCatalog {
     }
 
     public static boolean twoHanded(ItemStack stack) {
-        return BetterCombatBridge.isTwoHanded(stack);
+        Boolean pinned = WeaponProfiles.twoHanded(stack);
+        return pinned != null ? pinned : BetterCombatBridge.isTwoHanded(stack);
     }
 
     public static int swingLength(Archetype archetype, ItemStack stack) {
@@ -29,6 +30,16 @@ public final class AnimationCatalog {
             case BOW -> 14;
         };
         return twoHanded(stack) ? base + 2 : base;
+    }
+
+    public static int swingCount(com.putzwirk.gesturalcombat.technique.Technique technique, @Nullable String family) {
+        int swings = Math.max(1, AbilityConfigs.hits(technique));
+        if ("greathammer".equalsIgnoreCase(family) && technique.shape() != null
+                && technique.shape() != GestureShape.LINE_H
+                && technique.shape() != GestureShape.ZIGZAG) {
+            swings = 1;
+        }
+        return swings;
     }
 
     public static int swingLength(int intervalTicks) {
@@ -99,7 +110,7 @@ public final class AnimationCatalog {
     private static String throwAnimation(ItemStack stack, boolean requireThrow) {
         String first = null;
         for (String id : WeaponProfiles.animations(stack)) {
-            if (id == null || id.isBlank() || BetterCombatBridge.animation(id) == null) {
+            if (id == null || id.isBlank()) {
                 continue;
             }
             if (id.toLowerCase(Locale.ROOT).contains("throw")) {
@@ -190,9 +201,7 @@ public final class AnimationCatalog {
                 continue;
             }
             picked = preferredHand(picked, twoHanded);
-            if (kind == Kind.HORIZONTAL) {
-                picked = direction(picked, swipe);
-            }
+            picked = direction(picked, swipe);
             return picked.toArray(new String[0]);
         }
         return preferredHand(pool, twoHanded).toArray(new String[0]);
@@ -233,6 +242,10 @@ public final class AnimationCatalog {
         };
     }
 
+    public static List<String> poolFor(ItemStack stack) {
+        return pool(stack);
+    }
+
     private static List<String> pool(ItemStack stack) {
         List<String> pool = new ArrayList<>();
         for (String id : WeaponProfiles.animations(stack)) {
@@ -245,7 +258,9 @@ public final class AnimationCatalog {
     }
 
     private static List<String> specializedCategory(ItemStack stack) {
-        List<String> animations = AbilityConfigs.categoryAnimations(BetterCombatBridge.category(stack));
+        String family = WeaponProfiles.family(stack);
+        String key = family == null || family.isBlank() ? BetterCombatBridge.category(stack) : family;
+        List<String> animations = AbilityConfigs.categoryAnimations(key);
         for (String id : animations) {
             if (!id.startsWith("bettercombat:")) {
                 return animations;
@@ -258,9 +273,7 @@ public final class AnimationCatalog {
         if (id == null || id.isBlank() || pool.contains(id)) {
             return;
         }
-        if (BetterCombatBridge.animation(id) != null) {
-            pool.add(id);
-        }
+        pool.add(id);
     }
 
     private static List<String> ofKind(List<String> source, Kind kind) {

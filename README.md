@@ -86,13 +86,36 @@ and hit nothing.
 
 ## Modded weapons
 
-The weapon family comes from Better Combat's attributes when a weapon has them,
-so SimplySwords and other Better Combat weapons work without any setup. Without
-attributes it falls back to the registry name.
-
 Each supported mod has its own file under `data/gesturalcombat/weapons/`
 (vanilla, Simply Swords, Born in Chaos), so adding another one is a single JSON
 file rather than an edit to one giant table. See `ABILITY_CONFIG.md`.
+
+A profile pins everything the moveset depends on: `family`, `archetype`,
+`two_handed`, `animations`, the gesture allow-list and the tuning multipliers.
+Better Combat and Simply Swords are only read for the items they have that we
+have not profiled yet, so a dependency update cannot silently re-balance or
+re-animate a weapon we already know.
+
+## Version parity
+
+Every port must produce exactly the same moveset as the original 1.20.1 build.
+The rules that keep that true:
+
+- Animation choice is a pure function of our own data. It never consults the
+  animation registry, so it cannot change with load order, thread, or a
+  dependency's asset pack. A pinned animation that is missing is reported, not
+  replaced by a different one.
+- Family, archetype and two-handedness come from the profile, not from Better
+  Combat's live attributes.
+- The pools in `00-categories.json` are ours, keyed by our family name.
+- Better Combat 2.x scales the wind-up differently from 1.9 for the same
+  arguments, so the length handed to it is normalised back to the 1.9 timing.
+
+To compare two builds, set `debugWeapons` and run `/gesturalcombat audit` on
+each one. Every weapon logs a `parity:` line with its family, handedness and the
+exact animation sequence per gesture; diff the two dumps and fix every line that
+is not identical. Ids ending in `!` are pinned animations that failed to
+register.
 
 ## Dev notes
 

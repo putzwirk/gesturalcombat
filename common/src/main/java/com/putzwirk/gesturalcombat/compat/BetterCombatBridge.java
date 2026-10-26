@@ -225,6 +225,54 @@ public final class BetterCombatBridge {
         }
     }
 
+    private static Boolean modern;
+    private static Float multiplier;
+
+    public static boolean modernPlayback() {
+        if (modern == null) {
+            try {
+                Class.forName("net.bettercombat.api.fx.TrailAppearance");
+                modern = Boolean.TRUE;
+            } catch (Throwable ignored) {
+                modern = Boolean.FALSE;
+            }
+        }
+        return modern;
+    }
+
+    private static float upswingMultiplier() {
+        if (multiplier != null) {
+            return multiplier;
+        }
+        multiplier = 0.5f;
+        for (String owner : new String[]{"net.bettercombat.BetterCombatMod", "net.bettercombat.BetterCombat"}) {
+            try {
+                Object config = Class.forName(owner).getField("config").get(null);
+                Object value = config.getClass().getMethod("getUpswingMultiplier").invoke(config);
+                if (value instanceof Number number) {
+                    multiplier = number.floatValue();
+                    break;
+                }
+            } catch (Throwable ignored) {
+            }
+        }
+        return multiplier;
+    }
+
+    public static float playbackLength(float lengthTicks, float upswing) {
+        if (!modernPlayback() || lengthTicks <= 0.0f) {
+            return lengthTicks;
+        }
+        double u = Math.min(0.98, Math.max(0.02, upswing));
+        double multiplier = Math.min(0.98, Math.max(0.02, upswingMultiplier()));
+        double legacy = u >= 0.5 ? 0.5 : u + (1.0 - 2.0 * u) / u;
+        double current = u + (1.0 - multiplier) / u;
+        if (current <= 0.0) {
+            return lengthTicks;
+        }
+        return (float) (lengthTicks * Math.max(0.1, legacy / current));
+    }
+
     public static boolean playAttackAnimation(Object player, String animationId, Object hand, float lengthTicks, float upswing) {
         if (player == null || animationId == null) {
             return false;
@@ -235,7 +283,7 @@ public final class BetterCombatBridge {
                 return false;
             }
             Method play = animatable.getMethod("playAttackAnimation", String.class, Class.forName("net.bettercombat.logic.AnimatedHand"), float.class, float.class);
-            play.invoke(player, animationId, hand, lengthTicks, upswing);
+            play.invoke(player, animationId, hand, playbackLength(lengthTicks, upswing), upswing);
             return true;
         } catch (Throwable ignored) {
             return false;
