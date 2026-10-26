@@ -27,7 +27,8 @@ public class ThrownChakramRenderer extends EntityRenderer<ThrownChakramEntity> {
         poseStack.mulPose(Axis.YP.rotationDegrees(-entity.getYRot()));
         poseStack.mulPose(Axis.YP.rotationDegrees((entity.tickCount + partialTick) * 120.0f));
         poseStack.mulPose(Axis.XP.rotationDegrees(90.0f));
-        poseStack.scale(2.0f, 2.0f, 2.0f);
+        float scale = entity.isSaw() ? 4.0f : 2.0f;
+        poseStack.scale(scale, scale, scale);
         Minecraft.getInstance().getItemRenderer().renderStatic(stack, ItemDisplayContext.FIXED, packedLight,
                 OverlayTexture.NO_OVERLAY, poseStack, buffer, entity.level(), entity.getId());
         poseStack.popPose();

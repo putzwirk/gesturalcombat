@@ -16,6 +16,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MoverType;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
@@ -30,6 +32,8 @@ import java.util.UUID;
 public class ThrownChakramEntity extends Entity {
     private static final EntityDataAccessor<ItemStack> DATA_ITEM =
             SynchedEntityData.defineId(ThrownChakramEntity.class, EntityDataSerializers.ITEM_STACK);
+    private static final EntityDataAccessor<Boolean> DATA_SAW =
+            SynchedEntityData.defineId(ThrownChakramEntity.class, EntityDataSerializers.BOOLEAN);
 
     private final Map<UUID, Integer> hitCooldowns = new HashMap<>();
     private UUID ownerId;
@@ -41,7 +45,6 @@ public class ThrownChakramEntity extends Entity {
     private boolean returning;
     private boolean offhand;
     private boolean chain;
-    private boolean saw;
     private int sawHits;
     private int hopIndex;
     private int stuckUntil;
@@ -96,14 +99,16 @@ public class ThrownChakramEntity extends Entity {
     public static boolean launchSaw(ServerLevel level, ServerPlayer player, ItemStack stack, Technique technique,
                                    double damage, boolean offhand) {
         ThrownChakramEntity thrown = base(level, player, stack, technique, damage, offhand);
-        thrown.saw = true;
+        thrown.setSaw(true);
         thrown.outboundTicks = 30;
         thrown.lifetime = 96;
-        thrown.setPos(thrown.getX() + player.getLookAngle().x * 0.35,
-                thrown.getY() + player.getLookAngle().y * 0.35,
-                thrown.getZ() + player.getLookAngle().z * 0.35);
-        thrown.setDeltaMovement(player.getLookAngle().normalize().scale(1.0));
+        Vec3 flat = flatLook(player);
+        thrown.setXRot(0.0f);
+        thrown.setPos(thrown.getX() + flat.x * 0.35, thrown.getY(), thrown.getZ() + flat.z * 0.35);
+        thrown.setDeltaMovement(flat.scale(1.0));
         level.addFreshEntity(thrown);
+        level.playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.TRIDENT_THROW,
+                SoundSource.PLAYERS, 0.8f, 0.72f);
         OutLock.lock(player, offhand);
         return true;
     }
@@ -122,7 +127,7 @@ public class ThrownChakramEntity extends Entity {
         return thrown;
     }
 
-    private static final int SAW_PAUSE = 6;
+    private static final int SAW_PAUSE = 10;
     private static final double HOP_RADIUS = 8.0;
     private static final double PLAYER_RADIUS = 18.0;
     private static final double AIM_RANGE = 18.0;
@@ -213,6 +218,15 @@ public class ThrownChakramEntity extends Entity {
     @Override
     protected void defineSynchedData() {
         entityData.define(DATA_ITEM, ItemStack.EMPTY);
+        entityData.define(DATA_SAW, false);
+    }
+
+    public boolean isSaw() {
+        return entityData.get(DATA_SAW);
+    }
+
+    public void setSaw(boolean value) {
+        entityData.set(DATA_SAW, value);
     }
 
     @Override
@@ -228,7 +242,7 @@ public class ThrownChakramEntity extends Entity {
             return;
         }
         ServerPlayer owner = owner();
-        boolean paused = saw && !returning && age < pauseUntil;
+        boolean paused = isSaw() && !returning && age < pauseUntil;
         if (!paused) {
             if (chain && !returning && owner != null) {
                 if (age < stuckUntil) {
@@ -358,7 +372,7 @@ public class ThrownChakramEntity extends Entity {
             if (age < cooldown) {
                 continue;
             }
-            if (saw) {
+            if (isSaw()) {
                 if (sawHits >= 10) {
                     returning = true;
                     break;
@@ -367,9 +381,13 @@ public class ThrownChakramEntity extends Entity {
                 hitCooldowns.put(target.getUUID(), age + SAW_PAUSE + 4);
                 pauseUntil = age + SAW_PAUSE;
                 EffectSupport.hit(owner, target, (float) (damage * 0.3), technique, 0.0, 0.0);
-                Vec3 push = heading().scale(0.62);
-                target.push(push.x, 0.15, push.z);
+                Vec3 push = heading().scale(1.45);
+                target.push(push.x, 0.05, push.z);
                 target.hurtMarked = true;
+                level().playSound(null, target.getX(), target.getY() + 0.4, target.getZ(),
+                        SoundEvents.TRIDENT_HIT, SoundSource.PLAYERS, 0.85f, 1.45f);
+                level().playSound(null, target.getX(), target.getY() + 0.4, target.getZ(),
+                        SoundEvents.PLAYER_ATTACK_SWEEP, SoundSource.PLAYERS, 0.7f, 0.75f);
                 continue;
             }
             hitCooldowns.put(target.getUUID(), age + 8);
@@ -401,7 +419,7 @@ public class ThrownChakramEntity extends Entity {
         lifetime = Math.max(1, tag.getInt("Lifetime"));
         returning = tag.getBoolean("Returning");
         offhand = tag.getBoolean("Offhand");
-        saw = tag.getBoolean("Saw");
+        setSaw(tag.getBoolean("Saw"));
         sawHits = tag.getInt("SawHits");
     }
 
@@ -418,7 +436,7 @@ public class ThrownChakramEntity extends Entity {
         tag.putInt("Lifetime", lifetime);
         tag.putBoolean("Returning", returning);
         tag.putBoolean("Offhand", offhand);
-        tag.putBoolean("Saw", saw);
+        tag.putBoolean("Saw", isSaw());
         tag.putInt("SawHits", sawHits);
     }
 
