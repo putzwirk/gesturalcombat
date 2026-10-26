@@ -28,6 +28,6 @@
         "minecraft": "${minecraft_version}",
         "java": ">=17",
         "bettercombat": ">=1.9.0",
-        "playeranimator": ">=1.0.0"
+        "player-animator": ">=1.0.0"
     }
 }
