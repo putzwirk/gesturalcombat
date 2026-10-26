@@ -17,6 +17,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -70,6 +71,31 @@ class WeaponDataTest {
                 assertTrue(profile.has("two_handed"),
                         "profile without pinned two_handed: " + profile.getAsJsonArray("items"));
             }
+        }
+    }
+
+    @Test
+    void macesOnlyOfferTheThreeHeavySlots() throws IOException {
+        Set<String> allowed = new HashSet<>(List.of("line_v_up", "line_v_down", "zigzag"));
+        List<JsonObject> maces = new ArrayList<>();
+        for (String file : FILES) {
+            JsonObject doc = read("/data/gesturalcombat/weapons/" + file);
+            assertNotNull(doc, "missing " + file);
+            for (JsonObject profile : profilesOf(doc)) {
+                if (profile.has("family") && profile.get("family").isJsonPrimitive()
+                        && "mace".equals(profile.get("family").getAsString())) {
+                    maces.add(profile);
+                }
+            }
+        }
+        assertFalse(maces.isEmpty(), "no mace profiles found");
+        for (JsonObject profile : maces) {
+            assertTrue(profile.has("gestures"), "mace without an allow-list: " + profile);
+            Set<String> gestures = new HashSet<>();
+            for (JsonElement element : profile.getAsJsonArray("gestures")) {
+                gestures.add(element.getAsString());
+            }
+            assertEquals(allowed, gestures, "mace gestures changed: " + profile);
         }
     }
 
