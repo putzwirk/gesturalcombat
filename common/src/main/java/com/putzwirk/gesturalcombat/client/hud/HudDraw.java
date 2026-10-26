@@ -25,6 +25,7 @@ public final class HudDraw {
     private static BufferBuilder glowBuffer;
     private static ResourceLocation glowTexture;
     private static boolean glowActive;
+    private static int glowVertices;
 
     private HudDraw() {
     }
@@ -306,16 +307,20 @@ public final class HudDraw {
         glowBuffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR_TEX);
         glowTexture = texture;
         glowActive = true;
+        glowVertices = 0;
     }
 
     public static void endGlow() {
         if (!glowActive) {
             return;
         }
-        BufferUploader.drawWithShader(glowBuffer.end());
+        if (glowVertices > 0) {
+            BufferUploader.drawWithShader(glowBuffer.end());
+        }
         glowBuffer = null;
         glowTexture = null;
         glowActive = false;
+        glowVertices = 0;
     }
 
     public static void flushGlow() {
@@ -336,6 +341,7 @@ public final class HudDraw {
         buffer.vertex(matrix, x2, y2, 0.0f).color(red(c2) / 255.0f, green(c2) / 255.0f, blue(c2) / 255.0f, alpha(c2) / 255.0f).uv(0.0f, 1.0f).endVertex();
         buffer.vertex(matrix, x3, y3, 0.0f).color(red(c3) / 255.0f, green(c3) / 255.0f, blue(c3) / 255.0f, alpha(c3) / 255.0f).uv(1.0f, 1.0f).endVertex();
         buffer.vertex(matrix, x4, y4, 0.0f).color(red(c4) / 255.0f, green(c4) / 255.0f, blue(c4) / 255.0f, alpha(c4) / 255.0f).uv(1.0f, 0.0f).endVertex();
+        glowVertices += 4;
         if (!batched) {
             endGlow();
         }

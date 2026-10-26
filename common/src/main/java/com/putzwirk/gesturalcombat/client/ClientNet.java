@@ -30,9 +30,10 @@ public final class ClientNet {
             com.putzwirk.gesturalcombat.technique.AbilityConfigs.markSynced();
         }
         com.putzwirk.gesturalcombat.Gesturalcombat.LOGGER.info(
-                "gesturalcombat client sync: {} techniques, {} profiles (payload {} chars / {} chars)",
+                "gesturalcombat client sync: {} techniques, {} profiles, {} player animations (payload {} chars / {} chars)",
                 com.putzwirk.gesturalcombat.technique.AbilityConfigs.count(),
                 com.putzwirk.gesturalcombat.weapon.WeaponProfiles.count(),
+                BetterCombatBridge.animationCount("gesturalcombat"),
                 abilities == null ? -1 : abilities.length(), weapons == null ? -1 : weapons.length());
         com.putzwirk.gesturalcombat.client.WeaponAuditClient.run(audit);
     }
