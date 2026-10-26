@@ -88,14 +88,6 @@ public final class Technique {
         return family;
     }
 
-    public String nameKey() {
-        return "technique.gesturalcombat." + id;
-    }
-
-    public String descKey() {
-        return "technique.gesturalcombat." + id + ".desc";
-    }
-
     public boolean gatedByNode() {
         return nodeId != null;
     }

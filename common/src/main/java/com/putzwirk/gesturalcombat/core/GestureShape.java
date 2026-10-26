@@ -30,10 +30,6 @@ public enum GestureShape {
         return 0xFF000000 | color;
     }
 
-    public String nameKey() {
-        return "gesture.gesturalcombat." + id;
-    }
-
     public boolean isKnown() {
         return this != UNKNOWN;
     }

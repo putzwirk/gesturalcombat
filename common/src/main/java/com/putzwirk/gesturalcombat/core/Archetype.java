@@ -40,14 +40,6 @@ public enum Archetype {
         return 0xFF000000 | color;
     }
 
-    public String nameKey() {
-        return "archetype.gesturalcombat." + id;
-    }
-
-    public String descKey() {
-        return "archetype.gesturalcombat." + id + ".desc";
-    }
-
     public record Hit(Archetype archetype, String source) {
     }
 
