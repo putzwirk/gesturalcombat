@@ -25,6 +25,7 @@ public final class HudDraw {
     private static BufferBuilder glowBuffer;
     private static ResourceLocation glowTexture;
     private static boolean glowActive;
+    private static int glowVertices;
 
     private HudDraw() {
     }
@@ -305,16 +306,20 @@ public final class HudDraw {
         glowBuffer = Tesselator.getInstance().begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX_COLOR);
         glowTexture = texture;
         glowActive = true;
+        glowVertices = 0;
     }
 
     public static void endGlow() {
         if (!glowActive) {
             return;
         }
-        BufferUploader.drawWithShader(glowBuffer.buildOrThrow());
+        if (glowVertices > 0) {
+            BufferUploader.drawWithShader(glowBuffer.buildOrThrow());
+        }
         glowBuffer = null;
         glowTexture = null;
         glowActive = false;
+        glowVertices = 0;
     }
 
     public static void flushGlow() {
@@ -335,6 +340,7 @@ public final class HudDraw {
         buffer.addVertex(matrix, x2, y2, 0.0f).setColor(red(c2) / 255.0f, green(c2) / 255.0f, blue(c2) / 255.0f, alpha(c2) / 255.0f).setUv(0.0f, 1.0f);
         buffer.addVertex(matrix, x3, y3, 0.0f).setColor(red(c3) / 255.0f, green(c3) / 255.0f, blue(c3) / 255.0f, alpha(c3) / 255.0f).setUv(1.0f, 1.0f);
         buffer.addVertex(matrix, x4, y4, 0.0f).setColor(red(c4) / 255.0f, green(c4) / 255.0f, blue(c4) / 255.0f, alpha(c4) / 255.0f).setUv(1.0f, 0.0f);
+        glowVertices += 4;
         if (!batched) {
             endGlow();
         }

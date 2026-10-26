@@ -195,6 +195,15 @@ public final class BetterCombatBridge {
             return null;
         }
         try {
+            Class<?> registry = Class.forName("dev.kosmx.playerAnim.minecraftApi.PlayerAnimationRegistry");
+            Method get = registry.getMethod("getAnimation", net.minecraft.resources.ResourceLocation.class);
+            Object animation = get.invoke(null, net.minecraft.resources.ResourceLocation.parse(name));
+            if (animation != null) {
+                return animation;
+            }
+        } catch (Throwable ignored) {
+        }
+        try {
             Class<?> registry = Class.forName("net.bettercombat.client.animation.AnimationRegistry");
             Object map = registry.getField("animations").get(null);
             if (map instanceof Map<?, ?> animations) {
@@ -204,6 +213,16 @@ public final class BetterCombatBridge {
             return null;
         }
         return null;
+    }
+
+    public static int animationCount(String namespace) {
+        try {
+            Class<?> registry = Class.forName("dev.kosmx.playerAnim.minecraftApi.PlayerAnimationRegistry");
+            Object map = registry.getMethod("getModAnimations", String.class).invoke(null, namespace);
+            return map instanceof Map<?, ?> animations ? animations.size() : 0;
+        } catch (Throwable ignored) {
+            return 0;
+        }
     }
 
     public static boolean playAttackAnimation(Object player, String animationId, Object hand, float lengthTicks, float upswing) {
