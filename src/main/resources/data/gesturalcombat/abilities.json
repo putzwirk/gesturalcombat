@@ -334,6 +334,12 @@
       "gesture": "CIRCLE",
       "cooldown_ticks": 80
     },
+    "crossbow_pierce": {
+      "gesture": "CIRCLE",
+      "damage_multiplier": 1.0,
+      "knockback": 1.2,
+      "cooldown_ticks": 300
+    },
     "katana_slash": {
       "gesture": "LINE_H",
       "hitbox": {
@@ -1506,60 +1512,6 @@
       "damage_multiplier": 0.5,
       "knockback": 0.05,
       "cooldown_ticks": 28,
-      "windup_ticks": 1
-    },
-    "warglaive_step": {
-      "gesture": "CARET",
-      "hitbox": {
-        "shape": "ARC",
-        "range": 3.2,
-        "angle": 170.0,
-        "width": 1.0,
-        "height": 3.6,
-        "vertical_offset": 0.2,
-        "forward_offset": 0.0,
-        "max_targets": 6,
-        "line_of_sight": false
-      },
-      "damage_multiplier": 0.55,
-      "knockback": 0.05,
-      "cooldown_ticks": 30,
-      "windup_ticks": 1
-    },
-    "trident_surge": {
-      "gesture": "CARET",
-      "hitbox": {
-        "shape": "ARC",
-        "range": 3.8,
-        "angle": 80.0,
-        "width": 0.9,
-        "height": 3.6,
-        "vertical_offset": 0.2,
-        "forward_offset": 0.0,
-        "max_targets": 6,
-        "line_of_sight": false
-      },
-      "damage_multiplier": 0.45,
-      "knockback": 0.05,
-      "cooldown_ticks": 30,
-      "windup_ticks": 1
-    },
-    "spear_step": {
-      "gesture": "CARET",
-      "hitbox": {
-        "shape": "ARC",
-        "range": 4.2,
-        "angle": 50.0,
-        "width": 0.8,
-        "height": 3.6,
-        "vertical_offset": 0.2,
-        "forward_offset": 0.0,
-        "max_targets": 6,
-        "line_of_sight": false
-      },
-      "damage_multiplier": 0.5,
-      "knockback": 0.05,
-      "cooldown_ticks": 26,
       "windup_ticks": 1
     },
     "axe_step": {

@@ -13,8 +13,6 @@ import java.util.List;
 import java.util.Set;
 
 public final class WeaponAuditClient {
-    private static String LAST_SUMMARY;
-
     private WeaponAuditClient() {
     }
 
@@ -23,10 +21,6 @@ public final class WeaponAuditClient {
         if (!remote && !Config.INSTANCE.debugWeapons.get()) {
             return;
         }
-        if (remote && serverSummary.equals(LAST_SUMMARY)) {
-            return;
-        }
-        LAST_SUMMARY = remote ? serverSummary : null;
         int reported = 0;
         List<WeaponAudit.Report> reports = WeaponAudit.scan();
         for (WeaponAudit.Report report : reports) {

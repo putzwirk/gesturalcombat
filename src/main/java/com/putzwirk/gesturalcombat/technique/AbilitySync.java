@@ -12,6 +12,17 @@ public final class AbilitySync {
     private AbilitySync() {
     }
 
+    private static boolean forceAudit;
+
+    public static void broadcastAudit() {
+        forceAudit = true;
+        try {
+            broadcast();
+        } finally {
+            forceAudit = false;
+        }
+    }
+
     public static void broadcast() {
         MinecraftServer server = ServerLifecycleHooks.getCurrentServer();
         if (server == null) {
@@ -33,7 +44,7 @@ public final class AbilitySync {
             Gesturalcombat.LOGGER.warn("Ability config sync has no data: {} techniques, {} profiles",
                     AbilityConfigs.count(), com.putzwirk.gesturalcombat.weapon.WeaponProfiles.count());
         }
-        String audit = com.putzwirk.gesturalcombat.Config.INSTANCE.debugWeapons.get()
+        String audit = forceAudit || com.putzwirk.gesturalcombat.Config.INSTANCE.debugWeapons.get()
                 ? com.putzwirk.gesturalcombat.weapon.WeaponAudit.summary() : "";
         return new AbilitySyncPacket(
                 ConfigPayload.pack(AbilityConfigs.abilitiesJson()),

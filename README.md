@@ -23,9 +23,15 @@ leveling or skill tree, though the code still carries the fields for one.
 Swords get a cut, rising cut, executioner's drop, whirlwind, flurry, a guard on
 V and a skirmish step on ^. Axes get wide cleave, rend, cleave, cyclone, quake,
 a brace on V and a step on ^. Spears and tridents get sweep, lunge, skyfall,
-tempest and impale, and tridents take a ward on V. Anything that isn't a weapon
-or a shield - a pickaxe, a shovel, a bare hand - gets nothing, and clicking
-works as normal.
+tempest and impale, and tridents take a ward on V - they have no step, so their
+^ slot is empty. Warglaives, glaives and halberds trade the step for reach and a
+deeper slam. Anything that isn't a weapon or a shield - a pickaxe, a shovel, a
+bare hand - gets nothing, and clicking works as normal.
+
+Bows cast a fire arrow with a circle: it burns on the way, ignites what it hits
+and drops a short-lived patch of fire on impact. Crossbows answer the same
+circle differently - one heavy bolt that punches through a whole line of mobs,
+knocks them all back and then needs a long reload before it fires again.
 
 The strip along the bottom of the screen is the held weapon's kit: cooldown
 wipes, a pulse when something fires, a shake when the slot is locked, and no

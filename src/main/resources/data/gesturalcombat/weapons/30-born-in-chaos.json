@@ -8,6 +8,7 @@
         "born_in_chaos_v1:nightmare_claw"
       ],
       "archetype": "sword",
+      "gestures": ["line_h", "line_v_up", "line_v_down", "circle", "zigzag", "v"],
       "family": "dagger",
       "reach_multiplier": 0.95
     },
@@ -17,6 +18,7 @@
         "born_in_chaos_v1:soulbane"
       ],
       "archetype": "sword",
+      "gestures": ["line_h", "line_v_up", "line_v_down", "circle", "zigzag", "v"],
       "family": "sickle",
       "reach_multiplier": 1.07
     },
@@ -30,6 +32,7 @@
         "born_in_chaos_v1:spiritual_sword"
       ],
       "archetype": "sword",
+      "gestures": ["line_h", "line_v_up", "line_v_down", "circle", "zigzag", "v"],
       "family": "sword",
       "reach_multiplier": 1.06
     },
@@ -38,6 +41,7 @@
         "born_in_chaos_v1:spider_bite_sword"
       ],
       "archetype": "sword",
+      "gestures": ["line_h", "line_v_up", "line_v_down", "circle", "zigzag", "v"],
       "family": "rapier",
       "reach_multiplier": 1.08
     },
@@ -46,6 +50,7 @@
         "born_in_chaos_v1:darkwarblade"
       ],
       "archetype": "sword",
+      "gestures": ["line_h", "line_v_up", "line_v_down", "circle", "zigzag", "v"],
       "family": "claymore",
       "reach_multiplier": 1.2
     },
@@ -54,6 +59,7 @@
         "born_in_chaos_v1:nightmare_scythe"
       ],
       "archetype": "axe",
+      "gestures": ["line_h", "line_v_up", "line_v_down", "circle", "zigzag", "v"],
       "family": "scythe",
       "reach_multiplier": 1.03
     },
@@ -64,6 +70,7 @@
         "born_in_chaos_v1:sweet_axe"
       ],
       "archetype": "axe",
+      "gestures": ["line_h", "line_v_up", "line_v_down", "circle", "zigzag", "v"],
       "family": "axe",
       "reach_multiplier": 0.91
     },
@@ -75,6 +82,7 @@
         "born_in_chaos_v1:stop_hammer"
       ],
       "archetype": "axe",
+      "gestures": ["line_h", "line_v_up", "line_v_down", "circle", "zigzag", "v"],
       "family": "mace",
       "reach_multiplier": 0.91
     },
@@ -82,7 +90,8 @@
       "items": [
         "born_in_chaos_v1:trident_hayfork"
       ],
-      "archetype": "spear"
+      "archetype": "spear",
+      "gestures": ["line_h", "line_v_up", "line_v_down", "circle", "zigzag", "v"]
     },
     {
       "items": [
@@ -92,6 +101,7 @@
         "born_in_chaos_v1:pumpkinstaffa"
       ],
       "archetype": "spear",
+      "gestures": ["line_h", "line_v_up", "line_v_down", "circle", "zigzag", "v"],
       "family": null,
       "reach_multiplier": 1.15
     }

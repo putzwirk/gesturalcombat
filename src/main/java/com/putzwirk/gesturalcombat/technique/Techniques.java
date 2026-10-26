@@ -108,11 +108,6 @@ public final class Techniques {
                 States.addBleed(target, player, 1);
                 return damage;
             }), "trident"));
-    public static final Technique TRIDENT_SURGE = add(new Technique("trident_surge", Archetype.SPEAR, GestureShape.CARET, 1, 30, null, 9,
-            new DashStrikeEffect(3.8, 80, 0.95, 5.6, 0.0, 3, (player, target, damage, index) -> {
-                States.addBleed(target, player, 1);
-                return damage;
-            }), "trident"));
     public static final Technique TRIDENT_WARD = add(new Technique("trident_ward", Archetype.SPEAR, GestureShape.V, 1, 180, null, 10,
             new BraceEffect(10), "trident"));
 
@@ -324,9 +319,6 @@ public final class Techniques {
     public static final Technique WARGLAIVE_SLAM = add(new Technique("warglaive_slam", Archetype.SPEAR, GestureShape.LINE_V_DOWN, 7, 46, null, 15,
             new EdgePairedEffect(3.0, 0.51, 4, 1.25, 0.35), "warglaive"));
     public static final Technique WARGLAIVE_WHIRL = add(new Technique("warglaive_whirl", Archetype.SPEAR, GestureShape.CIRCLE, 7, 50, null, 16, new SpinEffect(3.3, 0.92, 3, 8), "warglaive"));
-    public static final Technique WARGLAIVE_STEP = add(new Technique("warglaive_step", Archetype.SPEAR, GestureShape.CARET, 1, 30, null, 9,
-            new DashStrikeEffect(3.2, 170, 1.10, 4.6, 0.0, 3, (player, target, damage, index) ->
-                    States.alternateEdge(player) ? damage * 1.25 : damage), "warglaive"));
     public static final Technique HALBERD_CUT = add(new Technique("halberd_cut", Archetype.SPEAR, GestureShape.LINE_H, 1, 18, null, 8,
             new FamilyArcEffect(3.6, 150, 1.05, 0.15, 0.0, (player, target, damage, index) -> {
                 States.stagger(target, 30);
@@ -465,8 +457,6 @@ public final class Techniques {
     public static final Technique SPEAR_TEMPEST = add(new Technique("spear_tempest", Archetype.SPEAR, GestureShape.CIRCLE, 7, 44, "spear_t3", 16, new SpinEffect(3.2, 0.95, 3, 5)));
     public static final Technique SPEAR_SKYFALL = add(new Technique("spear_skyfall", Archetype.SPEAR, GestureShape.LINE_V_DOWN, 10, 50, "spear_t4", 20,
             new FamilyArcEffect(3.4, 25, 1.5, 0.0, 0.0, (player, target, damage, index) -> damage)));
-    public static final Technique SPEAR_STEP = add(new Technique("spear_step", Archetype.SPEAR, GestureShape.CARET, 1, 26, null, 8,
-            new DashStrikeEffect(4.2, 50, 1.0, 5.4, 0.0, 2, (player, target, damage, index) -> damage)));
 
 
     public static final Technique SHIELD_BASH = add(new Technique("shield_bash", Archetype.SHIELD, GestureShape.LINE_H, 1, 20, null, 8, new ShieldBashEffect()));
@@ -475,6 +465,8 @@ public final class Techniques {
     public static final Technique SHIELD_THROW = add(new Technique("shield_throw", Archetype.SHIELD, GestureShape.CIRCLE, 1, 120, null, 14, new ShieldThrowEffect(14.0, 3, 100)));
 
     public static final Technique BOW_FIRE = add(new Technique("bow_fire", Archetype.BOW, GestureShape.CIRCLE, 1, 80, null, 12, new BowFireEffect()));
+    public static final Technique CROSSBOW_PIERCE = add(new Technique("crossbow_pierce", Archetype.BOW, GestureShape.CIRCLE, 1, 300, null, 24,
+            new com.putzwirk.gesturalcombat.technique.effect.CrossbowBoltEffect(), "crossbow"));
 
     private static final Set<String> OVERLAY_FAMILIES = Set.of("sword");
 

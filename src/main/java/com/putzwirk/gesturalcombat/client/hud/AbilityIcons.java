@@ -39,7 +39,6 @@ public final class AbilityIcons {
         alias(Archetype.SPEAR, GestureShape.CIRCLE, "spear_tempest");
         alias(Archetype.SPEAR, GestureShape.ZIGZAG, "spear_impale");
         alias(Archetype.SPEAR, GestureShape.V, "spear_ward");
-        alias(Archetype.SPEAR, GestureShape.CARET, "spear_step");
     }
 
     private AbilityIcons() {

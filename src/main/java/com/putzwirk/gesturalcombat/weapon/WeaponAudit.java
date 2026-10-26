@@ -381,7 +381,7 @@ public final class WeaponAudit {
                         .requires(source -> source.hasPermission(2))
                         .executes(context -> {
                             log("command");
-                            com.putzwirk.gesturalcombat.technique.AbilitySync.broadcast();
+                            com.putzwirk.gesturalcombat.technique.AbilitySync.broadcastAudit();
                             context.getSource().sendSuccess(
                                     () -> Component.literal("gesturalcombat: audited every weapon, see the log"), false);
                             return 1;
