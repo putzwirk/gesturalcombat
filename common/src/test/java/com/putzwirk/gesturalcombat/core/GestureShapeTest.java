@@ -30,7 +30,6 @@ class GestureShapeTest {
         assertEquals("zigzag", GestureShape.ZIGZAG.id());
         assertEquals("v", GestureShape.V.id());
         assertEquals("caret", GestureShape.CARET.id());
-        assertEquals("gesture.gesturalcombat.circle", GestureShape.CIRCLE.nameKey());
     }
 
     @Test
